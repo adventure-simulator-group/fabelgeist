@@ -41,11 +41,11 @@ impl Npz {
     }
 
     /// Array keys in member order, each with one trailing `.npy` removed.
-    pub fn keys(&self) -> impl Iterator<Item = NpzArrayName<'_>> {
+    pub fn keys(&self) -> impl Iterator<Item = NpzArrayName> {
         self.names().map(NpzArrayName::from)
     }
 
-    pub fn contains(&self, name: &NpzArrayName<'_>) -> ArchiveMemberPresence {
+    pub fn contains(&self, name: &NpzArrayName) -> ArchiveMemberPresence {
         match self.entry(name) {
             Some(_) => ArchiveMemberPresence::Present,
             None => ArchiveMemberPresence::Absent,
@@ -53,16 +53,13 @@ impl Npz {
     }
 
     /// Declared decoded byte length of the first match, without payload verification.
-    pub fn uncompressed_size(
-        &self,
-        name: &NpzArrayName<'_>,
-    ) -> Option<DeclaredUncompressedByteLength> {
+    pub fn uncompressed_size(&self, name: &NpzArrayName) -> Option<DeclaredUncompressedByteLength> {
         self.entry(name)
             .and_then(|entry| self.archive.uncompressed_size(&entry.name))
     }
 
     /// Decodes the first matching member; the query spelling is unchanged.
-    pub fn array(&self, name: &NpzArrayName<'_>) -> Result<NpyArray> {
+    pub fn array(&self, name: &NpzArrayName) -> Result<NpyArray> {
         let entry = self
             .entry(name)
             .with_context(|| format!("archive has no member {name:?}"))?;
@@ -70,7 +67,7 @@ impl Npz {
         NpyArray::from_bytes(&bytes).with_context(|| format!("reading array {name:?}"))
     }
 
-    fn entry(&self, name: &NpzArrayName<'_>) -> Option<&Entry> {
+    fn entry(&self, name: &NpzArrayName) -> Option<&Entry> {
         self.archive
             .find(|member| name.matches(member) == ArchiveMemberPresence::Present)
     }
@@ -179,7 +176,7 @@ mod tests {
             [crate::NpyDimension::from(2); 2]
         );
         assert_eq!(
-            Vec::<f32>::from(crate::NpyFloatValues::from(&weights)),
+            Vec::<f32>::from(crate::NpyFloat32Values::from(&weights)),
             [1.0, 2.0, 3.0, 4.0]
         );
         assert_eq!(
@@ -191,7 +188,7 @@ mod tests {
 
         let memory_npz = Npz::from_bytes(archive).unwrap();
         assert_eq!(
-            Vec::<f32>::from(crate::NpyFloatValues::from(
+            Vec::<f32>::from(crate::NpyFloat32Values::from(
                 &memory_npz.array(&NpzArrayName::new("weights")).unwrap()
             )),
             [1.0, 2.0, 3.0, 4.0]

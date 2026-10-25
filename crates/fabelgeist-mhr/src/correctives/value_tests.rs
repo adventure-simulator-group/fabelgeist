@@ -127,7 +127,13 @@ fn tensor_observation() -> anyhow::Result<String> {
 }
 
 fn observe_model(activation: Vec<u8>, basis: Vec<u8>) -> anyhow::Result<String> {
-    let model = PoseCorrectives::from_bytes(activation, basis, 3, 1, &Device::default())?;
+    let model = PoseCorrectives::from_bytes(
+        activation,
+        basis,
+        RigJointCount::from_native_joint_count(3),
+        NpyDimension::from(1),
+        &Device::default(),
+    )?;
     match model {
         None => Ok("none".into()),
         Some(model) => {

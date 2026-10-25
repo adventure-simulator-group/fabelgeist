@@ -52,7 +52,7 @@ impl fmt::Display for CorrectiveImportError {
             Self::BasisShape { shape } => write!(
                 f,
                 "{} has shape {shape:?}, expected [components, vertices, 3]",
-                super::super::BASIS_ARRAY
+                super::super::archive::CorrectiveArray::Basis.name()
             ),
             Self::VertexCount { basis, mesh } => write!(
                 f,

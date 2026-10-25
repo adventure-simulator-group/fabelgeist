@@ -26,7 +26,7 @@ fn decoded_queries_keep_scalar_rank_count_and_storage_width_distinct() {
     assert_eq!(scalar.dtype().storage_width(), NpyElementWidth::Word32);
     assert_eq!(scalar.bytes(), &1.5f32.to_le_bytes());
     assert_eq!(
-        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(&scalar)),
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(&scalar)),
         [1.5]
     );
     assert_eq!(format!("{:?}", scalar.shape()), "[]");
@@ -132,7 +132,7 @@ fn stored_values_keep_float_bits_integer_casts_and_byte_boolean_semantics() {
     assert_eq!(array.shape().dimensions(), [NpyDimension::from(2); 2]);
     assert_eq!(array.element_count(), NpyElementCount::from(4));
     assert_eq!(
-        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(&array))
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(&array))
             .iter()
             .map(|v| v.to_bits())
             .collect::<Vec<_>>(),

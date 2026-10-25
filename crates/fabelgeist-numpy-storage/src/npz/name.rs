@@ -1,12 +1,9 @@
 //! NumPy array keys retain query spelling and the optional member suffix rule.
 
-use std::borrow::Cow;
-
-use derive_more::{Debug, Display};
+use derive_more::{Debug, Display, From};
 
 use crate::zip::{ArchiveMemberName, ArchiveMemberPresence};
 
-// Keep key projection and query matching on the same member convention.
 const NPY_MEMBER_SUFFIX: &str = ".npy";
 
 /// A NumPy archive query key, distinct from a full archive member name.
@@ -36,23 +33,24 @@ const NPY_MEMBER_SUFFIX: &str = ".npy";
 ///
 /// ```compile_fail
 /// use fabelgeist_numpy_storage::{NpzArrayName, ZipArchive};
-/// fn read(archive: &ZipArchive, key: &NpzArrayName<'_>) {
+/// fn read(archive: &ZipArchive, key: &NpzArrayName) {
 ///     let _ = archive.bytes(key);
 /// }
 /// ```
-#[derive(Clone, Debug, Display, PartialEq, Eq)]
+#[derive(Clone, Debug, Display, From, PartialEq, Eq)]
 #[debug("{_0:?}")]
-pub struct NpzArrayName<'a>(Cow<'a, str>);
+#[from(String, &str)]
+pub struct NpzArrayName(String);
 
-impl<'a> NpzArrayName<'a> {
-    /// Constructs a query without removing a suffix or changing its spelling.
-    pub const fn new(name: &'a str) -> Self {
-        Self(Cow::Borrowed(name))
+impl NpzArrayName {
+    /// Constructs an owned query without removing a suffix or changing spelling.
+    pub fn new(name: &str) -> Self {
+        Self::from(name)
     }
 
     pub(crate) fn matches(&self, member: &ArchiveMemberName) -> ArchiveMemberPresence {
         let member = <&str>::from(member);
-        if member == self.0 || member.strip_suffix(NPY_MEMBER_SUFFIX) == Some(self.0.as_ref()) {
+        if member == self.0 || member.strip_suffix(NPY_MEMBER_SUFFIX) == Some(self.0.as_str()) {
             ArchiveMemberPresence::Present
         } else {
             ArchiveMemberPresence::Absent
@@ -60,27 +58,15 @@ impl<'a> NpzArrayName<'a> {
     }
 }
 
-impl<'a> From<&'a str> for NpzArrayName<'a> {
-    fn from(name: &'a str) -> Self {
-        Self::new(name)
-    }
-}
-
-impl From<String> for NpzArrayName<'static> {
-    fn from(name: String) -> Self {
-        Self(Cow::Owned(name))
-    }
-}
-
-impl<'a> From<&'a ArchiveMemberName> for NpzArrayName<'a> {
-    fn from(member: &'a ArchiveMemberName) -> Self {
+impl From<&ArchiveMemberName> for NpzArrayName {
+    fn from(member: &ArchiveMemberName) -> Self {
         let member = <&str>::from(member);
         Self::new(member.strip_suffix(NPY_MEMBER_SUFFIX).unwrap_or(member))
     }
 }
 
-impl<'a, 'b> From<&'b NpzArrayName<'a>> for &'b str {
-    fn from(name: &'b NpzArrayName<'a>) -> Self {
+impl<'a> From<&'a NpzArrayName> for &'a str {
+    fn from(name: &'a NpzArrayName) -> Self {
         &name.0
     }
 }

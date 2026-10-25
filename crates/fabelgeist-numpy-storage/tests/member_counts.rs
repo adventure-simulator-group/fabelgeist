@@ -343,7 +343,7 @@ fn capacity_cap_does_not_limit_real_members_or_change_duplicate_selection() {
     ));
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
-        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(
             &npz.array(&NpzArrayName::new("values")).unwrap()
         ))[0],
         1.0

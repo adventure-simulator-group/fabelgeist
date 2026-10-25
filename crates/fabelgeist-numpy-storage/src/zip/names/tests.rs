@@ -1,7 +1,7 @@
 use std::io::Write;
 
 use crate::{
-    ArchiveMemberName, DeclaredUncompressedByteLength, NpyFloatValues, Npz, NpzArrayName,
+    ArchiveMemberName, DeclaredUncompressedByteLength, NpyFloat32Values, Npz, NpzArrayName,
     ZipArchive,
 };
 fn encode(dtype: &str, shape: &str, payload: &[u8]) -> Vec<u8> {
@@ -163,7 +163,7 @@ fn lookup_observation() -> anyhow::Result<String> {
             let values = npz
                 .array(&NpzArrayName::from(query))
                 .map(|array| {
-                    Vec::<f32>::from(NpyFloatValues::from(&array))
+                    Vec::<f32>::from(NpyFloat32Values::from(&array))
                         .into_iter()
                         .map(f32::to_bits)
                         .collect::<Vec<_>>()
@@ -199,7 +199,7 @@ fn lookup_observation() -> anyhow::Result<String> {
                 .map(|v| v.to_vec())
                 .map_err(|e| format!("{e:#}")),
             npz.array(&NpzArrayName::new("bad"))
-                .map(|a| Vec::<f32>::from(NpyFloatValues::from(&a)))
+                .map(|a| Vec::<f32>::from(NpyFloat32Values::from(&a)))
                 .map_err(|e| format!("{e:#}"))
         ));
     }

@@ -9,6 +9,7 @@ use derive_more::{Debug, Display, From};
 /// preserve accepted spelling, including case, separators, NUL and emptiness.
 #[derive(Clone, Debug, Display, From, PartialEq, Eq)]
 #[debug("{_0:?}")]
+#[from(String, &str)]
 pub struct ArchiveMemberName(String);
 
 /// Whether a lookup found a matching central-directory member.
@@ -21,12 +22,6 @@ pub enum ArchiveMemberPresence {
 impl From<&[u8]> for ArchiveMemberName {
     fn from(name: &[u8]) -> Self {
         Self(String::from_utf8_lossy(name).into_owned())
-    }
-}
-
-impl From<&str> for ArchiveMemberName {
-    fn from(name: &str) -> Self {
-        Self(name.to_owned())
     }
 }
 

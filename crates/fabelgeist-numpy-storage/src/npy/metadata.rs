@@ -1,7 +1,7 @@
 //! Array axes, checked element counts, payload length, and fixed-rank SDK layout.
-use derive_more::{Display, From, Into};
+use derive_more::{Display, Error, From, Into};
 
-use super::Dtype;
+use super::{Dtype, tensor::NpyTensorLayout};
 
 pub type Result<T> = std::result::Result<T, NpyLayoutError>;
 
@@ -26,10 +26,6 @@ pub struct NpyShape {
     dimensions: Vec<NpyDimension>,
     elements: NpyElementCount,
 }
-/// The native Burn SDK shape is produced only after nominal rank admission.
-pub(super) struct NpyTensorLayout<const D: usize> {
-    pub(super) dimensions: [usize; D],
-}
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum NpyOccupancy {
     Empty,
@@ -43,26 +39,61 @@ pub enum NpyElementWidth {
     Word64,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Display, Error)]
 pub enum NpyLayoutError {
-    ElementCountOverflow {
-        dimensions: Vec<NpyDimension>,
-    },
+    #[display("NumPy element count overflows the storage layout")]
+    ElementCountOverflow { dimensions: Vec<NpyDimension> },
+    #[display("NumPy payload length overflows the storage layout")]
     PayloadLengthOverflow {
         elements: NpyElementCount,
         width: NpyElementWidth,
     },
+    #[display("truncated .npy payload")]
     TruncatedPayload {
         expected: NpyPayloadLength,
         available: NpyPayloadLength,
     },
+    #[display("array has {actual} dimensions, expected {expected}")]
     Rank {
         expected: NpyRank,
         actual: NpyRank,
         source: std::array::TryFromSliceError,
     },
+    #[display("tensor layout requires {expected} values, received {actual}")]
+    ValueCount {
+        expected: NpyElementCount,
+        actual: NpyElementCount,
+    },
 }
+impl NpyDimension {
+    /// Admits a native array extent, including zero, at a decoder or literal.
+    pub const fn new(dimension: usize) -> Self {
+        Self(dimension)
+    }
+
+    pub fn checked_sub(self, other: Self) -> Option<Self> {
+        self.0.checked_sub(other.0).map(Self)
+    }
+
+    pub fn checked_mul(self, other: Self) -> Option<Self> {
+        self.0.checked_mul(other.0).map(Self)
+    }
+
+    pub fn element_product(self, other: Self) -> Option<NpyElementCount> {
+        self.0.checked_mul(other.0).map(NpyElementCount)
+    }
+}
+
 impl NpyElementCount {
+    /// Admits a native collection cardinality at its source boundary.
+    pub const fn new(elements: usize) -> Self {
+        Self(elements)
+    }
+
+    pub fn checked_mul(self, other: Self) -> Option<Self> {
+        self.0.checked_mul(other.0).map(Self)
+    }
+
     pub fn occupancy(self) -> NpyOccupancy {
         if self.0 == 0 {
             NpyOccupancy::Empty
@@ -143,9 +174,7 @@ impl NpyShape {
                     actual: self.rank(),
                     source,
                 })?;
-        Ok(NpyTensorLayout {
-            dimensions: dimensions.map(usize::from),
-        })
+        Ok(NpyTensorLayout::from(dimensions))
     }
 }
 impl std::fmt::Debug for NpyShape {
@@ -155,30 +184,5 @@ impl std::fmt::Debug for NpyShape {
             .finish()
     }
 }
-impl std::fmt::Display for NpyLayoutError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Self::ElementCountOverflow { .. } => {
-                f.write_str("NumPy element count overflows the storage layout")
-            }
-            Self::PayloadLengthOverflow { .. } => {
-                f.write_str("NumPy payload length overflows the storage layout")
-            }
-            Self::TruncatedPayload { .. } => f.write_str("truncated .npy payload"),
-            Self::Rank {
-                expected, actual, ..
-            } => write!(f, "array has {actual} dimensions, expected {expected}"),
-        }
-    }
-}
-impl std::error::Error for NpyLayoutError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match self {
-            Self::Rank { source, .. } => Some(source),
-            _ => None,
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests;

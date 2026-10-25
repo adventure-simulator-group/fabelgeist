@@ -1,5 +1,7 @@
 //! Application count bound and capped native directory reservation.
 
+use std::ops::Range;
+
 use derive_more::From;
 
 /// The count selected by rawzip, retained without native-width narrowing.
@@ -19,7 +21,7 @@ impl ArchiveMemberCount {
     /// Projects into the original native u64 range; callers ignore its ordinal.
     ///
     /// The count is never narrowed to usize for directory iteration.
-    pub(super) fn native_iteration_range(self) -> std::ops::Range<u64> {
+    pub(super) fn native_iteration_range(self) -> Range<u64> {
         0..self.0
     }
 }

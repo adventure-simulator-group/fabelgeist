@@ -6,7 +6,8 @@ pub use metadata::{
 };
 
 pub use values::{
-    NpyByteState, NpyByteStates, NpyFloatValue, NpyFloatValues, NpyIntegerValue, NpyIntegerValues,
+    NpyByteState, NpyByteStates, NpyFloat32Value, NpyFloat32Values, NpyIntegerValue,
+    NpyIntegerValues,
 };
 
 use std::path::Path;
@@ -15,9 +16,11 @@ use anyhow::{Context, Result, bail};
 use burn::tensor::{Device, Int, Tensor, TensorData};
 
 use header::NpyHeader;
+pub use tensor::NpyTensorLayout;
 
 mod header;
 mod metadata;
+mod tensor;
 mod values;
 
 /// One admitted array with immutable shape, element type, and payload metadata.
@@ -98,11 +101,8 @@ impl NpyArray {
         &self,
         device: &Device,
     ) -> std::result::Result<Tensor<D>, NpyLayoutError> {
-        let dimensions = self.shape.tensor_layout::<D>()?.dimensions;
-        Ok(Tensor::from_data(
-            TensorData::new(Vec::<f32>::from(NpyFloatValues::from(self)), dimensions),
-            device,
-        ))
+        let layout = self.shape.tensor_layout::<D>()?;
+        NpyFloat32Values::from(self).into_tensor(layout, device)
     }
 
     /// Uploads the array to a device as an integer tensor.
@@ -110,7 +110,7 @@ impl NpyArray {
         &self,
         device: &Device,
     ) -> std::result::Result<Tensor<D, Int>, NpyLayoutError> {
-        let dimensions = self.shape.tensor_layout::<D>()?.dimensions;
+        let dimensions = self.shape.tensor_layout::<D>()?;
         Ok(Tensor::from_data(
             TensorData::new(Vec::<i64>::from(NpyIntegerValues::from(self)), dimensions),
             device,
@@ -170,7 +170,7 @@ pub(crate) mod tests {
         assert_eq!(array.shape().dimensions(), [NpyDimension::from(3)]);
         assert_eq!(array.dtype(), Dtype::F32);
         assert_eq!(
-            Vec::<f32>::from(crate::NpyFloatValues::from(&array)),
+            Vec::<f32>::from(crate::NpyFloat32Values::from(&array)),
             [1.0, -2.5, 3.25]
         );
     }
@@ -191,7 +191,7 @@ pub(crate) mod tests {
             [1, 2, 3, 4]
         );
         assert_eq!(
-            Vec::<f32>::from(crate::NpyFloatValues::from(&array)),
+            Vec::<f32>::from(crate::NpyFloat32Values::from(&array)),
             [1.0, 2.0, 3.0, 4.0]
         );
     }

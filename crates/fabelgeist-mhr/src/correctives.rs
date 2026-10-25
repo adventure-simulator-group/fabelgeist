@@ -6,24 +6,20 @@
 
 use std::path::Path;
 
-use anyhow::{Context, Result};
-use burn::tensor::{Device, Tensor, TensorData, activation};
-use fabelgeist_numpy_storage::{
-    ArchiveMemberPresence, NpyDimension, NpyFloatValues, NpyIntegerValues, Npz, NpzArrayName,
-};
+use anyhow::Result;
+use burn::tensor::{Device, Tensor, activation};
+use fabelgeist_numpy_storage::NpyDimension;
+use fabelgeist_rig::RigJointCount;
 
+use archive::CorrectiveArchives;
+use import::{CorrectiveBasis, CorrectiveLayout};
 pub use import::{CorrectiveExtent, CorrectiveImportError};
-use import::{CorrectiveLayout, SparseActivation};
 
+mod archive;
 mod import;
 
 /// The first two joints do not define a local pose, so they carry no feature.
-pub const SKIPPED_JOINTS: usize = 2;
-
-/// Names of the arrays MHR stores the network in.
-const BASIS_ARRAY: NpzArrayName<'static> = NpzArrayName::new("corrective_blendshapes");
-const SPARSE_INDICES_ARRAY: NpzArrayName<'static> = NpzArrayName::new("0.sparse_indices");
-const SPARSE_WEIGHT_ARRAY: NpzArrayName<'static> = NpzArrayName::new("0.sparse_weight");
+pub const SKIPPED_JOINTS: NpyDimension = NpyDimension::new(2);
 
 pub struct PoseCorrectives {
     /// Sparse activation layer, densified and transposed: `[posed * 6, hidden]`.
@@ -31,6 +27,17 @@ pub struct PoseCorrectives {
     /// Corrective basis: `[hidden, vertices * 3]`.
     basis: Tensor<2>,
     layout: CorrectiveLayout,
+}
+
+struct AxisSinCos {
+    sine: Tensor<3>,
+    cosine: Tensor<3>,
+}
+
+enum EulerAxis {
+    X,
+    Y,
+    Z,
 }
 
 impl PoseCorrectives {
@@ -42,17 +49,14 @@ impl PoseCorrectives {
     pub fn load(
         activation_path: &Path,
         basis_path: &Path,
-        num_joints: usize,
-        num_vertices: usize,
+        num_joints: RigJointCount,
+        num_vertices: NpyDimension,
         device: &Device,
     ) -> Result<Option<Self>> {
-        let archive = Npz::open(basis_path)?;
-        let activation = Npz::open(activation_path)?;
         Self::from_archives(
-            activation,
-            archive,
-            NpyDimension::from(num_joints),
-            NpyDimension::from(num_vertices),
+            CorrectiveArchives::open(activation_path, basis_path)?,
+            num_joints,
+            num_vertices,
             device,
         )
     }
@@ -61,56 +65,34 @@ impl PoseCorrectives {
     pub fn from_bytes(
         activation: Vec<u8>,
         basis: Vec<u8>,
-        num_joints: usize,
-        num_vertices: usize,
+        num_joints: RigJointCount,
+        num_vertices: NpyDimension,
         device: &Device,
     ) -> Result<Option<Self>> {
         Self::from_archives(
-            Npz::from_bytes(activation)?,
-            Npz::from_bytes(basis)?,
-            NpyDimension::from(num_joints),
-            NpyDimension::from(num_vertices),
+            CorrectiveArchives::from_bytes(activation, basis)?,
+            num_joints,
+            num_vertices,
             device,
         )
     }
 
     fn from_archives(
-        activation: Npz,
-        archive: Npz,
-        num_joints: NpyDimension,
+        archives: CorrectiveArchives,
+        num_joints: RigJointCount,
         num_vertices: NpyDimension,
         device: &Device,
     ) -> Result<Option<Self>> {
-        if archive.contains(&BASIS_ARRAY) == ArchiveMemberPresence::Absent {
+        let Some(array) = archives.basis()? else {
             return Ok(None);
-        }
-        let basis = archive
-            .array(&BASIS_ARRAY)
-            .context("reading the corrective basis")?;
-        let layout = CorrectiveLayout::new(basis.shape(), num_joints, num_vertices)?;
-
-        let indices = NpyIntegerValues::from(
-            &activation
-                .array(&SPARSE_INDICES_ARRAY)
-                .context("reading the sparse activation indices")?,
-        );
-        let values = NpyFloatValues::from(
-            &activation
-                .array(&SPARSE_WEIGHT_ARRAY)
-                .context("reading the sparse activation weights")?,
-        );
-        let activation = SparseActivation::new(indices, values)?.into_tensor(&layout, device)?;
-
+        };
+        let basis = CorrectiveBasis::new(array, num_joints, num_vertices)?;
+        let activation = archives.activation()?.into_tensor(basis.layout(), device)?;
+        let tensor = basis.to_tensor(device)?;
         Ok(Some(Self {
             activation,
-            basis: Tensor::from_data(
-                TensorData::new(
-                    Vec::<f32>::from(NpyFloatValues::from(&basis)),
-                    layout.basis_dimensions(),
-                ),
-                device,
-            ),
-            layout,
+            basis: tensor,
+            layout: basis.into_layout(),
         }))
     }
 
@@ -121,12 +103,12 @@ impl PoseCorrectives {
     /// Per-vertex corrective offsets `[batch, vertices, 3]`, from joint
     /// parameters shaped `[batch, joints, 7]`.
     pub fn forward(&self, joint_parameters: Tensor<3>) -> Tensor<3> {
-        let batch = joint_parameters.dims()[0];
+        let batch = NpyDimension::from(joint_parameters.dims()[0]);
         let features = self.pose_features(joint_parameters);
         let hidden = activation::relu(features.matmul(self.activation.clone()));
         hidden
             .matmul(self.basis.clone())
-            .reshape([batch, usize::from(self.layout.vertices()), 3])
+            .reshape(self.layout.output_dimensions(batch))
     }
 
     /// The 6D rotation feature per posed joint, flattened to `[batch, posed * 6]`.
@@ -134,14 +116,27 @@ impl PoseCorrectives {
     /// A 6D feature is the first two columns of the joint's rotation matrix,
     /// with 1 subtracted from the two diagonal entries so a rest pose is zero.
     fn pose_features(&self, joint_parameters: Tensor<3>) -> Tensor<2> {
-        let batch = joint_parameters.dims()[0];
+        let batch = NpyDimension::from(joint_parameters.dims()[0]);
         let euler = joint_parameters
-            .narrow(1, SKIPPED_JOINTS, usize::from(self.layout.posed_joints()))
+            .narrow(
+                1,
+                usize::from(SKIPPED_JOINTS),
+                usize::from(self.layout.posed_joints()),
+            )
             .narrow(2, 3, 3);
 
-        let (sx, cx) = axis_sin_cos(&euler, 0);
-        let (sy, cy) = axis_sin_cos(&euler, 1);
-        let (sz, cz) = axis_sin_cos(&euler, 2);
+        let AxisSinCos {
+            sine: sx,
+            cosine: cx,
+        } = EulerAxis::X.sin_cos(&euler);
+        let AxisSinCos {
+            sine: sy,
+            cosine: cy,
+        } = EulerAxis::Y.sin_cos(&euler);
+        let AxisSinCos {
+            sine: sz,
+            cosine: cz,
+        } = EulerAxis::Z.sin_cos(&euler);
 
         let feature = Tensor::cat(
             vec![
@@ -154,13 +149,23 @@ impl PoseCorrectives {
             ],
             2,
         );
-        feature.reshape([batch, usize::from(self.layout.features())])
+        feature.reshape(self.layout.feature_dimensions(batch))
     }
 }
 
-fn axis_sin_cos(euler: &Tensor<3>, axis: usize) -> (Tensor<3>, Tensor<3>) {
-    let angle = euler.clone().narrow(2, axis, 1);
-    (angle.clone().sin(), angle.cos())
+impl EulerAxis {
+    fn sin_cos(self, euler: &Tensor<3>) -> AxisSinCos {
+        let channel = match self {
+            Self::X => 0,
+            Self::Y => 1,
+            Self::Z => 2,
+        };
+        let angle = euler.clone().narrow(2, channel, 1);
+        AxisSinCos {
+            sine: angle.clone().sin(),
+            cosine: angle.cos(),
+        }
+    }
 }
 
 #[cfg(all(test, not(target_arch = "wasm32")))]

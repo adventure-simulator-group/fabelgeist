@@ -1,4 +1,4 @@
-use crate::{Dtype, NpyArray, NpyByteStates, NpyFloatValues, NpyIntegerValues};
+use crate::{Dtype, NpyArray, NpyByteStates, NpyFloat32Values, NpyIntegerValues};
 fn encode(dtype: &str, shape: &str, payload: &[u8]) -> Vec<u8> {
     let header = format!("{{'descr': '{dtype}', 'fortran_order': False, 'shape': ({shape}), }}");
     let mut padded = header.into_bytes();
@@ -74,7 +74,7 @@ fn values_observation() -> anyhow::Result<String> {
         let array = NpyArray::from_bytes(&encode(descr, &format!("{count},"), &payload))?;
         out.push_str(&format!(
             "{descr}:floats={:?};integers={:?};bytes={:?}\n",
-            Vec::<f32>::from(NpyFloatValues::from(&array))
+            Vec::<f32>::from(NpyFloat32Values::from(&array))
                 .into_iter()
                 .map(f32::to_bits)
                 .collect::<Vec<_>>(),
@@ -86,7 +86,7 @@ fn values_observation() -> anyhow::Result<String> {
         let array = NpyArray::from_bytes(&encode("<f4", shape, &payload))?;
         out.push_str(&format!(
             "shape:{shape:?};floats={:?};integers={:?};bytes={:?}\n",
-            Vec::<f32>::from(NpyFloatValues::from(&array))
+            Vec::<f32>::from(NpyFloat32Values::from(&array))
                 .into_iter()
                 .map(f32::to_bits)
                 .collect::<Vec<_>>(),
@@ -102,7 +102,7 @@ fn values_observation() -> anyhow::Result<String> {
     array.dtype = Dtype::F64;
     out.push_str(&format!(
         "changed-dtype:floats={:?};integers={:?};bytes={:?}\n",
-        Vec::<f32>::from(NpyFloatValues::from(&array))
+        Vec::<f32>::from(NpyFloat32Values::from(&array))
             .into_iter()
             .map(f32::to_bits)
             .collect::<Vec<_>>(),

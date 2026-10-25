@@ -18,7 +18,7 @@ let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Devic
 - `uncompressed_size` returns a bespoke `DeclaredUncompressedByteLength` from
   archive metadata. It does not decode or verify the member's actual length.
 - Element types: `f4`, `f8`, `i4`, `i8`, `u1`, `b1`.
-  Decoded numbers use `NpyFloatValues` and `NpyIntegerValues`; `NpyByteStates`
+  Decoded numbers use `NpyFloat32Values` and `NpyIntegerValues`; `NpyByteStates`
   classifies every payload byte as zero or nonzero. Tensor upload uses
   `to_tensor` / `to_int_tensor`, so a `.npz` written as `float64` still loads
   into an f32 tensor.
@@ -106,7 +106,7 @@ decoding and metadata immutability.
 
 ## Decoded values
 
-`NpyFloatValues`, `NpyIntegerValues` and `NpyByteStates` retain ordered decoded
+`NpyFloat32Values`, `NpyIntegerValues` and `NpyByteStates` retain ordered decoded
 NumPy payload values in bespoke types. The first two contain storage numbers at
 f32 and i64 precision; the third classifies each individual payload byte as zero
 or nonzero, independently of element width.
@@ -133,6 +133,14 @@ are unchanged. Impossible joint subtraction and overflowing tensor extents now
 return concrete corrective-import errors before allocation. Native tensor upload
 may use a backend's integer representation, such as i32, separately from the
 decoded i64 storage number.
+
+`NpyFloat32Values` explicitly projects stored numbers to float32 precision;
+float64 input bytes remain available on the admitted array. Integer decoding
+reads the original stored number independently. Fixed-rank `NpyTensorLayout`
+retains typed dimensions through Burn shape conversion and reshape. Float32
+upload checks its value count against the complete layout before handing Burn
+its native vector. Corrective imports carry rig joint counts and array extents
+through both native and streamed loading.
 
 ## Archive filenames and array keys
 

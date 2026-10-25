@@ -4,6 +4,17 @@ use fabelgeist_numpy_storage::{
     ArchiveMemberName, DeclaredUncompressedByteLength, Npz, NpzArrayName, ZipArchive,
 };
 
+const CENTRAL_HEADER_SIGNATURE: &[u8; 4] = b"PK\x01\x02";
+const CENTRAL_HEADER_BYTES: usize = 46;
+const COMPRESSED_SIZE_FIELD: usize = 20;
+const DECODED_SIZE_FIELD: usize = 24;
+const NAME_LENGTH_FIELD: usize = 28;
+const EXTRA_LENGTH_FIELD: usize = 30;
+const LOCAL_OFFSET_FIELD: usize = 42;
+const ZIP64_EXTRA_TAG: [u8; 2] = [1, 0];
+// First member in ordinary-1.zip: a stored NPY header and four float32 values.
+const STORED_ARRAY_BYTES: u32 = 96;
+
 struct WireCase {
     compressed: u32,
     declared: u32,
@@ -13,23 +24,36 @@ struct WireCase {
 
 fn zip(case: WireCase) -> Vec<u8> {
     let mut bytes = include_bytes!("fixtures/member-count/ordinary-1.zip").to_vec();
-    let directory = bytes.windows(4).position(|v| v == b"PK\x01\x02").unwrap();
-    let name_len =
-        u16::from_le_bytes(bytes[directory + 28..directory + 30].try_into().unwrap()) as usize;
-    let old_extra_len =
-        u16::from_le_bytes(bytes[directory + 30..directory + 32].try_into().unwrap()) as usize;
-    let extra_start = directory + 46 + name_len;
-    bytes[directory + 20..directory + 24].copy_from_slice(&case.compressed.to_le_bytes());
-    bytes[directory + 24..directory + 28].copy_from_slice(&case.declared.to_le_bytes());
-    bytes[directory + 42..directory + 46].copy_from_slice(&case.offset.to_le_bytes());
-    bytes[directory + 30..directory + 32].copy_from_slice(&(case.extra.len() as u16).to_le_bytes());
+    let directory = bytes
+        .windows(CENTRAL_HEADER_SIGNATURE.len())
+        .position(|v| v == CENTRAL_HEADER_SIGNATURE)
+        .unwrap();
+    let name_len = u16::from_le_bytes(
+        bytes[directory + NAME_LENGTH_FIELD..directory + NAME_LENGTH_FIELD + size_of::<u16>()]
+            .try_into()
+            .unwrap(),
+    ) as usize;
+    let old_extra_len = u16::from_le_bytes(
+        bytes[directory + EXTRA_LENGTH_FIELD..directory + EXTRA_LENGTH_FIELD + size_of::<u16>()]
+            .try_into()
+            .unwrap(),
+    ) as usize;
+    let extra_start = directory + CENTRAL_HEADER_BYTES + name_len;
+    bytes[directory + COMPRESSED_SIZE_FIELD..directory + COMPRESSED_SIZE_FIELD + size_of::<u32>()]
+        .copy_from_slice(&case.compressed.to_le_bytes());
+    bytes[directory + DECODED_SIZE_FIELD..directory + DECODED_SIZE_FIELD + size_of::<u32>()]
+        .copy_from_slice(&case.declared.to_le_bytes());
+    bytes[directory + LOCAL_OFFSET_FIELD..directory + LOCAL_OFFSET_FIELD + size_of::<u32>()]
+        .copy_from_slice(&case.offset.to_le_bytes());
+    bytes[directory + EXTRA_LENGTH_FIELD..directory + EXTRA_LENGTH_FIELD + size_of::<u16>()]
+        .copy_from_slice(&(case.extra.len() as u16).to_le_bytes());
     bytes.splice(extra_start..extra_start + old_extra_len, case.extra);
     bytes
 }
 
 fn extra(values: &[u64]) -> Vec<u8> {
-    let mut bytes = vec![1, 0];
-    bytes.extend_from_slice(&((values.len() * 8) as u16).to_le_bytes());
+    let mut bytes = ZIP64_EXTRA_TAG.to_vec();
+    bytes.extend_from_slice(&((values.len() * size_of::<u64>()) as u16).to_le_bytes());
     for value in values {
         bytes.extend_from_slice(&value.to_le_bytes());
     }
@@ -38,8 +62,8 @@ fn extra(values: &[u64]) -> Vec<u8> {
 
 fn wire() -> WireCase {
     WireCase {
-        compressed: 96,
-        declared: 96,
+        compressed: STORED_ARRAY_BYTES,
+        declared: STORED_ARRAY_BYTES,
         offset: 0,
         extra: Vec::new(),
     }
@@ -56,7 +80,7 @@ fn every_saturation_combination_replaces_only_requested_fields_in_order() {
         }
         if mask & 2 != 0 {
             case.compressed = u32::MAX;
-            values.push(96);
+            values.push(u64::from(STORED_ARRAY_BYTES));
         }
         if mask & 4 != 0 {
             case.offset = u32::MAX;
@@ -65,8 +89,11 @@ fn every_saturation_combination_replaces_only_requested_fields_in_order() {
         case.extra = extra(&values);
         let bytes = zip(case);
         let archive = ZipArchive::from_bytes(bytes.clone()).unwrap();
-        let expected =
-            DeclaredUncompressedByteLength::from_bytes(if mask & 1 != 0 { 3 } else { 96 });
+        let expected = DeclaredUncompressedByteLength::from_bytes(if mask & 1 != 0 {
+            3
+        } else {
+            u64::from(STORED_ARRAY_BYTES)
+        });
         assert_eq!(
             archive.uncompressed_size(&ArchiveMemberName::from("values.npy")),
             Some(expected)
@@ -87,7 +114,7 @@ fn every_saturation_combination_replaces_only_requested_fields_in_order() {
             Some(expected)
         );
         assert_eq!(
-            Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+            Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(
                 &npz.array(&NpzArrayName::new("values")).unwrap()
             ))
             .len(),
@@ -151,7 +178,7 @@ fn declared_full_width_zero_and_mismatch_do_not_measure_payloads() {
                 .bytes(&ArchiveMemberName::from("values.npy"))
                 .unwrap()
                 .len(),
-            96
+            STORED_ARRAY_BYTES as usize
         );
         assert!(
             archive
@@ -179,7 +206,7 @@ fn inherited_numpy_storage_and_first_duplicate_selection_remain_intact() {
     ));
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
-        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(
             &npz.array(&NpzArrayName::new("values")).unwrap()
         ))
         .iter()
@@ -190,14 +217,16 @@ fn inherited_numpy_storage_and_first_duplicate_selection_remain_intact() {
     let bytes = include_bytes!("fixtures/member-count/duplicate-count-2.zip");
     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
     assert_eq!(
-        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloatValues::from(
+        Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(
             &npz.array(&NpzArrayName::new("values")).unwrap()
         ))[0],
         1.0
     );
     assert_eq!(
         npz.uncompressed_size(&NpzArrayName::new("values")),
-        Some(DeclaredUncompressedByteLength::from_bytes(96))
+        Some(DeclaredUncompressedByteLength::from_bytes(u64::from(
+            STORED_ARRAY_BYTES
+        )))
     );
 }
 

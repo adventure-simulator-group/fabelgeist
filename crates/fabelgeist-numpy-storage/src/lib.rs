@@ -18,8 +18,8 @@
 
 pub use npy::{
     Dtype, NpyArray, NpyByteState, NpyByteStates, NpyDimension, NpyElementCount, NpyElementWidth,
-    NpyFloatValue, NpyFloatValues, NpyIntegerValue, NpyIntegerValues, NpyLayoutError, NpyOccupancy,
-    NpyPayloadLength, NpyRank, NpyShape,
+    NpyFloat32Value, NpyFloat32Values, NpyIntegerValue, NpyIntegerValues, NpyLayoutError,
+    NpyOccupancy, NpyPayloadLength, NpyRank, NpyShape, NpyTensorLayout,
 };
 pub use npz::{Npz, NpzArrayName};
 pub use zip::{

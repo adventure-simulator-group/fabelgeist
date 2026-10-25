@@ -1,13 +1,13 @@
 //! Ordered decoded NumPy numbers and byte states, retained until SDK conversion.
 use derive_more::{Display, From, Into};
 
-use super::{Dtype, NpyArray};
+use super::{Dtype, NpyArray, NpyElementCount};
 
 /// A decoded storage number projected to f32 precision.
 /// Integer conversion uses the original stored number, independently of this
 /// projection.
 #[derive(Clone, Copy, Debug, From, Into, PartialEq)]
-pub struct NpyFloatValue(f32);
+pub struct NpyFloat32Value(f32);
 
 /// A decoded storage number converted directly to i64 with Rust cast semantics.
 #[derive(Clone, Copy, Debug, Display, From, Into, PartialEq, Eq)]
@@ -16,27 +16,27 @@ pub struct NpyIntegerValue(i64);
 /// Ordered floating projections of an array's current payload and dtype.
 ///
 /// ```compile_fail
-/// use fabelgeist_numpy_storage::NpyFloatValues;
-/// let values: NpyFloatValues = vec![1.0f32];
+/// use fabelgeist_numpy_storage::NpyFloat32Values;
+/// let values: NpyFloat32Values = vec![1.0f32];
 /// ```
 ///
 /// ```no_run
-/// use fabelgeist_numpy_storage::{NpyArray, NpyFloatValues, NpyIntegerValues};
+/// use fabelgeist_numpy_storage::{NpyArray, NpyFloat32Values, NpyIntegerValues};
 /// fn decode(array: &NpyArray) {
-///     let floats = NpyFloatValues::from(array);
+///     let floats = NpyFloat32Values::from(array);
 ///     let integers = NpyIntegerValues::from(array);
 ///     let native_floats = Vec::<f32>::from(floats);
 ///     let native_integers = Vec::<i64>::from(integers);
 /// }
 /// ```
-pub struct NpyFloatValues(Vec<NpyFloatValue>);
+pub struct NpyFloat32Values(Vec<NpyFloat32Value>);
 
 /// Ordered integer conversions of an array's current payload and dtype.
 ///
 /// ```compile_fail
-/// use fabelgeist_numpy_storage::{NpyFloatValues, NpyIntegerValues};
+/// use fabelgeist_numpy_storage::{NpyFloat32Values, NpyIntegerValues};
 /// fn decode(values: NpyIntegerValues) {
-///     let floats: NpyFloatValues = values;
+///     let floats: NpyFloat32Values = values;
 /// }
 /// ```
 pub struct NpyIntegerValues(Vec<NpyIntegerValue>);
@@ -73,7 +73,7 @@ impl From<u8> for NpyByteState {
     }
 }
 
-impl From<&NpyArray> for NpyFloatValues {
+impl From<&NpyArray> for NpyFloat32Values {
     fn from(array: &NpyArray) -> Self {
         Self(
             StoredValues::from(array)
@@ -83,14 +83,18 @@ impl From<&NpyArray> for NpyFloatValues {
     }
 }
 
-impl NpyFloatValues {
-    pub fn values(&self) -> &[NpyFloatValue] {
+impl NpyFloat32Values {
+    pub fn element_count(&self) -> NpyElementCount {
+        NpyElementCount::from(self.0.len())
+    }
+
+    pub fn values(&self) -> &[NpyFloat32Value] {
         &self.0
     }
 }
 
-impl From<NpyFloatValues> for Vec<f32> {
-    fn from(values: NpyFloatValues) -> Self {
+impl From<NpyFloat32Values> for Vec<f32> {
+    fn from(values: NpyFloat32Values) -> Self {
         values.0.into_iter().map(f32::from).collect()
     }
 }
@@ -106,6 +110,10 @@ impl From<&NpyArray> for NpyIntegerValues {
 }
 
 impl NpyIntegerValues {
+    pub fn element_count(&self) -> NpyElementCount {
+        NpyElementCount::from(self.0.len())
+    }
+
     pub fn values(&self) -> &[NpyIntegerValue] {
         &self.0
     }
@@ -137,8 +145,8 @@ impl NpyByteStates {
 }
 
 impl StoredValue {
-    fn floating(self) -> NpyFloatValue {
-        NpyFloatValue(match self {
+    fn floating(self) -> NpyFloat32Value {
+        NpyFloat32Value(match self {
             Self::Float32(value) => value,
             Self::Float64(value) => value as f32,
             Self::Integer32(value) => value as f32,

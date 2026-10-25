@@ -1,7 +1,7 @@
 use std::{borrow::Cow, error::Error, io, path::Path};
 
 use fabelgeist_numpy_storage::{
-    ArchiveMemberName, NpyFloatValues, Npz, NpzArrayName, ZipArchive,
+    ArchiveMemberName, NpyFloat32Values, Npz, NpzArrayName, ZipArchive,
     zip::{Result, ZipFileOperation, ZipReadError},
 };
 
@@ -207,7 +207,7 @@ fn successful_stored_and_deflated_reads_preserve_borrowing_and_float_bits() {
         let npz = Npz::from_bytes(input.to_vec()).unwrap();
         let array = npz.array(&NpzArrayName::new("values")).unwrap();
         assert_eq!(
-            Vec::<f32>::from(NpyFloatValues::from(&array))
+            Vec::<f32>::from(NpyFloat32Values::from(&array))
                 .iter()
                 .map(|value| value.to_bits())
                 .collect::<Vec<_>>(),
