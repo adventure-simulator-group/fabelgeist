@@ -1,7 +1,8 @@
 use crate::globals::WgpuContext;
-use anyhow::{Result, anyhow};
+use anyhow::Result;
 use std::sync::Arc;
 
+pub use admission_error::BufferAdmissionError;
 pub use binding::BufferBindingError;
 
 pub use definition::{BufferDefinition, BufferUse};
@@ -14,6 +15,7 @@ use read_error::ReadResult;
 pub(in crate::data::gpu) use readback::Readback;
 pub use upload::{BufferUpload, BufferUploadOccupancy};
 
+mod admission_error;
 mod binding;
 mod definition;
 mod extent;
@@ -39,7 +41,7 @@ impl Buffer {
         definition: BufferDefinition,
     ) -> Result<Buffer> {
         if u64::from(bytes) == 0 {
-            return Err(anyhow!("Buffer size must be greater than 0"));
+            return Err(BufferAdmissionError::EmptyAllocation.into());
         }
         let buffer = definition.allocate_native(context, bytes)?;
         Ok(Buffer {
@@ -66,15 +68,19 @@ impl Buffer {
         at: BufferByteOffset,
         data: BufferUpload<'_>,
     ) -> Result<()> {
-        let end = at
-            .checked_after(data.length())
-            .ok_or_else(|| anyhow!("Buffer write overflows an offset"))?;
+        let end =
+            at.checked_after(data.length())
+                .ok_or(BufferAdmissionError::WriteOffsetOverflow {
+                    at,
+                    bytes: data.length(),
+                })?;
         if u64::from(end) > u64::from(self.size) {
-            return Err(anyhow!(
-                "Writing {} bytes at {at} runs past the end of a {}-byte buffer",
-                data.length(),
-                self.size
-            ));
+            return Err(BufferAdmissionError::WriteOutOfBounds {
+                at,
+                bytes: data.length(),
+                capacity: self.size,
+            }
+            .into());
         }
         data.write_to(context, &self.buffer, at)?;
         Ok(())
