@@ -1299,7 +1299,7 @@ mod tests {
         // Exercise real integration across horizon, middle and zenith rays.
         // Native texture allocation and filtering do not require integrating
         // every interior texel three times during the presentation suite.
-        let sample = || {
+        let [first_pixels, second_pixels] = [(); 2].map(|()| {
             [
                 0,
                 1,
@@ -1317,9 +1317,8 @@ mod tests {
                 .map(|column| request.integrated_pixel(cloud_bake_direction(column, row)))
             })
             .collect::<Vec<_>>()
-        };
-        let first_pixels = sample();
-        assert_eq!(first_pixels, sample());
+        });
+        assert_eq!(first_pixels, second_pixels);
         let first = image_from_rgba8(
             first_pixels[0]
                 .repeat(CLOUD_BAKE_TEXTURE_WIDTH as usize * CLOUD_BAKE_TEXTURE_HEIGHT as usize),

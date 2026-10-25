@@ -714,7 +714,10 @@ mod tests {
                     width: 0.07,
                     primary_group: 0,
                     secondary_group: 0,
-                    shoot_id: super::super::geometry::TreeShootId::from_seed(shoot_id.into()),
+                    shoot_id:
+                        crate::presentation::obstacles::tree::geometry::TreeShootId::from_seed(
+                            shoot_id.into(),
+                        ),
                     leaf_ordinal: ordinal as u8,
                     shade: 1.0,
                     torsion: 0.0,

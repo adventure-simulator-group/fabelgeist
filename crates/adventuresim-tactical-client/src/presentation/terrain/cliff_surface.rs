@@ -161,7 +161,14 @@ mod tests {
             ProceduralTextureAssets::reserve(&mut Default::default(), &mut images);
         // Inspect the committed runtime maps without rebaking the catalogue.
         // Shared samplers keep terrain within WebGPU's sixteen-sampler limit.
-        let assert_shared_sampler = |recipe: TextureRecipeId, sampled, shared| {
+        for (recipe, sampled, shared) in [
+            (
+                TextureRecipeId::ForestLitter,
+                MapChannel::Normal,
+                MapChannel::LitterSurface,
+            ),
+            (TextureRecipeId::Rock, MapChannel::Arm, MapChannel::Height),
+        ] {
             let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../assets");
             let bytes = std::fs::read(root.join(recipe.runtime_asset_path())).unwrap();
             let bake = BakedRecipe::from_compressed_bytes(&bytes).unwrap();
@@ -169,13 +176,7 @@ mod tests {
                 bake.map(sampled).unwrap().sampler,
                 bake.map(shared).unwrap().sampler
             );
-        };
-        assert_shared_sampler(
-            TextureRecipeId::ForestLitter,
-            MapChannel::Normal,
-            MapChannel::LitterSurface,
-        );
-        assert_shared_sampler(TextureRecipeId::Rock, MapChannel::Arm, MapChannel::Height);
+        }
         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0).unwrap();
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("cliff-material");
         let graphics = TacticalGraphicsSettings::default();

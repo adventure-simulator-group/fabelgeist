@@ -67,6 +67,19 @@ Remove-Item Env:FABELGEIST_UPDATE_GARDEN_SPECIMEN
 cargo test -p adventuresim-tactical-client --bin tactical-scene-viewer managed_hazel_matches_shared_envelope --offline
 ```
 
+For hosted regeneration, dispatch the **Rust quality** workflow on the source
+branch with `regenerate_fixtures=true`. This mode runs the existing hazel-envelope
+and art-demo tree-impostor exporters, then the existing shrub and leaf tests.
+Download its `procedural-fixtures-<commit>` artifact into an ignored directory.
+Check that `target/procedural-fixtures/revision.txt` names the source commit being
+reviewed before copying the generated envelope and impostor asset into the
+worktree. Review their changes and commit them with the matching source changes.
+
+The export mode skips the ordinary quality job. Its result is regeneration
+evidence; it does not establish that the branch passes CI. After committing the
+reviewed output, run the normal workflow without this option on the final commit.
+Existing snapshot failures must still be investigated and resolved.
+
 Regenerate scene fixtures and the prepared city layout after layout changes.
 Run the garden core tests and native review. The capture gate checks accepted
 plant identity, pose, mesh count and GPU texture residency.
