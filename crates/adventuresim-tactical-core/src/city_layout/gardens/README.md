@@ -71,6 +71,8 @@ For hosted regeneration, dispatch the **Rust quality** workflow on the source
 branch with `regenerate_fixtures=true`. This mode runs the existing hazel-envelope
 and art-demo tree-impostor exporters, then the existing shrub and leaf tests.
 Download its `procedural-fixtures-<commit>` artifact into an ignored directory.
+Artifacts are uploaded even if an exporter fails; check that both exporter steps
+succeeded before copying either generated file.
 Check that `target/procedural-fixtures/revision.txt` names the source commit being
 reviewed before copying the generated envelope and impostor asset into the
 worktree. Review their changes and commit them with the matching source changes.
