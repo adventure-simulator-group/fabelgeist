@@ -103,6 +103,52 @@ jobs:
         run: |
           cargo test --package adventuresim-world-schema --all-features
           cargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests
+      - name: Test whole-texture format views
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+          XDG_RUNTIME_DIR: ${{ runner.temp }}/texture-view-runtime
+        run: |
+          set -euo pipefail
+          mkdir -p "$XDG_RUNTIME_DIR" target/texture-view-validation
+          chmod 700 "$XDG_RUNTIME_DIR"
+          git rev-parse HEAD > target/texture-view-validation/source.txt
+          printf '%s\n' "$EXPECTED_SOURCE" > target/texture-view-validation/pr-head.txt
+          printf '%s\n' 'cargo test --locked --package fabelgeist-gpu --test texture_views -- --test-threads=1 --nocapture' > target/texture-view-validation/integration.command.txt
+          cargo test --locked --package fabelgeist-gpu --test texture_views -- --test-threads=1 --nocapture 2>&1 | tee target/texture-view-validation/integration.log
+          printf '%s\n' 'cargo test --locked --package fabelgeist-gpu --doc' > target/texture-view-validation/doctests.command.txt
+          cargo test --locked --package fabelgeist-gpu --doc 2>&1 | tee target/texture-view-validation/doctests.log
+          printf '%s\n' 'cargo test --locked --package fabelgeist-gpu --lib globals::wgpu_context::tests::a_borrowed_device_skips_blocking_validation -- --exact --test-threads=1 --nocapture' > target/texture-view-validation/borrowed.command.txt
+          cargo test --locked --package fabelgeist-gpu --lib globals::wgpu_context::tests::a_borrowed_device_skips_blocking_validation -- --exact --test-threads=1 --nocapture 2>&1 | tee target/texture-view-validation/borrowed.log
+          python3 - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          root = Path("target/texture-view-validation")
+          source = (root / "source.txt").read_text().strip()
+          if source != (root / "pr-head.txt").read_text().strip():
+              raise SystemExit("Texture-view evidence has the wrong source revision")
+          results = {}
+          for label, expected in [("integration", 4), ("doctests", None), ("borrowed", 1)]:
+              log = (root / f"{label}.log").read_text()
+              summaries = re.findall(r"test result: ok\. (\d+) passed; (\d+) failed; (\d+) ignored;", log)
+              if len(summaries) != 1:
+                  raise SystemExit(f"Expected one nonempty passing {label} result")
+              passed, failed, ignored = map(int, summaries[0])
+              if not passed or failed or ignored or (expected is not None and passed != expected):
+                  raise SystemExit(f"Unexpected {label} execution population: {summaries[0]}")
+              results[label] = {"passed": passed, "failed": failed, "ignored": ignored}
+          report = {"source": source, "results": results}
+          (root / "results.json").write_text(json.dumps(report, indent=2) + "\n")
+          print(json.dumps(report))
+          PY
+      - name: Upload texture-view validation evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: texture-view-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/texture-view-validation/
+          if-no-files-found: warn
       - name: Test resolved Bevy guard
         run: cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard
       - name: Test checked FBX array encoding
