@@ -67,7 +67,11 @@ impl EquipmentExporter<'_> {
         let path = output.join(&file_name);
         let material = equipment.material.context("armor material missing")?;
         let metal = adventuresim_character_creator::armor_metal::metal(material, None)
-            .map(|metal| adventuresim_character_creator::export::ShellTextures::armor(&metal))
+            .map(|metal| {
+                pollster::block_on(
+                    adventuresim_character_creator::export::ShellTextures::armor(&metal),
+                )
+            })
             .transpose()?;
         // Catalog defaults carry no trim; that is an article's own finish.
         let mut rigged_shells = rigged_armor(

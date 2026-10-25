@@ -9,8 +9,8 @@
 //! several scratches keeps the deepest groove through an atomic maximum over
 //! the groove's bits, which is exact in any order.
 //!
-//! Every intermediate is fenced so that it rounds the same on any device
-//! (see [`fabelgeist_compute::host_float`]).
+//! Intermediates use [`fabelgeist_compute::host_float`] fences to retain the
+//! intended operation order, subject to that module's numerical and device limits.
 
 use super::wgsl;
 use crate::engraving::sampling;

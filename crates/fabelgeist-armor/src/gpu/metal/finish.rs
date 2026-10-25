@@ -7,8 +7,9 @@
 //! value noise on a lattice that divides the tile, so the maps still tile:
 //! the undulation and grain become slopes, the smudges a roughness offset.
 //!
-//! Every lattice value is a draw of the metal's seeded sequence, and every
-//! intermediate is fenced, so the result is the same on any device.
+//! Every lattice value is a draw of the metal's seeded sequence. Intermediates
+//! use [`fabelgeist_compute::host_float`] fences to retain the intended operation
+//! order, subject to that module's numerical and device limits.
 
 use super::wgsl;
 use crate::material::Metal;

@@ -116,7 +116,9 @@ fn catalog_metals(armor: &[parametric_equipment::SelectedArmor<'_>]) -> Result<C
             if metals.iter().any(|(known, _)| *known == metal) {
                 continue;
             }
-            let textures = adventuresim_character_creator::export::ShellTextures::armor(&metal)?;
+            let textures = pollster::block_on(
+                adventuresim_character_creator::export::ShellTextures::armor(&metal),
+            )?;
             metals.push((metal, textures));
         }
     }

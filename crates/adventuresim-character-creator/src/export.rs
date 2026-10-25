@@ -1257,7 +1257,10 @@ mod tests {
         let garment_faces = [[0, 1, 3], [1, 2, 3], [2, 0, 3]];
         let garment_ids = [[0; 8]; 4];
         let uvs = [[0.0, 0.0], [1.0, 0.0], [1.0, 1.0], [0.0, 1.0]];
-        let textures = ShellTextures::armor(&fabelgeist_armor::material::Metal::default()).unwrap();
+        let textures = pollster::block_on(ShellTextures::armor(
+            &fabelgeist_armor::material::Metal::default(),
+        ))
+        .unwrap();
         let garment_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
         let normals = [[0.0, -1.0, 0.0]; 3];
         let faces = [[0, 1, 2]];

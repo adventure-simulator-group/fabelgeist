@@ -251,7 +251,7 @@ fn hair_renders() -> Result<()> {
         (false, _) => format!("{preset_name}-scalp-only"),
         (true, false) => format!("{preset_name}-hair-only"),
     };
-    let textures = placed.scalp_texture().read(&gpu)?;
+    let textures = pollster::block_on(placed.scalp_texture().read(&gpu))?;
     for (name, levels) in [("texture", &textures.shade), ("strands", &textures.strands)] {
         let texture = levels.first().context("no scalp texture")?;
         image::RgbaImage::from_raw(texture.width, texture.height, texture.rgba.clone())

@@ -10,7 +10,7 @@ use crate::material::{Metal, MetalTextureSize, MetalTextures, ValidatedMetal};
 
 fn gpu() -> &'static MetalGpu {
     static GPU: std::sync::OnceLock<MetalGpu> = std::sync::OnceLock::new();
-    GPU.get_or_init(|| MetalGpu::open().expect("a compute device"))
+    GPU.get_or_init(|| pollster::block_on(MetalGpu::open()).expect("a compute device"))
 }
 
 const FLAT_NORMAL: [u8; 4] = [127, 127, 255, 255];
@@ -29,7 +29,7 @@ fn polished() -> Metal {
 /// Bake `metal` with `engraving` decoded from `image`.
 fn engraved(metal: &Metal, engraving: &Engraving, image: &[u8], size: u32) -> MetalTextures {
     let image = Cut::Image(EngravingImage::decode(engraving, image).unwrap());
-    bake(gpu(), ValidatedMetal::new(metal).unwrap(), MetalTextureSize::try_from(size).unwrap(), Some(&image)).unwrap()
+    pollster::block_on(bake(gpu(), ValidatedMetal::new(metal).unwrap(), MetalTextureSize::try_from(size).unwrap(), Some(&image))).unwrap()
 }
 
 fn pixel(map: &[u8], size: u32, x: u32, y: u32) -> &[u8] {
@@ -40,8 +40,8 @@ fn pixel(map: &[u8], size: u32, x: u32, y: u32) -> &[u8] {
 #[test]
 fn scratches_are_deterministic_and_change_normal_and_roughness() {
     let mut m = Metal::default();
-    let a = gpu().textures(&m, MetalTextureSize::try_from(64).unwrap()).unwrap();
-    let b = gpu().textures(&m, MetalTextureSize::try_from(64).unwrap()).unwrap();
+    let a = pollster::block_on(gpu().textures(&m, MetalTextureSize::try_from(64).unwrap())).unwrap();
+    let b = pollster::block_on(gpu().textures(&m, MetalTextureSize::try_from(64).unwrap())).unwrap();
     assert_eq!(u32::from(a.size()), 64);
     assert_eq!(a.normal().len(), 64 * 64 * 4);
     assert_eq!(a.metal_roughness().len(), 64 * 64 * 4);
@@ -49,8 +49,8 @@ fn scratches_are_deterministic_and_change_normal_and_roughness() {
     assert_eq!(a.metal_roughness(), b.metal_roughness());
     assert!(a.depth().is_none());
     m.seed += 1;
-    assert_ne!(a.normal(), gpu().textures(&m, MetalTextureSize::try_from(64).unwrap()).unwrap().normal());
-    let smooth = gpu().textures(&polished(), MetalTextureSize::try_from(64).unwrap()).unwrap();
+    assert_ne!(a.normal(), pollster::block_on(gpu().textures(&m, MetalTextureSize::try_from(64).unwrap())).unwrap().normal());
+    let smooth = pollster::block_on(gpu().textures(&polished(), MetalTextureSize::try_from(64).unwrap())).unwrap();
     assert!(
         smooth
             .normal()
@@ -72,8 +72,8 @@ fn the_finish_tilts_and_roughens_the_surface_and_still_tiles() {
         smudge: 0.3,
         ..polished()
     };
-    let a = gpu().textures(&finished, MetalTextureSize::try_from(size).unwrap()).unwrap();
-    assert_eq!(a.normal(), gpu().textures(&finished, MetalTextureSize::try_from(size).unwrap()).unwrap().normal());
+    let a = pollster::block_on(gpu().textures(&finished, MetalTextureSize::try_from(size).unwrap())).unwrap();
+    assert_eq!(a.normal(), pollster::block_on(gpu().textures(&finished, MetalTextureSize::try_from(size).unwrap())).unwrap().normal());
     let tilted = a
         .normal()
         .as_chunks::<4>()
@@ -99,18 +99,18 @@ fn texture_sizes_and_engraving_images_are_checked() {
     let metal = Metal::default();
     assert!(MetalTextureSize::try_from(16).is_err());
     assert!(MetalTextureSize::try_from(u32::MAX).is_err());
-    let full = gpu().textures(&metal, MetalTextureSize::PREVIEW).unwrap();
+    let full = pollster::block_on(gpu().textures(&metal, MetalTextureSize::PREVIEW)).unwrap();
     assert_eq!(full.normal().len(), (u32::from(MetalTextureSize::PREVIEW).pow(2) * 4) as usize);
     let engraved = Metal {
         engraving: Some(Engraving::new("missing.png")),
         ..Metal::default()
     };
-    assert!(gpu().textures(&engraved, MetalTextureSize::try_from(64).unwrap()).is_err());
+    assert!(pollster::block_on(gpu().textures(&engraved, MetalTextureSize::try_from(64).unwrap())).is_err());
     let invalid = Metal {
         roughness: f32::NAN,
         ..Metal::default()
     };
-    assert!(gpu().textures(&invalid, MetalTextureSize::try_from(64).unwrap()).is_err());
+    assert!(pollster::block_on(gpu().textures(&invalid, MetalTextureSize::try_from(64).unwrap())).is_err());
 }
 
 #[test]
@@ -194,14 +194,14 @@ fn tiling_repeats_the_engraving() {
 /// filling the tile once.
 fn ornament_rows(ornament: crate::ornament::Ornament, size: u32) -> (MetalTextures, Vec<f32>) {
     let engraving = Engraving::ornament(ornament);
-    let baked = gpu()
+    let baked = pollster::block_on(gpu()
         .textures(
             &Metal {
                 engraving: Some(engraving),
                 ..polished()
             },
             MetalTextureSize::try_from(size).unwrap(),
-        )
+        ))
         .unwrap();
     let depth = baked.depth().expect("an ornament is cut as heights");
     let rows = (0..size)

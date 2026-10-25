@@ -2,9 +2,9 @@
 //! device.
 //!
 //! [`MetalGpu::textures`] bakes a [`Metal`]'s maps; the host only decodes the
-//! engraving image. Everything per texel runs on the device, in correctly
-//! rounded arithmetic (see [`fabelgeist_compute::host_float`]), so that a bake
-//! does not depend on how a device compiler fuses or reassociates.
+//! engraving image. Per-texel arithmetic uses the operation order and fences
+//! in [`fabelgeist_compute::host_float`], subject to its documented numerical
+//! and device limits.
 //!
 //! The kernels compile into a caller's [`KernelCache`] on a caller's
 //! [`WgpuContext`], so an application that already generates armor on a
@@ -68,16 +68,18 @@ impl MetalGpu {
         })
     }
 
-    /// Open the default adapter's compute-only device.
-    pub fn open() -> Result<Self> {
-        let context = pollster::block_on(WgpuContext::new_compute()).map_err(device_error)?;
+    /// Open the default adapter's compute-only device without blocking
+    /// browser adapter and device callbacks.
+    pub async fn open() -> Result<Self> {
+        let context = WgpuContext::new_compute().await.map_err(device_error)?;
         Self::new(&context, &KernelCache::new())
     }
 
     /// Bake the metal's maps onto a `size` square tile, reading the engraving
     /// image if there is one. `size` has already admitted the supported range.
-    pub fn textures(&self, metal: &Metal, size: MetalTextureSize) -> Result<MetalTextures> {
-        bake::textures(self, metal, size)
+    /// Await readback so browser mapping callbacks can make progress.
+    pub async fn textures(&self, metal: &Metal, size: MetalTextureSize) -> Result<MetalTextures> {
+        bake::textures(self, metal, size).await
     }
 
     fn batch(&self, label: &str) -> KernelBatch<'_> {
@@ -116,8 +118,8 @@ impl MetalGpu {
 
     /// Read a logical prefix after its producing submission succeeded.
     /// Mapping ownership and native/browser progress follow `Buffer::read`.
-    fn read<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>> {
-        pollster::block_on(buffer.read(&self.context)).map_err(device_error)
+    async fn read<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>> {
+        buffer.read(&self.context).await.map_err(device_error)
     }
 
     /// Record `kernel` over `items` invocations.

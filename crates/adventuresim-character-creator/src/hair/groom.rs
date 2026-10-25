@@ -69,7 +69,8 @@ pub struct PlacedHair {
 
 impl GroomedHair {
     /// Grow `groom` on the mannequin bust on `gpu`, and bake the hair lying
-    /// on its scalp.
+    /// on its scalp. This synchronous entry serves native studio/export work;
+    /// the complete grooming path includes host count readbacks.
     pub fn grow(groom: Groom, gpu: &HairGpu) -> Result<Self> {
         let look = groom.look();
         let head = look.head(&Head::mannequin());
@@ -82,7 +83,7 @@ impl GroomedHair {
         };
         let scalp_map = ScalpMap::fit(&head, &scalp);
         let scalp_texture = Arc::new(GpuScalpTexture::bake(gpu, &on_gpu, &head, &scalp_map)?);
-        let longest = longest(gpu, &on_gpu)?;
+        let longest = pollster::block_on(longest(gpu, &on_gpu))?;
         Ok(Self {
             groom,
             on_gpu,

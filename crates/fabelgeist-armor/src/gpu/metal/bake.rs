@@ -10,7 +10,7 @@ use super::textures::{DRAWS_PER_SCRATCH, STAMP_GROUP};
 use crate::engraving::{Cut, Engraving, EngravingError, EngravingImage, EngravingOrnament, Relief, ReliefPixels};
 use crate::material::{DepthMap, Metal, MetalTextureMaps, MetalTextureSize, MetalTextures, ValidatedMetal};
 
-pub(super) fn textures(gpu: &MetalGpu, metal: &Metal, size: MetalTextureSize) -> Result<MetalTextures> {
+pub(super) async fn textures(gpu: &MetalGpu, metal: &Metal, size: MetalTextureSize) -> Result<MetalTextures> {
     let material = ValidatedMetal::new(metal)?;
     let cut = material
         .source()
@@ -18,11 +18,11 @@ pub(super) fn textures(gpu: &MetalGpu, metal: &Metal, size: MetalTextureSize) ->
         .as_ref()
         .map(Cut::new)
         .transpose()?;
-    bake(gpu, material, size, cut.as_ref())
+    bake(gpu, material, size, cut.as_ref()).await
 }
 
 /// Bake the maps with the engraving's cut already resolved.
-pub(super) fn bake(
+pub(super) async fn bake(
     gpu: &MetalGpu,
     metal: ValidatedMetal<'_>,
     size: MetalTextureSize,
@@ -77,21 +77,22 @@ pub(super) fn bake(
     bake.insert("finish", finish);
     gpu.dispatch(&mut batch, &gpu.bake, &bake, texels.into())?;
     batch.submit()?;
-    let bytes = |buffer: &Buffer| -> Result<Vec<u8>> {
-        let words: Vec<u32> = gpu.read(buffer)?;
-        Ok(bytemuck::cast_slice(&words[..usize::from(texels)]).to_vec())
+    let bytes = |words: Vec<u32>| {
+        bytemuck::cast_slice(&words[..usize::from(texels)]).to_vec()
+    };
+    let normal = bytes(gpu.read(&normal).await?);
+    let metal_roughness = bytes(gpu.read(&metal_roughness).await?);
+    let depth = match depth_uv {
+        Some(uv_scale) => Some(DepthMap {
+            pixels: bytes(gpu.read(&depth).await?),
+            uv_scale,
+        }),
+        None => None,
     };
     Ok(MetalTextures::from_native(size, MetalTextureMaps {
-        normal: bytes(&normal)?,
-        metal_roughness: bytes(&metal_roughness)?,
-        depth: depth_uv
-            .map(|uv_scale| {
-                Ok::<_, fabelgeist_gpu::prelude::Error>(DepthMap {
-                    pixels: bytes(&depth)?,
-                    uv_scale,
-                })
-            })
-            .transpose()?,
+        normal,
+        metal_roughness,
+        depth,
     })?)
 }
 

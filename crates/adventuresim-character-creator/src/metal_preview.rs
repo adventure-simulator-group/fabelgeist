@@ -15,9 +15,14 @@ pub(super) struct MetalImages {
 }
 
 impl MetalImages {
+    /// Bake at the offline studio's synchronous native UI boundary.
     pub(super) fn new(images: &mut Assets<Image>, metal: &Metal) -> anyhow::Result<Self> {
-        let textures = adventuresim_character_creator::metal_gpu()?
-            .textures(metal, MetalTextureSize::PREVIEW)?;
+        let textures = pollster::block_on(async {
+            adventuresim_character_creator::metal_gpu()
+                .await?
+                .textures(metal, MetalTextureSize::PREVIEW)
+                .await
+        })?;
         let size = textures.size();
         let maps = textures.into_maps();
         let mut upload = |data| {

@@ -62,10 +62,12 @@ pub struct ShellTextures {
 }
 
 impl ShellTextures {
-    pub fn armor(metal: &fabelgeist_armor::material::Metal) -> Result<Self> {
+    pub async fn armor(metal: &fabelgeist_armor::material::Metal) -> Result<Self> {
         use image::ImageEncoder;
-        let textures = crate::metal_gpu()?
-            .textures(metal, fabelgeist_armor::material::MetalTextureSize::PREVIEW)?;
+        let textures = crate::metal_gpu()
+            .await?
+            .textures(metal, fabelgeist_armor::material::MetalTextureSize::PREVIEW)
+            .await?;
         let encode = |pixels: &[u8]| -> Result<Vec<u8>> {
             let mut bytes = Vec::new();
             image::codecs::png::PngEncoder::new(&mut bytes).write_image(

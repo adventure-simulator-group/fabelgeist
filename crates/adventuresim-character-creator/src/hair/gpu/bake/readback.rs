@@ -7,13 +7,13 @@ use anyhow::Result;
 use fabelgeist_hair::gpu::error::HairGpuError;
 
 impl ScalpTextureChain {
-    pub(super) fn read(&self, gpu: &HairGpu) -> Result<Vec<AtlasLevel>> {
+    pub(super) async fn read(&self, gpu: &HairGpu) -> Result<Vec<AtlasLevel>> {
         let context = gpu.context();
         if &self.device != context.device.as_ref() {
             return Err(HairGpuError::DeviceMismatch.into());
         }
         let logical = self.buffer.prefix(self.layout.bytes())?;
-        let texels: Vec<u32> = pollster::block_on(logical.read(context))?;
+        let texels: Vec<u32> = logical.read(context).await?;
         let bytes: &[u8] = bytemuck::cast_slice(&texels);
         self.layout
             .levels()

@@ -200,10 +200,11 @@ impl GpuScalpTexture {
     }
 
     /// The textures back on the host, on the device that created both chains.
-    pub fn read(&self, gpu: &HairGpu) -> Result<ScalpTexture> {
+    /// Await readback so browser mapping callbacks can make progress.
+    pub async fn read(&self, gpu: &HairGpu) -> Result<ScalpTexture> {
         Ok(ScalpTexture {
-            shade: self.shade.read(gpu)?,
-            strands: self.strands.read(gpu)?,
+            shade: self.shade.read(gpu).await?,
+            strands: self.strands.read(gpu).await?,
         })
     }
 
@@ -274,7 +275,7 @@ impl ScalpTextureChain {
 }
 
 /// The longest of `groom`'s strands, metres.
-pub(crate) fn longest(gpu: &HairGpu, groom: &GpuGroom) -> Result<Metres> {
+pub(crate) async fn longest(gpu: &HairGpu, groom: &GpuGroom) -> Result<Metres> {
     let context = gpu.context();
     let out = storage(context, 16, "hair longest strand")?;
     let mut batch = KernelBatch::labelled(context, "hair longest strand");
@@ -292,6 +293,6 @@ pub(crate) fn longest(gpu: &HairGpu, groom: &GpuGroom) -> Result<Metres> {
         groom.layout().strand_invocations(),
     )?;
     batch.submit()?;
-    let words: Vec<u32> = pollster::block_on(out.read(context))?;
+    let words: Vec<u32> = out.read(context).await?;
     Ok(Metres::from_metres(f32::from_bits(words[0])))
 }
