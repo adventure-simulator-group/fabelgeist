@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use crate::prelude::*;
-use crate::{Map, MapDefinition};
+use crate::{Map, MapDefinition, MapSignature};
 use fabelgeist_gpu::data::gpu::parameters::{PassParameter, PassParameters};
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use fabelgeist_gpu::data::gpu::texture::{Texture3d, TextureViewError};
@@ -36,14 +36,14 @@ impl DistanceField {
     ) -> Result<()> {
         let native_input = io.native_texture().ok_or(TextureViewError::Uninitialized)?;
         io.ensure_device(context)?;
-        let sig = MapDefinition::parse_signature(&definition.code)?;
+        let sig = MapSignature::parse(&definition.code)?;
         let re = regex::Regex::new(r"\bfn\s+map\b")?;
         let user_code = re.replace(&definition.code, "fn user_map").to_string();
 
         let mut wrapper_args = vec!["in_val: f32".to_string()];
-        wrapper_args.extend(sig.map_args.iter().cloned());
+        wrapper_args.extend(sig.declarations().map(str::to_owned));
 
-        let user_call_args = sig.param_names.join(", ");
+        let user_call_args = sig.names().collect::<Vec<_>>().join(", ");
 
         let code = format!(
             r#"
@@ -120,15 +120,15 @@ impl DistanceField {
     ) -> Result<()> {
         let native_input = io.native_texture().ok_or(TextureViewError::Uninitialized)?;
         io.ensure_device(context)?;
-        let sig = MapDefinition::parse_signature(&definition.code)?;
+        let sig = MapSignature::parse(&definition.code)?;
         let re = regex::Regex::new(r"\bfn\s+map\b")?;
         let user_code = re.replace(&definition.code, "fn user_map").to_string();
 
         let mut wrapper_args = vec!["in_val: f32".to_string()];
-        wrapper_args.extend(sig.map_args.iter().cloned());
+        wrapper_args.extend(sig.declarations().map(str::to_owned));
         wrapper_args.push("smin_k: f32".to_string());
 
-        let user_call_args = sig.param_names.join(", ");
+        let user_call_args = sig.names().collect::<Vec<_>>().join(", ");
 
         let code = format!(
             r#"

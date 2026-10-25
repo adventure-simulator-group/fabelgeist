@@ -7,6 +7,14 @@ pub use texture_value::{TextureValue, TextureValueError, TextureValueResult};
 mod coordinates;
 mod texture_value;
 
+/// A native function parameter's identifier and projected value type.
+/// Full shader and identifier validity remain native source admission concerns.
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+pub struct ShaderParameter {
+    name: String,
+    value_type: ResourceBaseType,
+}
+
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub enum ResourceBaseType {
     F32,
@@ -19,6 +27,23 @@ pub enum ResourceBaseType {
     Texture3d(Box<ResourceBaseType>),
     Sampler,
     Custom(String), // Custom struct name
+}
+
+impl ShaderParameter {
+    pub fn new(name: &str, value_type: ResourceBaseType) -> Self {
+        Self {
+            name: name.to_owned(),
+            value_type,
+        }
+    }
+
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    pub fn value_type(&self) -> &ResourceBaseType {
+        &self.value_type
+    }
 }
 
 impl ResourceBaseType {
@@ -134,28 +159,6 @@ pub fn clean_type_name(ty: &str) -> String {
     ty.to_string()
 }
 
-fn split_wgsl_template_args(inner: &str) -> Vec<String> {
-    let mut parts = Vec::new();
-    let mut current = String::new();
-    let mut depth = 0;
-    for c in inner.chars() {
-        if c == ',' && depth == 0 {
-            parts.push(current.trim().to_string());
-            current = String::new();
-        } else {
-            if c == '<' {
-                depth += 1;
-            }
-            if c == '>' {
-                depth -= 1;
-            }
-            current.push(c);
-        }
-    }
-    parts.push(current.trim().to_string());
-    parts
-}
-
 pub fn parse_base_type(ty: &str) -> ResourceBaseType {
     let clean = clean_type_name(ty);
     match clean.as_str() {
@@ -225,4 +228,26 @@ pub fn parse_compare_signature(code: &str, func_name: &str) -> Result<ResourceBa
     // Extract type T
     let ty_str = caps[1].trim();
     Ok(parse_base_type(ty_str))
+}
+
+fn split_wgsl_template_args(inner: &str) -> Vec<String> {
+    let mut parts = Vec::new();
+    let mut current = String::new();
+    let mut depth = 0;
+    for c in inner.chars() {
+        if c == ',' && depth == 0 {
+            parts.push(current.trim().to_string());
+            current = String::new();
+        } else {
+            if c == '<' {
+                depth += 1;
+            }
+            if c == '>' {
+                depth -= 1;
+            }
+            current.push(c);
+        }
+    }
+    parts.push(current.trim().to_string());
+    parts
 }

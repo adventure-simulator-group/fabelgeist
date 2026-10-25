@@ -25,44 +25,6 @@
 //!   pinhole, equirectangular and fisheye rigs, triangulation, temporal
 //!   filtering, and depth put back on each eye's own picture.
 
-pub mod advancing_front;
-pub mod advect;
-mod boundary;
-pub mod broadcast;
-pub mod distance_field;
-pub mod distance_field_jfa;
-pub mod divergence;
-pub mod dual_contouring;
-mod extraction;
-pub mod gather;
-pub mod gradient;
-pub mod host_float;
-pub mod kernel;
-pub mod map;
-pub mod marching_cubes;
-pub mod matmul;
-pub mod mesh_query;
-pub mod perlin_noise;
-pub mod prefix_sum;
-pub mod prelude;
-pub mod readback;
-pub mod reduce;
-pub mod reshape;
-mod resource_pipeline;
-mod resource_recipe;
-pub mod scan;
-pub mod scatter;
-pub mod simplex_noise;
-pub mod sort;
-pub mod stencil;
-pub mod stereo;
-pub mod stream;
-pub mod transpose;
-pub mod vertex_normals;
-
-#[cfg(test)]
-pub mod test_utils;
-
 pub use advect::{Advect, AdvectDefinition};
 pub use boundary::BoundaryMode;
 pub use broadcast::*;
@@ -99,3 +61,42 @@ pub use transpose::*;
 pub use vertex_normals::{
     DEGENERATE_TRIANGLE, NormalLayoutError, NormalWeighting, VANISHED_NORMAL, VertexNormalKernels, VertexNormals,
 };
+
+pub mod advancing_front;
+pub mod advect;
+mod boundary;
+pub mod broadcast;
+pub mod distance_field;
+pub mod distance_field_jfa;
+pub mod divergence;
+pub mod dual_contouring;
+mod extraction;
+pub mod gather;
+pub mod gradient;
+pub mod host_float;
+pub mod kernel;
+pub mod map;
+pub mod marching_cubes;
+pub mod matmul;
+pub mod mesh_query;
+pub mod perlin_noise;
+pub mod prefix_sum;
+pub mod prelude;
+pub mod readback;
+pub mod reduce;
+pub mod reshape;
+mod resource_pipeline;
+mod resource_recipe;
+pub mod scan;
+pub mod scatter;
+pub mod simplex_noise;
+pub mod sort;
+mod source_parameter;
+pub mod stencil;
+pub mod stereo;
+pub mod stream;
+pub mod transpose;
+pub mod vertex_normals;
+
+#[cfg(test)]
+pub mod test_utils;

@@ -32,6 +32,40 @@ pub struct StageSettings {
     pub host_body_contacts: bool,
 }
 
+/// Every drape stage's settings, plus how often previews are published.
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
+pub struct DrapeSettings {
+    pub sewing: StageSettings,
+    pub settling: StageSettings,
+    /// Share of the gap between settled cloth and the body parts it dresses
+    /// that is closed after settling, without stretching the cloth: 0 leaves
+    /// it as it hangs, 1 draws it as close as its cut allows.
+    pub body_fit: f32,
+    /// Simulation steps between preview snapshots.
+    pub preview_interval: u32,
+}
+
+/// Garment state at the completed stage boundaries of one drape, with the
+/// input that produced it.
+#[derive(Clone)]
+pub struct DrapeCheckpoints {
+    input: DrapeInput,
+    sewn: Option<Vec<[f32; 3]>>,
+    settled: Option<DrapedGarment>,
+}
+
+/// Where a drape begins, given the previous drape's checkpoints.
+pub(super) enum DrapeStart {
+    Placement,
+    Settling {
+        sewn: Vec<[f32; 3]>,
+    },
+    Finish {
+        sewn: Vec<[f32; 3]>,
+        settled: DrapedGarment,
+    },
+}
+
 impl StageSettings {
     pub const STEPS: RangeInclusive<u32> = 0..=600;
     pub const SUBSTEPS: RangeInclusive<u32> = 1..=32;
@@ -39,6 +73,33 @@ impl StageSettings {
     pub const GRAVITY: RangeInclusive<f32> = 0.0..=30.0;
     pub const DAMPING: RangeInclusive<f32> = 0.0..=20.0;
     pub const CONTACT_ITERATIONS: RangeInclusive<u32> = 1..=8;
+
+    /// Configure the solver and host contacts for this stage.
+    pub(super) fn apply(
+        &self,
+        fit: &mut Fit,
+        body: &fabelgeist_bvh::TriangleBvh,
+        body_clearance: f32,
+    ) -> Result<()> {
+        let solver = &mut fit.solver.settings;
+        solver.substeps = self.substeps;
+        solver.iterations = self.iterations;
+        solver.gravity = Vec3::new(0.0, -self.gravity, 0.0);
+        solver.damping = self.damping;
+        fit.cloth.self_collision.enabled = self.self_collision;
+        fit.cloth.host_contacts = fabelgeist_shell::HostContactSchedule {
+            interval_substeps: self.host_contact_interval,
+            iterations: self.host_contact_iterations,
+            ..fabelgeist_shell::HostContactSchedule::default()
+        };
+        if self.host_body_contacts {
+            fit.cloth
+                .set_collision_surface(&body.positions, &body.triangles, body_clearance);
+        } else {
+            fit.cloth.set_collision_surface(&[], &[], 0.0);
+        }
+        Ok(())
+    }
 
     fn validate(&self, stage: &str) -> Result<()> {
         ensure!(
@@ -77,46 +138,6 @@ impl StageSettings {
         );
         Ok(())
     }
-
-    /// Configure the solver and host contacts for this stage.
-    pub(super) fn apply(
-        &self,
-        fit: &mut Fit,
-        body: &fabelgeist_bvh::TriangleBvh,
-        body_clearance: f32,
-    ) -> Result<()> {
-        let solver = &mut fit.solver.settings;
-        solver.substeps = self.substeps;
-        solver.iterations = self.iterations;
-        solver.gravity = Vec3::new(0.0, -self.gravity, 0.0);
-        solver.damping = self.damping;
-        fit.cloth.self_collision.enabled = self.self_collision;
-        fit.cloth.host_contacts = fabelgeist_shell::HostContactSchedule {
-            interval_substeps: self.host_contact_interval,
-            iterations: self.host_contact_iterations,
-            ..fabelgeist_shell::HostContactSchedule::default()
-        };
-        if self.host_body_contacts {
-            fit.cloth
-                .set_collision_surface(&body.positions, &body.triangles, body_clearance);
-        } else {
-            fit.cloth.set_collision_surface(&[], &[], 0.0);
-        }
-        Ok(())
-    }
-}
-
-/// Every drape stage's settings, plus how often previews are published.
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
-pub struct DrapeSettings {
-    pub sewing: StageSettings,
-    pub settling: StageSettings,
-    /// Share of the gap between settled cloth and the body parts it dresses
-    /// that is closed after settling, without stretching the cloth: 0 leaves
-    /// it as it hangs, 1 draws it as close as its cut allows.
-    pub body_fit: f32,
-    /// Simulation steps between preview snapshots.
-    pub preview_interval: u32,
 }
 
 impl DrapeSettings {
@@ -170,27 +191,6 @@ impl DrapeSettings {
     }
 }
 
-/// Garment state at the completed stage boundaries of one drape, with the
-/// input that produced it.
-#[derive(Clone)]
-pub struct DrapeCheckpoints {
-    input: DrapeInput,
-    sewn: Option<Vec<[f32; 3]>>,
-    settled: Option<DrapedGarment>,
-}
-
-/// Where a drape begins, given the previous drape's checkpoints.
-pub(super) enum DrapeStart {
-    Placement,
-    Settling {
-        sewn: Vec<[f32; 3]>,
-    },
-    Finish {
-        sewn: Vec<[f32; 3]>,
-        settled: DrapedGarment,
-    },
-}
-
 impl DrapeCheckpoints {
     pub(super) fn new(input: &DrapeInput) -> Self {
         Self {
@@ -208,8 +208,8 @@ impl DrapeCheckpoints {
         self.settled = Some(settled);
     }
 
-    /// Re-run from the earliest stage whose inputs changed. Surface appearance
-    /// is not a drape input, so a material edit only repeats the finish.
+    /// Re-run from the earliest stage whose inputs changed. With both stages
+    /// checkpointed, an appearance-only edit repeats just the finish.
     pub(super) fn start_for(previous: Option<&Self>, input: &DrapeInput) -> DrapeStart {
         let Some(previous) = previous else {
             return DrapeStart::Placement;
@@ -305,7 +305,7 @@ mod tests {
         };
         assert!(matches!(start(&|_| {}), DrapeStart::Finish { .. }));
         assert!(matches!(
-            start(&|i| i.selection.mail.roughness = 0.9),
+            start(&|i| i.selection.mail.roughness = fabelgeist_math::units::Ratio::from_ratio(0.9)),
             DrapeStart::Finish { .. }
         ));
         assert!(matches!(
