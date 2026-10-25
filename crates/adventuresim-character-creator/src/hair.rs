@@ -8,18 +8,12 @@
 //! into a scalp the bust did not have. Each level is drawn as plain triangles
 //! ([`HairGeometry`]): strands as ribbons, cards as textured strips.
 
-mod cap;
-mod geometry;
-mod gpu;
-mod groom;
-mod placement;
-mod scalp_map;
-mod shape;
-
 pub use cap::ScalpCap;
 pub use geometry::{AtlasLevel, HairGeometry};
 pub use gpu::HairGpu;
-pub use gpu::{GpuGeometry, GpuScalpTexture, ScalpLevel, ScalpTexture, scalp_levels};
+pub use gpu::{
+    GpuGeometry, GpuScalpTexture, ScalpMipLevel, ScalpTexture, ScalpTextureChain, ScalpTextureLayout,
+};
 pub use groom::{BodySurface, GroomedHair, PlacedHair};
 pub use placement::{HeadPlacement, HeadPlacementError, HeadSkin};
 pub use shape::{
@@ -30,9 +24,20 @@ pub use shape::{
 use fabelgeist_hair::{HairMaterial, Preset};
 use serde::{Deserialize, Serialize};
 
+mod cap;
+mod geometry;
+mod gpu;
+mod groom;
+mod placement;
+mod scalp_map;
+mod shape;
+
 /// Hair's perceptual roughness when drawn as cards: a rough dielectric whose
 /// sheen comes from the strands painted in the atlas.
 pub const HAIR_ROUGHNESS: f32 = 0.55;
+
+/// The dye that leaves hair its own colour.
+pub const NO_DYE: [f32; 3] = [1.0; 3];
 
 /// Hair pigment as Blender's Principled Hair takes it. Both shares run from 0
 /// to 1: melanin from white through blond and brown to black, redness from
@@ -59,6 +64,15 @@ struct PigmentShares {
 #[derive(Debug, thiserror::Error)]
 #[error("hair pigment shares and dye channels must lie between 0 and 1")]
 pub struct PigmentRangeError;
+
+/// A hairstyle, how it is varied from its preset, and its colour.
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct HairDesign {
+    pub preset: Preset,
+    pub shape: HairShape,
+    pub pigment: HairPigment,
+}
 
 impl TryFrom<PigmentShares> for HairPigment {
     type Error = PigmentRangeError;
@@ -90,9 +104,6 @@ impl Default for HairPigment {
         }
     }
 }
-
-/// The dye that leaves hair its own colour.
-pub const NO_DYE: [f32; 3] = [1.0; 3];
 
 impl HairPigment {
     /// An undyed pigment with both shares clamped to 0 to 1.
@@ -139,15 +150,6 @@ impl HairPigment {
         }
         .base_color()
     }
-}
-
-/// A hairstyle, how it is varied from its preset, and its colour.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct HairDesign {
-    pub preset: Preset,
-    pub shape: HairShape,
-    pub pigment: HairPigment,
 }
 
 impl HairDesign {

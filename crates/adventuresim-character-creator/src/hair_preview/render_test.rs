@@ -23,7 +23,7 @@
 //! `<preset>-hair-only-...`.
 use super::*;
 use adventuresim_character_creator::hair::{
-    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair,
+    GpuGeometry, HairGeometry, HairGpu, HairPigment, HairShape, PlacedHair, ScalpTextureChain,
 };
 use adventuresim_character_creator::studio_environment;
 use bevy::app::{PluginsState, ScheduleRunnerPlugin};
@@ -35,7 +35,6 @@ use bevy::render::view::screenshot::{Screenshot, save_to_disk};
 use bevy::window::ExitCondition;
 use bevy::winit::WinitPlugin;
 use fabelgeist_gpu::globals::WgpuContext;
-use fabelgeist_gpu::prelude::Buffer;
 use fabelgeist_hair::collider::Collider;
 use fabelgeist_hair::{MeshCollider, Preset};
 use fabelgeist_math::Vec3 as HairVec3;
@@ -276,7 +275,7 @@ fn hair_renders() -> Result<()> {
         let Some(geometry) = placed.gpu_geometry(&gpu, form)? else {
             continue;
         };
-        gpu.finish();
+        pollster::block_on(gpu.finish())?;
         let built = started.elapsed();
         let buried = buried_share(&geometry.read(&gpu)?, &skin);
         println!(
@@ -285,8 +284,8 @@ fn hair_renders() -> Result<()> {
             buried * 100.0
         );
         let form_name = match form {
-            Form::Strands { level, .. } => format!("strands{level}"),
-            Form::Cards { level } => format!("cards{level}"),
+            Form::Strands { level, .. } => format!("strands{}", level.index()),
+            Form::Cards { level } => format!("cards{}", level.index()),
         };
         // Drawn in the bind pose, skinned as the studio skins it but to one
         // joint left where it is.
@@ -324,7 +323,7 @@ fn hair_renders() -> Result<()> {
         .add_systems(Startup, spawn)
         .add_systems(Update, capture);
     app.run();
-    gpu.finish();
+    pollster::block_on(gpu.finish())?;
     println!("wrote {}", out.display());
     Ok(())
 }
@@ -364,7 +363,7 @@ struct Stage {
     cap: Option<Mesh>,
     atlas: Option<Image>,
     /// The scalp's baked shade and strands chains.
-    scalp: Option<[Buffer; 2]>,
+    scalp: Option<[ScalpTextureChain; 2]>,
     hairs: Vec<(Form, Mesh, GpuGeometry, Vec<PathBuf>)>,
     design: HairDesign,
     center: Vec3,

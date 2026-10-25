@@ -1,8 +1,7 @@
 //! The GPU hair is grown and prepared on.
 //!
-//! The hair crate grooms on the GPU ([`GpuGroomer`]): a hundred thousand
-//! strands are a hundred thousand independent sweeps, which compute kernels
-//! run about ten times faster than every core of the CPU. Placing hair on a
+//! The hair crate grooms on the GPU ([`GpuGroomer`]): independent strand
+//! sweeps run as compute kernels. Placing hair on a
 //! character runs there too: the character's body sampled as a distance
 //! field ([`field`]), the strands carried onto its head and draped on it
 //! ([`place`]), and the levels of detail kept clear of it, all colliding
@@ -10,11 +9,6 @@
 //! studio grooms on the device it draws with, so that what is grown can be
 //! drawn from where it lies; an export or a test without a window opens a
 //! device of its own.
-
-mod bake;
-mod field;
-mod place;
-mod strips;
 
 use std::sync::{Arc, Mutex, MutexGuard, PoisonError};
 
@@ -25,14 +19,12 @@ use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, BufferUpload};
 use fabelgeist_hair::gpu::{GpuGroomer, headless_context};
 
 pub(crate) use bake::longest;
-pub use bake::{GpuScalpTexture, Level as ScalpLevel, ScalpTexture, levels as scalp_levels};
+pub use bake::{GpuScalpTexture, ScalpMipLevel, ScalpTexture, ScalpTextureChain, ScalpTextureLayout};
+pub(in crate::hair) use bake::ScalpTexelSpan;
 pub(crate) use field::BodyField;
 pub(crate) use place::Draping;
 pub use strips::GpuGeometry;
 pub(crate) use strips::StripSource;
-
-/// A kernel's parameters: buffers and values bound by name.
-pub(super) type Params = fabelgeist_gpu::data::gpu::parameters::PassParameters;
 
 /// Parameters by name, as the hair crate's kernels bind theirs.
 macro_rules! params {
@@ -44,6 +36,14 @@ macro_rules! params {
     }};
 }
 pub(super) use params;
+
+mod bake;
+mod field;
+mod place;
+mod strips;
+
+/// A kernel's parameters: buffers and values bound by name.
+pub(super) type Params = fabelgeist_gpu::data::gpu::parameters::PassParameters;
 
 /// The hair kernels on one device: the hair crate's groomer, and the
 /// kernels placing its hair on a character. Grooms take turns: one at a
@@ -97,12 +97,17 @@ impl HairGpu {
         &self.context
     }
 
-    /// Wait, however long it takes, for everything submitted to the
-    /// kernels' device to finish: before letting go of a device of their
-    /// own, which waits for its work only so long, and on a busy GPU might
-    /// not long enough.
-    pub fn finish(&self) {
-        self.groomer().finish();
+    /// Observe work queued before the device's completion point.
+    ///
+    /// Native builds wait for an explicit marker without requesting a timeout;
+    /// errors retain their marker or polling cause. Browser builds await a queue
+    /// callback, whose delivery can also follow a rejected WebGPU promise.
+    /// Success there establishes callback delivery only. Producing submissions
+    /// must have succeeded first; later work and device health are not certified.
+    /// See [`WgpuContext::submitted_work_done`] for the native contract.
+    pub async fn finish(&self) -> Result<()> {
+        self.context.submitted_work_done().await?;
+        Ok(())
     }
 
     /// The groomer, once no other groom is using it. A groom that panicked

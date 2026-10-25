@@ -17,10 +17,12 @@
 //!
 //! Both are continuous: the texture has no seam.
 
+use super::gpu::ScalpTexelSpan;
 use std::f32::consts::{FRAC_PI_2, FRAC_PI_4, PI, TAU};
 
 use fabelgeist_hair::{Head, Surface};
 use fabelgeist_math::Vec3;
+use fabelgeist_math::units::Metres;
 
 /// How far past the scalp's edge the map reaches, radians from its axis:
 /// so the scalp's edge lies inside the texture, not on its rim.
@@ -42,9 +44,9 @@ pub(super) struct ScalpMap {
     pub(crate) side: Vec3,
     /// The sine of half the angle from the axis the map reaches.
     pub(crate) rim: f32,
-    /// About how much skin a texel's side covers, metres, at `size` texels
-    /// a side.
-    texel_per_side: f32,
+    /// Square root of the estimated mapped scalp area, in metres.
+    /// Divided by the texture side in `texel()`.
+    mapped_side: Metres,
 }
 
 impl ScalpMap {
@@ -93,14 +95,14 @@ impl ScalpMap {
             forward,
             side,
             rim,
-            texel_per_side: area.sqrt(),
+            mapped_side: Metres::from_metres(area.sqrt()),
         }
     }
 
     /// About how much skin a texel's side covers, metres, in a texture
     /// `size` texels a side.
-    pub(super) fn texel(&self, size: usize) -> f32 {
-        self.texel_per_side / size as f32
+    pub(super) fn texel(&self, size: ScalpTexelSpan) -> Metres {
+        Metres::from_metres(self.mapped_side.metres() / size.native_texels() as f32)
     }
 
     /// Where `p`, in the bust's frame, lies in the texture, 0 to 1 each way,
