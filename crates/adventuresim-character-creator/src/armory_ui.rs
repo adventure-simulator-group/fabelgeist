@@ -120,7 +120,7 @@ fn list(ui: &mut egui::Ui, armory: &mut Armory) {
                 let exhibit = &armory.exhibits[i];
                 let problems: Vec<String> = exhibit
                     .errors()
-                    .map(|(placement, error)| format!("{placement}: {error}"))
+                    .map(|error| format!("{error:#}"))
                     .collect();
                 let mut text = egui::RichText::new(&exhibit.name);
                 if !problems.is_empty() {
@@ -173,8 +173,8 @@ fn editor(
             .join(", "),
         exhibit.triangles()
     ));
-    for (placement, error) in exhibit.errors() {
-        ui.colored_label(studio_theme::PROBLEM, format!("{placement}: {error}"));
+    for error in exhibit.errors() {
+        ui.colored_label(studio_theme::PROBLEM, format!("{error:#}"));
     }
     let loaded = exhibit.loaded.clone();
     if exhibit.steel {

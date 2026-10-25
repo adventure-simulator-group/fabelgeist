@@ -1,9 +1,11 @@
 use crate::engraving::{Engraving, EngravingError};
 use serde::{Deserialize, Serialize};
 
+pub use density::{MetalDensityError, MetalDensityResult};
 pub use textures::{DepthMap, MetalTextureDataError, MetalTextureMap, MetalTextureMaps, MetalTextures};
 pub use tile::{MetalTextureLayoutError, MetalTextureSize, MetalTextureSizeError};
 
+mod density;
 mod textures;
 mod tile;
 

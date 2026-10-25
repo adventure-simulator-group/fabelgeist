@@ -11,12 +11,15 @@ use fabelgeist_armor::Construction;
 use studio_generation::PreviewScene;
 use studio_scene::{OrbitCamera, OrbitGoal, framing_radius};
 
-#[path = "armory_scene.rs"]
-mod scene;
 use bare_body::BareBody;
 use scene::spawn_exhibit;
 use scene::{ArmoryBody, ArmoryMesh};
+pub(super) use exhibit::{Exhibit, ExhibitFit};
 pub(super) use scene::{display, frame_camera, setup};
+
+mod exhibit;
+#[path = "armory_scene.rs"]
+mod scene;
 
 /// Space between neighbouring pieces on the wall, in metres.
 const GAP: f32 = 0.14;
@@ -25,136 +28,11 @@ const LABEL_SPACE: f32 = 0.12;
 /// Narrowest wall space a piece takes, so neighbouring labels stay apart.
 const MIN_WIDTH: f32 = 0.3;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Region {
-    Head,
-    Torso,
-    Waist,
-    Arms,
-    Legs,
-    Clothing,
-}
-
-impl Region {
-    pub const ALL: [Self; 6] = [
-        Self::Head,
-        Self::Torso,
-        Self::Waist,
-        Self::Arms,
-        Self::Legs,
-        Self::Clothing,
-    ];
-
-    fn of(item: &ItemDefinition) -> Self {
-        let ItemKind::Armor { slot, .. } = item.kind else {
-            return Self::Clothing;
-        };
-        match slot {
-            Slot::Head => Self::Head,
-            Slot::Chest => Self::Torso,
-            Slot::Stomach => Self::Waist,
-            Slot::AnyArm | Slot::LeftArm | Slot::RightArm => Self::Arms,
-            Slot::AnyLeg | Slot::LeftLeg | Slot::RightLeg => Self::Legs,
-            _ => Self::Clothing,
-        }
-    }
-
-    pub fn label(self) -> &'static str {
-        match self {
-            Self::Head => "Head",
-            Self::Torso => "Torso",
-            Self::Waist => "Waist",
-            Self::Arms => "Arms",
-            Self::Legs => "Legs",
-            Self::Clothing => "Clothing",
-        }
-    }
-}
-
 /// How a steel exhibit is finished: built and decorated as designed.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub(super) struct Finish {
     pub decoration: Decoration,
     pub construction: Construction,
-}
-
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
-pub(super) enum ArmoryView {
-    /// Every piece side by side.
-    #[default]
-    Wall,
-    /// The selected piece where it is worn, on the body.
-    OnBody,
-}
-
-/// One catalog item on display, fitted in each of its placements.
-pub(super) struct Exhibit {
-    pub name: String,
-    pub region: Region,
-    pub placements: Vec<adventuresim_core::equipment_assets::OwnedCatalogPlacement>,
-    /// Each placement's fitted mesh, or why fitting failed.
-    pub fitted: Vec<Result<GeneratedArmor, String>>,
-    /// The catalog default when the armory opened, for reverting edits.
-    pub loaded: ItemDesign,
-    /// Whether it is plate steel, which can be built of small plates,
-    /// engraved and trimmed.
-    pub steel: bool,
-    /// The finish its preview meshes show.
-    finished: Finish,
-    /// Added to the worn position to hang the piece on the wall.
-    pub offset: Vec3,
-    stale: bool,
-}
-
-impl Exhibit {
-    /// Exhibits come from wearable items, each with a nonempty surface placement.
-    pub fn item(&self) -> adventuresim_core::equipment_assets::CatalogItem<'_> {
-        self.placements[0].item()
-    }
-
-    /// Placements shown on the wall: one side, unless both are asked for.
-    pub fn shown(&self, both_sides: bool) -> usize {
-        if both_sides { self.placements.len() } else { 1 }
-    }
-
-    /// World bounds of the shown placements where they are worn.
-    pub fn bounds(&self, both_sides: bool) -> Option<(Vec3, Vec3)> {
-        self.fitted[..self.shown(both_sides)]
-            .iter()
-            .flatten()
-            .flat_map(|armor| &armor.positions)
-            .map(|p| Vec3::from_array(*p))
-            .fold(None, |bounds, p| {
-                Some(bounds.map_or((p, p), |(lo, hi): (Vec3, Vec3)| (lo.min(p), hi.max(p))))
-            })
-    }
-
-    pub fn errors(&self) -> impl Iterator<Item = (&str, &str)> {
-        self.placements
-            .iter()
-            .zip(&self.fitted)
-            .filter_map(|(placement, fit)| {
-                Some((
-                    placement.selection().definition().id.as_str(),
-                    fit.as_ref().err()?.as_str(),
-                ))
-            })
-    }
-
-    pub fn triangles(&self) -> usize {
-        self.fitted
-            .iter()
-            .flatten()
-            .map(|a| a.indices.len() / 3)
-            .sum()
-    }
-}
-
-/// What the camera should frame next.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Frame {
-    Wall,
-    Selected,
 }
 
 #[derive(Resource, Default)]
@@ -184,6 +62,67 @@ pub(super) struct Armory {
     body_material: Option<(Handle<StandardMaterial>, bool)>,
     /// Whether the wall is laid out for both sides, once it is laid out.
     arranged: Option<bool>,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) enum Region {
+    Head,
+    Torso,
+    Waist,
+    Arms,
+    Legs,
+    Clothing,
+}
+
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub(super) enum ArmoryView {
+    /// Every piece side by side.
+    #[default]
+    Wall,
+    /// The selected piece where it is worn, on the body.
+    OnBody,
+}
+
+/// What the camera should frame next.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) enum Frame {
+    Wall,
+    Selected,
+}
+
+impl Region {
+    pub const ALL: [Self; 6] = [
+        Self::Head,
+        Self::Torso,
+        Self::Waist,
+        Self::Arms,
+        Self::Legs,
+        Self::Clothing,
+    ];
+
+    pub fn label(self) -> &'static str {
+        match self {
+            Self::Head => "Head",
+            Self::Torso => "Torso",
+            Self::Waist => "Waist",
+            Self::Arms => "Arms",
+            Self::Legs => "Legs",
+            Self::Clothing => "Clothing",
+        }
+    }
+    fn of(item: &ItemDefinition) -> Self {
+        let ItemKind::Armor { slot, .. } = item.kind else {
+            return Self::Clothing;
+        };
+        match slot {
+            Slot::Head => Self::Head,
+            Slot::Chest => Self::Torso,
+            Slot::Stomach => Self::Waist,
+            Slot::AnyArm | Slot::LeftArm | Slot::RightArm => Self::Arms,
+            Slot::AnyLeg | Slot::LeftLeg | Slot::RightLeg => Self::Legs,
+            _ => Self::Clothing,
+        }
+    }
 }
 
 impl Armory {
@@ -290,8 +229,8 @@ pub(crate) fn enter_or_leave(
         return;
     };
     let active = studio.tab == studio_ui::StudioTab::Armory;
-    match (active, armory.saved_camera.is_some()) {
-        (true, false) => {
+    match (active, armory.saved_camera) {
+        (true, None) => {
             armory.saved_camera = Some(*orbit);
             armory.refit_all |= armory
                 .body
@@ -303,8 +242,9 @@ pub(crate) fn enter_or_leave(
                 Frame::Wall
             });
         }
-        (false, true) => {
-            *orbit = armory.saved_camera.take().expect("checked above");
+        (false, Some(saved)) => {
+            *orbit = saved;
+            armory.saved_camera = None;
             if std::mem::take(&mut armory.defaults_changed) {
                 studio.dirty = true;
             }
@@ -355,11 +295,14 @@ pub(crate) fn refit(
         .filter(|i| armory.exhibits[*i].stale)
         .collect();
     if !stale.is_empty() {
-        let body = &armory.body.as_ref().expect("fitted above").generated;
+        let Some(body) = armory.body.as_ref().map(|body| &body.generated) else {
+            studio.status = "Armory fitting requires a generated body".into();
+            return;
+        };
         let fitted = fit_exhibits(&model, body, &catalog, &armory.exhibits, &stale);
         for (i, fitted) in stale.iter().copied().zip(fitted) {
             let exhibit = &mut armory.exhibits[i];
-            exhibit.fitted = fitted;
+            exhibit.fitted = fitted.into_iter().map(ExhibitFit::from).collect();
             exhibit.stale = false;
         }
         armory.arranged = None;
@@ -381,9 +324,7 @@ pub(crate) fn refit(
     for i in respawn {
         let finish = armory.finish_for(i);
         let exhibit = &mut armory.exhibits[i];
-        if let Err(error) = spawn_exhibit(&mut scene, &catalog, i, exhibit, &finish) {
-            exhibit.fitted[0] = Err(format!("{error:#}"));
-        }
+        exhibit.preview_error = spawn_exhibit(&mut scene, &catalog, i, exhibit, &finish).err();
         exhibit.finished = finish;
     }
     if stale.is_empty() {
@@ -417,8 +358,9 @@ fn exhibits(catalog: &EquipmentCatalog) -> Vec<Exhibit> {
                 region: Region::of(item.definition()),
                 fitted: placements
                     .iter()
-                    .map(|_| Err("not fitted".into()))
+                    .map(|_| ExhibitFit::Pending)
                     .collect(),
+                preview_error: None,
                 placements,
                 loaded,
                 steel: equipment_material(item.definition()).is_some_and(is_plate_steel),
@@ -443,7 +385,7 @@ fn fit_exhibits(
     catalog: &EquipmentCatalog,
     exhibits: &[Exhibit],
     indices: &[usize],
-) -> Vec<Vec<Result<GeneratedArmor, String>>> {
+) -> Vec<Vec<anyhow::Result<GeneratedArmor>>> {
     let fit = |exhibit: &Exhibit| {
         let design = catalog.design(exhibit.item());
         exhibit
@@ -456,11 +398,11 @@ fn fit_exhibits(
                     placement.selection(),
                     design
                         .as_ref()
-                        .ok_or_else(|| "exhibit has no parametric design".to_owned())?,
+                        .context("exhibit has no parametric design")?,
                     &[],
                     &[],
                 )
-                .map_err(|error| format!("{error:#}"))
+                .with_context(|| format!("fitting {}", placement.selection().definition().id))
             })
             .collect::<Vec<_>>()
     };

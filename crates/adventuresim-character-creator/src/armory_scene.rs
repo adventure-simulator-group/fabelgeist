@@ -67,7 +67,7 @@ pub(super) fn spawn_exhibit(
         .tiling()
         .and_then(|tiling| tiling.lacing.as_ref());
     for (placement, fitted) in exhibit.fitted.iter().enumerate() {
-        let Ok(armor) = fitted else { continue };
+        let Some(armor) = fitted.mesh() else { continue };
         let marker = (
             ArmoryMesh {
                 exhibit: index,

@@ -34,33 +34,6 @@ pub fn metal(material: EquipmentMaterial, engraving: Option<&Engraving>) -> Opti
     })
 }
 
-/// Rescale a fitted piece's body-surface texture coordinates to the metal's
-/// texture density, so scratches are the same size on every armor.
-pub fn scale_to_metal_density(armor: &mut GeneratedArmor) {
-    let length = |a: &[f32], b: &[f32]| {
-        a.iter()
-            .zip(b)
-            .map(|(a, b)| f64::from(a - b).powi(2))
-            .sum::<f64>()
-            .sqrt()
-    };
-    let (mut surface, mut texture) = (0.0, 0.0);
-    for &[a, b, c] in armor.indices.as_chunks::<3>().0 {
-        for (from, to) in [(a, b), (b, c), (c, a)] {
-            let (from, to) = (from as usize, to as usize);
-            surface += length(&armor.positions[from], &armor.positions[to]);
-            texture += length(&armor.texcoords[from], &armor.texcoords[to]);
-        }
-    }
-    if !(texture > 0.0 && surface.is_finite()) {
-        return;
-    }
-    let scale = (surface / texture) as f32 * Metal::TILES_PER_METRE;
-    for uv in &mut armor.texcoords {
-        *uv = uv.map(|coordinate| coordinate * scale);
-    }
-}
-
 /// Cut `trim`'s band along the edges of a fitted piece. Returns the piece and
 /// its band's texture coordinates, at the metal's texture density like the
 /// rest of the plate, so the trim's ornament runs along each edge with the
@@ -139,7 +112,7 @@ mod tests {
     #[test]
     fn texture_coordinates_repeat_at_the_metal_density() {
         let mut armor = square();
-        scale_to_metal_density(&mut armor);
+        armor.scale_to_metal_density().unwrap();
         let tiles = Metal::TILES_PER_METRE;
         assert!((armor.texcoords[2][0] - tiles).abs() < 1e-5);
         assert!((armor.texcoords[2][1] - tiles).abs() < 1e-5);
