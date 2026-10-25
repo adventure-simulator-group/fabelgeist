@@ -1,0 +1,63 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-compute/src/kernel/fast/compile.rs
+
++++ filtered826-c798/crates/fabelgeist-compute/src/kernel/fast/compile.rs
+
+@@ -0,0 +1,57 @@
+
++use crate::prelude::*;
++
++pub(super) struct CompiledLayout {
++    pub(super) layout: wgpu::BindGroupLayout,
++    pub(super) pipeline: wgpu::ComputePipeline,
++}
++
++impl CompiledLayout {
++    pub(super) fn new(
++        context: &WgpuContext,
++        entries: &[wgpu::BindGroupLayoutEntry],
++        module: &wgpu::ShaderModule,
++        entry_point: &str,
++    ) -> Result<Self> {
++        #[cfg(not(target_arch = "wasm32"))]
++        let error_scope = context.blocking_validation.then(|| {
++            context
++                .device
++                .push_error_scope(wgpu::ErrorFilter::Validation)
++        });
++        let layout = context
++            .device
++            .create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
++                label: Some("Kernel Bind Layout"),
++                entries,
++            });
++        let pipeline_layout =
++            context
++                .device
++                .create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
++                    label: Some("Kernel Pipeline Layout"),
++                    bind_group_layouts: &[Some(&layout)],
++                    immediate_size: 0,
++                });
++        let pipeline = context
++            .device
++            .create_compute_pipeline(&wgpu::ComputePipelineDescriptor {
++                label: Some("Kernel Pipeline"),
++                layout: Some(&pipeline_layout),
++                module,
++                entry_point: Some(entry_point),
++                compilation_options: wgpu::PipelineCompilationOptions::default(),
++                cache: None,
++            });
++        #[cfg(not(target_arch = "wasm32"))]
++        if let Some(error_scope) = error_scope {
++            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
++            if let Some(error) = pollster::block_on(error_scope.pop()) {
++                return Err(fabelgeist_gpu::data::ComputePipelineError::Native(
++                    std::sync::Arc::new(error),
++                )
++                .into());
++            }
++        }
++        Ok(Self { layout, pipeline })
++    }
++}

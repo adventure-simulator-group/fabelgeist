@@ -1,0 +1,16 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-mesh/src/gpu.rs
+
++++ filtered826-c798/crates/fabelgeist-mesh/src/gpu.rs
+
+@@ -240,9 +240,7 @@
+
+             context,
+             pipeline.clone(),
+             PassParameters::from(parameters),
+-            workgroups,
+-            1,
+-            1,
++            fabelgeist_gpu::data::WorkgroupGrid::from([workgroups, 1, 1]),
+         )?;
+ 
+         Ok(GpuMesh {

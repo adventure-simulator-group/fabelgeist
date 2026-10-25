@@ -1,0 +1,58 @@
+--- crates/fabelgeist-gpu/texture-views.md current780
++++ crates/fabelgeist-gpu/texture-views.md canonical826
+@@ -44,6 +44,15 @@
+ `TextureViewError`. Initial texture and cube-face view construction follow the
+ same context policy when given a context, retaining native causes on readback.
+ 
++Native observation attempts the existing wait once and always reads the scope,
++even when polling fails. `ValidationProgressError` retains the actual
++`wgpu::PollError` and any validation error captured by that scope. View failures
++carry it in `TextureViewError::Progress`, together with the original requested
++format and view operation. Ordinary native rejections retain their existing
++variants, messages and direct SDK causes. The wait requests no explicit timeout;
++a backend can still fail to make progress. These errors do not establish global
++device health.
++
+ Texture allocation, cached view, logical format, extent and usage metadata are
+ controlled by the texture owner. Readonly accessors expose native ports and
+ metadata; removal operations cannot replace a resource or relabel its format.
+@@ -74,9 +83,11 @@
+ Static uniform assembly checks the padded native buffer extent against both
+ allocation and uniform-binding limits before packing. It allocates an unmapped
+ buffer and observes available native validation before uploading the bytes. This
+-avoids mapping a rejected allocation. The sRGB converter retains its creating
+-device, checks both cached texture devices and preserves available native
+-causes. Its fixed layout still accepts unfilterable float inputs for
++avoids mapping a rejected allocation. If an operation and its later observation
++both fail, `ComputePassError::OperationAndObservation` keeps the operation as the
++primary cause and exposes the additional observation error. The sRGB converter
++retains its creating device, checks both cached texture devices and preserves
++available native causes. Its fixed layout still accepts unfilterable float inputs for
+ `textureLoad`.
+ 
+ `ComputeShader` admits source, module and device together. `ShaderError` keeps
+@@ -87,7 +98,10 @@
+ rejected pipeline is never returned as a successful cache hit. Cache entries
+ also distinguish observed native validation from device-handled creation; a
+ later context requesting readback validates an earlier unchecked entry.
+-Preparation still reflects without compiling the static dispatch layout.
++A progress failure is transient: it is not cached and removes an earlier
++unchecked entry for the same entry point, so a retry observes creation again.
++Failed observation does not complete compilation. Preparation still reflects
++without compiling the static dispatch layout.
+ Compilation and recording check the actual creating device before using native
+ resources. `WorkgroupGrid` reaches the native dispatch boundary without raw axis
+ forwarding overloads.
+@@ -129,7 +143,11 @@
+ admission and counter increments. Standalone empty dispatches still admit
+ parameters. Folded launches retain their existing ordering. Recording a dispatch
+ or copy does not establish native encoding acceptance: wgpu can defer validation
+-until encoder finalization. `WgpuContext::submit` observes Validation errors from
++until encoder finalization. A failed observation does not undo commands already
++recorded in a caller's encoder. Cached preparation can also consume a uniform
++arena slot before a later observation fails. Conversion submission can report
++an observation failure after work has been submitted. None of these failures
++promises rollback. `WgpuContext::submit` observes Validation errors from
+ finalization before queue submission, then observes submission separately under
+ the context's native validation policy. It returns the actual SDK cause without
+ waiting for GPU completion. The encoder must be created by the context's device,

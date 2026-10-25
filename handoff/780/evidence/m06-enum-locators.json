@@ -1,0 +1,5170 @@
+[
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+    "source_sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 37,
+        "text": "label: Some(\"ComputeShader\"),"
+      },
+      {
+        "line": 41,
+        "text": "if let Some(scope) = error_scope {"
+      },
+      {
+        "line": 43,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      },
+      {
+        "line": 66,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+    "source_sha256": "6fc53b4c9d35946662928727e0b88b0916e57795447ff78039f52338890f407d",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 19,
+        "text": "pub format: Option<wgpu::TextureFormat>,"
+      },
+      {
+        "line": 41,
+        "text": "pub uniform_binding: Option<u32>,"
+      },
+      {
+        "line": 56,
+        "text": "pub enum ShaderLanguage {"
+      },
+      {
+        "line": 63,
+        "text": "pub enum UniformValueShape {"
+      },
+      {
+        "line": 76,
+        "text": "pub fn accepts(self, value: &crate::data::PassParameter) -> bool {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+    "source_sha256": "0cec16cc3e11d085d3a2b3902b4cd810b7d8413eef744b421c03468b5c2dcd57",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 5,
+        "text": "pub enum ShaderError {"
+      },
+      {
+        "line": 43,
+        "text": "fn source(&self) -> Option<&(dyn Error + 'static)> {"
+      },
+      {
+        "line": 44,
+        "text": "Some(match self {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+    "source_sha256": "99a42845d64d2256870d952e264b1d57fbf2add013e6e6ab4ab22f952df96777",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 20,
+        "text": "bind_group_layouts: Vec<Option<Arc<wgpu::BindGroupLayout>>>,"
+      },
+      {
+        "line": 27,
+        "text": "enum CompilationState {"
+      },
+      {
+        "line": 33,
+        "text": "enum CachedPipeline {"
+      },
+      {
+        "line": 76,
+        "text": "pub fn bind_group_layouts(&self) -> &[Option<Arc<wgpu::BindGroupLayout>>] {"
+      },
+      {
+        "line": 113,
+        "text": "if let Some(cached) = cache.get(entry_point) {"
+      },
+      {
+        "line": 162,
+        "text": "label: Some(\"ComputePipeline Layout\"),"
+      },
+      {
+        "line": 169,
+        "text": "label: Some(\"ComputePipeline\"),"
+      },
+      {
+        "line": 170,
+        "text": "layout: Some(&layout),"
+      },
+      {
+        "line": 172,
+        "text": "entry_point: Some(entry_point),"
+      },
+      {
+        "line": 174,
+        "text": "cache: None,"
+      },
+      {
+        "line": 177,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 179,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      },
+      {
+        "line": 194,
+        "text": "fn observes_validation(context: &WgpuContext) -> bool {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+    "source_sha256": "ccde9c8ed962581f4b797bad4d66dd7c5adea1b97ae62c39ba2b0e3b4d5af665",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 8,
+        "text": "pub enum UnsupportedBindingKind {"
+      },
+      {
+        "line": 17,
+        "text": "pub enum ComputePipelineError {"
+      },
+      {
+        "line": 104,
+        "text": "fn source(&self) -> Option<&(dyn Error + 'static)> {"
+      },
+      {
+        "line": 106,
+        "text": "Self::Shader(cause) => Some(cause),"
+      },
+      {
+        "line": 107,
+        "text": "Self::Native(cause) => Some(cause.as_ref()),"
+      },
+      {
+        "line": 108,
+        "text": "_ => None,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+    "source_sha256": "08718381092205c02babdfd58f47e606c5181987c2dfaf25640278036de0c5e7",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 11,
+        "text": "pub layouts: Vec<Option<Arc<wgpu::BindGroupLayout>>>,"
+      },
+      {
+        "line": 46,
+        "text": "let Some(binding) = &variable.binding else {"
+      },
+      {
+        "line": 69,
+        "text": "if let Some(&index) = groups.keys().find(|&&index| index >= limit) {"
+      },
+      {
+        "line": 82,
+        "text": "layouts.push(None);"
+      },
+      {
+        "line": 85,
+        "text": "layouts.push(Some(Arc::new(context.device.create_bind_group_layout("
+      },
+      {
+        "line": 87,
+        "text": "label: Some(&format!(\"ComputePipeline Bind Layout Group {index}\")),"
+      },
+      {
+        "line": 94,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 96,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      },
+      {
+        "line": 127,
+        "text": "filterable: bool,"
+      },
+      {
+        "line": 151,
+        "text": "has_dynamic_offset: false,"
+      },
+      {
+        "line": 152,
+        "text": "min_binding_size: None,"
+      },
+      {
+        "line": 197,
+        "text": "count: None,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+    "source_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 13,
+        "text": "arrayed: bool,"
+      },
+      {
+        "line": 15,
+        "text": "filterable: bool,"
+      },
+      {
+        "line": 19,
+        "text": "(ImageDimension::D2, false) => wgpu::TextureViewDimension::D2,"
+      },
+      {
+        "line": 20,
+        "text": "(ImageDimension::D2, true) => wgpu::TextureViewDimension::D2Array,"
+      },
+      {
+        "line": 22,
+        "text": "(ImageDimension::Cube, false) => wgpu::TextureViewDimension::Cube,"
+      },
+      {
+        "line": 23,
+        "text": "(ImageDimension::Cube, true) => wgpu::TextureViewDimension::CubeArray,"
+      },
+      {
+        "line": 25,
+        "text": "let mut format = None;"
+      },
+      {
+        "line": 32,
+        "text": "format = Some(storage);"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+    "source_sha256": "d51d501d8a392647cf9edd81c7e551713f04c8fbe90c7f3a1249240fa79184e0",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 16,
+        "text": "if let Some(first) = self.reflection.uniform_binding {"
+      },
+      {
+        "line": 49,
+        "text": "self.reflection.uniform_binding = Some(binding);"
+      },
+      {
+        "line": 56,
+        "text": "has_dynamic_offset: false,"
+      },
+      {
+        "line": 57,
+        "text": "min_binding_size: None,"
+      },
+      {
+        "line": 73,
+        "text": "ScalarKind::Float => Some(UniformValueShape::Float),"
+      },
+      {
+        "line": 74,
+        "text": "ScalarKind::Uint | ScalarKind::Sint => Some(UniformValueShape::IntegerWord),"
+      },
+      {
+        "line": 75,
+        "text": "_ => None,"
+      },
+      {
+        "line": 81,
+        "text": "Some(match size {"
+      },
+      {
+        "line": 95,
+        "text": "Some(match columns {"
+      },
+      {
+        "line": 101,
+        "text": "_ => None,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+    "source_sha256": "0de7bed006752d346fa4cf6c7763cca9ccbaed89dbf4809ec56aa123836f5f27",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 25,
+        "text": "label: Some(\"ComputePass Encoder\"),"
+      },
+      {
+        "line": 54,
+        "text": "label: Some(\"ComputePass\"),"
+      },
+      {
+        "line": 55,
+        "text": "timestamp_writes: None,"
+      },
+      {
+        "line": 65,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 67,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+    "source_sha256": "dbf2857af270b0bd3a7f16fe87169990a8a225d86f0ebadc1395e3ff239ae589",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 6,
+        "text": "pub enum ComputeBindingKind {"
+      },
+      {
+        "line": 15,
+        "text": "pub enum ComputePassError {"
+      },
+      {
+        "line": 74,
+        "text": "fn source(&self) -> Option<&(dyn Error + 'static)> {"
+      },
+      {
+        "line": 76,
+        "text": "Self::Native(cause) => Some(cause.as_ref()),"
+      },
+      {
+        "line": 77,
+        "text": "_ => None,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+    "source_sha256": "955f5bb0e7dc346933dab81076091f23ba15158a268849dcc0121858fc648658",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 29,
+        "text": ".and_then(Option::as_deref)"
+      },
+      {
+        "line": 50,
+        "text": "if let (Some(buffer), Some(binding)) = (&uniform_buffer, reflection.uniform_binding) {"
+      },
+      {
+        "line": 74,
+        "text": "label: Some(\"ComputePass Bind Group\"),"
+      },
+      {
+        "line": 79,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 81,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+    "source_sha256": "8c508dc80b50a645ca4f6eba3f4b5d82937995015671b1c38a87837c4be2a506",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 17,
+        "text": ") -> Result<Option<Buffer>> {"
+      },
+      {
+        "line": 19,
+        "text": "return Ok(None);"
+      },
+      {
+        "line": 53,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 55,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      },
+      {
+        "line": 68,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 70,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      },
+      {
+        "line": 75,
+        "text": "Ok(Some(buffer))"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs",
+    "source_sha256": "1e4d003467028e39848e03315f99a246791f9323a3dc457b554966c5fda9684e",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 10,
+        "text": "if let Some(value) = parameters.get(&member.name)"
+      },
+      {
+        "line": 46,
+        "text": "if let Some(end) = offset.checked_add(bytes.len())"
+      },
+      {
+        "line": 47,
+        "text": "&& let Some(target) = data.get_mut(offset..end)"
+      },
+      {
+        "line": 54,
+        "text": "if let Some(end) = N"
+      },
+      {
+        "line": 79,
+        "text": "if let Some(end) = start.checked_add(span)"
+      },
+      {
+        "line": 84,
+        "text": "if let Some(offset) = column"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+    "source_sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+    "source_sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 6,
+        "text": "pub enum BufferBindingError {"
+      },
+      {
+        "line": 45,
+        "text": "size: Some(size),"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+    "source_sha256": "1819eca61bb43d797c554b9cb173e7f0c8df30d26cdb4c27471106af5204200b",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 37,
+        "text": "uniform_binding: Option<u32>,"
+      },
+      {
+        "line": 54,
+        "text": "dynamic_offset: Option<BufferByteOffset>,"
+      },
+      {
+        "line": 70,
+        "text": "Some(offset) => pass.set_bind_group(0, &self.bind_group, &[offset]),"
+      },
+      {
+        "line": 71,
+        "text": "None => pass.set_bind_group(0, &self.bind_group, &[]),"
+      },
+      {
+        "line": 79,
+        "text": "/// Build a fast path for this kernel, or `None` if its shape does not"
+      },
+      {
+        "line": 86,
+        "text": ") -> Result<Option<Self>> {"
+      },
+      {
+        "line": 90,
+        "text": "return Ok(None);"
+      },
+      {
+        "line": 94,
+        "text": "return Ok(None);"
+      },
+      {
+        "line": 99,
+        "text": "return Ok(None);"
+      },
+      {
+        "line": 110,
+        "text": "has_dynamic_offset: false,"
+      },
+      {
+        "line": 111,
+        "text": "min_binding_size: None,"
+      },
+      {
+        "line": 113,
+        "text": "count: None,"
+      },
+      {
+        "line": 119,
+        "text": "return Ok(None);"
+      },
+      {
+        "line": 122,
+        "text": "if let Some(binding) = uniform_binding {"
+      },
+      {
+        "line": 130,
+        "text": "has_dynamic_offset: true,"
+      },
+      {
+        "line": 133,
+        "text": "count: None,"
+      },
+      {
+        "line": 143,
+        "text": "Ok(Some(Self {"
+      },
+      {
+        "line": 207,
+        "text": "if let (Some(binding), Some(slot)) = (self.uniform_binding, &slot) {"
+      },
+      {
+        "line": 228,
+        "text": "label: Some(\"Kernel Bind Group\"),"
+      },
+      {
+        "line": 240,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 242,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+    "source_sha256": "c9488a11c8a8c9c481f6b948041544dea9ec19a9405405ec969f51c4e2d2db2d",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 19,
+        "text": "pub(super) enum UniformArenaError {"
+      },
+      {
+        "line": 60,
+        "text": "label: Some(\"Kernel Uniform Arena\"),"
+      },
+      {
+        "line": 63,
+        "text": "mapped_at_creation: true,"
+      },
+      {
+        "line": 67,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 69,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+    "source_sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 24,
+        "text": "label: Some(\"Kernel Bind Layout\"),"
+      },
+      {
+        "line": 31,
+        "text": "label: Some(\"Kernel Pipeline Layout\"),"
+      },
+      {
+        "line": 32,
+        "text": "bind_group_layouts: &[Some(&layout)],"
+      },
+      {
+        "line": 38,
+        "text": "label: Some(\"Kernel Pipeline\"),"
+      },
+      {
+        "line": 39,
+        "text": "layout: Some(&pipeline_layout),"
+      },
+      {
+        "line": 41,
+        "text": "entry_point: Some(entry_point),"
+      },
+      {
+        "line": 43,
+        "text": "cache: None,"
+      },
+      {
+        "line": 46,
+        "text": "if let Some(error_scope) = error_scope {"
+      },
+      {
+        "line": 48,
+        "text": "if let Some(error) = pollster::block_on(error_scope.pop()) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs",
+    "source_sha256": "dd69cd826a3a0b08f3eb0eb81f3352ebb2a0c2abac485612ab4e35657016a3dc",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 15,
+        "text": "let Some(value) = parameters.get(&member.name) else {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+    "source_sha256": "7f4f6a94badc05a943431c2e9c8fccea6e2c110d3b21915bbe58734da093657e",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 56,
+        "text": "fast: Option<fast::FastPath>,"
+      },
+      {
+        "line": 70,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 133,
+        "text": "pub fn is_cached(&self) -> bool {"
+      },
+      {
+        "line": 189,
+        "text": "if let Some(kernel) = self.kernels.read().unwrap().get(code) {"
+      },
+      {
+        "line": 208,
+        "text": "pub fn is_empty(&self) -> bool {"
+      },
+      {
+        "line": 236,
+        "text": ".create_command_encoder(&wgpu::CommandEncoderDescriptor { label: Some(label) });"
+      },
+      {
+        "line": 267,
+        "text": "Some(fast) => {"
+      },
+      {
+        "line": 279,
+        "text": "label: Some(\"Kernel Pass\"),"
+      },
+      {
+        "line": 280,
+        "text": "timestamp_writes: None,"
+      },
+      {
+        "line": 294,
+        "text": "if let Some(cause) = native_error {"
+      },
+      {
+        "line": 298,
+        "text": "None => ComputePass::record("
+      },
+      {
+        "line": 365,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 370,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      },
+      {
+        "line": 379,
+        "text": "self.encoder.clear_buffer(&buffer.buffer, 0, None);"
+      },
+      {
+        "line": 401,
+        "text": "let index = self.context.queue.submit(Some(self.encoder.finish()));"
+      },
+      {
+        "line": 419,
+        "text": "/// A kernel compiles through a *borrowed* context too -- one built from"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/batch_error.rs",
+    "source_sha256": "cb3793527b44a96ae64c16459e0e0f656c6e662600002ceb678b1e01573bdac8",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 5,
+        "text": "pub enum KernelBatchError {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/dispatch_count.rs",
+    "source_sha256": "095ae805ef6999f6256a8a49b7c75739ae421028abdeddd1b5a3cbb7a6d1535c",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+    "source_sha256": "3e73d10fdc2d644e8d0e3909147979a1c7023dfff0d82b12a7a88c751770fa02",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 50,
+        "text": "(self.buffer.clone(), false)"
+      },
+      {
+        "line": 54,
+        "text": "label: Some(\"Staging Buffer\"),"
+      },
+      {
+        "line": 57,
+        "text": "mapped_at_creation: false,"
+      },
+      {
+        "line": 63,
+        "text": ".create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });"
+      },
+      {
+        "line": 65,
+        "text": "context.queue.submit(Some(encoder.finish()));"
+      },
+      {
+        "line": 66,
+        "text": "(Arc::new(staging_buffer), true)"
+      },
+      {
+        "line": 92,
+        "text": "Ok(Some(res)) => {"
+      },
+      {
+        "line": 100,
+        "text": "Ok(None) => {"
+      },
+      {
+        "line": 176,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+    "source_sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 35,
+        "text": "if let Some(expected) = binding.format"
+      },
+      {
+        "line": 62,
+        "text": "if binding.format == Some(texture.format().srgb_counterpart().into()) {"
+      },
+      {
+        "line": 71,
+        "text": "if binding.format == Some(texture.format().srgb_counterpart().into()) {"
+      },
+      {
+        "line": 80,
+        "text": "if binding.format == Some(texture.format().srgb_counterpart().into()) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+    "source_sha256": "99ed61259eca72b2d3e88923bd098df3d454754f3fedbd35a41b1809298e3f89",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 11,
+        "text": "pub(super) view: Option<Arc<wgpu::TextureView>>,"
+      },
+      {
+        "line": 12,
+        "text": "pub(super) texture: Option<Arc<wgpu::Texture>>,"
+      },
+      {
+        "line": 16,
+        "text": "pub(super) layer: Option<u32>,"
+      },
+      {
+        "line": 17,
+        "text": "pub(super) device: Option<Arc<wgpu::Device>>,"
+      },
+      {
+        "line": 21,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 23,
+        "text": "(Some(a), Some(b)) => Arc::ptr_eq(a, b),"
+      },
+      {
+        "line": 24,
+        "text": "(None, None) => true,"
+      },
+      {
+        "line": 25,
+        "text": "_ => false,"
+      },
+      {
+        "line": 27,
+        "text": "(Some(a), Some(b)) => Arc::ptr_eq(a, b),"
+      },
+      {
+        "line": 28,
+        "text": "(None, None) => true,"
+      },
+      {
+        "line": 29,
+        "text": "_ => false,"
+      },
+      {
+        "line": 41,
+        "text": "device: None,"
+      },
+      {
+        "line": 42,
+        "text": "view: None,"
+      },
+      {
+        "line": 43,
+        "text": "texture: None,"
+      },
+      {
+        "line": 47,
+        "text": "layer: None,"
+      },
+      {
+        "line": 58,
+        "text": "pub fn native_texture(&self) -> Option<&Arc<wgpu::Texture>> {"
+      },
+      {
+        "line": 61,
+        "text": "pub fn cached_view(&self) -> Option<&Arc<wgpu::TextureView>> {"
+      },
+      {
+        "line": 85,
+        "text": "if self.device.as_deref() != Some(context.device.as_ref()) {"
+      },
+      {
+        "line": 98,
+        "text": "color: Option<Vec4>,"
+      },
+      {
+        "line": 121,
+        "text": "label: Some(\"TextureView Clear Encoder\"),"
+      },
+      {
+        "line": 131,
+        "text": "label: Some(\"TextureView Depth Clear Pass\"),"
+      },
+      {
+        "line": 133,
+        "text": "depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {"
+      },
+      {
+        "line": 135,
+        "text": "depth_ops: Some(wgpu::Operations {"
+      },
+      {
+        "line": 139,
+        "text": "stencil_ops: None,"
+      },
+      {
+        "line": 141,
+        "text": "timestamp_writes: None,"
+      },
+      {
+        "line": 142,
+        "text": "occlusion_query_set: None,"
+      },
+      {
+        "line": 143,
+        "text": "multiview_mask: None,"
+      },
+      {
+        "line": 157,
+        "text": "label: Some(\"TextureView Clear Pass\"),"
+      },
+      {
+        "line": 158,
+        "text": "color_attachments: &[Some(wgpu::RenderPassColorAttachment {"
+      },
+      {
+        "line": 160,
+        "text": "depth_slice: None,"
+      },
+      {
+        "line": 161,
+        "text": "resolve_target: None,"
+      },
+      {
+        "line": 172,
+        "text": "depth_stencil_attachment: None,"
+      },
+      {
+        "line": 173,
+        "text": "timestamp_writes: None,"
+      },
+      {
+        "line": 174,
+        "text": "occlusion_query_set: None,"
+      },
+      {
+        "line": 175,
+        "text": "multiview_mask: None,"
+      },
+      {
+        "line": 179,
+        "text": "context.queue.submit(Some(encoder.finish()));"
+      },
+      {
+        "line": 200,
+        "text": "label: Some(\"TextureView Staging Buffer\"),"
+      },
+      {
+        "line": 203,
+        "text": "mapped_at_creation: false,"
+      },
+      {
+        "line": 209,
+        "text": "label: Some(\"TextureView Read Encoder\"),"
+      },
+      {
+        "line": 227,
+        "text": "bytes_per_row: Some(padded_bytes_per_row),"
+      },
+      {
+        "line": 228,
+        "text": "rows_per_image: Some(height),"
+      },
+      {
+        "line": 238,
+        "text": "context.queue.submit(Some(encoder.finish()));"
+      },
+      {
+        "line": 253,
+        "text": "Ok(Some(res)) => {"
+      },
+      {
+        "line": 257,
+        "text": "Ok(None) => {"
+      },
+      {
+        "line": 346,
+        "text": "layer: None,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+    "source_sha256": "8c69fd43e818b86bee07c975f463afbbf8d62250a9a86cd65a995237d9ba1dcc",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 17,
+        "text": "pub enum TextureViewError {"
+      },
+      {
+        "line": 116,
+        "text": "fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {"
+      },
+      {
+        "line": 121,
+        "text": "| Self::CubeArray { cause, .. } => Some(cause.as_ref()),"
+      },
+      {
+        "line": 122,
+        "text": "_ => None,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+    "source_sha256": "a084bd9266444ce4ed50458bfac88cc19e31ba899933eea8ad1ec20f176934ac",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 53,
+        "text": "format: Some(requested_format.into()),"
+      },
+      {
+        "line": 58,
+        "text": "if let Some(error_scope) = error_scope {"
+      },
+      {
+        "line": 60,
+        "text": "if let Some(cause) = pollster::block_on(error_scope.pop()) {"
+      },
+      {
+        "line": 85,
+        "text": "pub fn native_texture(&self) -> Option<&Arc<wgpu::Texture>> {"
+      },
+      {
+        "line": 88,
+        "text": "pub fn cached_view(&self) -> Option<&Arc<wgpu::TextureView>> {"
+      },
+      {
+        "line": 94,
+        "text": "self.view = None;"
+      },
+      {
+        "line": 98,
+        "text": "self.texture = None;"
+      },
+      {
+        "line": 110,
+        "text": "if self.device.as_deref() != Some(context.device.as_ref()) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+    "source_sha256": "2a09fff5d2d38ccd60190e1d41cd806f8298d3c40cb27bccb2a7844febdc7952",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 53,
+        "text": "format: Some(requested_format.into()),"
+      },
+      {
+        "line": 58,
+        "text": "if let Some(error_scope) = error_scope {"
+      },
+      {
+        "line": 60,
+        "text": "if let Some(cause) = pollster::block_on(error_scope.pop()) {"
+      },
+      {
+        "line": 85,
+        "text": "pub fn native_texture(&self) -> Option<&Arc<wgpu::Texture>> {"
+      },
+      {
+        "line": 88,
+        "text": "pub fn cached_view(&self) -> Option<&Arc<wgpu::TextureView>> {"
+      },
+      {
+        "line": 94,
+        "text": "self.view = None;"
+      },
+      {
+        "line": 98,
+        "text": "self.texture = None;"
+      },
+      {
+        "line": 110,
+        "text": "if self.device.as_deref() != Some(context.device.as_ref()) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+    "source_sha256": "1a0b48f936366ef8573be58c96d41f8a0d591cae174944a7341e0d7812cf4f95",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 55,
+        "text": "label: Some(\"TextureCube View\"),"
+      },
+      {
+        "line": 56,
+        "text": "dimension: Some(wgpu::TextureViewDimension::Cube),"
+      },
+      {
+        "line": 57,
+        "text": "array_layer_count: Some(6),"
+      },
+      {
+        "line": 58,
+        "text": "format: Some(requested_format.into()),"
+      },
+      {
+        "line": 63,
+        "text": "if let Some(error_scope) = error_scope {"
+      },
+      {
+        "line": 65,
+        "text": "if let Some(cause) = pollster::block_on(error_scope.pop()) {"
+      },
+      {
+        "line": 78,
+        "text": "target.face_view_with_format(Some(context), face, target.format)"
+      },
+      {
+        "line": 81,
+        "text": "self.face_view_with_format(None, face, self.format)"
+      },
+      {
+        "line": 86,
+        "text": "context: Option<&WgpuContext>,"
+      },
+      {
+        "line": 95,
+        "text": "if let Some(context) = context {"
+      },
+      {
+        "line": 113,
+        "text": "label: Some(&format!(\"TextureCube Face View ({:?})\", face)),"
+      },
+      {
+        "line": 114,
+        "text": "dimension: Some(wgpu::TextureViewDimension::D2),"
+      },
+      {
+        "line": 115,
+        "text": "format: Some(requested_format.into()),"
+      },
+      {
+        "line": 117,
+        "text": "array_layer_count: Some(1),"
+      },
+      {
+        "line": 122,
+        "text": "if let (Some(c), Some(scope)) = (context, error_scope) {"
+      },
+      {
+        "line": 124,
+        "text": "if let Some(err) = pollster::block_on(scope.pop()) {"
+      },
+      {
+        "line": 132,
+        "text": "view: Some(Arc::new(view)),"
+      },
+      {
+        "line": 137,
+        "text": "layer: Some(face.index()),"
+      },
+      {
+        "line": 154,
+        "text": "label: Some(\"TextureCube 2D Array View for Storage\"),"
+      },
+      {
+        "line": 155,
+        "text": "dimension: Some(wgpu::TextureViewDimension::D2Array),"
+      },
+      {
+        "line": 156,
+        "text": "array_layer_count: Some(6),"
+      },
+      {
+        "line": 157,
+        "text": "format: Some(requested_format.into()),"
+      },
+      {
+        "line": 161,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 163,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      },
+      {
+        "line": 185,
+        "text": "pub fn native_texture(&self) -> Option<&Arc<wgpu::Texture>> {"
+      },
+      {
+        "line": 188,
+        "text": "pub fn cached_view(&self) -> Option<&Arc<wgpu::TextureView>> {"
+      },
+      {
+        "line": 194,
+        "text": "self.view = None;"
+      },
+      {
+        "line": 198,
+        "text": "self.texture = None;"
+      },
+      {
+        "line": 210,
+        "text": "if self.device.as_deref() != Some(context.device.as_ref()) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+    "source_sha256": "01e776aa79ad686723af71aff644feae92ce5294fd92df8378d3b12b8fda642f",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 18,
+        "text": "pub(super) texture: Option<Arc<wgpu::Texture>>,"
+      },
+      {
+        "line": 19,
+        "text": "pub(super) view: Option<Arc<wgpu::TextureView>>,"
+      },
+      {
+        "line": 23,
+        "text": "pub(super) device: Option<Arc<wgpu::Device>>,"
+      },
+      {
+        "line": 27,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 29,
+        "text": "(Some(a), Some(b)) => Arc::ptr_eq(a, b),"
+      },
+      {
+        "line": 30,
+        "text": "(None, None) => true,"
+      },
+      {
+        "line": 31,
+        "text": "_ => false,"
+      },
+      {
+        "line": 33,
+        "text": "(Some(a), Some(b)) => Arc::ptr_eq(a, b),"
+      },
+      {
+        "line": 34,
+        "text": "(None, None) => true,"
+      },
+      {
+        "line": 35,
+        "text": "_ => false,"
+      },
+      {
+        "line": 46,
+        "text": "device: None,"
+      },
+      {
+        "line": 47,
+        "text": "texture: None,"
+      },
+      {
+        "line": 48,
+        "text": "view: None,"
+      },
+      {
+        "line": 58,
+        "text": "size: Option<Vec2>,"
+      },
+      {
+        "line": 59,
+        "text": "format: Option<TextureFormat>,"
+      },
+      {
+        "line": 126,
+        "text": "label: Some(\"Texture2d\"),"
+      },
+      {
+        "line": 152,
+        "text": "format: Some(format.into()),"
+      },
+      {
+        "line": 157,
+        "text": "if let Some(error_scope) = error_scope {"
+      },
+      {
+        "line": 159,
+        "text": "if let Some(err) = pollster::block_on(error_scope.pop()) {"
+      },
+      {
+        "line": 166,
+        "text": "device: Some(context.device.clone()),"
+      },
+      {
+        "line": 167,
+        "text": "texture: Some(Arc::new(texture)),"
+      },
+      {
+        "line": 168,
+        "text": "view: Some(Arc::new(view)),"
+      },
+      {
+        "line": 184,
+        "text": "format: Option<TextureFormat>,"
+      },
+      {
+        "line": 228,
+        "text": "bytes_per_row: Some(width * pixel_size),"
+      },
+      {
+        "line": 229,
+        "text": "rows_per_image: Some(height),"
+      },
+      {
+        "line": 243,
+        "text": "size: Option<Vec2>,"
+      },
+      {
+        "line": 244,
+        "text": "color: Option<crate::data::vector::Vec4>,"
+      },
+      {
+        "line": 245,
+        "text": "format: Option<TextureFormat>,"
+      },
+      {
+        "line": 283,
+        "text": "label: Some(\"Texture2d Staging Buffer\"),"
+      },
+      {
+        "line": 286,
+        "text": "mapped_at_creation: false,"
+      },
+      {
+        "line": 292,
+        "text": "label: Some(\"Texture2d Read Encoder\"),"
+      },
+      {
+        "line": 306,
+        "text": "bytes_per_row: Some(padded_bytes_per_row),"
+      },
+      {
+        "line": 307,
+        "text": "rows_per_image: Some(height),"
+      },
+      {
+        "line": 317,
+        "text": "context.queue.submit(Some(encoder.finish()));"
+      },
+      {
+        "line": 333,
+        "text": "Ok(Some(res)) => {"
+      },
+      {
+        "line": 337,
+        "text": "Ok(None) => {"
+      },
+      {
+        "line": 400,
+        "text": "bytes_per_row: Some(width * pixel_size),"
+      },
+      {
+        "line": 401,
+        "text": "rows_per_image: Some(height),"
+      },
+      {
+        "line": 424,
+        "text": "amount: Option<f64>,"
+      },
+      {
+        "line": 456,
+        "text": "amount: Option<f64>,"
+      },
+      {
+        "line": 495,
+        "text": "label: Some(\"Texture2d Blit Encoder\"),"
+      },
+      {
+        "line": 504,
+        "text": "color: Option<crate::data::vector::Vec4>,"
+      },
+      {
+        "line": 518,
+        "text": "label: Some(\"Texture2d Clear Encoder\"),"
+      },
+      {
+        "line": 528,
+        "text": "label: Some(\"Texture2d Clear Depth Pass\"),"
+      },
+      {
+        "line": 530,
+        "text": "depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {"
+      },
+      {
+        "line": 532,
+        "text": "depth_ops: Some(wgpu::Operations {"
+      },
+      {
+        "line": 536,
+        "text": "stencil_ops: None,"
+      },
+      {
+        "line": 538,
+        "text": "timestamp_writes: None,"
+      },
+      {
+        "line": 539,
+        "text": "occlusion_query_set: None,"
+      },
+      {
+        "line": 540,
+        "text": "multiview_mask: None,"
+      },
+      {
+        "line": 563,
+        "text": "label: Some(\"Texture2d Clear Pass\"),"
+      },
+      {
+        "line": 564,
+        "text": "color_attachments: &[Some(wgpu::RenderPassColorAttachment {"
+      },
+      {
+        "line": 566,
+        "text": "depth_slice: None,"
+      },
+      {
+        "line": 567,
+        "text": "resolve_target: None,"
+      },
+      {
+        "line": 578,
+        "text": "depth_stencil_attachment: None,"
+      },
+      {
+        "line": 579,
+        "text": "timestamp_writes: None,"
+      },
+      {
+        "line": 580,
+        "text": "occlusion_query_set: None,"
+      },
+      {
+        "line": 581,
+        "text": "multiview_mask: None,"
+      },
+      {
+        "line": 585,
+        "text": "context.queue.submit(Some(encoder.finish()));"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+    "source_sha256": "3d25dc0035dbbd9460bde6ae307b5338e0bf1a7b621fe1b9be93a33da235c834",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 12,
+        "text": "pub(super) texture: Option<Arc<wgpu::Texture>>,"
+      },
+      {
+        "line": 13,
+        "text": "pub(super) view: Option<Arc<wgpu::TextureView>>,"
+      },
+      {
+        "line": 17,
+        "text": "pub(super) device: Option<Arc<wgpu::Device>>,"
+      },
+      {
+        "line": 21,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 23,
+        "text": "(Some(a), Some(b)) => Arc::ptr_eq(a, b),"
+      },
+      {
+        "line": 24,
+        "text": "(None, None) => true,"
+      },
+      {
+        "line": 25,
+        "text": "_ => false,"
+      },
+      {
+        "line": 27,
+        "text": "(Some(a), Some(b)) => Arc::ptr_eq(a, b),"
+      },
+      {
+        "line": 28,
+        "text": "(None, None) => true,"
+      },
+      {
+        "line": 29,
+        "text": "_ => false,"
+      },
+      {
+        "line": 40,
+        "text": "device: None,"
+      },
+      {
+        "line": 41,
+        "text": "texture: None,"
+      },
+      {
+        "line": 42,
+        "text": "view: None,"
+      },
+      {
+        "line": 79,
+        "text": "label: Some(\"Texture3d\"),"
+      },
+      {
+        "line": 103,
+        "text": "format: Some(format.into()),"
+      },
+      {
+        "line": 108,
+        "text": "if let Some(error_scope) = error_scope {"
+      },
+      {
+        "line": 110,
+        "text": "if let Some(err) = pollster::block_on(error_scope.pop()) {"
+      },
+      {
+        "line": 117,
+        "text": "device: Some(context.device.clone()),"
+      },
+      {
+        "line": 118,
+        "text": "texture: Some(Arc::new(texture)),"
+      },
+      {
+        "line": 119,
+        "text": "view: Some(Arc::new(view)),"
+      },
+      {
+        "line": 145,
+        "text": "label: Some(\"Texture3d Staging Buffer\"),"
+      },
+      {
+        "line": 148,
+        "text": "mapped_at_creation: false,"
+      },
+      {
+        "line": 154,
+        "text": "label: Some(\"Texture3d Read Encoder\"),"
+      },
+      {
+        "line": 168,
+        "text": "bytes_per_row: Some(padded_bytes_per_row),"
+      },
+      {
+        "line": 169,
+        "text": "rows_per_image: Some(height),"
+      },
+      {
+        "line": 179,
+        "text": "context.queue.submit(Some(encoder.finish()));"
+      },
+      {
+        "line": 195,
+        "text": "Ok(Some(res)) => {"
+      },
+      {
+        "line": 199,
+        "text": "Ok(None) => {"
+      },
+      {
+        "line": 257,
+        "text": "bytes_per_row: Some(width * pixel_size),"
+      },
+      {
+        "line": 258,
+        "text": "rows_per_image: Some(height),"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+    "source_sha256": "e5112ab6bf1035c3bb5dceb8c6611d75a8c477b55e7c6ba5221226112b51c077",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 15,
+        "text": "pub(super) texture: Option<Arc<wgpu::Texture>>,"
+      },
+      {
+        "line": 16,
+        "text": "pub(super) view: Option<Arc<wgpu::TextureView>>,"
+      },
+      {
+        "line": 20,
+        "text": "pub(super) device: Option<Arc<wgpu::Device>>,"
+      },
+      {
+        "line": 24,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 26,
+        "text": "(Some(a), Some(b)) => Arc::ptr_eq(a, b),"
+      },
+      {
+        "line": 27,
+        "text": "(None, None) => true,"
+      },
+      {
+        "line": 28,
+        "text": "_ => false,"
+      },
+      {
+        "line": 30,
+        "text": "(Some(a), Some(b)) => Arc::ptr_eq(a, b),"
+      },
+      {
+        "line": 31,
+        "text": "(None, None) => true,"
+      },
+      {
+        "line": 32,
+        "text": "_ => false,"
+      },
+      {
+        "line": 43,
+        "text": "device: None,"
+      },
+      {
+        "line": 44,
+        "text": "texture: None,"
+      },
+      {
+        "line": 45,
+        "text": "view: None,"
+      },
+      {
+        "line": 103,
+        "text": "label: Some(\"TextureCube\"),"
+      },
+      {
+        "line": 127,
+        "text": "label: Some(\"TextureCube View\"),"
+      },
+      {
+        "line": 128,
+        "text": "dimension: Some(wgpu::TextureViewDimension::Cube),"
+      },
+      {
+        "line": 129,
+        "text": "array_layer_count: Some(6),"
+      },
+      {
+        "line": 130,
+        "text": "format: Some(format.into()),"
+      },
+      {
+        "line": 135,
+        "text": "if let Some(error_scope) = error_scope {"
+      },
+      {
+        "line": 137,
+        "text": "if let Some(err) = pollster::block_on(error_scope.pop()) {"
+      },
+      {
+        "line": 144,
+        "text": "device: Some(context.device.clone()),"
+      },
+      {
+        "line": 145,
+        "text": "texture: Some(Arc::new(texture)),"
+      },
+      {
+        "line": 146,
+        "text": "view: Some(Arc::new(view)),"
+      },
+      {
+        "line": 201,
+        "text": "bytes_per_row: Some(size * pixel_size),"
+      },
+      {
+        "line": 202,
+        "text": "rows_per_image: Some(size),"
+      },
+      {
+        "line": 221,
+        "text": "right: Option<TextureView>,"
+      },
+      {
+        "line": 222,
+        "text": "left: Option<TextureView>,"
+      },
+      {
+        "line": 223,
+        "text": "top: Option<TextureView>,"
+      },
+      {
+        "line": 224,
+        "text": "bottom: Option<TextureView>,"
+      },
+      {
+        "line": 225,
+        "text": "front: Option<TextureView>,"
+      },
+      {
+        "line": 226,
+        "text": "back: Option<TextureView>,"
+      },
+      {
+        "line": 227,
+        "text": "format: Option<TextureFormat>,"
+      },
+      {
+        "line": 228,
+        "text": "size: Option<f64>,"
+      },
+      {
+        "line": 256,
+        "text": "if let Some(tex) = tex_opt {"
+      },
+      {
+        "line": 313,
+        "text": "bytes_per_row: Some(self.size * pixel_size),"
+      },
+      {
+        "line": 314,
+        "text": "rows_per_image: Some(self.size),"
+      },
+      {
+        "line": 337,
+        "text": "if let Some(src_texture) = &texture.texture"
+      },
+      {
+        "line": 348,
+        "text": "label: Some(\"TextureCube Set Side Copy Encoder\"),"
+      },
+      {
+        "line": 373,
+        "text": "context.queue.submit(Some(encoder.finish()));"
+      },
+      {
+        "line": 386,
+        "text": "let target_view_obj = self.face_view_with_format(Some(context), face, self.format)?;"
+      },
+      {
+        "line": 417,
+        "text": "label: Some(\"TextureCube Face Blit Shader\"),"
+      },
+      {
+        "line": 422,
+        "text": "label: Some(\"TextureCube Blit Sampler\"),"
+      },
+      {
+        "line": 434,
+        "text": "label: Some(\"TextureCube Blit Bind Group Layout\"),"
+      },
+      {
+        "line": 440,
+        "text": "sample_type: wgpu::TextureSampleType::Float { filterable: true },"
+      },
+      {
+        "line": 442,
+        "text": "multisampled: false,"
+      },
+      {
+        "line": 444,
+        "text": "count: None,"
+      },
+      {
+        "line": 450,
+        "text": "count: None,"
+      },
+      {
+        "line": 458,
+        "text": "label: Some(\"TextureCube Blit Bind Group\"),"
+      },
+      {
+        "line": 476,
+        "text": "label: Some(\"TextureCube Blit Pipeline Layout\"),"
+      },
+      {
+        "line": 477,
+        "text": "bind_group_layouts: &[Some(&bind_group_layout)],"
+      },
+      {
+        "line": 489,
+        "text": "label: Some(\"TextureCube Blit Pipeline\"),"
+      },
+      {
+        "line": 490,
+        "text": "layout: Some(&pipeline_layout),"
+      },
+      {
+        "line": 493,
+        "text": "entry_point: Some(\"vs_main\"),"
+      },
+      {
+        "line": 497,
+        "text": "fragment: Some(wgpu::FragmentState {"
+      },
+      {
+        "line": 499,
+        "text": "entry_point: Some(\"fs_main\"),"
+      },
+      {
+        "line": 500,
+        "text": "targets: &[Some(wgpu::ColorTargetState {"
+      },
+      {
+        "line": 502,
+        "text": "blend: Some(wgpu::BlendState::REPLACE),"
+      },
+      {
+        "line": 511,
+        "text": "depth_stencil: None,"
+      },
+      {
+        "line": 513,
+        "text": "multiview_mask: None,"
+      },
+      {
+        "line": 514,
+        "text": "cache: None,"
+      },
+      {
+        "line": 520,
+        "text": "label: Some(\"TextureCube Blit Command Encoder\"),"
+      },
+      {
+        "line": 525,
+        "text": "label: Some(\"TextureCube Blit Render Pass\"),"
+      },
+      {
+        "line": 526,
+        "text": "color_attachments: &[Some(wgpu::RenderPassColorAttachment {"
+      },
+      {
+        "line": 528,
+        "text": "resolve_target: None,"
+      },
+      {
+        "line": 533,
+        "text": "depth_slice: None,"
+      },
+      {
+        "line": 535,
+        "text": "depth_stencil_attachment: None,"
+      },
+      {
+        "line": 536,
+        "text": "timestamp_writes: None,"
+      },
+      {
+        "line": 537,
+        "text": "occlusion_query_set: None,"
+      },
+      {
+        "line": 538,
+        "text": "multiview_mask: None,"
+      },
+      {
+        "line": 545,
+        "text": "context.queue.submit(Some(encoder.finish()));"
+      },
+      {
+        "line": 618,
+        "text": "label: Some(\"TextureCube Face Shader Renderer\"),"
+      },
+      {
+        "line": 634,
+        "text": "label: Some(\"TextureCube Face Renderer Uniforms\"),"
+      },
+      {
+        "line": 643,
+        "text": "label: Some(\"TextureCube Face Renderer Bind Group Layout\"),"
+      },
+      {
+        "line": 653,
+        "text": "count: None,"
+      },
+      {
+        "line": 660,
+        "text": "has_dynamic_offset: false,"
+      },
+      {
+        "line": 661,
+        "text": "min_binding_size: None,"
+      },
+      {
+        "line": 663,
+        "text": "count: None,"
+      },
+      {
+        "line": 671,
+        "text": "label: Some(\"TextureCube Face Renderer Bind Group\"),"
+      },
+      {
+        "line": 689,
+        "text": "label: Some(\"TextureCube Face Renderer Pipeline Layout\"),"
+      },
+      {
+        "line": 690,
+        "text": "bind_group_layouts: &[Some(&bind_group_layout)],"
+      },
+      {
+        "line": 697,
+        "text": "label: Some(\"TextureCube Face Renderer Compute Pipeline\"),"
+      },
+      {
+        "line": 698,
+        "text": "layout: Some(&pipeline_layout),"
+      },
+      {
+        "line": 700,
+        "text": "entry_point: Some(\"main\"),"
+      },
+      {
+        "line": 702,
+        "text": "cache: None,"
+      },
+      {
+        "line": 708,
+        "text": "label: Some(\"TextureCube Face Renderer Command Encoder\"),"
+      },
+      {
+        "line": 713,
+        "text": "label: Some(\"TextureCube Face Renderer Compute Pass\"),"
+      },
+      {
+        "line": 714,
+        "text": "timestamp_writes: None,"
+      },
+      {
+        "line": 722,
+        "text": "context.queue.submit(Some(encoder.finish()));"
+      },
+      {
+        "line": 789,
+        "text": "label: Some(\"TextureCube Shader Renderer\"),"
+      },
+      {
+        "line": 798,
+        "text": "label: Some(\"TextureCube Renderer Uniforms\"),"
+      },
+      {
+        "line": 807,
+        "text": "label: Some(\"TextureCube Renderer Bind Group Layout\"),"
+      },
+      {
+        "line": 817,
+        "text": "count: None,"
+      },
+      {
+        "line": 824,
+        "text": "has_dynamic_offset: false,"
+      },
+      {
+        "line": 825,
+        "text": "min_binding_size: None,"
+      },
+      {
+        "line": 827,
+        "text": "count: None,"
+      },
+      {
+        "line": 835,
+        "text": "label: Some(\"TextureCube Renderer Bind Group\"),"
+      },
+      {
+        "line": 853,
+        "text": "label: Some(\"TextureCube Renderer Pipeline Layout\"),"
+      },
+      {
+        "line": 854,
+        "text": "bind_group_layouts: &[Some(&bind_group_layout)],"
+      },
+      {
+        "line": 861,
+        "text": "label: Some(\"TextureCube Renderer Compute Pipeline\"),"
+      },
+      {
+        "line": 862,
+        "text": "layout: Some(&pipeline_layout),"
+      },
+      {
+        "line": 864,
+        "text": "entry_point: Some(\"main\"),"
+      },
+      {
+        "line": 866,
+        "text": "cache: None,"
+      },
+      {
+        "line": 872,
+        "text": "label: Some(\"TextureCube Renderer Command Encoder\"),"
+      },
+      {
+        "line": 877,
+        "text": "label: Some(\"TextureCube Renderer Compute Pass\"),"
+      },
+      {
+        "line": 878,
+        "text": "timestamp_writes: None,"
+      },
+      {
+        "line": 886,
+        "text": "context.queue.submit(Some(encoder.finish()));"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+    "source_sha256": "b7a403ce0f4a856e97457918a1b1fe9a0d4e34fc8365ce806107ff48a6d4d049",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs",
+    "source_sha256": "f87b692b2940ed4e0d4cab594bf78080bb75520040d9708e518977570b2edc42",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+    "source_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 6,
+        "text": "pub enum GpuResource {"
+      },
+      {
+        "line": 13,
+        "text": "pub enum ResourceType {"
+      },
+      {
+        "line": 36,
+        "text": "pub fn as_buffer(&self) -> Option<&Buffer> {"
+      },
+      {
+        "line": 38,
+        "text": "Some(b)"
+      },
+      {
+        "line": 40,
+        "text": "None"
+      },
+      {
+        "line": 44,
+        "text": "pub fn as_texture_2d(&self) -> Option<&Texture2d> {"
+      },
+      {
+        "line": 46,
+        "text": "Some(t)"
+      },
+      {
+        "line": 48,
+        "text": "None"
+      },
+      {
+        "line": 52,
+        "text": "pub fn as_texture_3d(&self) -> Option<&Texture3d> {"
+      },
+      {
+        "line": 54,
+        "text": "Some(t)"
+      },
+      {
+        "line": 56,
+        "text": "None"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+    "source_sha256": "af62bc5f779bdd68942676c201137eec786b0c405216c1626b4b414cab2fe98f",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+    "source_sha256": "a43d92af530a01a18187f8f21a247b1e482564f3c07145287294a5006fb992b6",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 5,
+        "text": "//! *not* here is the algorithm library built on top -- `Map`, `Reduce`,"
+      },
+      {
+        "line": 20,
+        "text": "pub enum ResourceDescriptor {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+    "source_sha256": "075e68bc46397002d6e838baa275b6e6f97e098aaeef1f24dcaa95087d6d0a46",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 17,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 109,
+        "text": "if let Some(p) = cache.get(&key) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+    "source_sha256": "0d3f5e9e2e5e13e996b56268861d52e7f3b5dd8dabb4360e18f961cb0691fa3b",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 14,
+        "text": "pub canvas: Option<web_sys::OffscreenCanvas>,"
+      },
+      {
+        "line": 15,
+        "text": "pub surface: Option<Arc<wgpu::Surface<'static>>>,"
+      },
+      {
+        "line": 16,
+        "text": "pub blitter: Option<Arc<Blitter>>,"
+      },
+      {
+        "line": 28,
+        "text": "pub blocking_validation: bool,"
+      },
+      {
+        "line": 107,
+        "text": "canvas: None,"
+      },
+      {
+        "line": 108,
+        "text": "surface: None,"
+      },
+      {
+        "line": 109,
+        "text": "blitter: None,"
+      },
+      {
+        "line": 113,
+        "text": "blocking_validation: false,"
+      },
+      {
+        "line": 132,
+        "text": "submission_index: Some(index),"
+      },
+      {
+        "line": 133,
+        "text": "timeout: None,"
+      },
+      {
+        "line": 146,
+        "text": "Ok(Some(())) => return,"
+      },
+      {
+        "line": 147,
+        "text": "Ok(None) => {"
+      },
+      {
+        "line": 164,
+        "text": "label: None,"
+      },
+      {
+        "line": 174,
+        "text": "Self::open(true).await"
+      },
+      {
+        "line": 179,
+        "text": "Self::open(false).await"
+      },
+      {
+        "line": 182,
+        "text": "async fn open(presentation: bool) -> Result<Self> {"
+      },
+      {
+        "line": 197,
+        "text": "(Some(canvas), Some(Arc::new(surface)), instance)"
+      },
+      {
+        "line": 199,
+        "text": "(None, None, instance)"
+      },
+      {
+        "line": 204,
+        "text": "let (surface, instance): (Option<Arc<wgpu::Surface<'static>>>, Instance) = {"
+      },
+      {
+        "line": 215,
+        "text": "(None, instance)"
+      },
+      {
+        "line": 226,
+        "text": "force_fallback_adapter: false,"
+      },
+      {
+        "line": 239,
+        "text": "if let (Some(canvas), Some(surface)) = (&canvas, &surface) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+    "source_sha256": "339eb4bc4fecb2b3bf33e8b486b0a42214398ce4a391687745cce49464b267d9",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 49,
+        "text": "label: Some(\"sRGB Conversion Bind Group Layout\"),"
+      },
+      {
+        "line": 55,
+        "text": "sample_type: wgpu::TextureSampleType::Float { filterable: false },"
+      },
+      {
+        "line": 57,
+        "text": "multisampled: false,"
+      },
+      {
+        "line": 59,
+        "text": "count: None,"
+      },
+      {
+        "line": 69,
+        "text": "count: None,"
+      },
+      {
+        "line": 75,
+        "text": "label: Some(\"sRGB Conversion Pipeline Layout\"),"
+      },
+      {
+        "line": 76,
+        "text": "bind_group_layouts: &[Some(&bind_group_layout)],"
+      },
+      {
+        "line": 81,
+        "text": "label: Some(\"sRGB Conversion Compute Pipeline\"),"
+      },
+      {
+        "line": 82,
+        "text": "layout: Some(&pipeline_layout),"
+      },
+      {
+        "line": 84,
+        "text": "entry_point: Some(\"main\"),"
+      },
+      {
+        "line": 86,
+        "text": "cache: None,"
+      },
+      {
+        "line": 90,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 92,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      },
+      {
+        "line": 125,
+        "text": "label: Some(\"sRGB Conversion Bind Group\"),"
+      },
+      {
+        "line": 140,
+        "text": "label: Some(\"sRGB Conversion Encoder\"),"
+      },
+      {
+        "line": 145,
+        "text": "label: Some(\"sRGB Conversion Pass\"),"
+      },
+      {
+        "line": 146,
+        "text": "timestamp_writes: None,"
+      },
+      {
+        "line": 159,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 161,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      },
+      {
+        "line": 169,
+        "text": "context.queue.submit(Some(commands));"
+      },
+      {
+        "line": 171,
+        "text": "if let Some(scope) = scope {"
+      },
+      {
+        "line": 173,
+        "text": "if let Some(cause) = pollster::block_on(scope.pop()) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+    "source_sha256": "f374b7a0f7816531b43160e4aade0b76afb2321f89bcd961063a5e1f4c76ddfe",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 40,
+        "text": "let [Some(x), Some(y), Some(z)] = axes.map(NonZeroU32::new) else {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+    "source_sha256": "2ad51b8c638245db350d8814c93f5338929b8604267169499ca850814d75b57b",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 5,
+        "text": "pub enum DispatchOccupancy {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/broadcast.rs",
+    "source_sha256": "7da9a0079b61abcc68277eee6ca203597d0decf6e1e501c4ed08bb9ba2831d93",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 8,
+        "text": "pub cache: Arc<RwLock<Option<ComputePipeline>>>,"
+      },
+      {
+        "line": 12,
+        "text": "fn eq(&self, _other: &Self) -> bool {"
+      },
+      {
+        "line": 13,
+        "text": "true"
+      },
+      {
+        "line": 20,
+        "text": "cache: Arc::new(RwLock::new(None)),"
+      },
+      {
+        "line": 27,
+        "text": "if let Some(p) = cache.as_ref() {"
+      },
+      {
+        "line": 44,
+        "text": "*cache = Some(pipeline.clone());"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/matmul.rs",
+    "source_sha256": "df1ea7e01f2c80f1068a2d519fb69100b10aa284a3d8c3122b4c6c4edf71507a",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 8,
+        "text": "pub cache: Arc<RwLock<Option<ComputePipeline>>>,"
+      },
+      {
+        "line": 12,
+        "text": "fn eq(&self, _other: &Self) -> bool {"
+      },
+      {
+        "line": 13,
+        "text": "true // Or based on configuration if we had any"
+      },
+      {
+        "line": 20,
+        "text": "cache: Arc::new(RwLock::new(None)),"
+      },
+      {
+        "line": 27,
+        "text": "if let Some(p) = cache.as_ref() {"
+      },
+      {
+        "line": 45,
+        "text": "*cache = Some(pipeline.clone());"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/reshape.rs",
+    "source_sha256": "09d4bc2f9ee569d1f0f2f2ec1ebb4edebdfb8e86759013e107cae7f83535ab03",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 8,
+        "text": "pub cache: Arc<RwLock<Option<ComputePipeline>>>,"
+      },
+      {
+        "line": 12,
+        "text": "fn eq(&self, _other: &Self) -> bool {"
+      },
+      {
+        "line": 13,
+        "text": "true"
+      },
+      {
+        "line": 20,
+        "text": "cache: Arc::new(RwLock::new(None)),"
+      },
+      {
+        "line": 27,
+        "text": "if let Some(p) = cache.as_ref() {"
+      },
+      {
+        "line": 44,
+        "text": "*cache = Some(pipeline.clone());"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/transpose.rs",
+    "source_sha256": "fc0c3a1dd15e81ec79e15176da047c62ef2a467a5f43acb54273d3b09a5111cd",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 8,
+        "text": "pub cache: Arc<RwLock<Option<ComputePipeline>>>,"
+      },
+      {
+        "line": 12,
+        "text": "fn eq(&self, _other: &Self) -> bool {"
+      },
+      {
+        "line": 13,
+        "text": "true"
+      },
+      {
+        "line": 20,
+        "text": "cache: Arc::new(RwLock::new(None)),"
+      },
+      {
+        "line": 27,
+        "text": "if let Some(p) = cache.as_ref() {"
+      },
+      {
+        "line": 44,
+        "text": "*cache = Some(pipeline.clone());"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/README.md",
+    "source_sha256": "2950b32efa885b1c1cad27e6ed1939afd3a809fc0dce1b65e6870f624c34c2cd",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-gpu/texture-views.md",
+    "source_sha256": "7dcf6b5150989f96c1b252c0a4223b420024b3cf9e029114a4373802ebfb16ea",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+    "source_sha256": "4bcdf153d75c4579bbcca8548abfcc30eb993fa799c3a87f1d3198f39dfd2d09",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 27,
+        "text": "pub mode: u32,"
+      },
+      {
+        "line": 32,
+        "text": "pub fn new(mode: u32) -> Self {"
+      },
+      {
+        "line": 34,
+        "text": "mode,"
+      },
+      {
+        "line": 67,
+        "text": "false"
+      },
+      {
+        "line": 71,
+        "text": "\"const IS_QUANTITY_SRGB: bool = {};\\n\","
+      },
+      {
+        "line": 85,
+        "text": "let wrap_logic = if self.mode == 1 {"
+      },
+      {
+        "line": 107,
+        "text": "if self.mode == 1 {"
+      },
+      {
+        "line": 178,
+        "text": "if self.mode == 1 {"
+      },
+      {
+        "line": 203,
+        "text": "self.mode,"
+      },
+      {
+        "line": 207,
+        "text": "if let Some(p) = cache.get(&key) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+    "source_sha256": "711af7b2f6c5c55f9e3440b44d73e492fc773c217963a4378371299cfe06a064",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 141,
+        "text": "if let Some(p) = cache.get(&key) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+    "source_sha256": "488eaebcc4ad0b2c2d0b2441e722ff6ac9cdedf68bf8cdff3381f4f55bb09a0d",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 162,
+        "text": "if let Some(p) = cache.get(&key) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/distance_field.rs",
+    "source_sha256": "0b46bdcd4dfba732411b2922b12c0526a6109c8c2b47102d3c9844e80ff4a47c",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 21,
+        "text": "parameters: Option<PassParameters>,"
+      },
+      {
+        "line": 25,
+        "text": "Map::execute_with_parameters(context, definition, None, &output_res, parameters)?;"
+      },
+      {
+        "line": 32,
+        "text": "parameters: Option<PassParameters>,"
+      },
+      {
+        "line": 77,
+        "text": "label: Some(\"DistanceField Copy Encoder\"),"
+      },
+      {
+        "line": 101,
+        "text": "context.queue.submit(Some(encoder.finish()));"
+      },
+      {
+        "line": 106,
+        "text": "Map::execute_with_parameters(context, &wrapped_def, Some(&input_res), &io_res, parameters)?;"
+      },
+      {
+        "line": 113,
+        "text": "parameters: Option<PassParameters>,"
+      },
+      {
+        "line": 168,
+        "text": "label: Some(\"DistanceField Copy Encoder\"),"
+      },
+      {
+        "line": 192,
+        "text": "context.queue.submit(Some(encoder.finish()));"
+      },
+      {
+        "line": 203,
+        "text": "Some(&input_res),"
+      },
+      {
+        "line": 205,
+        "text": "Some(final_params),"
+      },
+      {
+        "line": 234,
+        "text": "Some(&input_a),"
+      },
+      {
+        "line": 236,
+        "text": "Some(params),"
+      },
+      {
+        "line": 275,
+        "text": "Some(&input_a),"
+      },
+      {
+        "line": 277,
+        "text": "Some(params),"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+    "source_sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 36,
+        "text": "Some(&GpuResource::Texture2d(input.clone())),"
+      },
+      {
+        "line": 77,
+        "text": "let mut ping = true;"
+      },
+      {
+        "line": 92,
+        "text": "Some(&GpuResource::Texture2d(src.clone())),"
+      },
+      {
+        "line": 94,
+        "text": "Some(params),"
+      },
+      {
+        "line": 116,
+        "text": "Some(&GpuResource::Texture2d(final_src.clone())),"
+      },
+      {
+        "line": 153,
+        "text": "Some(&GpuResource::Texture3d(input.clone())),"
+      },
+      {
+        "line": 199,
+        "text": "let mut ping = true;"
+      },
+      {
+        "line": 214,
+        "text": "Some(&GpuResource::Texture3d(src.clone())),"
+      },
+      {
+        "line": 216,
+        "text": "Some(params),"
+      },
+      {
+        "line": 238,
+        "text": "Some(&GpuResource::Texture3d(final_src.clone())),"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/sort/mod.rs",
+    "source_sha256": "0875af22982b215bebcf4fa357f966b369bd3b901abb5bc168e9b5285fd130e6",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 189,
+        "text": "pub fn ensure(&mut self, context: &WgpuContext, capacity: u32) -> Result<bool> {"
+      },
+      {
+        "line": 191,
+        "text": "return Ok(false);"
+      },
+      {
+        "line": 194,
+        "text": "Ok(true)"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+    "source_sha256": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 25,
+        "text": "pub enum ScanError {"
+      },
+      {
+        "line": 77,
+        "text": "write_sums: u32,"
+      },
+      {
+        "line": 118,
+        "text": "if (local_id.x == {BLOCK}u - 1u && params.write_sums != 0u) {{"
+      },
+      {
+        "line": 134,
+        "text": "write_sums: u32,"
+      },
+      {
+        "line": 205,
+        "text": "pub fn ensure(&mut self, context: &WgpuContext, capacity: ScanElementCount) -> Result<bool> {"
+      },
+      {
+        "line": 207,
+        "text": "return Ok(false);"
+      },
+      {
+        "line": 210,
+        "text": "Ok(true)"
+      },
+      {
+        "line": 288,
+        "text": "parameters.insert(\"write_sums\", 0u32);"
+      },
+      {
+        "line": 295,
+        "text": "parameters.insert(\"write_sums\", 1u32);"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+    "source_sha256": "445cdb7d9acb7b0f1502b38e2e98652e4a79ef5467b6ddbc6cf8b6d042cdc8c9",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 21,
+        "text": "pub a: Option<fabelgeist_gpu::data::gpu::Buffer>,"
+      },
+      {
+        "line": 22,
+        "text": "pub b: Option<fabelgeist_gpu::data::gpu::Buffer>,"
+      },
+      {
+        "line": 35,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 56,
+        "text": "if let Some(p) = cache.get(&input_res) {"
+      },
+      {
+        "line": 167,
+        "text": "if let Some((_, var)) = module"
+      },
+      {
+        "line": 170,
+        "text": ".find(|(_, v)| v.name.as_deref() == Some(\"output\"))"
+      },
+      {
+        "line": 240,
+        "text": "buffer_opt: &mut Option<fabelgeist_gpu::data::gpu::Buffer>,"
+      },
+      {
+        "line": 243,
+        "text": "let resize = if let Some(buf) = buffer_opt {"
+      },
+      {
+        "line": 246,
+        "text": "true"
+      },
+      {
+        "line": 250,
+        "text": "*buffer_opt = Some(fabelgeist_gpu::data::gpu::Buffer::new("
+      },
+      {
+        "line": 275,
+        "text": "label: Some(\"Reduce Batch Encoder\"),"
+      },
+      {
+        "line": 279,
+        "text": "let mut current_buffer: Option<fabelgeist_gpu::data::gpu::Buffer> = None;"
+      },
+      {
+        "line": 318,
+        "text": "current_buffer = Some(output_buffer.clone());"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/scan.rs",
+    "source_sha256": "8707f22541301abe03d18cc6792021abc856eab4d005aea7b61bbb36d89ffa1f",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 9,
+        "text": "pub cache: Arc<RwLock<Option<(ComputePipeline, ComputePipeline, String)>>>,"
+      },
+      {
+        "line": 16,
+        "text": "cache: Arc::new(RwLock::new(None)),"
+      },
+      {
+        "line": 22,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 32,
+        "text": "cache: Arc::new(RwLock::new(None)),"
+      },
+      {
+        "line": 42,
+        "text": "if let Some(p) = cache.as_ref() {"
+      },
+      {
+        "line": 142,
+        "text": "*cache = Some(res.clone());"
+      },
+      {
+        "line": 268,
+        "text": "while let Some(current_aux) = aux_buffers.pop() {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+    "source_sha256": "591b2acc0e91118d14df8eb16d27966145ecdd661c8917dc58352ddec320ec9d",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 1,
+        "text": "//! A linear BVH built on the GPU."
+      },
+      {
+        "line": 9,
+        "text": "//! the primitives actually are. It is built in milliseconds on the device the"
+      },
+      {
+        "line": 158,
+        "text": "pub fn ensure_capacity(&mut self, context: &WgpuContext, capacity: u32) -> Result<bool> {"
+      },
+      {
+        "line": 160,
+        "text": "return Ok(false);"
+      },
+      {
+        "line": 163,
+        "text": "Ok(true)"
+      },
+      {
+        "line": 190,
+        "text": "/// Record a full rebuild: scene bounds, Morton codes, sort, hierarchy,"
+      },
+      {
+        "line": 205,
+        "text": "\"GpuBvh: built for {} primitives, asked for {count}\","
+      },
+      {
+        "line": 359,
+        "text": "pub fn is_leaf(&self) -> bool {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-physics/src/contact.rs",
+    "source_sha256": "a68dc722ac5181a1f310a1a1b13f9c694574799f3952a9ef19de71f3c018cceb",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 36,
+        "text": "pub mesh: Option<MeshCollider>,"
+      },
+      {
+        "line": 42,
+        "text": "pub enabled: bool,"
+      },
+      {
+        "line": 57,
+        "text": "mesh: None,"
+      },
+      {
+        "line": 59,
+        "text": "enabled: true,"
+      },
+      {
+        "line": 118,
+        "text": "pub fn set_mesh(&mut self, mesh: Option<MeshCollider>) {"
+      },
+      {
+        "line": 124,
+        "text": "if !self.enabled {"
+      },
+      {
+        "line": 157,
+        "text": "let Some(mesh) = &self.mesh else {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-mesh/src/gpu.rs",
+    "source_sha256": "d35d69e9ea33e0f07b7f4327acea3ca4764d5f34530a0d2a1b22e551725d4668",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 17,
+        "text": "pub indices: Option<Buffer>,"
+      },
+      {
+        "line": 18,
+        "text": "pub joints: Option<Buffer>,"
+      },
+      {
+        "line": 19,
+        "text": "pub weights: Option<Buffer>,"
+      },
+      {
+        "line": 28,
+        "text": "resolution: Option<Vec2>,"
+      },
+      {
+        "line": 29,
+        "text": "right: Option<Vec3>,"
+      },
+      {
+        "line": 30,
+        "text": "up: Option<Vec3>,"
+      },
+      {
+        "line": 31,
+        "text": "normal: Option<Vec3>,"
+      },
+      {
+        "line": 122,
+        "text": "indices: Some(index_buf),"
+      },
+      {
+        "line": 123,
+        "text": "joints: None,"
+      },
+      {
+        "line": 124,
+        "text": "weights: None,"
+      },
+      {
+        "line": 226,
+        "text": "PassParameter::from(Sampler::new(context, None, None, None, None, None)?),"
+      },
+      {
+        "line": 259,
+        "text": "pub fn r#box(context: &WgpuContext, size: Option<Vec3>) -> Result<GpuMesh> {"
+      },
+      {
+        "line": 263,
+        "text": "pub fn box_shape(context: &WgpuContext, size: Option<Vec3>) -> Result<GpuMesh> {"
+      },
+      {
+        "line": 409,
+        "text": "indices: Some(index_buf),"
+      },
+      {
+        "line": 410,
+        "text": "joints: None,"
+      },
+      {
+        "line": 411,
+        "text": "weights: None,"
+      },
+      {
+        "line": 420,
+        "text": "radius: Option<f64>,"
+      },
+      {
+        "line": 421,
+        "text": "rings: Option<f64>,"
+      },
+      {
+        "line": 422,
+        "text": "sectors: Option<f64>,"
+      },
+      {
+        "line": 515,
+        "text": "indices: Some(index_buf),"
+      },
+      {
+        "line": 516,
+        "text": "joints: None,"
+      },
+      {
+        "line": 517,
+        "text": "weights: None,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+    "source_sha256": "2d85bb7c8a1674a8918169e0bf10ec8b5e2ffed332713b418fcda7faea3e283f",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 42,
+        "text": "false,"
+      },
+      {
+        "line": 67,
+        "text": "true,"
+      },
+      {
+        "line": 81,
+        "text": "front_mode: bool,"
+      },
+      {
+        "line": 115,
+        "text": "Some(params.clone()),"
+      },
+      {
+        "line": 132,
+        "text": "Some(params.clone()),"
+      },
+      {
+        "line": 173,
+        "text": "Some(&GpuResource::Buffer(dummy_in)),"
+      },
+      {
+        "line": 175,
+        "text": "Some(sync_params),"
+      },
+      {
+        "line": 203,
+        "text": "Some(vertex_gen_params),"
+      },
+      {
+        "line": 226,
+        "text": "Some(index_gen_params),"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+    "source_sha256": "102937a8cee5211a52a5fd4a72548d64d6020ddf8e674dde8ef03a8e05ddc714",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 28,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 345,
+        "text": "Some(count_params),"
+      },
+      {
+        "line": 386,
+        "text": "Some(&GpuResource::Buffer(dummy_in)),"
+      },
+      {
+        "line": 388,
+        "text": "Some(sync_params),"
+      },
+      {
+        "line": 423,
+        "text": "Some(gen_params),"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/map/mod.rs",
+    "source_sha256": "93a07d7a5a79e1627640c19e1f61ce28ba791c902c691f982fb6806b3f2a2992",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 10,
+        "text": "pub index_type: Option<String>, // e.g., \"u32\", \"vec2<u32>\", \"vec3<u32>\""
+      },
+      {
+        "line": 11,
+        "text": "pub index_param_name: Option<String>,"
+      },
+      {
+        "line": 12,
+        "text": "pub size_type: Option<String>, // e.g., \"u32\", \"vec2<u32>\", \"vec3<u32>\""
+      },
+      {
+        "line": 13,
+        "text": "pub size_param_name: Option<String>,"
+      },
+      {
+        "line": 22,
+        "text": "Option<ResourceDescriptor>,"
+      },
+      {
+        "line": 45,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 95,
+        "text": "let mut index_type = None;"
+      },
+      {
+        "line": 96,
+        "text": "let mut index_param_name = None;"
+      },
+      {
+        "line": 97,
+        "text": "let mut size_type = None;"
+      },
+      {
+        "line": 98,
+        "text": "let mut size_param_name = None;"
+      },
+      {
+        "line": 113,
+        "text": "index_type = Some(ty_str.to_string());"
+      },
+      {
+        "line": 114,
+        "text": "index_param_name = Some(name.to_string());"
+      },
+      {
+        "line": 116,
+        "text": "size_type = Some(ty_str.to_string());"
+      },
+      {
+        "line": 117,
+        "text": "size_param_name = Some(name.to_string());"
+      },
+      {
+        "line": 126,
+        "text": "let output_element_type = if let Some(out_rt) = output_type_raw {"
+      },
+      {
+        "line": 147,
+        "text": "input_res: Option<ResourceDescriptor>,"
+      },
+      {
+        "line": 157,
+        "text": "let (input_param_name, input_element_type, extra_params) = if let Some(_res) = &input_res {"
+      },
+      {
+        "line": 159,
+        "text": "(None, None, &sig.user_params[..])"
+      },
+      {
+        "line": 162,
+        "text": "Some(&sig.user_params[0].0),"
+      },
+      {
+        "line": 163,
+        "text": "Some(sig.user_params[0].1.clone()),"
+      },
+      {
+        "line": 168,
+        "text": "(None, None, &sig.user_params[..])"
+      },
+      {
+        "line": 171,
+        "text": "if let Some(res) = &input_res {"
+      },
+      {
+        "line": 227,
+        "text": "if let Some(ref idx_ty) = sig.index_type {"
+      },
+      {
+        "line": 251,
+        "text": "if let Some(ref size_ty) = sig.size_type {"
+      },
+      {
+        "line": 290,
+        "text": "if let Some(res) = &input_res {"
+      },
+      {
+        "line": 326,
+        "text": "if Some(name) == sig.index_param_name.as_ref() {"
+      },
+      {
+        "line": 328,
+        "text": "} else if Some(name) == sig.size_param_name.as_ref() {"
+      },
+      {
+        "line": 330,
+        "text": "} else if Some(name) == input_param_name {"
+      },
+      {
+        "line": 381,
+        "text": "if let Some((_, var)) = module"
+      },
+      {
+        "line": 384,
+        "text": ".find(|(_, v)| v.name.as_deref() == Some(var_name))"
+      },
+      {
+        "line": 400,
+        "text": "&& let Some(ResourceDescriptor::Buffer(_)) = &input_res"
+      },
+      {
+        "line": 417,
+        "text": "input_res: Option<ResourceDescriptor>,"
+      },
+      {
+        "line": 430,
+        "text": "if let Some(p) = cache.get(&key) {"
+      },
+      {
+        "line": 455,
+        "text": "input: Option<&GpuResource>,"
+      },
+      {
+        "line": 458,
+        "text": "Self::execute_with_parameters(context, definition, input, output, None)"
+      },
+      {
+        "line": 464,
+        "text": "input: Option<&GpuResource>,"
+      },
+      {
+        "line": 466,
+        "text": "extra_parameters: Option<fabelgeist_gpu::data::gpu::parameters::PassParameters>,"
+      },
+      {
+        "line": 470,
+        "text": "let input_descriptor = if let Some(input) = input {"
+      },
+      {
+        "line": 472,
+        "text": "None"
+      },
+      {
+        "line": 474,
+        "text": "Some(ResourceDescriptor::from_resource("
+      },
+      {
+        "line": 480,
+        "text": "None"
+      },
+      {
+        "line": 486,
+        "text": "if let Some(extra) = extra_parameters.as_ref() {"
+      },
+      {
+        "line": 490,
+        "text": "if let Some((_, param_ty)) = sig.user_params.iter().find(|(n, _)| n == name)"
+      },
+      {
+        "line": 536,
+        "text": "if let Some(input) = input {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+    "source_sha256": "b2100325e8183d2f7caecc97ba40fb0ee2fdbd8112a9a7218dc8d03ecbac88cc",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 12,
+        "text": "pub index_type: Option<String>,"
+      },
+      {
+        "line": 13,
+        "text": "pub index_param_name: Option<String>,"
+      },
+      {
+        "line": 36,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 85,
+        "text": "let mut index_type = None;"
+      },
+      {
+        "line": 86,
+        "text": "let mut index_param_name = None;"
+      },
+      {
+        "line": 107,
+        "text": "index_type = Some(ty_str.to_string());"
+      },
+      {
+        "line": 108,
+        "text": "index_param_name = Some(name.to_string());"
+      },
+      {
+        "line": 115,
+        "text": "let output_element_type = if let Some(out_rt) = output_type_raw {"
+      },
+      {
+        "line": 225,
+        "text": "if let Some(ref idx_ty) = sig.index_type {"
+      },
+      {
+        "line": 250,
+        "text": "if Some(name) == sig.index_param_name.as_ref() {"
+      },
+      {
+        "line": 295,
+        "text": "if let Some((_, var)) = module"
+      },
+      {
+        "line": 298,
+        "text": ".find(|(_, v)| v.name.as_deref() == Some(var_name))"
+      },
+      {
+        "line": 334,
+        "text": "if let Some(p) = cache.get(&(input_res.clone(), output_res.clone())) {"
+      },
+      {
+        "line": 357,
+        "text": "Self::execute_with_parameters(context, definition, input, output, None)"
+      },
+      {
+        "line": 365,
+        "text": "extra_parameters: Option<fabelgeist_gpu::data::gpu::parameters::PassParameters>,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/scatter.rs",
+    "source_sha256": "01a56cecc1945dcdd10f06482e1b55b9abf56beb8760de13423918fe9fa99c62",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 11,
+        "text": "pub index_type: Option<String>,"
+      },
+      {
+        "line": 12,
+        "text": "pub index_param_name: Option<String>,"
+      },
+      {
+        "line": 34,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 82,
+        "text": "let mut index_type = None;"
+      },
+      {
+        "line": 83,
+        "text": "let mut index_param_name = None;"
+      },
+      {
+        "line": 87,
+        "text": "let mut has_value_param = false;"
+      },
+      {
+        "line": 106,
+        "text": "index_type = Some(ty_str.to_string());"
+      },
+      {
+        "line": 107,
+        "text": "index_param_name = Some(name.to_string());"
+      },
+      {
+        "line": 112,
+        "text": "has_value_param = true;"
+      },
+      {
+        "line": 235,
+        "text": "if let Some(ref idx_ty) = sig.index_type {"
+      },
+      {
+        "line": 257,
+        "text": "if Some(name) == sig.index_param_name.as_ref() {"
+      },
+      {
+        "line": 283,
+        "text": "if let Some((_, var)) = module"
+      },
+      {
+        "line": 286,
+        "text": ".find(|(_, v)| v.name.as_deref() == Some(var_name))"
+      },
+      {
+        "line": 322,
+        "text": "if let Some(p) = cache.get(&(input_res, output_res)) {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+    "source_sha256": "f411ff9731b0a3c23effc2758e8579f9bd97db55f96efb5b31bd91c4c852aa91",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 12,
+        "text": "pub index_type: Option<String>,"
+      },
+      {
+        "line": 13,
+        "text": "pub index_param_name: Option<String>,"
+      },
+      {
+        "line": 15,
+        "text": "pub has_offset: bool,"
+      },
+      {
+        "line": 16,
+        "text": "pub has_input_val: bool,"
+      },
+      {
+        "line": 35,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 83,
+        "text": "let mut index_type = None;"
+      },
+      {
+        "line": 84,
+        "text": "let mut index_param_name = None;"
+      },
+      {
+        "line": 88,
+        "text": "let mut has_offset = false;"
+      },
+      {
+        "line": 89,
+        "text": "let mut has_input_val = false;"
+      },
+      {
+        "line": 110,
+        "text": "has_offset = true;"
+      },
+      {
+        "line": 113,
+        "text": "index_type = Some(ty_str.to_string());"
+      },
+      {
+        "line": 114,
+        "text": "index_param_name = Some(name.to_string());"
+      },
+      {
+        "line": 116,
+        "text": "has_input_val = true;"
+      },
+      {
+        "line": 123,
+        "text": "has_input_val = true;"
+      },
+      {
+        "line": 262,
+        "text": "if Some(name) == sig.index_param_name.as_ref() {"
+      },
+      {
+        "line": 291,
+        "text": "if let Some(p) = cache.get(&input_res) {"
+      },
+      {
+        "line": 315,
+        "text": "extra_parameters: Option<fabelgeist_gpu::data::gpu::parameters::PassParameters>,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stencil.rs",
+    "source_sha256": "c648a889e866a0a7d0c62a2316e223ad5562e467ebfa5115c7c97de870133d0d",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 26,
+        "text": "pub is_neighborhood: bool,"
+      },
+      {
+        "line": 30,
+        "text": "pub index_type: Option<String>,"
+      },
+      {
+        "line": 31,
+        "text": "pub index_param_name: Option<String>,"
+      },
+      {
+        "line": 32,
+        "text": "pub size_type: Option<String>,"
+      },
+      {
+        "line": 33,
+        "text": "pub size_param_name: Option<String>,"
+      },
+      {
+        "line": 34,
+        "text": "pub center_param_name: Option<String>,"
+      },
+      {
+        "line": 35,
+        "text": "pub neighbors_param_name: Option<String>,"
+      },
+      {
+        "line": 68,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 127,
+        "text": "let mut index_type = None;"
+      },
+      {
+        "line": 128,
+        "text": "let mut index_param_name = None;"
+      },
+      {
+        "line": 129,
+        "text": "let mut size_type = None;"
+      },
+      {
+        "line": 130,
+        "text": "let mut size_param_name = None;"
+      },
+      {
+        "line": 131,
+        "text": "let mut center_param_name = None;"
+      },
+      {
+        "line": 132,
+        "text": "let mut neighbors_param_name = None;"
+      },
+      {
+        "line": 138,
+        "text": "let mut is_neighborhood = false;"
+      },
+      {
+        "line": 142,
+        "text": "is_neighborhood = true;"
+      },
+      {
+        "line": 158,
+        "text": "index_type = Some(ty_str.to_string());"
+      },
+      {
+        "line": 159,
+        "text": "index_param_name = Some(name.to_string());"
+      },
+      {
+        "line": 161,
+        "text": "size_type = Some(ty_str.to_string());"
+      },
+      {
+        "line": 162,
+        "text": "size_param_name = Some(name.to_string());"
+      },
+      {
+        "line": 165,
+        "text": "neighbors_param_name = Some(name.to_string());"
+      },
+      {
+        "line": 176,
+        "text": "if let (Some(start), Some(end)) = (ty_str.find('<'), ty_str.rfind('>')) {"
+      },
+      {
+        "line": 182,
+        "text": "center_param_name = Some(name.to_string());"
+      },
+      {
+        "line": 208,
+        "text": "center_param_name = Some(name.to_string());"
+      },
+      {
+        "line": 215,
+        "text": "let output_element_type = if let Some(out_rt) = output_type_raw {"
+      },
+      {
+        "line": 279,
+        "text": "} else if let Some((_, ty)) = sig.user_params.iter().find(|(n, _)| n == arg) {"
+      },
+      {
+        "line": 410,
+        "text": "if let Some(ref idx_ty) = sig.index_type {"
+      },
+      {
+        "line": 424,
+        "text": "if let Some(ref size_ty) = sig.size_type {"
+      },
+      {
+        "line": 492,
+        "text": "if let Some(ref sz_ty) = sig.size_type {"
+      },
+      {
+        "line": 520,
+        "text": "if let Some(ref sz_ty) = sig.size_type {"
+      },
+      {
+        "line": 538,
+        "text": "if let Some(ref sz_ty) = sig.size_type {"
+      },
+      {
+        "line": 758,
+        "text": "if Some(name) == sig.index_param_name.as_ref() {"
+      },
+      {
+        "line": 760,
+        "text": "} else if Some(name) == sig.size_param_name.as_ref() {"
+      },
+      {
+        "line": 763,
+        "text": "if Some(name) == sig.center_param_name.as_ref() {"
+      },
+      {
+        "line": 765,
+        "text": "} else if Some(name) == sig.neighbors_param_name.as_ref() {"
+      },
+      {
+        "line": 830,
+        "text": "if let Some((_, var)) = module"
+      },
+      {
+        "line": 833,
+        "text": ".find(|(_, v)| v.name.as_deref() == Some(var_name))"
+      },
+      {
+        "line": 882,
+        "text": "if let Some(p) = cache.get(&key) {"
+      },
+      {
+        "line": 910,
+        "text": "Self::execute_with_parameters(context, definition, input, output, None)"
+      },
+      {
+        "line": 918,
+        "text": "extra_parameters: Option<fabelgeist_gpu::data::gpu::parameters::PassParameters>,"
+      },
+      {
+        "line": 933,
+        "text": "if let Some((_, param_ty)) = sig.user_params.iter().find(|(n, _)| n == name) {"
+      },
+      {
+        "line": 1156,
+        "text": "Some(params),"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+    "source_sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 71,
+        "text": "pub enum Stage {"
+      },
+      {
+        "line": 117,
+        "text": "backdrop: Option<(f32, f32, f32)>,"
+      },
+      {
+        "line": 128,
+        "text": "temporal: Option<TemporalSettings>,"
+      },
+      {
+        "line": 137,
+        "text": "views: Option<Views>,"
+      },
+      {
+        "line": 194,
+        "text": "temporal: Option<TemporalSettings>,"
+      },
+      {
+        "line": 216,
+        "text": "views: None,"
+      },
+      {
+        "line": 236,
+        "text": "self.views = Some(Views {"
+      },
+      {
+        "line": 246,
+        "text": "backdrop: None,"
+      },
+      {
+        "line": 263,
+        "text": "if let Some(views) = self.views.as_mut() {"
+      },
+      {
+        "line": 264,
+        "text": "views.backdrop = Some((range, min_disparity, min_confidence));"
+      },
+      {
+        "line": 386,
+        "text": "let Some(temporal) = self.temporal else {"
+      },
+      {
+        "line": 425,
+        "text": "let Some(views) = &self.views else {"
+      },
+      {
+        "line": 504,
+        "text": "/// `motion` takes the previous frame's grid to this one's; None is a rig"
+      },
+      {
+        "line": 507,
+        "text": "pub fn run(&mut self, context: &WgpuContext, motion: Option<Matrix4>) -> Result<()> {"
+      },
+      {
+        "line": 568,
+        "text": "pub fn view_size(&self, eye: usize) -> Option<(u32, u32)> {"
+      },
+      {
+        "line": 575,
+        "text": "pub fn view_points(&self, eye: usize) -> Option<&Buffer> {"
+      },
+      {
+        "line": 581,
+        "text": "pub fn view_distance(&self, eye: usize) -> Option<&Buffer> {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+    "source_sha256": "eda4c9002081e8d83174e01bca0caddda93d9f90301d48b5ac2a5eb29033ce4c",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 40,
+        "text": "pub(super) flipped: bool,"
+      },
+      {
+        "line": 45,
+        "text": "if self.flipped {"
+      },
+      {
+        "line": 53,
+        "text": "if self.flipped {"
+      },
+      {
+        "line": 61,
+        "text": "self.flipped = !self.flipped;"
+      },
+      {
+        "line": 78,
+        "text": "pub(super) mapped: bool,"
+      },
+      {
+        "line": 88,
+        "text": "if self.positions.flipped {"
+      },
+      {
+        "line": 94,
+        "text": "self.positions.flipped = false;"
+      },
+      {
+        "line": 138,
+        "text": "Some(self.record_guide_roots(&mut batch, hairdo, *seed, scalp)?)"
+      },
+      {
+        "line": 140,
+        "text": "Guides::Host(_) => None,"
+      },
+      {
+        "line": 144,
+        "text": "if let Some(roots) = &guide_roots {"
+      },
+      {
+        "line": 194,
+        "text": "flipped: false,"
+      },
+      {
+        "line": 206,
+        "text": "mapped: false,"
+      },
+      {
+        "line": 297,
+        "text": "flipped: false,"
+      },
+      {
+        "line": 309,
+        "text": "mapped: false,"
+      },
+      {
+        "line": 344,
+        "text": "bounds: None,"
+      },
+      {
+        "line": 346,
+        "text": "head: Some(head.clone()),"
+      },
+      {
+        "line": 347,
+        "text": "guides: Some(guides),"
+      },
+      {
+        "line": 383,
+        "text": "|w: Option<crate::follicles::Whorl>| w.map_or(Vec3::default(), |w| w.point);"
+      },
+      {
+        "line": 777,
+        "text": "set.mapped = true;"
+      },
+      {
+        "line": 853,
+        "text": "Parting::None => (0u32, 0u32, [0.0f32; 4], 0.0f32, 0.0f32, 0.0f32),"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+    "source_sha256": "51aa86bfd6b6d5036da4ce6c3687a8c165546f519924b4a4e97030067776d842",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 77,
+        "text": "Some(normals.iter().map(v).collect()),"
+      },
+      {
+        "line": 78,
+        "text": "Some(uvs.iter().map(|uv| [uv[0], uv[1]]).collect()),"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+    "source_sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 21,
+        "text": "pub fn get(&self, key: &str) -> Option<&PassParameter> {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+    "source_sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 11,
+        "text": "pub enum PassParameter {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+    "source_sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 14,
+        "text": "pub fn checked_after(self, length: BufferByteLength) -> Option<Self> {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+    "source_sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 8,
+        "text": "pub enum BufferUploadOccupancy {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+    "source_sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+    "source_sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 9,
+        "text": "pub enum BufferUse {"
+      },
+      {
+        "line": 22,
+        "text": "enum UsageSelection {"
+      },
+      {
+        "line": 29,
+        "text": "label: Option<BufferLabel>,"
+      },
+      {
+        "line": 50,
+        "text": "label: None,"
+      },
+      {
+        "line": 57,
+        "text": "label: None,"
+      },
+      {
+        "line": 63,
+        "text": "self.label = Some(label);"
+      },
+      {
+        "line": 132,
+        "text": "mapped_at_creation: false,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+    "source_sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+    "source_sha256": "7ab3a1fe9e5c19e58ba3f9b6e6494ded69096cc71579c3b5c2f8f3b2f28be1ac",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 5,
+        "text": "pub enum ResourceBaseType {"
+      },
+      {
+        "line": 51,
+        "text": "pub fn is_scalar(&self) -> bool {"
+      },
+      {
+        "line": 100,
+        "text": "&& let Some(pos) = ty.find('<')"
+      },
+      {
+        "line": 110,
+        "text": "&& let Some(pos) = ty.find('<')"
+      },
+      {
+        "line": 204,
+        "text": "/// Parses a comparison signature like `fn name(a: T, b: T) -> bool` and returns `T`"
+      },
+      {
+        "line": 207,
+        "text": "r\"(?s)fn\\s+{}\\s*\\(\\s*[a-zA-Z_][a-zA-Z0-9_]*\\s*:\\s*([^,]+)\\s*,\\s*[a-zA-Z_][a-zA-Z0-9_]*\\s*:\\s*([^)]+)\\)\\s*->\\s*bool\\s*\\{{\","
+      },
+      {
+        "line": 213,
+        "text": "\"Compute shader must define a '{}' function: fn {}(a: T, b: T) -> bool\","
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-physics/src/contact/count.rs",
+    "source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 49,
+        "text": "pub(super) enum ColliderCapacityFit {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/grow/input.rs",
+    "source_sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 15,
+        "text": "Some(Self { at, interpolate })"
+      },
+      {
+        "line": 17,
+        "text": "None"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/scalp/layout.rs",
+    "source_sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-xpbd/src/particles.rs",
+    "source_sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-bvh/src/morton.rs",
+    "source_sha256": "1f582746a5ccf20f0f53718f9ba397ef3906ac6311d18f87f99e4cb091bad532",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-bvh/src/gpu/shaders.rs",
+    "source_sha256": "2022b9f9947af21ed0ada98816b862f6569d1237a5c6d0557c46441a78022e32",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 1,
+        "text": "//! The WGSL the GPU hierarchy is built from, plus the traversal source other"
+      },
+      {
+        "line": 28,
+        "text": "/// bit is set; a negative one needs every bit flipped, which turns its"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+    "source_sha256": "fd6684fbe63e2641aea1a50abccb504ad774aebf000ba782d6852dcd35514eb6",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 17,
+        "text": "fn eq(&self, other: &Self) -> bool {"
+      },
+      {
+        "line": 362,
+        "text": "fn write_front_quad(offset: u32, a: u32, b: u32, c: u32, d: u32, forward: bool) {{"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/rig.rs",
+    "source_sha256": "4b4d8d481e1060fe483ddf3c782568d4d44dd3a15b1c78a7fba7f4831df52e92",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 119,
+        "text": "pub enum FisheyeModel {"
+      },
+      {
+        "line": 177,
+        "text": "pub enum Projection {"
+      },
+      {
+        "line": 232,
+        "text": "/// fraction of it, or None where the picture does not cover it."
+      },
+      {
+        "line": 233,
+        "text": "pub fn project(&self, d: [f32; 3]) -> Option<[f32; 2]> {"
+      },
+      {
+        "line": 241,
+        "text": "return None;"
+      },
+      {
+        "line": 272,
+        "text": "return None;"
+      },
+      {
+        "line": 286,
+        "text": "/// camera, or None where the region holds no picture."
+      },
+      {
+        "line": 287,
+        "text": "pub fn unproject(&self, uv: [f32; 2]) -> Option<[f32; 3]> {"
+      },
+      {
+        "line": 308,
+        "text": "Some(normalize([x, y, 1.0]))"
+      },
+      {
+        "line": 316,
+        "text": "Some(direction_from_angles(lon, lat))"
+      },
+      {
+        "line": 328,
+        "text": "return None;"
+      },
+      {
+        "line": 332,
+        "text": "Some(["
+      },
+      {
+        "line": 408,
+        "text": "pub fn direction(&self, uv: [f32; 2]) -> Option<[f32; 3]> {"
+      },
+      {
+        "line": 412,
+        "text": "return None;"
+      },
+      {
+        "line": 421,
+        "text": "pub fn place(&self, direction: [f32; 3]) -> Option<[f32; 2]> {"
+      },
+      {
+        "line": 426,
+        "text": "Some([u + local[0] * w, v + local[1] * h])"
+      },
+      {
+        "line": 432,
+        "text": "pub enum Geometry {"
+      },
+      {
+        "line": 485,
+        "text": "pub enum Grid {"
+      },
+      {
+        "line": 694,
+        "text": "pub fn pixel(&self, d: [f32; 3]) -> Option<[f32; 2]> {"
+      },
+      {
+        "line": 703,
+        "text": "return None;"
+      },
+      {
+        "line": 733,
+        "text": "pub fn project_point(&self, eye: usize, point: [f32; 3]) -> Option<[f32; 2]> {"
+      },
+      {
+        "line": 747,
+        "text": "return None;"
+      },
+      {
+        "line": 765,
+        "text": "pub fn source(&self, eye: usize, x: f32, y: f32, image: (u32, u32)) -> Option<[f32; 2]> {"
+      },
+      {
+        "line": 768,
+        "text": "Some([uv[0] * image.0 as f32, uv[1] * image.1 as f32])"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/common.wgsl",
+    "source_sha256": "8141efc7a9edc82d5e931b6177dd18bb22323c3800007153cdf5e66277ea10d2",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 54,
+        "text": "fn ods_pixel(g: vec4<f32>, size: vec2<f32>, half_ipd: f32, point: vec3<f32>, left: bool) -> vec3<f32> {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/depth.wgsl",
+    "source_sha256": "f73929e415b90422fff8509a7107224b46680fd241a625c847cc392c50584e4e",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/temporal.wgsl",
+    "source_sha256": "ea45add84443e58340cb91d673a49c84e294e5622e5d81a3bf1facb7dbf35b9d",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 43,
+        "text": "return ods_pixel(params.grid, size, 0.5 * params.baseline, point, true);"
+      },
+      {
+        "line": 65,
+        "text": "have_anchor = true;"
+      },
+      {
+        "line": 71,
+        "text": "var held_valid = false;"
+      },
+      {
+        "line": 80,
+        "text": "held_valid = true;"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/unrectify.wgsl",
+    "source_sha256": "b4ef51ab624411979be6ea94923c705ad437305c7cf42139453f51d7b2e67969",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 146,
+        "text": "var agree = false;"
+      },
+      {
+        "line": 163,
+        "text": "var have_previous = false;"
+      },
+      {
+        "line": 171,
+        "text": "have_previous = false;"
+      },
+      {
+        "line": 176,
+        "text": "have_previous = false;"
+      },
+      {
+        "line": 181,
+        "text": "var hit = false;"
+      },
+      {
+        "line": 188,
+        "text": "hit = true;"
+      },
+      {
+        "line": 193,
+        "text": "hit = true;"
+      },
+      {
+        "line": 202,
+        "text": "have_previous = true;"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+    "source_sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 139,
+        "text": "pub bounds: Option<[Vec3; 2]>,"
+      },
+      {
+        "line": 143,
+        "text": "pub head: Option<Head>,"
+      },
+      {
+        "line": 145,
+        "text": "pub guides: Option<GpuGuides>,"
+      },
+      {
+        "line": 291,
+        "text": "nets_quads_count: k(scalp::nets_quads(false))?,"
+      },
+      {
+        "line": 292,
+        "text": "nets_quads_emit: k(scalp::nets_quads(true))?,"
+      },
+      {
+        "line": 386,
+        "text": "head_mesh: Option<HeadMesh>,"
+      },
+      {
+        "line": 387,
+        "text": "atlas: Option<(u32, [u32; 2], Arc<CardAtlas>)>,"
+      },
+      {
+        "line": 408,
+        "text": "head_mesh: None,"
+      },
+      {
+        "line": 409,
+        "text": "atlas: None,"
+      },
+      {
+        "line": 444,
+        "text": "self.head_mesh = Some(HeadMesh {"
+      },
+      {
+        "line": 464,
+        "text": "pub fn upload(&self, strands: &Strands, head: Option<&Head>) -> Result<GpuGroom> {"
+      },
+      {
+        "line": 502,
+        "text": "bounds: Some([lo, hi]),"
+      },
+      {
+        "line": 505,
+        "text": "guides: None,"
+      },
+      {
+        "line": 614,
+        "text": "compatible_surface: None,"
+      },
+      {
+        "line": 615,
+        "text": "force_fallback_adapter: false,"
+      },
+      {
+        "line": 622,
+        "text": "label: Some(\"hair\"),"
+      },
+      {
+        "line": 715,
+        "text": "(\"nets_quads_count\", scalp::nets_quads(false)),"
+      },
+      {
+        "line": 716,
+        "text": "(\"nets_quads_emit\", scalp::nets_quads(true)),"
+      },
+      {
+        "line": 754,
+        "text": "(Preset::Long, false),"
+      },
+      {
+        "line": 755,
+        "text": "(Preset::Afro, false),"
+      },
+      {
+        "line": 756,
+        "text": "(Preset::Bob, false),"
+      },
+      {
+        "line": 757,
+        "text": "(Preset::Long, true),"
+      },
+      {
+        "line": 758,
+        "text": "(Preset::Afro, true),"
+      },
+      {
+        "line": 759,
+        "text": "(Preset::Ponytail, true),"
+      },
+      {
+        "line": 915,
+        "text": "let mut gpu = groomer.simulate(&lods, Some(&head), settings).expect(\"sim\");"
+      },
+      {
+        "line": 953,
+        "text": "host.step(dt, pose(t), Some(&head));"
+      },
+      {
+        "line": 1050,
+        "text": "let Some(h) = (0..host.len()).find(|&h| (host.root(h) - root).length() < 1e-3)"
+      },
+      {
+        "line": 1183,
+        "text": "let grown = groomer.upload(strands, None).expect(\"upload\");"
+      },
+      {
+        "line": 1187,
+        "text": "groomer.simulate(&lods, None, settings).expect(\"sim\")"
+      },
+      {
+        "line": 1224,
+        "text": "let mut sim = groomer.simulate(&lods, Some(&head), settings).expect(\"sim\");"
+      },
+      {
+        "line": 1237,
+        "text": ".simulate(&lods, Some(&head), settings)"
+      },
+      {
+        "line": 1290,
+        "text": "let mut crossing = |collide: bool| {"
+      },
+      {
+        "line": 1346,
+        "text": "let with = crossing(true);"
+      },
+      {
+        "line": 1347,
+        "text": "let without = crossing(false);"
+      },
+      {
+        "line": 1465,
+        "text": "Some(&head),"
+      },
+      {
+        "line": 1527,
+        "text": ".simulate(&lods, Some(&head), settings.at(SimLevel::LOW))"
+      },
+      {
+        "line": 1534,
+        "text": ".resimulate(&low, &lods, Some(&head), settings.at(SimLevel::HIGH))"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+    "source_sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 13,
+        "text": "buffer: Option<Buffer>,"
+      },
+      {
+        "line": 24,
+        "text": "let mut buffer = if let Some(cached) = &self.buffer"
+      },
+      {
+        "line": 40,
+        "text": "self.buffer = Some(buffer.clone());"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+    "source_sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/wgsl/mod.rs",
+    "source_sha256": "a15fa14b15efdff7da3bf54a5ce9b5b3f911fa117cb37c5fd3e9d6fad95b7e9b",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+    "source_sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 9,
+        "text": "pub enum HairGpuError {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/wgsl/scalp.rs",
+    "source_sha256": "cc5ad35615a4f666696cf74cfaf49438343456cb5476a7fbfea2b130553e6374",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 183,
+        "text": "pub fn nets_quads(emit: bool) -> String {"
+      },
+      {
+        "line": 209,
+        "text": "fn kept(cell: i32) -> bool {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/collide.rs",
+    "source_sha256": "af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 55,
+        "text": "pub fn is_empty(&self) -> bool {"
+      },
+      {
+        "line": 71,
+        "text": "Some(head) => Some(upload("
+      },
+      {
+        "line": 76,
+        "text": "None => None,"
+      },
+      {
+        "line": 98,
+        "text": "flipped: false,"
+      },
+      {
+        "line": 110,
+        "text": "mapped: false,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+    "source_sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/guides.rs",
+    "source_sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 22,
+        "text": "pub enum Guides<'a> {"
+      },
+      {
+        "line": 135,
+        "text": "if let Some(fringe) = cut.fringe {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs",
+    "source_sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 312,
+        "text": "fn compatible(own: i32, guide: i32) -> bool {"
+      },
+      {
+        "line": 360,
+        "text": "var agrees = true;"
+      },
+      {
+        "line": 368,
+        "text": "agrees = false;"
+      },
+      {
+        "line": 993,
+        "text": "fn displace(s: u32, scale: f32, cumulative: bool, shape: f32, preserve: bool) {"
+      },
+      {
+        "line": 1231,
+        "text": "var any_move = false;"
+      },
+      {
+        "line": 1247,
+        "text": "any_move = true;"
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-character-creator/src/device_underlayer/gap.rs",
+    "source_sha256": "c241e0c48765b819983381fd2fcac12cd0cb1bee1f600774f73df65d2a190913",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/adventuresim-character-creator/src/device_underlayer/weld.rs",
+    "source_sha256": "021944e78b35144fca87c603d1f168cb53a570f4178fabdb5647866e5c067949",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 145,
+        "text": "fn same(a: u32, b: u32) -> bool {{"
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-character-creator/src/device_underlayer/workspace.rs",
+    "source_sha256": "7e94d4b4a91f817e93d5b64d77f218425609896af1cada1ab2ef7aa2b1f6160a",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/vertex_normals.rs",
+    "source_sha256": "83a5f253998390f885f8ea5ff04f50f83d79670636c25a2246fe32d61a85fced",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 23,
+        "text": "pub enum NormalWeighting {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-shell/src/selfcollision.rs",
+    "source_sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 45,
+        "text": "pub enabled: bool,"
+      },
+      {
+        "line": 46,
+        "text": "/// Whether a grid has been built at least once."
+      },
+      {
+        "line": 47,
+        "text": "built: bool,"
+      },
+      {
+        "line": 139,
+        "text": "enabled: true,"
+      },
+      {
+        "line": 140,
+        "text": "built: false,"
+      },
+      {
+        "line": 157,
+        "text": "self.built = false;"
+      },
+      {
+        "line": 170,
+        "text": "rebuild: bool,"
+      },
+      {
+        "line": 172,
+        "text": "if !self.enabled {"
+      },
+      {
+        "line": 181,
+        "text": "\"SelfCollision: built for {} particles, given {count}\","
+      },
+      {
+        "line": 188,
+        "text": "if !rebuild && !self.built {"
+      },
+      {
+        "line": 190,
+        "text": "// rebuild-less start still has to build one."
+      },
+      {
+        "line": 191,
+        "text": "return self.record(batch, particles, true);"
+      },
+      {
+        "line": 193,
+        "text": "if !rebuild {"
+      },
+      {
+        "line": 196,
+        "text": "self.built = true;"
+      },
+      {
+        "line": 281,
+        "text": "SelfCollision::record(self, batch, particles, true)"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-shell/src/shell.rs",
+    "source_sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 35,
+        "text": "pub outer_layer: Option<crate::outer_layer::OuterLayer>,"
+      },
+      {
+        "line": 148,
+        "text": "outer_layer: None,"
+      },
+      {
+        "line": 193,
+        "text": "/// need a rebuild."
+      },
+      {
+        "line": 268,
+        "text": "let mut interval_start = None;"
+      },
+      {
+        "line": 272,
+        "text": "interval_start = Some(self.particles.read_positions(context).await?);"
+      },
+      {
+        "line": 328,
+        "text": "indices: Some(self.triangles.iter().flatten().copied().collect()),"
+      },
+      {
+        "line": 336,
+        "text": "pub async fn is_finite(&self, context: &WgpuContext) -> Result<bool> {"
+      },
+      {
+        "line": 348,
+        "text": "interval_start: Option<&[Vec3]>,"
+      },
+      {
+        "line": 353,
+        "text": "if let Some(layer) = &self.outer_layer {"
+      },
+      {
+        "line": 358,
+        "text": "if self.self_collision.enabled {"
+      },
+      {
+        "line": 371,
+        "text": "let Some(layer) = &self.outer_layer else {"
+      },
+      {
+        "line": 394,
+        "text": "self.self_collision.record(batch, particles, true)?;"
+      },
+      {
+        "line": 406,
+        "text": "self.self_collision.record(batch, particles, true)"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/mesh_query/mod.rs",
+    "source_sha256": "32201338d839719acd4a4637a5b0f672f8b2cadb4871e9947f122d4c2c211bfa",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 27,
+        "text": "pub candidates: Option<&'a Buffer>,"
+      },
+      {
+        "line": 40,
+        "text": "pub candidates: Option<&'a Buffer>,"
+      },
+      {
+        "line": 47,
+        "text": "pub enum Crossing {"
+      },
+      {
+        "line": 85,
+        "text": "pub target: Option<u32>,"
+      },
+      {
+        "line": 166,
+        "text": "candidates: Option<&Buffer>,"
+      },
+      {
+        "line": 179,
+        "text": "parameters.insert(\"mode\", 0u32);"
+      },
+      {
+        "line": 236,
+        "text": "\"mode\","
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-physics/src/mesh.rs",
+    "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 106,
+        "text": "collider.rebuild(context)?;"
+      },
+      {
+        "line": 119,
+        "text": "/// then wants [`MeshCollider::record_refit`] rather than a rebuild."
+      },
+      {
+        "line": 150,
+        "text": "/// Recompute the bounds and rebuild the hierarchy from scratch. Needed"
+      },
+      {
+        "line": 169,
+        "text": "pub fn rebuild(&mut self, context: &WgpuContext) -> Result<()> {"
+      },
+      {
+        "line": 170,
+        "text": "let mut batch = KernelBatch::labelled(context, \"mesh collider rebuild\");"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/lib.rs",
+    "source_sha256": "17d52c28a3489b266ec2a514084215b192e6bdea87d3326ab518ea5001f15771",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 3,
+        "text": "//! Primitives built on `fabelgeist-gpu`: each takes buffers or textures, runs one"
+      },
+      {
+        "line": 5,
+        "text": "//! GPU layer they are built on -- the context, buffers, textures, samplers,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-xpbd/src/constraint.rs",
+    "source_sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 50,
+        "text": "pub enabled: bool,"
+      },
+      {
+        "line": 90,
+        "text": "enabled: true,"
+      },
+      {
+        "line": 241,
+        "text": "if !self.enabled || self.constraint_count().is_empty() {"
+      },
+      {
+        "line": 265,
+        "text": "if !self.enabled || self.constraint_count().is_empty() {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-xpbd/src/solver.rs",
+    "source_sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/sort/tests.rs",
+    "source_sha256": "60e3c4541c2597b08537f54d485057aba9d5f528c8d3139e9c5832809c045ffd",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+    "source_sha256": "a65b3e3dcf21071874767801c95cc42c345a78247638a8963b071b90b0a1c7f3",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 73,
+        "text": "candidates: None,"
+      },
+      {
+        "line": 84,
+        "text": "assert_eq!(hit.target, Some(expected as u32));"
+      },
+      {
+        "line": 109,
+        "text": "candidates: Some(&candidate_buffer),"
+      },
+      {
+        "line": 123,
+        "text": "assert_eq!(hit.target, Some(*expected));"
+      },
+      {
+        "line": 143,
+        "text": "candidates: None,"
+      },
+      {
+        "line": 149,
+        "text": "assert_eq!(hits.read(&context, 1).await?[0].target, Some(1));"
+      },
+      {
+        "line": 174,
+        "text": "candidates: None,"
+      },
+      {
+        "line": 224,
+        "text": "candidates: None,"
+      },
+      {
+        "line": 238,
+        "text": "assert_eq!(found[2].target, None, \"a ray pointing away misses\");"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-bvh/src/gpu/tests.rs",
+    "source_sha256": "85811b6011b987ade76feadef1481d898b159d429f5ac443f2e3a3cb3c0111ea",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 36,
+        "text": "let mut reached = vec![false; count];"
+      },
+      {
+        "line": 37,
+        "text": "let mut visited = vec![false; nodes.len()];"
+      },
+      {
+        "line": 40,
+        "text": "while let Some(index) = stack.pop() {"
+      },
+      {
+        "line": 42,
+        "text": "visited[index] = true;"
+      },
+      {
+        "line": 55,
+        "text": "reached[indices[slot] as usize] = true;"
+      },
+      {
+        "line": 91,
+        "text": "while let Some(index) = stack.pop() {"
+      },
+      {
+        "line": 339,
+        "text": "/// The WGSL Morton encoder and the Rust one must agree, or a hierarchy built"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-cloth/src/cloth/tests.rs",
+    "source_sha256": "5262ec58f985121e0e11d2db11221b795d41268242028aed3eee900623d90fe1",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 397,
+        "text": "cloth.self_collision.enabled = false;"
+      },
+      {
+        "line": 574,
+        "text": "for interleaved in [false, true] {"
+      },
+      {
+        "line": 629,
+        "text": "collision.record(&mut batch, &particles, true)?;"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-xpbd/src/tests/mod.rs",
+    "source_sha256": "8323fb9f423eec97346de3ff2e590429fe710005227de25e75a1da78c0f48f1c",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/adventuresim-character-creator/src/surface_cut/assembly.rs",
+    "source_sha256": "d1df81c16d10ee5c899b2742d839d3ad6650dc44cc865385d1e0f37bc89f34da",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-armor/AGENTS.md",
+    "source_sha256": "52390164bf3eb74a0160ee3ac19527fd43856aa998920d16824f2f41058cf47f",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/prelude.rs",
+    "source_sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/engraving.rs",
+    "source_sha256": "678b5940a6ed8ab768eee0cefbe366694b743df49a22e6cb75f8d5e55234a005",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 30,
+        "text": "pub enum ReliefSource {"
+      },
+      {
+        "line": 40,
+        "text": "pub enum Relief {"
+      },
+      {
+        "line": 155,
+        "text": "pub(crate) enum Cut<'a> {"
+      },
+      {
+        "line": 167,
+        "text": "pub(crate) enum ReliefPixels {"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/clip_carrier.rs",
+    "source_sha256": "9294208bbf4dd5f5f0cc8f69fbc8df82e5515923bb6f9601b09d7050b17696fb",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 57,
+        "text": "clipped.cut_face(face, distances, true);"
+      },
+      {
+        "line": 89,
+        "text": "self.cut_face(face, face.map(|i| distances[i as usize]), false);"
+      },
+      {
+        "line": 101,
+        "text": "fn cut_face(&mut self, face: [u32; 3], distances: [f64; 3], neckline: bool) {"
+      },
+      {
+        "line": 132,
+        "text": "fn intersection(&mut self, edge: [u32; 2], distances: [f64; 2], neckline: bool) -> u32 {"
+      },
+      {
+        "line": 135,
+        "text": "if let Some(&vertex) = self.cuts.get(&key) {"
+      },
+      {
+        "line": 190,
+        "text": "mid.medial_crease.resize(self.positions.len(), false);"
+      },
+      {
+        "line": 191,
+        "text": "mid.crease_right.resize(self.positions.len(), false);"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/clip_tests.rs",
+    "source_sha256": "ef61da1f0a05ddcf1c286db7133756fd5ace4aaa867604f3db73aa80ef3b24b1",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 13,
+        "text": "let mut mid = MidTopology::new(false, vec![-1.0, 0.0, 1.0], &design);"
+      },
+      {
+        "line": 85,
+        "text": "Some(0.35),"
+      },
+      {
+        "line": 117,
+        "text": "CourseClip::new(&mid, clipped.positions, &frame, 0.3, -0.1, None),"
+      },
+      {
+        "line": 125,
+        "text": "let mut mid = MidTopology::new(false, source.columns, &BreastplateDesign::default());"
+      },
+      {
+        "line": 165,
+        "text": "let mid = MidTopology::new(false, source.columns, &BreastplateDesign::default());"
+      },
+      {
+        "line": 204,
+        "text": "let mid = MidTopology::course(false, vec![-1.0, -0.5, 0.0, 0.5, 1.0], 3, false);"
+      },
+      {
+        "line": 219,
+        "text": "let course = CourseClip::new(&mid, points, &frame, 0.0, 0.6, Some(0.7)).unwrap();"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/construction_columns.rs",
+    "source_sha256": "9476b595b3dda3da12dc040bdca43bdbe73bc46816a95674a3f0f2cda579c486",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 69,
+        "text": "assert_eq!(columns.column(source, 5).bracket(3), Some((0, 1, 0.25)));"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/course_clip.rs",
+    "source_sha256": "50e047c7bb7a221c96ee91ea6e476d2c4a636f0c3e81d687352c7c1e5e84479f",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 34,
+        "text": "cuts: BTreeMap<([u32; 2], bool), u32>,"
+      },
+      {
+        "line": 35,
+        "text": "cut_candidates: Vec<[bool; 2]>,"
+      },
+      {
+        "line": 45,
+        "text": "high: Option<f64>,"
+      },
+      {
+        "line": 48,
+        "text": "mid.skirt = false;"
+      },
+      {
+        "line": 55,
+        "text": "let cut_candidates = vec![[false; 2]; points.len()];"
+      },
+      {
+        "line": 71,
+        "text": "let polygon = clip.cut(&face, low, false)?;"
+      },
+      {
+        "line": 72,
+        "text": "let polygon = if let Some(high) = high {"
+      },
+      {
+        "line": 73,
+        "text": "clip.cut(&polygon, high, true)?"
+      },
+      {
+        "line": 100,
+        "text": "clip.mid.course_coordinates = Some(CourseCoordinates::new("
+      },
+      {
+        "line": 114,
+        "text": "upper: bool,"
+      },
+      {
+        "line": 119,
+        "text": "self.cut_candidates[vertex as usize][end] = true;"
+      },
+      {
+        "line": 155,
+        "text": "upper: bool,"
+      },
+      {
+        "line": 168,
+        "text": "if let Some(&vertex) = self.cuts.get(&(edge, upper)) {"
+      },
+      {
+        "line": 181,
+        "text": "let mut candidate = [false; 2];"
+      },
+      {
+        "line": 182,
+        "text": "candidate[usize::from(!upper)] = true;"
+      },
+      {
+        "line": 193,
+        "text": "self.mid.medial_crease.resize(self.points.len(), false);"
+      },
+      {
+        "line": 194,
+        "text": "self.mid.crease_right.resize(self.points.len(), false);"
+      },
+      {
+        "line": 209,
+        "text": "fn install_grid(&mut self, low: f64, high: Option<f64>) -> Result<(), GenerateError> {"
+      },
+      {
+        "line": 211,
+        "text": "let mut used = vec![false; self.points.len()];"
+      },
+      {
+        "line": 213,
+        "text": "used[v as usize] = true;"
+      },
+      {
+        "line": 252,
+        "text": "self.mid.grid_vertices = Some(grid);"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/course_coordinates.rs",
+    "source_sha256": "be5b236c9d6ee30e618484916ba573e1844bf66db8c3375477ab1a83add561ff",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 8,
+        "text": "high: Option<f64>,"
+      },
+      {
+        "line": 10,
+        "text": "cut_candidates: Vec<[bool; 2]>,"
+      },
+      {
+        "line": 15,
+        "text": "vertices: Vec<[bool; 2]>,"
+      },
+      {
+        "line": 21,
+        "text": "cut_candidates: Vec<[bool; 2]>,"
+      },
+      {
+        "line": 23,
+        "text": "high: Option<f64>,"
+      },
+      {
+        "line": 38,
+        "text": "let mut vertices = vec![[false; 2]; self.levels.len()];"
+      },
+      {
+        "line": 46,
+        "text": "vertices[a as usize][end] = true;"
+      },
+      {
+        "line": 47,
+        "text": "vertices[b as usize][end] = true;"
+      },
+      {
+        "line": 91,
+        "text": "[false, true],"
+      },
+      {
+        "line": 92,
+        "text": "[false, true],"
+      },
+      {
+        "line": 93,
+        "text": "[false; 2],"
+      },
+      {
+        "line": 94,
+        "text": "[false, true],"
+      },
+      {
+        "line": 95,
+        "text": "[false, true],"
+      },
+      {
+        "line": 98,
+        "text": "None,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/cut_frame.rs",
+    "source_sha256": "a1eea4d7ec9fd3802af3c3a9add938511ec78b1fc86aa31e48cec49910bf206f",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/cut_resolution.rs",
+    "source_sha256": "49aa0b45bee57eb26c2f5e157480530588573667a7983e0112305a88ff706050",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": []
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/solid_grid.rs",
+    "source_sha256": "91518dbb43e9de546a9fa5436a50448dda29753dbbd93355a40fa74db0da2a95",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 29,
+        "text": "cyclic: false,"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/trimmed_carrier.rs",
+    "source_sha256": "98125d01ac528538cc9113a3a6ec8e32375c0f4584febe68d41345c19762de8b",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 9,
+        "text": "let mut used = vec![false; points.len()];"
+      },
+      {
+        "line": 11,
+        "text": "used[vertex as usize] = true;"
+      },
+      {
+        "line": 48,
+        "text": "self.grid_vertices = Some(grid);"
+      }
+    ]
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/surface_grid.rs",
+    "source_sha256": "d2e76894c4233cad8a8656215bf15fe6defcce235adc2350b3e2d5ad0308465e",
+    "role": "Organizer only; state construction/transition/consumer source contracts recorded in family rows, not search clearance.",
+    "hits": [
+      {
+        "line": 12,
+        "text": "pub cyclic: bool,"
+      },
+      {
+        "line": 32,
+        "text": "pub enum SurfaceEdgeDistance {"
+      },
+      {
+        "line": 67,
+        "text": "pub fn bracket(self, columns: u32) -> Option<(u32, u32, f32)> {"
+      },
+      {
+        "line": 69,
+        "text": "return None;"
+      },
+      {
+        "line": 72,
+        "text": "Some((first, (first + 1).min(columns - 1), self.0 - first as f32))"
+      },
+      {
+        "line": 77,
+        "text": "pub fn regular(rows: u32, columns: u32, cyclic: bool, vertices: Vec<u32>) -> Self {"
+      }
+    ]
+  }
+]

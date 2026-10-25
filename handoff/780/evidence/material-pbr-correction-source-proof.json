@@ -1,0 +1,101 @@
+{
+  "kind": "Exact source-only correction preservation; no compiler/check/test/probe",
+  "comparisons": [
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "whole_source_matches_after_only_declared_reversals": true,
+      "current_sha256": "ff72cece4156ed5f18aa3af3011c590eccae7e45340c755ad32e7b73339cf69e"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "whole_source_matches_after_only_declared_reversals": true,
+      "current_sha256": "f3501d1e062f0d49a606db6aea9c5d5e616405412d2348cba770e437a964ab46"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/surface_projection.rs",
+      "whole_source_matches_after_only_declared_reversals": true,
+      "current_sha256": "d0cb73bb8dee9cf7def0509cd17744d40598b5a9cb99dc0a5fceec0ff16bc24d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "whole_source_matches_after_only_declared_reversals": true,
+      "current_sha256": "a3b88b0fa6ee6b6fd5bbf3c31c6e4091277c46f0294f363b52cdb029235f8ee7"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim.rs",
+      "whole_source_matches_after_only_declared_reversals": true,
+      "current_sha256": "d32e281322f275748d496491151217f53fab6e74b14260ca8766b98bc9aa13a6"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/finish.rs",
+      "whole_source_matches_after_only_declared_reversals": true,
+      "current_sha256": "042db495d8b465dffdf12366970d62c57f929b796e2e9f8974f5f5bddd3921e4"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "whole_source_matches_after_only_declared_reversals": true,
+      "current_sha256": "098f2b193a044af8ad54a0517a96a2308c30ec0fd002c2e7f6905747eb2fd9c1"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/lib.rs",
+      "all_original_imports_modules_exact": true,
+      "all_original_function_bodies_exact_after_alias_reversal": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "original_block": "ce",
+      "matches": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "original_block": "ci",
+      "matches": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "original_block": "ts",
+      "matches": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "original_block": "ti",
+      "matches": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "original_block": "ps",
+      "matches": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "original_block": "pi",
+      "matches": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "original_block": "ls",
+      "matches": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "original_block": "ld",
+      "matches": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "original_block": "li",
+      "matches": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "original_block": "ee",
+      "matches": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "original_block": "tests",
+      "matches": true
+    }
+  ],
+  "limits": "Independent semantic review still required; no global or hosted clearance."
+}

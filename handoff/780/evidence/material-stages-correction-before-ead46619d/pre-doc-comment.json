@@ -1,0 +1,204 @@
+{
+  "kind": "Independent narrow Comment/receiving/source attachment review; no stage physical/error/global clearance",
+  "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/garment/stages.rs",
+  "current_sha256": "8aeb6a08f00500f384065827975374e7bfb131187c5dd4ae3513044b88e67be7",
+  "expected_current_sha256": "8aeb6a08f00500f384065827975374e7bfb131187c5dd4ae3513044b88e67be7",
+  "before_sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+  "before_lines": 352,
+  "current_lines": 352,
+  "independent_source_inverse": {
+    "reconstructed_after_equals_current": true,
+    "all_current_bytes_consumed": true,
+    "whole_inverse_equals_original_before": true,
+    "inverse_sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+    "literal_old_occurrences": 1,
+    "literal_new_occurrences": 1,
+    "blocks": [
+      {
+        "block": "prefix",
+        "current_byte_offset": 0,
+        "bytes": 444,
+        "before_sha256": "eb7cc09abceccb4f7da2fac686687e4486b51a43e3c1fcce96f89ee0dd1acca9",
+        "after_sha256": "eb7cc09abceccb4f7da2fac686687e4486b51a43e3c1fcce96f89ee0dd1acca9",
+        "matches_reconstructed_after": true
+      },
+      {
+        "block": "stage_decl",
+        "current_byte_offset": 444,
+        "bytes": 915,
+        "before_sha256": "1dd35c279230785a8e2f4da459a3ed1f7284aef758c118bad78df39faf9ba0ea",
+        "after_sha256": "1dd35c279230785a8e2f4da459a3ed1f7284aef758c118bad78df39faf9ba0ea",
+        "matches_reconstructed_after": true
+      },
+      {
+        "block": "drape_decl",
+        "current_byte_offset": 1359,
+        "bytes": 556,
+        "before_sha256": "9531767ea6128d6cb63e803cafd7ab8908f74e791790bfce708df15ba1b51417",
+        "after_sha256": "9531767ea6128d6cb63e803cafd7ab8908f74e791790bfce708df15ba1b51417",
+        "matches_reconstructed_after": true
+      },
+      {
+        "block": "checkpoint_decl",
+        "current_byte_offset": 1915,
+        "bytes": 245,
+        "before_sha256": "4656513856e42b608f39f6e39a04c9c86d44ab35e25ec447c1429649d3a8b446",
+        "after_sha256": "4656513856e42b608f39f6e39a04c9c86d44ab35e25ec447c1429649d3a8b446",
+        "matches_reconstructed_after": true
+      },
+      {
+        "block": "start_enum",
+        "current_byte_offset": 2160,
+        "bytes": 245,
+        "before_sha256": "313de6cedce87068afe3cc5393080518aa336ae61210bfd1b090a5e440280a4c",
+        "after_sha256": "313de6cedce87068afe3cc5393080518aa336ae61210bfd1b090a5e440280a4c",
+        "matches_reconstructed_after": true
+      },
+      {
+        "block": "stage_impl",
+        "current_byte_offset": 2405,
+        "bytes": 2721,
+        "before_sha256": "b48e2de7f96143ecde4b427913306293595ba04e2adcd563f945c6ddc862aa63",
+        "after_sha256": "4f8ad5cdce08afa0c194631a6a6287ef92e438177ccd3f888ae93f53015ff073",
+        "matches_reconstructed_after": true
+      },
+      {
+        "block": "drape_impl",
+        "current_byte_offset": 5126,
+        "bytes": 1716,
+        "before_sha256": "6d4524b5b40ccbd01e31eea05331b124b91a5a0227468d6d4317c0f36b8c2187",
+        "after_sha256": "6d4524b5b40ccbd01e31eea05331b124b91a5a0227468d6d4317c0f36b8c2187",
+        "matches_reconstructed_after": true
+      },
+      {
+        "block": "checkpoint_impl",
+        "current_byte_offset": 6842,
+        "bytes": 1373,
+        "before_sha256": "6315faf7b3cee1c221e9d64ec07cf1a2a6abec928ad88354d0b57239b112c5ba",
+        "after_sha256": "6315faf7b3cee1c221e9d64ec07cf1a2a6abec928ad88354d0b57239b112c5ba",
+        "matches_reconstructed_after": true
+      },
+      {
+        "block": "input_impl",
+        "current_byte_offset": 8215,
+        "bytes": 868,
+        "before_sha256": "82bf7e36c538083cda1ad47dddcd7c3bc821b4e0e9ed6cc1039738a63305f0f9",
+        "after_sha256": "82bf7e36c538083cda1ad47dddcd7c3bc821b4e0e9ed6cc1039738a63305f0f9",
+        "matches_reconstructed_after": true
+      },
+      {
+        "block": "tests",
+        "current_byte_offset": 9083,
+        "bytes": 3408,
+        "before_sha256": "4b64d308157b7e1a7c3489127207d11047c322dcc2db06d355941bda98b15ecf",
+        "after_sha256": "c64498d22c949b85c80983b41381102bdf3645b102d1dbe5133e469c25d3874b",
+        "matches_reconstructed_after": true
+      }
+    ],
+    "method_blocks": {
+      "apply_with_doc": {
+        "before_lines": [
+          81,
+          106
+        ],
+        "sha256": "586412dbf9d797fa8c1408ac63a4bc61915b9d7e459511e4ae174012cdc36834"
+      },
+      "validate_without_separator": {
+        "before_lines": [
+          43,
+          79
+        ],
+        "sha256": "e1104fb62a03b910298cca8d6935bac431093fc21bcde037e772df28013d9dd2"
+      },
+      "inter_method_separator": {
+        "before_lines": [
+          80,
+          80
+        ],
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "disposition": "Original blank separator remains between moved methods; no byte added or removed."
+      }
+    },
+    "initial_comparison_note": "Naively moving the trailing validate blank with the method relocates it to the end of impl. Accounting for the original inter-method separator independently gives exact whole-source equivalence."
+  },
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/stages.rs",
+      "sha256": "8aeb6a08f00500f384065827975374e7bfb131187c5dd4ae3513044b88e67be7",
+      "lines": 352,
+      "read_extents": [
+        [
+          1,
+          352
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "sha256": "098f2b193a044af8ad54a0517a96a2308c30ec0fd002c2e7f6905747eb2fd9c1",
+      "lines": 348,
+      "read_extents": [
+        [
+          1,
+          115
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "lines": 271,
+      "read_extents": [
+        [
+          1,
+          80
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "lines": 334,
+      "read_extents": [
+        [
+          1,
+          105
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "lines": 120,
+      "read_extents": [
+        [
+          1,
+          120
+        ]
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "STAGES-C1",
+      "priority": 3,
+      "line": 212,
+      "classification": "Existing current prose overbreadth, not a behavior regression from the mechanical delta",
+      "finding": "start_for says a material edit only repeats finish, but same_setup compares selection.fabric. A fabric material change requires Placement. The existing roughness case is narrower: mail appearance is excluded and the completed checkpoints select Finish.",
+      "recommendation": "Say appearance-only or mail-appearance edit, and retain that this reuse requires the earlier stage checkpoints. Do not claim mail roughness triggers a solver rerun.",
+      "source": [
+        "stages.rs start_for and same_setup",
+        "selection.rs FabricPreset",
+        "drape.rs Finish versus Placement branches"
+      ]
+    }
+  ],
+  "receiving_contract": "MailWeave.roughness is canonical Math units::Ratio; from_ratio stores the same f32 literal without bounds/normalization. Existing completed mail-only roughness edit still selects DrapeStart::Finish. Finish uses retained settled geometry before current finish projection; it does not invoke simulate.",
+  "attachments": "All moved docs/attrs/derives/cfg/visibility and complete production/helper/test blocks are byte-exact after declared inverse. StageSettings::apply retains its doc; struct/enum docs stay attached; test module remains last. Three original cases and all existing assertion invocations are whole-source preserved modulo the one literal constructor.",
+  "limits": [
+    "No stage physical units/counts/error or solver behavior clearance.",
+    "No source edit, project check, build, test, probe, new helper/case/assertion/doctest or hosted check.",
+    "Broader physical/cache/global receiving families remain open; the withdrawn MP-6 solver-rerun claim is not reinstated."
+  ],
+  "verdict": "MECHANICAL_DELTA_SOURCE_EQUIVALENT_WITH_ONE_EXISTING_SCOPED_PROSE_FINDING"
+}

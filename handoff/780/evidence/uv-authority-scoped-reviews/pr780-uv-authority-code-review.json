@@ -1,0 +1,225 @@
+{
+  "head": "59bb96d07af08244582c6767d81e969b820ec3ed",
+  "verdict": "no actionable defect found in exact six-file UV authority tranche; source-only",
+  "findings": [],
+  "changed_files": [
+    "crates/adventuresim-character-creator/src/export/rigged.rs",
+    "crates/adventuresim-character-creator/src/export/shell.rs",
+    "crates/adventuresim-character-creator/src/export/validation.rs",
+    "crates/adventuresim-character-creator/src/character_export.rs",
+    "crates/adventuresim-character-creator/src/equipment_export.rs",
+    "crates/adventuresim-character-creator/src/export.rs"
+  ],
+  "sourceaccounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "f5fd53af89771488b500f8b2e661505b5b169dd355785fafe6005127f7c23fad",
+      "read_coverage": "whole",
+      "disposition": "planned changed",
+      "contract": "public RiggedShell UV/maps declaration; RiggedMesh and target types; no serde/default routes",
+      "review_role": "changed source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "9b57fb4bbcebe5b20113a06d530507253693a37d40f85f1617a38cbccb63fa87",
+      "read_coverage": "whole",
+      "disposition": "affected receiver; may remain byte-identical after maps-only type change",
+      "contract": "all per-vertex selection and reconstruction; retain maps identity, remap sole UV stream",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "37d9aad2bed62e065620cccd542180cc439dba8aae9726d0b3177d9f7cb7311a",
+      "read_coverage": "whole",
+      "disposition": "planned changed",
+      "contract": "actual UV accessor/native bytes and material map receiving",
+      "review_role": "changed source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "2f01964984a42e98201c8cb2be6095d0779a2f6292d8571021b64f70bc976656",
+      "read_coverage": "whole",
+      "disposition": "planned changed",
+      "contract": "all export admission before compaction/native writes",
+      "review_role": "changed source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "a542629ff77155448219d508e544a55f2da0c3f024f7454fb2c26a597f1da13a",
+      "read_coverage": "whole",
+      "disposition": "planned changed",
+      "contract": "plate map source, trim UV override, catalog cache and public export",
+      "review_role": "changed source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "bc324c39eaed75e445e0b5247a8ce1adcd1cc336525d221ba6f174aacfb2cbd8",
+      "read_coverage": "whole",
+      "disposition": "additional connected changed producer",
+      "contract": "catalog armor map assignment must become maps-only; existing UV set by rigged_armor",
+      "review_role": "changed source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "e725590d8bfe60bfe165344b3476bacfc4ed84d7426fd7f59c2586a992fbf368",
+      "read_coverage": "whole 1-1785 including fixtures",
+      "disposition": "planned fixture API change only",
+      "contract": "entry validate->compact->write and every fixture; textured fixture moves same uvs into sole column",
+      "review_role": "changed source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "8f76594ec3871a68df2f8e98740aa629e479b1e6fc7a0ad9a63e4e7f029e30a1",
+      "read_coverage": "175-282 material/rigged producers; other current source read in prior frontier, no verdict reused",
+      "disposition": "unchanged affected",
+      "contract": "component clear and textile overrides; armor sets source UV, clothing has no maps/UV",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/export.rs",
+      "sha256": "0b57ba3d094cdb3ac0ea1e872f7177837ffae8c16be441a1dbcb823d220b26dc",
+      "read_coverage": "whole",
+      "disposition": "unchanged affected",
+      "contract": "mail or garment UV, maps and skin matched by constructor",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "read_coverage": "whole",
+      "disposition": "unchanged affected",
+      "contract": "actual card UV plus generic texture maps; independent atlas image",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "read_coverage": "whole",
+      "disposition": "unchanged affected",
+      "contract": "no UV stored; map identity cache and sampler/alpha/PBR projection",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/assembly.rs",
+      "sha256": "69228ac01428944c7113f479834ac9179928ab25512d652a741cd799c562b494",
+      "read_coverage": "whole including fixture",
+      "disposition": "unchanged affected",
+      "contract": "production names/hinges/edge metadata; fixture checks actual UV remap [1..]",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/morphs.rs",
+      "sha256": "49339af440cea4592fc08969075def3ca3380fe9a495d0b77180049f879ceee3",
+      "read_coverage": "whole including fixture",
+      "disposition": "unchanged affected",
+      "contract": "no UV-map read in production; fixture constructor None",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "43e385b5074a6c8884aabe7f27f70c016f9b16b16e19a0020d58cd01090de0b8",
+      "read_coverage": "whole",
+      "disposition": "unchanged existing fixtures",
+      "contract": "generic UV maps, normal-only, shared image cases unchanged",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/buffer.rs",
+      "sha256": "c92b80be46c77268cf276c3686aaedbd70bba5be1e4f7d5eaef7041f865be104",
+      "read_coverage": "whole",
+      "disposition": "unchanged native receiving boundary",
+      "contract": "u32/f32 little-endian bytes, four-byte view alignment, accessor target projection",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_export.rs",
+      "sha256": "3f0d6674ab64abd4e90c50836ccc7028edb39f616d8758b2c6ff25e8380d9059",
+      "read_coverage": "whole",
+      "disposition": "unchanged existing fixture",
+      "contract": "generic UV, Blend/front/sampling and image coverage",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "sha256": "39b44062b3a3fb8db93c869721bcd0ede9f01f588cbde35ea6cdf4b9a26377e3",
+      "read_coverage": "1-181 relevant complete MailSurface/new/pbr admission; fixtures previously read not clearance",
+      "disposition": "unchanged upstream",
+      "contract": "actual mail repeat_m chart conversion and valid source; no UV mutation in proposed change",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material/rings.rs",
+      "sha256": "6905eff437f36dde6d25965152bfde07ab25c57596f1d5068c14fb52fe75a222",
+      "read_coverage": "whole",
+      "disposition": "unchanged texture producer",
+      "contract": "MailMaps::textures stores maps only; raster numeric audit outside UV family",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/textile_surface.rs",
+      "sha256": "6eb0a624f247ea8c1ed2ffd6b25f65ece4b8742d30dd44d190914c9e0b399726",
+      "read_coverage": "whole from current pinned frontier read",
+      "disposition": "unchanged texture producer",
+      "contract": "TextileMaps -> SurfaceTextures carries alpha/sides/sampling, no UV",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_material.rs",
+      "sha256": "52ebd2ffe14baf52f9e8bdd18ecf23fb26b94b1cf52c655fbc58074cd18471b7",
+      "read_coverage": "whole",
+      "disposition": "unchanged texture producer",
+      "contract": "embedded mail maps, no UV; rigged_armor owns chart",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "566a69fc6cd50bd7d7ea5c0347567c39f2bdc37e9f8004675dc5328e3751e12e",
+      "read_coverage": "imports/module and RiggedShell reexport consumer only",
+      "disposition": "unchanged importer",
+      "contract": "offline-only binary imports canonical export owner; no constructor/mutator",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "read_coverage": "module export feature declaration",
+      "disposition": "unchanged feature owner",
+      "contract": "export gated offline-creator; no API alias required",
+      "review_role": "unchanged affected/dependency source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "1346098aa561b83aa6d045c8744f19edc6605674fd0bbf313af4dcfc4ef595e5",
+      "read_coverage": "whole current pinned frontier read",
+      "disposition": "unchanged dependency owner",
+      "contract": "no dependency additions needed; existing serde_json/image/gltf",
+      "review_role": "unchanged affected/dependency source"
+    }
+  ],
+  "source_comparisons": {
+    "whole_export_exact_after_existing_two_line_fixture_api": true,
+    "all_17_affected_dependency_files_exact": true,
+    "unchanged_by_path": {
+      "crates/adventuresim-character-creator/src/export/compact.rs": true,
+      "crates/adventuresim-character-creator/src/character_morphs.rs": true,
+      "crates/adventuresim-character-creator/src/garment/export.rs": true,
+      "crates/adventuresim-character-creator/src/character_export/hair.rs": true,
+      "crates/adventuresim-character-creator/src/export/textures.rs": true,
+      "crates/adventuresim-character-creator/src/export/assembly.rs": true,
+      "crates/adventuresim-character-creator/src/export/morphs.rs": true,
+      "crates/adventuresim-character-creator/src/export/textures/tests.rs": true,
+      "crates/adventuresim-character-creator/src/export/buffer.rs": true,
+      "crates/adventuresim-character-creator/tests/textile_export.rs": true,
+      "crates/adventuresim-character-creator/src/garment_material.rs": true,
+      "crates/adventuresim-character-creator/src/garment_material/rings.rs": true,
+      "crates/adventuresim-character-creator/src/textile_surface.rs": true,
+      "crates/adventuresim-character-creator/src/underlayer_material.rs": true,
+      "crates/adventuresim-character-creator/src/main.rs": true,
+      "crates/adventuresim-character-creator/src/lib.rs": true,
+      "crates/adventuresim-character-creator/Cargo.toml": true
+    }
+  },
+  "validation": "No project checks, tests, probes or hosted gates run",
+  "limits": "Not broader material/schema/PBR/geometry clearance or final same-SHA review",
+  "final_source_drift": []
+}

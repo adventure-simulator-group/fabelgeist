@@ -1,0 +1,28 @@
+[package]
+name = "fabelgeist-armor"
+version = "0.1.0"
+edition = "2024"
+repository = "https://github.com/adventure-simulator-group/fabelgeist"
+license = "AGPL-3.0"
+
+[dependencies]
+anyhow = "1.0"
+blake3 = { workspace = true }
+bytemuck = { version = "1.16", features = ["derive"] }
+fabelgeist-compute = { path = "../fabelgeist-compute" }
+fabelgeist-garment-code = { path = "../fabelgeist-garment-code" }
+fabelgeist-geometry = { path = "../fabelgeist-geometry" }
+fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
+fabelgeist-math = { path = "../fabelgeist-math" }
+fabelgeist-mesh = { path = "../fabelgeist-mesh" }
+fabelgeist-rig = { path = "../fabelgeist-rig" }
+image = { version = "0.25.10", default-features = false, features = ["png"] }
+pollster = "0.4"
+postcard = { workspace = true }
+serde = { workspace = true, features = ["std"] }
+serde_json = { workspace = true }
+spade = { workspace = true }
+thiserror = { workspace = true }
+
+[lints]
+workspace = true

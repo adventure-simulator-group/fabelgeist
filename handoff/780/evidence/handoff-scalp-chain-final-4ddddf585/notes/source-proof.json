@@ -1,0 +1,39 @@
+{
+  "base": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+  "head": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+  "comparisons": {
+    "all_ten_executable_source_bytes_identical_after_only_Rustdoc_removal": true,
+    "only_three_documentation_files_differ": true,
+    "PACKING_through_EOF_exact": true,
+    "all_seven_WGSL_strings_exact": true,
+    "existing_fixture_entire_bytes_exact": true,
+    "all_actual_consumer_files_exact": true
+  },
+  "ten_source_fingerprints": {
+    "crates/adventuresim-character-creator/src/hair.rs": "7c06f11d607b958e8a9e000bf5b6debeda01e3c253fc863c331317382b196a9a",
+    "crates/adventuresim-character-creator/src/hair/gpu/mod.rs": "e2a6fab2ecfbae1ae85e86dd40677284d6d03a50747810242247a2be2fbcf194",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs": "84e709e87c44bce9a1944ff54427c5b7f84cfb30eb94ff1346f8e3c181b4c5cf",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs": "958943b91a03470381744264d571a83be30421501989fa92a56a403cbbec4bee",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs": "3a2e06f64636fadaceac6bb7c0af36cfb12416a4d55a5f203e17b6551455e8ef",
+    "crates/adventuresim-character-creator/src/hair/scalp_map.rs": "a410d423ff4188de5f759094665c53095193198745913dcb411d9a822f7c3f53",
+    "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs": "8f70a54fc5032060ecf8e46d898e5a9e02a93416e224393437a3b1852946dddd",
+    "crates/adventuresim-character-creator/src/hair_preview/render_test.rs": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531"
+  },
+  "consumer_fingerprints": {
+    "crates/adventuresim-character-creator/src/hair/groom.rs": "d6c46f6ef0b1f037cc45648c2baac76b9e383aad331cf1c3757f1e1150702b43",
+    "crates/adventuresim-character-creator/src/hair_preview.rs": "83895f2f6e29bda031bc1764ed1d51cc133051198e963ead3eb0ee728138ffff",
+    "crates/adventuresim-character-creator/src/hair_preview/assets.rs": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143",
+    "crates/adventuresim-character-creator/src/hair_preview/gpu.rs": "b37621447a0627773c821af9942ebf6806ec0d9936b9f4884fef81cc43dda429"
+  },
+  "WGSL_string_fingerprints": {
+    "PACKING": "68e562d16824babb89a78c62cae0bd197a2c0734fbac4bbac1be5e00e9e515d4",
+    "DRAW": "737ebf512f46ab78f4cf381667067918ebae471dba4823ce106c6f042133dec2",
+    "BARE": "759c6c248d6ceea790701bb70d6aa6fef4e0837319662df268041dacaac78d2d",
+    "BLUR": "dea5efa5228f388a7ffb56f1a6b792052bb1fa822ec09d515c0337abbb48ee95",
+    "FINISH": "961d4e6cb01f4125a58d832554cf6844991bdfae752bc5075032a22dbf8e85ee",
+    "HALVE": "cee3bacebdef987519c18c01262f55b6c1766605bfd433d6b4662d7722b3c2a7",
+    "LONGEST": "1f77f2de6f898bcc5a7f977bfaa23cfa42c3f4ced5298027f106cb0c1b7fdbc7"
+  }
+}

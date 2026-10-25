@@ -1,0 +1,34 @@
+{
+  "revision": "3e74eea62f4138fb95e001bf93e9438966d12612",
+  "tree": "a83c132e94bab1db7691468d553465081b7432fb",
+  "files": {
+    "crates/fabelgeist-armor/src/gpu/facade.rs": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+    "crates/fabelgeist-armor/src/gpu/staging.rs": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501"
+  },
+  "authority": "Root826 owns whole ArmorGpu facade.rs and staging.rs. Only Rustdoc differs from d7da; preserve peer canonical producers and grouped Readback owner.",
+  "all13_successor": "target/pr826-audit/armor-read-docs-3e74-all13-successor.json",
+  "independent_reviews": [
+    "armor-read-docs-3e74-code-review.json",
+    "armor-read-docs-3e74-rule-review.json",
+    "armor-read-docs-3e74-comment-review.json"
+  ],
+  "contracts": [
+    "ArmorGpu::read/read_async and read_staged/read_staged_async pass external Buffer ports through the facade context to the existing direct/grouped readback owners.",
+    "Buffer::read owns direct mapping and source-device requirements; WgpuContext::from_parts owns the device/queue pairing precondition. Grouped Readback owns staging copies.",
+    "Buffer exposes no creating-device query. Direct reads require the exact source device/paired queue and exclusive mapping access; grouped reads require sources usable for actual GPU copies.",
+    "All read method bodies, tickets, prefixes, native copies, submission handling and decoders remain unchanged.",
+    "The facade context contains device and queue; an external Buffer port can belong to another device. Staging session tickets prove result identity, not creating-device identity.",
+    "Root owns the facade/staging documentation; peer780 owns grouped Readback and remaining producers/callers.",
+    "There is one creating device and its paired queue. Facade docs currently leave this relationship implicit in module prose and the Buffer::read link.",
+    "This clarification describes current preconditions. It does not reject additional inputs, change errors, synchronize extra work or alter browser handling.",
+    "No flags, roles, optional payloads or states change. Existing staging sessions and typed error variants are untouched.",
+    "No trait, serializer or error implementation changes. Existing native causes and error derivations remain intact.",
+    "Direct and grouped reads have different mapping mechanisms but share device/queue obligations.",
+    "New prose and Rustdoc method links are presentation/documentation text, never classifiers or runtime keys.",
+    "No numeric values, bounds, labels, byte layouts or count conversions change."
+  ],
+  "limits": [
+    "No runtime change, new fixtures or local project execution.",
+    "Canonical Readback, producer/caller/cache/lock integration and global all13/final three reviews/required hosted gates remain incomplete."
+  ]
+}

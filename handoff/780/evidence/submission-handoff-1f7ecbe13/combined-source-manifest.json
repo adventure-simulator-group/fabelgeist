@@ -1,0 +1,70 @@
+{
+  "root_parent": "bbbb27bcd5fd93e8b28ccd7df0248f79175d16d3",
+  "peer_source": "1f7ecbe13f6f1cff79520e8ad4bdd9c460704bfd",
+  "files": [
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/batch_error.rs",
+      "sha256": "17d100ac7cc26a65191ed6c6fb7aaa7756f48cda00d2fc59cff3d831089bc6d9"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "sha256": "ae06444ff72acd0beae32fe71ef4c8741e03dcd3065317a1b48bccd4638c04f9"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "7194450243b12da9d02e05402ecc658f4d986194d27d32a65dea0e79ca242a2b"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "1d6d8fdb930ec1e7cef5c99cd16aac39ae33e5868c1d219860c043de70f3c2c6"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "283bb3e9c9691cb9f15e51f9cdf5013cf3d4ab9aec22282670d7d1fa63671a24"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "537cbf39f00bc36c4f46ff60a6b550037b283eedafcf41d3975274e5f3e61184"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "31fcc315c4314f2d63153aac4b2db696eae5a02d5ce7ae97881460e06a251295"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "f24c36d6dfd3ccb446ff56264c3f9bb6f81f878e2eefcb5741eafcf4cde5a3b1"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "8582bd7ded85294c4a99ebc90c39a80ec4d6eeb00c9a711b6f3ec29dba691f17"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "a51cef002a72d6b3390dbb07768c3bbed0cc0b886ea5c91cdb7c925febf7a534"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "sha256": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "610d980a0657a3f089b0178979f77f22ce6cb529e46f37ca9c3ecd495709e206"
+    }
+  ],
+  "comparisons": {
+    "all11unconflicted_owner_paths_match_exact_handoff": true,
+    "whole_Root_Kernel_cache_constructor_count_workgroup_folded_prefix_preserved": true,
+    "Root_typed_dispatch_bodies_preserved": true,
+    "Batch_submit_body_matches_owned_handoff": true,
+    "Root_original_context_fixture_and_assertions_preserved": true,
+    "context_production_source_matches_owned_handoff": true,
+    "no_unmerged_entries": true
+  },
+  "combined_revision": "6f6d77878daad401abe414da83e17c71d4ad8091",
+  "status": "Source-reviewed local receivingintegration only; completecaller/count/lifecycle/final13/reviews/hosted pending",
+  "root_lock_sha256": "61b3cf55080f430aa26f735811a430dc0f04219c536c3190a2957a068a3c7d1c"
+}

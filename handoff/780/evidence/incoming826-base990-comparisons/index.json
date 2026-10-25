@@ -1,0 +1,692 @@
+[
+  {
+    "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+    "export_sha256": "591b2acc0e91118d14df8eb16d27966145ecdd661c8917dc58352ddec320ec9d",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/ba6a1f1aa22e.diff",
+    "diff_sha256": "5814826e619104327fcc66835819cfbc3d0c258232474fd71c2785fb8a49a12b",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "cd8a2b78c22c9341eb12e472ccb21e79daad22bc34d6ca722df6fcc551ad7c31",
+    "export_sha256": "4bcdf153d75c4579bbcca8548abfcc30eb993fa799c3a87f1d3198f39dfd2d09",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/69bbd881652a.diff",
+    "diff_sha256": "c90cd1aa36bc06da354225e10c91eaeea2a8273a7633efe6203f879704072c54",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/broadcast.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "2997cbeae0e781e032541ffe1edc0118db690ee037b02e048719f18e739d0154",
+    "export_sha256": "7da9a0079b61abcc68277eee6ca203597d0decf6e1e501c4ed08bb9ba2831d93",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/400fbb2eac37.diff",
+    "diff_sha256": "2e4769639654481a796255471f3edadd8d0635b9ef19abe4b58045d9882e9a82",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/distance_field.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "d7f81bbaf6aad22406f8cbcf3b78c5bf3e77c828b1bd7d4e9aaac3566d1f578d",
+    "export_sha256": "0b46bdcd4dfba732411b2922b12c0526a6109c8c2b47102d3c9844e80ff4a47c",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/f3dc3c321f36.diff",
+    "diff_sha256": "e22d3aab092ad62763203d27577db85fd495db95d198a4857ce515319186f211",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "12f22cf9a4673efcb2a9690df44c1ecb36a7c6674e5e2f350601ab2030259e20",
+    "export_sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/6ab69a1609f4.diff",
+    "diff_sha256": "599c5f4b7558b692aeb561b55863d89d76bd62ed41f7e496e575d9b18d8a3847",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "8137d9e3a544c501fd925d63b048b75fd87cfd91cea5900720e7e1305c55de98",
+    "export_sha256": "711af7b2f6c5c55f9e3440b44d73e492fc773c217963a4378371299cfe06a064",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/d80217dd2582.diff",
+    "diff_sha256": "40809b014e8442768272015231f21d0acbf5e4799e45ed4ade72e6259053ce01",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "54cd82dcc7f43c8f9ea15613519055575ba7e4cab61246d009eaaf7bea94a9fc",
+    "export_sha256": "2d85bb7c8a1674a8918169e0bf10ec8b5e2ffed332713b418fcda7faea3e283f",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/9ac5f0496b63.diff",
+    "diff_sha256": "bb7db0ad5109e3918d64f09df099560b3f1cb3c1bb63690344465fae67e7c8f9",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "df80978125939ef182d0d4fc2f6574c947b71fae5294395d2fce35323cc45027",
+    "export_sha256": "b2100325e8183d2f7caecc97ba40fb0ee2fdbd8112a9a7218dc8d03ecbac88cc",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/b662b0b984a5.diff",
+    "diff_sha256": "f8f393636ccaea63bc3e2cb0e2e52dfdcbf52946b159d9451356a3b53151f57c",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "7845c2a1bcc2f92156816e3430834ef47b27f22ddaca6b851bec67dd7298adc3",
+    "export_sha256": "488eaebcc4ad0b2c2d0b2441e722ff6ac9cdedf68bf8cdff3381f4f55bb09a0d",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/ad252ef002ca.diff",
+    "diff_sha256": "7dc14acbe7bf026141ff340385050e24d3bf02b52a67cab1a8d4a9100ce513b0",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/batch_error.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "cb3793527b44a96ae64c16459e0e0f656c6e662600002ceb678b1e01573bdac8",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/78a465aee552.diff",
+    "diff_sha256": "c7398db864f2f0f89cad944ff5593edfc6393c38644c258f261f07e993a81965",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/dispatch_count.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "095ae805ef6999f6256a8a49b7c75739ae421028abdeddd1b5a3cbb7a6d1535c",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/9373abff9807.diff",
+    "diff_sha256": "f4eebf85618644a9535643cbf369f403d677f47a174d423534753e2ae0d5ad5d",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+    "export_sha256": "1819eca61bb43d797c554b9cb173e7f0c8df30d26cdb4c27471106af5204200b",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/080d2e9a81d2.diff",
+    "diff_sha256": "57063624c40ee74d6faa8d04e0613cd3dece32a186d011445fd378b0ff1a2c3d",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "c9488a11c8a8c9c481f6b948041544dea9ec19a9405405ec969f51c4e2d2db2d",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/c6a90aad623c.diff",
+    "diff_sha256": "55772c203ade8b2d87395a41f9a9b71aef55eba4581a9dd22f6aaa183c386a38",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/084c812b4384.diff",
+    "diff_sha256": "d26041b37443278bd2359c142ef0b3722df191f6801c4c4d828b955bd6c62e80",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "dd69cd826a3a0b08f3eb0eb81f3352ebb2a0c2abac485612ab4e35657016a3dc",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/d39da35381b0.diff",
+    "diff_sha256": "ec21f5ef987c32faea669d0633f2998425396eecb7f44d5b28b871ad3528cbfd",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+    "export_sha256": "7f4f6a94badc05a943431c2e9c8fccea6e2c110d3b21915bbe58734da093657e",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/d546ec9bc388.diff",
+    "diff_sha256": "e8823373d2f1028674a8fcd3e85bcb03e71cb9b50735042bbfef195e9a8c3918",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/map/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "83f04e81ff21ce1ecdf6ff169429f84850c30d0d61e43db8eb6d00f1187927a3",
+    "export_sha256": "93a07d7a5a79e1627640c19e1f61ce28ba791c902c691f982fb6806b3f2a2992",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/160b22c7a044.diff",
+    "diff_sha256": "2b1348a5c0d93dd6ad69bf9752b1638446b84638ca00198df4ac593677ce69e3",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "4695269ea28c1f47af767efa4e36b789a5626fa0ddb5727fb829728e7dec5569",
+    "export_sha256": "102937a8cee5211a52a5fd4a72548d64d6020ddf8e674dde8ef03a8e05ddc714",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/cf3d15ec2732.diff",
+    "diff_sha256": "421fa10af5ad7f8dc01307018ec38768e048eb2a14980e8e5c08aac9410499df",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/matmul.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "c22b98adcaefe1b1c0ce5740e64fc0f19df37e26c2f7af868aa966324d97d6d4",
+    "export_sha256": "df1ea7e01f2c80f1068a2d519fb69100b10aa284a3d8c3122b4c6c4edf71507a",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/e69e491f0dcd.diff",
+    "diff_sha256": "69e98f1591ff45f222823abfe326b4e8cf36d00490721c1ae92ecba78ec17269",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+    "export_sha256": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/1252a010b8d1.diff",
+    "diff_sha256": "9eaff92b94a2955efc9028987f85f4e4685b383a16432d88e2d8e6deca5d23f9",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "3ff0d7d4ea964841274d93be5294126c93bde8e46612127466f951669bc7b4ed",
+    "export_sha256": "445cdb7d9acb7b0f1502b38e2e98652e4a79ef5467b6ddbc6cf8b6d042cdc8c9",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/9c3e6b629996.diff",
+    "diff_sha256": "f505443fb1184dd9830abbe1c0e9007d87cb64b01d28dd9f4794e0b847d93630",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/reshape.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "e708c032cea676e69f4c37cdaab73c321fbd1427539eea836b201d2c5bfcdd9b",
+    "export_sha256": "09d4bc2f9ee569d1f0f2f2ec1ebb4edebdfb8e86759013e107cae7f83535ab03",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/0c645cd9429a.diff",
+    "diff_sha256": "760ee5232c3191ec54ddd4c71721bc288ee87407ffa648c6e60053eac7f291a0",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/scan.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "3eed883cf7c4a943d56baef3bccc039e46e041d172d2416a7b95085a3475e8da",
+    "export_sha256": "8707f22541301abe03d18cc6792021abc856eab4d005aea7b61bbb36d89ffa1f",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/738a91bed27e.diff",
+    "diff_sha256": "578294f143c1c6af46d7457956894c071e5ea0d23b602f4de91214ba060c4846",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/scatter.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "e0aea2b7e2c56e191ec182091129ef86063b3cd7593dbfa103fd6c859a1c2ccf",
+    "export_sha256": "01a56cecc1945dcdd10f06482e1b55b9abf56beb8760de13423918fe9fa99c62",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/9d2ba6fdd720.diff",
+    "diff_sha256": "bc66ebcb911d4e618af076b664e74c5dfdf347ba3a1802fe33a873b2bbfc26ad",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/sort/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634",
+    "export_sha256": "0875af22982b215bebcf4fa357f966b369bd3b901abb5bc168e9b5285fd130e6",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/446f7a18ef1c.diff",
+    "diff_sha256": "59930b408dc6d04c97852c08156e27cd73be1cdff67cf9f884a5057d1deada0f",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stencil.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "2835d394ffe8b7c0478325595b760753482b45412a093332093263f1ae15a6a5",
+    "export_sha256": "c648a889e866a0a7d0c62a2316e223ad5562e467ebfa5115c7c97de870133d0d",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/c91de753ca81.diff",
+    "diff_sha256": "b34cf664de02a37e3a30e3bb85bdcd09f15d03b1d0a64fb0381f407acd6ca4ce",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "023ed680618cfced6b02c69b90a77739eeb3bbd159c3caec2e50e56ae156b38e",
+    "export_sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/7ce88379e047.diff",
+    "diff_sha256": "d678577f2b379319901dc708bf90cc545891aa2b2a6c1d607fb6af41764ed6f3",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "a064801dc837804426f28ea6f3d29da909fa6a40bbdf082149c664d7d6f5fbc4",
+    "export_sha256": "f411ff9731b0a3c23effc2758e8579f9bd97db55f96efb5b31bd91c4c852aa91",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/bf33b1266d5b.diff",
+    "diff_sha256": "3f6ff8d2ed0b05682b404819ee6a9446c5f5c33a0f09452cb20533e4498aeb2d",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/transpose.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "1f8b8efb22ed67e2b2a39e6c85f2236ffaa3b846dee3211475d29bdf76f99a9a",
+    "export_sha256": "fc0c3a1dd15e81ec79e15176da047c62ef2a467a5f43acb54273d3b09a5111cd",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/d518e42c1e76.diff",
+    "diff_sha256": "36bf85729c612588eb01bc5a90158a24b344a87c849774f870c12c2d1404ef47",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/README.md",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "08d7f871bf045349d897d2ddf58265738e80e85facfe1a1edef5e683f89d3fdc",
+    "export_sha256": "2950b32efa885b1c1cad27e6ed1939afd3a809fc0dce1b65e6870f624c34c2cd",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/552d4c3bba7e.diff",
+    "diff_sha256": "858020d154f8f05183019fde778bd9ecc02fb75a2a19c0a80f434cb93bc6d1bb",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+    "export_sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/5b3a58b341be.diff",
+    "diff_sha256": "3dd1dccfc1f5b41f85632913e797a16665a2ce5f4bd6671768703ae1f3f846ec",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "955f5bb0e7dc346933dab81076091f23ba15158a268849dcc0121858fc648658",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/b6778d26c1b2.diff",
+    "diff_sha256": "ea9f056150c3f800f88045bdeda17c64febfe3cba4236920b20261a5a2e39894",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "8c508dc80b50a645ca4f6eba3f4b5d82937995015671b1c38a87837c4be2a506",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/182f00c80008.diff",
+    "diff_sha256": "32af8ba93c1dec24b40597ce644626be40bad7e3ef2213fabf01734500179bc6",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "1e4d003467028e39848e03315f99a246791f9323a3dc457b554966c5fda9684e",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/964e85c6f56e.diff",
+    "diff_sha256": "cb3876adf90468432e506f209f510d674ae7b1c6a534a12bf2706b035b47aa6c",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/19a432521edf.diff",
+    "diff_sha256": "7f988c1b9ebeaf108f31904c273fc301cf8c0b4cfff2d023e1826ba01202de8b",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+    "export_sha256": "3e73d10fdc2d644e8d0e3909147979a1c7023dfff0d82b12a7a88c751770fa02",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/a8dce434b42d.diff",
+    "diff_sha256": "56d7ef748a02708f2ecc2d3fbc1f9e21ab03c44ca1e0b2cde2129a304ee8188f",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "3794ab44c07097e0021ca938397109158c13d9d9a08284eabf987d42671671ab",
+    "export_sha256": "a43d92af530a01a18187f8f21a247b1e482564f3c07145287294a5006fb992b6",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/1fcab76f21a5.diff",
+    "diff_sha256": "9a5959ae6c91599c638042ff8ae0fc1996ff0f79429838b5c83620eb697b6e15",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "dbf2857af270b0bd3a7f16fe87169990a8a225d86f0ebadc1395e3ff239ae589",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/5d58aa2530a2.diff",
+    "diff_sha256": "252192d3874b09fd5d751da27e04961b964d4c38479abba768b6e0a369cc8ac1",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "2ad51b8c638245db350d8814c93f5338929b8604267169499ca850814d75b57b",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/85619bde2016.diff",
+    "diff_sha256": "932763dced0ecfe3371176cbd0b06140a52c4c5c5360c6c968640a40ee710558",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+    "export_sha256": "0de7bed006752d346fa4cf6c7763cca9ccbaed89dbf4809ec56aa123836f5f27",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/9ed54c98014e.diff",
+    "diff_sha256": "4306764e2b8b61a6766764b5ce4be03dcaf2596dd58a34ee3cac382475992432",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "f374b7a0f7816531b43160e4aade0b76afb2321f89bcd961063a5e1f4c76ddfe",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/12e4aed7fe02.diff",
+    "diff_sha256": "9f2893e34a800711101abc923b3d65cd26846f2b3dddfd7ddeb42ba09987340b",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+    "export_sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/171470beea91.diff",
+    "diff_sha256": "90b79051f121127108ef568ede6dbb7ac08669a300fd7367b1ad9bb8df2ef17c",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "ccde9c8ed962581f4b797bad4d66dd7c5adea1b97ae62c39ba2b0e3b4d5af665",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/3450d435bda5.diff",
+    "diff_sha256": "7827a2496f02b85756403101812c633f411ee4d43e73320a42a17b3d9bf29268",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+    "export_sha256": "99a42845d64d2256870d952e264b1d57fbf2add013e6e6ab4ab22f952df96777",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/9af9b96374e3.diff",
+    "diff_sha256": "d827e4902b5e9e2e3555bac616aca1e687e888d2815e55fdf9c1fba8bc86bd0e",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+    "export_sha256": "08718381092205c02babdfd58f47e606c5181987c2dfaf25640278036de0c5e7",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/03c362752b6d.diff",
+    "diff_sha256": "ad5004f5df125bd3faa3ddfd244cfd34379f9b6c15dfe2b88e3e1c9852016d00",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/7471211ca657.diff",
+    "diff_sha256": "4ae85a43d019b85f36f3ef493430f8dbdbacfd0b2aa7ea37a63a4851a5640fc0",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "d51d501d8a392647cf9edd81c7e551713f04c8fbe90c7f3a1249240fa79184e0",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/2b9c853cfc77.diff",
+    "diff_sha256": "7d8a1f3ec3323cdc1befb1e194c0e857d6882e0fa1a05086e787216bf79e38ef",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "9f1884bfd6533e8e9b0706c4972039e03c4f6dedc25970875e416392938569a5",
+    "export_sha256": "075e68bc46397002d6e838baa275b6e6f97e098aaeef1f24dcaa95087d6d0a46",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/a85296401bab.diff",
+    "diff_sha256": "6751fc4fee12dcc616710bba00e396e4a0309cfa348979e03710d7b87c087d8c",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "83e5615ce868775e7a50e691ce294be28a8f3e8fb100702ac77ebb6789c79d70",
+    "export_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/b76eee6ec244.diff",
+    "diff_sha256": "fb46c4b7f0591fdfca9588eaa47955d7cb04d2fd1a251ba4c0b1a78a531f4e67",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+    "export_sha256": "6fc53b4c9d35946662928727e0b88b0916e57795447ff78039f52338890f407d",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/cc729f8b69c2.diff",
+    "diff_sha256": "17aa2c62eac84d568abc32127c6265b59737855ed6ccac43a47dd4fd38b8eb32",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "0cec16cc3e11d085d3a2b3902b4cd810b7d8413eef744b421c03468b5c2dcd57",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/de8e35acb854.diff",
+    "diff_sha256": "a4dc8bc6324c25a814f4241e521b5b7fda9a5bd5d24ed4bcf7416c5925cd0ffb",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "7c7b4670cbdd5847e69c0111c94c0d23c85efdda6425ab68a88c0aadeba59da0",
+    "export_sha256": "af62bc5f779bdd68942676c201137eec786b0c405216c1626b4b414cab2fe98f",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/576014537e59.diff",
+    "diff_sha256": "08cc2916bbcdfb48d9e18457926b958e284ec3bdff6709ec346cdcb57f838d4d",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/db9cb017f6d4.diff",
+    "diff_sha256": "2efb0d05951773f5e5dd3d4c88b01dcda90c032832d3f154d16743961fad7028",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "24c6e0ae80682f693010613860064bbb2c9c5d0aa2cc6bbeac0fdee734f7c9bd",
+    "export_sha256": "339eb4bc4fecb2b3bf33e8b486b0a42214398ce4a391687745cce49464b267d9",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/e81357c7ecd4.diff",
+    "diff_sha256": "99bbf41397ff468299ed3ea7f0b6ac245748d384be2e2992ae123ba7aec447b8",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "8896b8082c799551488e2498f8bffdddd6c7cdfa344a73c9df0adcd726a75930",
+    "export_sha256": "b7a403ce0f4a856e97457918a1b1fe9a0d4e34fc8365ce806107ff48a6d4d049",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/4dd84580b9c8.diff",
+    "diff_sha256": "877318e48b3737e261883b25fd813cfd877142de28cee49ed6788f31dcec9a11",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "f39d58cf125a285049e50785f064d1d2ca80cfe654b9e593b5c62fc3670d246c",
+    "export_sha256": "01e776aa79ad686723af71aff644feae92ce5294fd92df8378d3b12b8fda642f",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/58d27a516719.diff",
+    "diff_sha256": "482bfcc3236426a111d2fc9eb2f27e639798bbccff03747f8ec8505b77b134f7",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "a084bd9266444ce4ed50458bfac88cc19e31ba899933eea8ad1ec20f176934ac",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/3b87a8b6eafb.diff",
+    "diff_sha256": "676b91d62bc2f8b7eb3afeca31da048ace9f81e6533ececc2b444d6c6cc3c0e3",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "54fd6bf08dac13bcf5ba8d9d64a54d6f6543a6a5e26beb1ff3a8d3f0989d81ea",
+    "export_sha256": "3d25dc0035dbbd9460bde6ae307b5338e0bf1a7b621fe1b9be93a33da235c834",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/f9c166f36a36.diff",
+    "diff_sha256": "c12de2f8f140fc8c22a68a0df583b03a25afa2ee690e8ff64428a8e7bc72af35",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "2a09fff5d2d38ccd60190e1d41cd806f8298d3c40cb27bccb2a7844febdc7952",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/6efe7adffa25.diff",
+    "diff_sha256": "f43de7a83914e41b9efe4737be6a38d6ca10fe4440796ce057ee8812684da9bc",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "f0586f192d129825c11541db615cb1882433f862d473e768d8a224af53541bc0",
+    "export_sha256": "e5112ab6bf1035c3bb5dceb8c6611d75a8c477b55e7c6ba5221226112b51c077",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/a4c34a660ac4.diff",
+    "diff_sha256": "1377f5d390b9998141e16918ce70bd4659ab6cbd8e5fbdd44ec46cd46df1dfa7",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "1a0b48f936366ef8573be58c96d41f8a0d591cae174944a7341e0d7812cf4f95",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/d7ad23cb1b3a.diff",
+    "diff_sha256": "03f848df3ac351be06871a8f00c89d13a3dc457a8a10dd755c3e71bf999545a9",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "45495b07095d77c0cb93ea88115508eeb2a1f083b9368e6d9b02dc6bee3a268c",
+    "export_sha256": "99ed61259eca72b2d3e88923bd098df3d454754f3fedbd35a41b1809298e3f89",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/70a78076cae1.diff",
+    "diff_sha256": "ef523b05a3e6a79a4355d6903cf1718ba3f722dbb583728b7f52cf3d199be0a3",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "8c69fd43e818b86bee07c975f463afbbf8d62250a9a86cd65a995237d9ba1dcc",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/9137d307c133.diff",
+    "diff_sha256": "2c48a0ae876bcb3da2f8c1bf349dd780b48aa87274e6bed1b9038bef1e42f2dd",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834",
+    "export_sha256": "0d3f5e9e2e5e13e996b56268861d52e7f3b5dd8dabb4360e18f961cb0691fa3b",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/a18d36346a73.diff",
+    "diff_sha256": "83dda6572b18099f4615f566e2457669d3e2b3ede9bf719a8668051e1922ed5d",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-gpu/texture-views.md",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": false,
+    "base_sha256": null,
+    "export_sha256": "7dcf6b5150989f96c1b252c0a4223b420024b3cf9e029114a4373802ebfb16ea",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/4028c906c7ec.diff",
+    "diff_sha256": "2fcfe2319ad7770e8abc397ba065339a2bd3f80d1580cc93b0a566013414ffba",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+    "export_sha256": "eda4c9002081e8d83174e01bca0caddda93d9f90301d48b5ac2a5eb29033ce4c",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/54c992e15947.diff",
+    "diff_sha256": "f8fb021625fa0df9f36a6e7a3dcee07ef90e9b4f942b3d2d64c50b88cb85bd4b",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+    "export_sha256": "51aa86bfd6b6d5036da4ce6c3687a8c165546f519924b4a4e97030067776d842",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/16e991cb9148.diff",
+    "diff_sha256": "de9b039ffdcd05e1f7dd79f133ecef83708c48281cce0b7dfbdac29b5482314e",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-mesh/src/gpu.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "88d33d81fa39f02c493f388b5d7217b991dcc2b6d66e6e26ecd1ec666dd2a508",
+    "export_sha256": "d35d69e9ea33e0f07b7f4327acea3ca4764d5f34530a0d2a1b22e551725d4668",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/e1781448f6fc.diff",
+    "diff_sha256": "d3b89f1e39e4bf4a1ee0e84f7fe0fb087250f8a509a0605e2c978dad5a9c501e",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  },
+  {
+    "path": "crates/fabelgeist-physics/src/contact.rs",
+    "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "base_present": true,
+    "base_sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+    "export_sha256": "a68dc722ac5181a1f310a1a1b13f9c694574799f3952a9ef19de71f3c018cceb",
+    "comparison": "target/pr780-audit/incoming826-base990-comparisons/e45df4f20421.diff",
+    "diff_sha256": "3daffc0aad7e5216cde6b54569e8159d6285a06916d727f7cd31570605372099",
+    "discovery": "unreadsource-comparisonorganizer; NOTcoverage/clearance"
+  }
+]

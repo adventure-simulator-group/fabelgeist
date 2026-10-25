@@ -1,0 +1,41 @@
+I am auditing and completing #780 at Bruno's request, including reconciliation
+with #779. I am requesting Adler's explicit ownership agreement before editing
+claimed shared functions. No claimed function has been changed.
+
+The handoff's `rig_garments-claims.json` claims these exact functions reached by
+the sorting migration:
+
+- Compute `kernel/mod.rs`: `KernelBatch::dispatch` (Prepared dynamic offset /
+  native port), and `KernelBatch::copy_buffer` (canonical byte length).
+- GPU `compute/pass/mod.rs`: `ComputePass::record`.
+- Creator `device_underlayer.rs`: `Fit::run` and `Fit::shells`.
+- Armor `gpu/bracer.rs`: `DeviceBracer::record`.
+- Shell `surface_contact.rs`: `SurfaceContacts::project_particles`.
+- Creator `device_clearance.rs`: `ClearanceFit` and
+  `DeviceWearer::record_clearance_fit`.
+- Creator `device_limb.rs`: `DeviceWearer::record_fitted_limb`;
+  `device_extremities.rs`: `DeviceWearer::record_mitten`;
+  `device_chausses.rs`: `DeviceWearer::record_fitted_chausses`;
+  `device_garment_tube.rs`: `DeviceWearer::record_fitted_tube`;
+  `device_garment_skirt.rs`: `DeviceWearer::record_fitted_skirt`.
+
+The first three dispatch/copy functions need canonical #779 `WorkgroupGrid`
+receiving APIs and canonical `BufferByteLength` through the copy facade. Current
+main also adds folded dispatch, pipeline preparation and post-submit callbacks;
+these must survive. The other functions produce, retain or receive counts in
+the unchanged normal/particle/underlayer graph. Typing only the final sort call
+would leave that migration unfinished.
+
+Proposed coordination: #780 consumes #779's canonical launch owners, preserving
+sort/mesh/particle roles separately. Adler retains his whole-function ownership
+and every physical, rig, byte-offset and concrete-error requirement. Please
+explicitly agree how to integrate the dispatch/copy delta and count API changes
+in the exact shared functions above, or provide Adler-owned integrated changes.
+This is a request for coordinated integration, not a takeover or an assumed
+partial-function transfer. No #774 family is being declared complete.
+
+All thirteen initial audit inventories must be exhaustive before source repairs.
+Discovery has found additional recipients and remains incomplete. Independent
+source inventory and the three requested independent reviews continue while
+this ownership dependency is unresolved. No connected-family push or CI request
+will occur before source completion and reconciliation.

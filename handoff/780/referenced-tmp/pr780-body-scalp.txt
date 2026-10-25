@@ -1,0 +1,119 @@
+The GPU (graphics processor) sorter used primitive integers for item counts,
+key widths and other quantities with different meanings. Its migration also
+needs to reach unchanged producers and consumers so those contracts remain
+consistent across complete operations.
+
+The published change introduces sorting quantities for counts, widths, passes
+and digits. The continuation covers retained capacities, byte layouts and the
+bounding volume hierarchy (BVH), vertex normals, cloth self-collision,
+underlayers, hair, fitting and their application consumers.
+
+Sorting populations remain distinct from #779's launch quantities. The work
+consumes the canonical invocation, workgroup, buffer-byte and element-stride
+owners. Shared GPU submission, copying, readback and error handling are
+coordinated with #826 through explicit whole-function ownership. Compatibility
+adapters and competing implementations are outside the intended final API.
+
+## Current status
+
+This pull request remains a draft. Its published head is
+`e14407cc494615f0b16522fb7aa7672a3589a3c3`. The audit continuation is local;
+its latest local commit is `c6659f6cfa4610f066c659411ade6636e21bd3b5`.
+No continuation code has been pushed or submitted for hosted checks.
+Current main was reconfirmed as `990430b77a9f63548ffcb642074185f61ddb3322`;
+#779 remains at `71f9cab8a5f97760e2e61ca4c74876b715f8aebc`.
+
+Local implementation now includes:
+
+- Checked sorting and dispatch layouts, scratch growth and exact input byte
+  prefixes. Recorded BVH views retain their actual buffers and layout, and a
+  replacement collider is published only after its initial submission succeeds.
+- Canonical submission, ranged copying and validation-scope consumers. Grouped
+  readback retains its producing device and concrete callback and polling
+  causes. Armor and fitting readbacks use named tickets and logical prefixes;
+  empty numeric reductions return a typed error.
+- Metal tile and engraving admission, immutable recipe association and checked
+  texture-map extents. Generated resource programs use explicit entry points,
+  canonical texture component projection and fallible storage-format spelling.
+- Sealed host and native strand shapes, source and device association, full
+  storage admission before resident-prefix selection, checked native identities
+  and work arrays, and source-bound simulation frames. Card geometry preserves
+  the distinction between generic triangle lists and generated strips. Atlas
+  recipes and actual mip metadata flow through their owning builders.
+- The coordinated renderer receiver, including actual source identity, typed
+  selection and frame populations, logical binding prefixes and fallible
+  simulation updates. Receiving review exposed and resolved duplicate error
+  conversion, unit-import and unused-binding integration findings.
+- One shared mesh strip owner used by the host card builder and the Creator's
+  card and ribbon paths. The Creator carries typed form ordinals, shares,
+  counts and distances through preview, export and existing fixtures. Empty
+  strand sources draw zero strands, logical reads exclude allocation padding,
+  and strip submission errors propagate. Atlas export reads each mip's actual
+  dimensions. Scoped Code, Rule and Comment Reviews found no remaining finding
+  after corrections; source comparisons preserve all four strip WGSL programs
+  and the existing fixture oracles.
+- Fixed scalp mip layouts remain attached to the actual buffer and creating
+  device through baking, readback and preview upload. Texel spans, shadow block
+  counts, storage records, byte addresses and launches have separate owners.
+  Foreign-device host reads reject before mapping. Exact source comparisons
+  preserve shader text, mip addresses, pass order and existing fixture oracles;
+  all three scoped reviews and the thirteen-lens scoped successor are clear.
+- Creator initialization caches and material/clothing receivers preserve their
+  actual error causes. Mail textures are all decoded before image handles or a
+  successful cache entry are published. Hair completion uses the canonical
+  fallible asynchronous completion API. Mesh strip row admission preserves its
+  integer-conversion cause. The two-dimensional Advect program relies on the
+  native sRGB sample conversion once, and its three-dimensional Clamp path
+  bounds the upper texture address. Each code family has scoped independent
+  Code, Rule and Comment Review evidence. A nested lockfile also records its
+  declared armor dependencies; final locked hosted validation remains pending.
+
+These are local source-review results. They establish no compiled, runtime or
+whole-PR acceptance. The complete combined source still needs a fresh
+post-repair wave across all thirteen lenses.
+
+Required implementation remains in the physical/grid and GPU level producers,
+body and fitting, armor and runtime consumers, and the remaining lower GPU
+composition. Receiving review also identified generated-program item-order,
+parameter-record and Stencil state-schema gaps, including unsigned value/index
+classification inconsistencies. Their complete source-backed thirteen-lens
+preinventory records the final owner, admission, emission and caller contracts
+before implementation. Generated-program and extraction handoffs remain held
+until that connected family is complete. The coordinated lower GPU, baseline
+and armor-documentation successors await complete receiving composition. These
+dependencies remain open; earlier scoped reviews do not waive them.
+
+Bruno transferred the remaining connected #774 claims to this coordinated
+continuation. The [ownership record](https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6372371468)
+supersedes the earlier missing-implementer limitation. #826 owns the agreed lower
+GPU, armor and metal facade/error functions, hair renderer and selection-policy
+family. #780 owns the connected producers, layouts, fitting and application
+errors. Shared-function changes require an agreed owner; ownership does not
+establish implementation clearance.
+
+## Validation
+
+No new tests, test cases, test helpers, assertions or documentation tests are
+added by the continuation. Existing fixture API changes follow the canonical
+migration while retaining their cases and oracles. Project checks will use the
+hosted workflows after connected migration families are complete.
+
+The ignored source-backed ledger records all thirteen lenses, contracts,
+dispositions, dependencies, repairs and acceptance criteria. Discovery,
+implementation and validation remain distinct. Targeted source comparisons and
+scoped reviews do not substitute for complete post-repair audit waves.
+
+Completion requires all thirteen lenses, final independent Code Review, Rule
+Review and Comment Review, and required hosted CI to pass on the same final
+pushed revision. Those gates remain pending. Do not merge.
+
+## Implementation context
+
+Material decisions are separate sorting and launch quantities, canonical shared
+owners, checked layouts before recording, actual source and provider association,
+retained native causes, and explicit whole-function ownership across #774 and
+#826. Source preservation evidence is kept separate from pending hosted
+acceptance. No reviewed shared conversation snapshot is available for this
+continuation; this description is the authoritative scope and validation summary.
+
+Part of #726. Related dispatch API: #779. Shared receiving contracts: #826.

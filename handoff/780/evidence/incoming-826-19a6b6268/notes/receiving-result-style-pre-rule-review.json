@@ -1,0 +1,369 @@
+{
+  "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "tree": "4cc54cebccefd4eb249900fb22d160cdaba53485",
+  "base_main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "peer_context": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+  "source_accounts": [
+    {
+      "id": "S1",
+      "path": "crates/AGENTS.md",
+      "location": "Root",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "lines": 192,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": "b890bfd0f628b3aae3d417cb8d0a4070bf7b3117"
+    },
+    {
+      "id": "S2",
+      "path": "crates/fabelgeist-armor/AGENTS.md",
+      "location": "Root",
+      "sha256": "52390164bf3eb74a0160ee3ac19527fd43856aa998920d16824f2f41058cf47f",
+      "lines": 247,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": "b07813d8101ba1033a954915b401069b8766cbf0"
+    },
+    {
+      "id": "S3",
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "location": "Root",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "lines": 43,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": "147cd8b21a649ac5a24067843d5dd6997b3c1958"
+    },
+    {
+      "id": "S4",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "location": "Root",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "lines": 97,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": null
+    },
+    {
+      "id": "S5",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "location": "Root",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "lines": 250,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": "6e381d0577adafdd6b623ef7f0fe52152c3df6f9"
+    },
+    {
+      "id": "S6",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "location": "Root",
+      "sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "lines": 225,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": "4328ebb2bee1823007e778a51ae64ec84b21013a"
+    },
+    {
+      "id": "S7",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "location": "Root",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "lines": 101,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": null
+    },
+    {
+      "id": "S8",
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "location": "Root",
+      "sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "lines": 146,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": "44b1f6a7539a3ad1603560c6ee9fd65112922651"
+    },
+    {
+      "id": "S9",
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "location": "Root",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "lines": 187,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": null
+    },
+    {
+      "id": "S10",
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "location": "Root",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "lines": 42,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": "4f83352df678db21eb40ee6558e3a3b40714f029"
+    },
+    {
+      "id": "S11",
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "location": "Root",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "lines": 185,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": "17b46652cce1fd007c751d9c02c6187e8f639a23"
+    },
+    {
+      "id": "S12",
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "location": "Root",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "lines": 294,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": "1c3d208bb839f18ce7a742861f365443e786f203"
+    },
+    {
+      "id": "S13",
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "location": "Root",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "lines": 121,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": null
+    },
+    {
+      "id": "S14",
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "location": "Root",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "lines": 131,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": null
+    },
+    {
+      "id": "S15",
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "location": "Root",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "lines": 120,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": null
+    },
+    {
+      "id": "S16",
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "location": "Root",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "lines": 123,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": null
+    },
+    {
+      "id": "S17",
+      "path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "location": "Root",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "lines": 135,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": null
+    },
+    {
+      "id": "S18",
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "location": "Root",
+      "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "lines": 48,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": null
+    },
+    {
+      "id": "S19",
+      "path": "crates/adventuresim-character-creator/src/device_fit_readback.rs",
+      "location": "Root",
+      "sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "lines": 62,
+      "read_ranges": "all",
+      "coverage": "Fresh complete source/rule/body, including all direct fallible signatures and error ownership; not a whole dependent-crate audit",
+      "base_main_blob": "262675509d6db14307a8eb7bb6f5b024b0a40964"
+    },
+    {
+      "id": "S20",
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "location": "Root",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "lines": 229,
+      "read_ranges": "140-230",
+      "coverage": "Fresh full stated direct functions/records; Full read/stage/finish functions and start of independent native gather source; whole body producer not reread",
+      "base_main_blob": "bf1148835970611e568556a83c32fc236898d3b8"
+    },
+    {
+      "id": "S21",
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "location": "Root",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "lines": 399,
+      "read_ranges": "230-350",
+      "coverage": "Fresh full stated direct functions/records; Full staged stage/finish, PartSlots/BuiltPart definitions; following append body not claimed",
+      "base_main_blob": "c25d6c84f410e31676bdd1bfe2a5c9ee06b1e5ab"
+    },
+    {
+      "id": "S22",
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "location": "Root",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "lines": 332,
+      "read_ranges": "230-355",
+      "coverage": "Fresh full stated direct functions/records; Full read/read_async and returned generated mesh publication",
+      "base_main_blob": "1819fbcbfd8cbed48e02581d7da7db0298fca60f"
+    },
+    {
+      "id": "S23",
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_sampling.rs",
+      "location": "Root",
+      "sha256": "bf81803801df60f8387489c31ab851af7f62c1df5cee4611a055d628c5bec616",
+      "lines": 221,
+      "read_ranges": "70-150",
+      "coverage": "Fresh full stated direct functions/records; Full layout staged caller/error/publication, boundary of separate record method",
+      "base_main_blob": "6f6f565c42f85effc33ff3479ad294c1b13339fc"
+    },
+    {
+      "id": "S24",
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/plates.rs",
+      "location": "Root",
+      "sha256": "626dd0cc8823b5542b30fd320294e8109b996c5e4117ec73e513b82b8f909a84",
+      "lines": 428,
+      "read_ranges": "120-200",
+      "coverage": "Fresh full stated direct functions/records; Full remesh staged caller and all publication steps; boundary of separate constructor",
+      "base_main_blob": "29b182f818177511cfbabbf91792ea14b5c6be26"
+    },
+    {
+      "id": "S25",
+      "path": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "location": "Root",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "lines": 486,
+      "read_ranges": "380-490",
+      "coverage": "Fresh full stated direct functions/records; Full read/read_async and native-array returned publication plus delta helper",
+      "base_main_blob": "b1dd9c17025280eaca8053c10a3ddafbb3d4243c"
+    },
+    {
+      "id": "S26",
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "location": "Root",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "lines": 246,
+      "read_ranges": "1-135",
+      "coverage": "Fresh full stated direct functions/records; Full check/stage/check_status/read/read_async; FrameFailure message and wearer upload; boundary of next independent method",
+      "base_main_blob": "7c29f4cba7d709ed534d6cae7503e6571b680d63"
+    },
+    {
+      "id": "S27",
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "location": "peer",
+      "sha256": "cb2e40ae34578f120b979f8be49427c8b364d695883af4fede324ae24cdfa6c2",
+      "lines": 348,
+      "read_ranges": "1-250",
+      "coverage": "Fresh canonical record/read whole functions and result/error owners; pending-method tail and fixture not read here"
+    }
+  ],
+  "owner_traces": [
+    {
+      "family": "Texture numeric projection",
+      "owner": "GPU compute/signature::{ResourceBaseType,TextureValue,TextureValueError,TextureValueResult}",
+      "admission": "Private TextureValue scalar/components; sole TryFrom matches F32/U32/I32 and vec2/3/4 of scalar. Unsupported type clones actual ResourceBaseType in typed error. No public struct literal/default/deserializer bypass.",
+      "producer_retained": "Generated signatures carry canonical ResourceBaseType; TextureValue borrows scalar owner and stores closed TextureComponents. Clone preserves admitted relationship.",
+      "operations": "load_suffix exact .x/.xy/.xyz/no suffix; store_expression scalar integer/float zero pads four WGSL lanes and preserves quad expression. Literal type/suffix/zero strings are native WGSL format tokens.",
+      "consumers": "ResourceDescriptor::generate_fetch; Map/Gather/Stencil store, Scatter/Stream load, NeighborhoodFetch. Typed ? through TextureValueResult or mixed anyhow builder Result; no display branching or native error fabrication.",
+      "limits": "Signature-only repair does not clear outstanding physical/generated/canonical whole graph or shader runtime; Naga remains native program validator."
+    },
+    {
+      "family": "Staged host decode and facade readback",
+      "owner": "Armor gpu/staging::{Staging,Staged,StagedResults,StagingSession,StagingError}; facade GenerateError and GPU BufferReadError remain separate owners",
+      "admission": "Staging new/default allocates one Arc session; stage appends borrowed Buffer and issues private session/index. StagedResults created only after grouped read and same session transfer.",
+      "producer_retained": "Staged Clone retains exact session; private index/bytes fields disallow caller mutation or forged result. stage order matches Readback byte ranges. Current old callers require agreed producer propagation.",
+      "operations": "prefix first checks Arc::ptr_eq then checked get; rejects zero-sized T; count.checked_mul(size_of<T>) gives typed host overflow; bounds-checks exact bytes, try_reserve mapped actual source, zero-init and copy whole Pod. Zero count valid with valid ticket, padding excluded. status prefix1 proves fixed index0.",
+      "consumers": "Facade read_staged sync delegates async; async creates batch, records canonical grouped copies, propagates submit failure via device_error, awaits read before publishing StagedResults. GenerateError Readback/Staging variants #[from] preserve source; GPU(anyhow) preserves native/copy cause. Direct known body/part/breastplate/bracer/Creator users listed as dependencies.",
+      "limits": "Actual same logical Device/queue and mapping ownership are documented preconditions, not newly validated. Native blocking/browser callback semantics come from agreed canonical Readback; no copy allocation/wait/cadence change authorized by alias spelling."
+    }
+  ],
+  "required_dependencies": [
+    {
+      "id": "D-STAGING-CALLERS",
+      "owner": "#780",
+      "source": "body.rs finish; part.rs stage/finish/PartSlots; bracer.rs read_async; breastplate/mod.rs read_async; anime_sampling.rs layout; plates.rs remesh; Creator device_fit_readback.rs read and DeviceFrame::stage/check_status",
+      "state": "Required current migration gap, not a new result-style regression",
+      "evidence": "Root callers still use removed results.get, by-value tickets, Copy records containing new non-Copy Staged, or treat Result status/prefix as native values. Root staging also expects canonical Readback::record(batch,buffers)/read() while Root readback.rs still requires explicit context. Canonical peer d000 supplies the accepted context-derived Readback API and borrowed fallible caller forms at independently located lines.",
+      "acceptance": "Consume complete agreed canonical source/caller/lock family; propagate borrowed ticket Result failures into existing GenerateError::Staging / anyhow preserving actual source before host publication. Do not restore get/infallible compatibility APIs. Full exact receiving source and final CI must be repeated."
+    },
+    {
+      "id": "D-GENERATED",
+      "owner": "Root + #780 agreed family split",
+      "state": "Required canonical lib/prelude/resource/stride/caller integration remains incomplete",
+      "acceptance": "Retain GPU TextureValue/ResourceBaseType one-owner exports and typed error chain into generated builder Result; no duplicate type, reverse GPU->Compute dependency or generated native token change."
+    },
+    {
+      "id": "D-FINAL",
+      "owner": "Root coordinator",
+      "state": "All same final pushed SHA acceptance gates open",
+      "acceptance": "Complete connected implementation first, preserve existing test population, apply relevant hosted baseline reductions, then all13 and independent Code/Rule/Comment plus required hosted gates on final same pushed revision; no merge."
+    }
+  ],
+  "limits": [
+    "Focused all13 discovery complete before any source edits, not a fresh full-PR audit. Source accounts distinguish whole owner files, whole direct caller functions and bounded peer canonical reference.",
+    "No production/workflow/test source edits, local project command/build/check/lint/test/scanner/generator/runtime/probe, CI request or push. Only source/Git/hash reads and ignored report formatting/authoring.",
+    "Current Root graph cannot compile until canonical Readback/caller/dependency APIs are consumed. This is a known required migration obligation, not silently deferred or resolved by result aliases.",
+    "No new tests/cases/helpers/assertions/doctests and no original826 fixtures removed. No test runtime, native backend or SendSync/Wasm proof is established by this result-style review.",
+    "Both owners <150 source lines and methods are visibly bounded below100; proposed alias/signature changes add no function/body responsibility. No no-growth scanner or final hosted baseline export ran.",
+    "Armor artistic review instructions expressly exclude unrelated maintenance; API/result spelling changes do not authorize or require geometry/art iteration.",
+    "Final same pushed SHA all13/three independent reviews/required hosted gates and baseline reductions remain open; no global clearance or merge."
+  ],
+  "rules": {
+    "result_ownership": "crates/AGENTS.md118-122",
+    "canonical_units_ownership": "crates/AGENTS.md23-71",
+    "module_item_order": "crates/AGENTS.md90-104",
+    "no_unwrap": "crates/AGENTS.md126-127",
+    "hosted_baseline_no_growth": "crates/AGENTS.md166-178",
+    "skill": "rule-review/SKILL.md + references/bespoke-type-review.md"
+  },
+  "phase": "Independent Rule Review, pinned pre-repair source",
+  "findings": [
+    {
+      "id": "RS-R1",
+      "priority": 3,
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "line": 32,
+      "rule": "crates/AGENTS.md118-122: framework and trait error parameters remain explicit",
+      "classification": "Confirmed repository rule/style gap; no runtime type or cause defect demonstrated",
+      "evidence": "TryFrom declares type Error = TextureValueError but try_from returns TextureValueResult<Self>. Alias resolves to the same concrete error; it obscures the associated trait error spelling required by the explicit exception.",
+      "repair": "Spell std::result::Result<Self, Self::Error> (or unambiguous Result<Self, Self::Error>) for the trait method only. Retain TextureValueResult for ResourceDescriptor/generator/nontrait texture-value APIs. Preserve complete method body and diagnostics.",
+      "acceptance": "Trait signature visibly carries Self::Error; all existing alias consumers keep identical return types and every production/WGSL/fixture body is unchanged."
+    }
+  ],
+  "optional_strengthening": [
+    {
+      "id": "RS-S1",
+      "priority": 3,
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "lines": [
+        75,
+        110
+      ],
+      "classification": "Coherent owning-family alias refinement; literal mixed-error rule also permits existing explicit standard results, so not independently established as a must-fix violation",
+      "rule": "crates/AGENTS.md118-122: owning Result alias for cohesive same-error APIs; where errors differ, descriptive aliases OR explicit standard results are allowed",
+      "evidence": "StagedResults::prefix/status share StagingError. ArmorGpu::read_staged/read_staged_async in the same file return distinct GenerateError, preserving grouped native/copy/mapping failures. Current two-parameter Results explicitly preserve those distinctions.",
+      "repair": "If taking the focused cleanup, add one StagingResult<T> = std::result::Result<T, StagingError> before structs and use only for prefix/status. Keep facade GenerateError returns separate; no error widening, imported facade-private alias, wrapper, dual path or new type. Existing public staging module owns the optional descriptive alias.",
+      "acceptance": "Only owning alias/signature tokens change; prefix/status control flow, error enum/payloads/source chain, byte arithmetic, mapping/submission cadence and facade result ownership remain exact."
+    }
+  ],
+  "correctness_verdict": "One confirmed trait signature style gap; no new focused owner runtime error established. Staging alias is coherent refinement under explicit mixed-error rule, not cause unification.",
+  "completeness_verdict": "Focused owner/caller discovery complete; required canonical source/caller/lock integration and final global gates remain incomplete.",
+  "selected_cleanup_agreement": "Root explicitly selected StagingResult owning-family cleanup after independent mixed-error classification; this is an accepted focused repair, not a newly asserted runtime defect or permission to merge GenerateError family."
+}

@@ -1,0 +1,36 @@
+--- crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs current780
++++ crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs canonical826
+@@ -1,6 +1,8 @@
+ use super::{ComputeBindGroup, uniform_buffer};
+ use crate::data::{BindGroupReflection, ComputePipeline, PassParameter, PassParameters};
+ use crate::data::{ComputeBindingKind, ComputePassError};
++#[cfg(not(target_arch = "wasm32"))]
++use crate::globals::ValidationScope;
+ use crate::globals::WgpuContext;
+ use anyhow::{Context, Result};
+ use std::sync::Arc;
+@@ -63,11 +65,7 @@
+     }
+     add_samplers(&mut entries, reflection, parameters)?;
+     #[cfg(not(target_arch = "wasm32"))]
+-    let scope = context.blocking_validation.then(|| {
+-        context
+-            .device
+-            .push_error_scope(wgpu::ErrorFilter::Validation)
+-    });
++    let scope = ValidationScope::new(context);
+     let group = context
+         .device
+         .create_bind_group(&wgpu::BindGroupDescriptor {
+@@ -77,10 +75,7 @@
+         });
+     #[cfg(not(target_arch = "wasm32"))]
+     if let Some(scope) = scope {
+-        let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+-        if let Some(cause) = pollster::block_on(scope.pop()) {
+-            return Err(ComputePassError::Native(Arc::new(cause)).into());
+-        }
++        scope.finish().map_err(ComputePassError::from)?;
+     }
+     Ok(group)
+ }

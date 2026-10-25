@@ -1,0 +1,141 @@
+{
+  "head": "12a14b478506044f85a062f07aa05855cae0c8c7",
+  "fingerprints": {
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs": "70a93715a6a926de40b3f71c676839e81df669ff56f41dcbbfa1486560603466",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+    "crates/adventuresim-character-creator/src/hair/scalp_map.rs": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+    "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs": "3b0756f8287d6c95da9e9ab146be7ab5792c584fa232481cde0b6470d549320d",
+    "crates/adventuresim-character-creator/src/hair/gpu/mod.rs": "aea64b1f78e5def266d32a1ecf4ffce201b11292c344a40ad123fa28118f5644",
+    "crates/adventuresim-character-creator/src/hair.rs": "a9d4f30809a845df7b5e43bac564eb66824d90bb6cfed878e96c6afae8ff332c",
+    "crates/adventuresim-character-creator/src/hair/groom.rs": "d6c46f6ef0b1f037cc45648c2baac76b9e383aad331cf1c3757f1e1150702b43",
+    "crates/adventuresim-character-creator/src/hair_preview/assets.rs": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143",
+    "crates/adventuresim-character-creator/src/hair_preview/render_test.rs": "af7733cf9f722b473e08584c2c35569cc0962376cadc4e73875ba71bef94e739",
+    "crates/adventuresim-character-creator/src/hair/gpu/strips/geometry.rs": "57f15b94c1f1c08bfcc0e214f95fd19640c418ad76f96d698661717076bcd6e4",
+    "crates/fabelgeist-hair/src/cards/atlas/layout.rs": "df403b648c0f3ba7f93f2f45c4deea2f33fc0c72fedef23d9f454397dbf428dd",
+    "crates/fabelgeist-hair/src/gpu/scalp.rs": "8497dc68d32bee89caf41854e8cb0492416acb664f9546b98b5f027e530b0b06",
+    "crates/fabelgeist-hair/src/gpu/scalp/layout.rs": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+    "crates/fabelgeist-hair/src/surface.rs": "0c54c21fb94e4b1df748a29cdbef562802d717acfc810211072be30d236a3298",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/read.rs": "ff97b2b7c684745153c4713acc58e4d535cd97dd9008bcb8aacb9e62fdd138f2",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/prefix.rs": "62a435f0e609deb067d2c9e59481ee7e042d0ee1f16c5d662f0ea6b4bd95b4c0",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs": "86e926ab47cd284d07a0e14265aaf7b5ba3ce1b6cc5e2aff66328e05f67aee02",
+    "crates/fabelgeist-compute/src/kernel/mod.rs": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+    "crates/fabelgeist-math/src/units.rs": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492"
+  },
+  "mips": [
+    {
+      "side": 2048,
+      "row_records": 2048,
+      "word_offset": 0,
+      "padded_records": 4194304,
+      "last_word": 4194303,
+      "byte_offset": 0,
+      "row_bytes": 8192
+    },
+    {
+      "side": 1024,
+      "row_records": 1024,
+      "word_offset": 4194304,
+      "padded_records": 1048576,
+      "last_word": 5242879,
+      "byte_offset": 16777216,
+      "row_bytes": 4096
+    },
+    {
+      "side": 512,
+      "row_records": 512,
+      "word_offset": 5242880,
+      "padded_records": 262144,
+      "last_word": 5505023,
+      "byte_offset": 20971520,
+      "row_bytes": 2048
+    },
+    {
+      "side": 256,
+      "row_records": 256,
+      "word_offset": 5505024,
+      "padded_records": 65536,
+      "last_word": 5570559,
+      "byte_offset": 22020096,
+      "row_bytes": 1024
+    },
+    {
+      "side": 128,
+      "row_records": 128,
+      "word_offset": 5570560,
+      "padded_records": 16384,
+      "last_word": 5586943,
+      "byte_offset": 22282240,
+      "row_bytes": 512
+    },
+    {
+      "side": 64,
+      "row_records": 64,
+      "word_offset": 5586944,
+      "padded_records": 4096,
+      "last_word": 5591039,
+      "byte_offset": 22347776,
+      "row_bytes": 256
+    },
+    {
+      "side": 32,
+      "row_records": 64,
+      "word_offset": 5591040,
+      "padded_records": 2048,
+      "last_word": 5593055,
+      "byte_offset": 22364160,
+      "row_bytes": 256
+    },
+    {
+      "side": 16,
+      "row_records": 64,
+      "word_offset": 5593088,
+      "padded_records": 1024,
+      "last_word": 5594063,
+      "byte_offset": 22372352,
+      "row_bytes": 256
+    },
+    {
+      "side": 8,
+      "row_records": 64,
+      "word_offset": 5594112,
+      "padded_records": 512,
+      "last_word": 5594567,
+      "byte_offset": 22376448,
+      "row_bytes": 256
+    },
+    {
+      "side": 4,
+      "row_records": 64,
+      "word_offset": 5594624,
+      "padded_records": 256,
+      "last_word": 5594819,
+      "byte_offset": 22378496,
+      "row_bytes": 256
+    },
+    {
+      "side": 2,
+      "row_records": 64,
+      "word_offset": 5594880,
+      "padded_records": 128,
+      "last_word": 5594945,
+      "byte_offset": 22379520,
+      "row_bytes": 256
+    },
+    {
+      "side": 1,
+      "row_records": 64,
+      "word_offset": 5595008,
+      "padded_records": 64,
+      "last_word": 5595008,
+      "byte_offset": 22380032,
+      "row_bytes": 256
+    }
+  ],
+  "chain_records": 5595072,
+  "chain_bytes": 22380288,
+  "visible_records": 5592405
+}

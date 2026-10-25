@@ -1,0 +1,124 @@
+{
+  "head": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+  "scope": "density + Armory exact eight-source increment; no global clearance",
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-armor/src/material/density.rs",
+      "sha256": "94db413bd0eeefd9fc860abb8eee368ee1d11a55cb48cbb4cd7ba2113fd0d665",
+      "matches_ledger": true,
+      "lines": 122,
+      "read_extent": "whole current source, including existing fixture suffix if present",
+      "before_sha256": null
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "sha256": "12debec1a00cb2ff34e5ef09978a4a3c523bde4bfb1926a1dbef86b7decaf6ea",
+      "matches_ledger": true,
+      "lines": 119,
+      "read_extent": "whole current source, including existing fixture suffix if present",
+      "before_sha256": "bf177dcb1b678b06f9174b3aa283e4aa7634638681ce88c8722a900052734d72"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "00f657217f6dc1b7b5677176fad2153836a7aabc133a1c7b518bba391a607c16",
+      "matches_ledger": true,
+      "lines": 171,
+      "read_extent": "whole current source, including existing fixture suffix if present",
+      "before_sha256": "ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "d71953e80a22f666f64d7733ae41279fe18700e1f6b0531ee1cfd404f4c95559",
+      "matches_ledger": true,
+      "lines": 478,
+      "read_extent": "whole current source, including existing fixture suffix if present",
+      "before_sha256": "fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory/exhibit.rs",
+      "sha256": "b2f4f006cf78814970012ab94d85d178176813c53cd2fbd9768ff2b17349c221",
+      "matches_ledger": true,
+      "lines": 95,
+      "read_extent": "whole current source, including existing fixture suffix if present",
+      "before_sha256": null
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory.rs",
+      "sha256": "74f95648715bc2456ec986093c649779f02d3c773607d24af7ff0ccfc4ca18ef",
+      "matches_ledger": true,
+      "lines": 427,
+      "read_extent": "whole current source, including existing fixture suffix if present",
+      "before_sha256": "aa66e0b18f919eb3351635241249df969eeed4c36c36aa302888c320222a54df"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "ff67d80dde117a3e4dd23e394d0a5bc6efe5049ca032c0e5fc0a30eaaeec3429",
+      "matches_ledger": true,
+      "lines": 288,
+      "read_extent": "whole current source, including existing fixture suffix if present",
+      "before_sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_ui.rs",
+      "sha256": "dea23f6efe94e9b5439739548675be1b0cfd109a3e153e2a083d7a816db43aeb",
+      "matches_ledger": true,
+      "lines": 332,
+      "read_extent": "whole current source, including existing fixture suffix if present",
+      "before_sha256": "5c519edc1b220e1bdb7d874160b997ffb77a98266e5f6c5de49565d4ab5e9ada"
+    }
+  ],
+  "fixture_source_comparisons": {
+    "crates/adventuresim-character-creator/src/armor_metal.rs": {
+      "matches": true,
+      "description": "Existing test suffix byte-exact after the one authorized density-call Result adaptation; helpers/data/assertions unchanged."
+    },
+    "crates/adventuresim-character-creator/src/parametric_equipment.rs": {
+      "matches": true,
+      "description": "Existing test suffix byte-exact."
+    },
+    "crates/adventuresim-character-creator/src/armory_scene.rs": {
+      "matches": true,
+      "description": "Existing test suffix byte-exact."
+    }
+  },
+  "execution": "source inspection/bookkeeping only; no project checks, tests, probes or source edits",
+  "dependency_accounts": [
+    {
+      "path": "crates/fabelgeist-armor/src/design.rs",
+      "sha256": "86dac554a42b48cf1547e5656337fb718b4a4fc7e231a30009ce00ff7207dd00",
+      "read_extent": "125-173: public GeneratedArmor source columns; no general admission proof inferred."
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "read_extent": "1-115: canonical unit-only Ratio and actual native getter/constructor."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "read_extent": "Full file: wearable proves material and at least one nonempty surface placement; design/current catalog access."
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "read_extent": "1-160: canonical CatalogItem/Placement/OwnedCatalogPlacement and exact retained snapshot membership; remaining trait suffix not reviewed in this increment."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/item_design.rs",
+      "sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "read_extent": "1-130: actual design source/default lookup and set-default validation; remaining persistence paths not reviewed."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_scene.rs",
+      "sha256": "e486c21e58ee4c7f689bceed15e636afc2b11d12fc0989b02ca4a5e128c85fcf",
+      "read_extent": "56-96: actual Copy OrbitCamera/OrbitGoal payload declarations and relevant native transition data."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_extent": "Full governing Rust rules, read during active independent review task."
+    }
+  ],
+  "verdict": "No new actionable Rule finding in this exact eight-source density/Armory increment; all13 scoped source dispositions clear with explicit broader open limits; no executed validation.",
+  "global_clearance": false
+}

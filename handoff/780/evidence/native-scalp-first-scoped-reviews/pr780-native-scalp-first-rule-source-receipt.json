@@ -1,0 +1,86 @@
+{
+  "head": "47c23647be6d0e764076237b8a0a692906663d0a",
+  "method": "Read-only whole-file source comparison. Ignore full-line comments and whitespace after reversing the one final submission question mark or removing exactly the old five-line unsound native prune from before; all other code/string bytes must agree. No project execution.",
+  "sources": {
+    "crates/fabelgeist-hair/src/gpu/scalp.rs": {
+      "sha256": "40486b2fcb0f2a2742a0a43ac588c71ba46f47495236def99dd6f0b27c821447",
+      "manifest_match": true,
+      "before_sha256": "8497dc68d32bee89caf41854e8cb0492416acb664f9546b98b5f027e530b0b06",
+      "all_other_source_equal_ignoring_comments_whitespace": true,
+      "cfgtest_suffix_byte_exact": "no test module",
+      "test_count_current": 0,
+      "test_count_before": 0
+    },
+    "crates/fabelgeist-hair/src/gpu/grow.rs": {
+      "sha256": "b4907574e60ff614aef176c62a138331eb3bc047cb799db0fe6f82d5f92b6c26",
+      "manifest_match": true,
+      "before_sha256": "6b746c55f7cc60f88cdac24dbd2b2486d56a439ac5b49dc5c689a07b2f18d0b0",
+      "all_other_source_equal_ignoring_comments_whitespace": true,
+      "cfgtest_suffix_byte_exact": "no test module",
+      "test_count_current": 0,
+      "test_count_before": 0
+    },
+    "crates/fabelgeist-hair/src/gpu/grow/maps.rs": {
+      "sha256": "7b8b6157448397c687e7da311bb8ca6a933455934080093196854e20c1c0c0bc",
+      "manifest_match": true,
+      "before_sha256": "7ff8d6ba755cf671762b1aa0dae9c9f876f074813459b5e4ae2989874e18157d",
+      "all_other_source_equal_ignoring_comments_whitespace": true,
+      "cfgtest_suffix_byte_exact": "no test module",
+      "test_count_current": 0,
+      "test_count_before": 0
+    },
+    "crates/fabelgeist-hair/src/surface.rs": {
+      "sha256": "0cf3b1a2d8fa1e50f2494291f44e803aff7501f7d5f92763c87ef54a5db0ac0d",
+      "manifest_match": true,
+      "before_sha256": "0c54c21fb94e4b1df748a29cdbef562802d717acfc810211072be30d236a3298",
+      "all_other_source_equal_ignoring_comments_whitespace": true,
+      "cfgtest_suffix_byte_exact": true,
+      "test_count_current": 2,
+      "test_count_before": 2
+    },
+    "crates/fabelgeist-hair/src/head.rs": {
+      "sha256": "c95b6fcaaec095658c85f5c325781ecd1c349ddefb7b7eecd018ab61b500f709",
+      "manifest_match": true,
+      "before_sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+      "all_other_source_equal_ignoring_comments_whitespace": true,
+      "cfgtest_suffix_byte_exact": true,
+      "test_count_current": 3,
+      "test_count_before": 3
+    },
+    "crates/fabelgeist-hair/src/gpu/buffers.rs": {
+      "sha256": "e82d568414119b0fd6077ab911224dc9eee4eefb2d6a5cf7ff38c98dea9a78e1",
+      "manifest_match": true,
+      "before_sha256": "6ebf50208593b3f1c16352bc3665e35f74cb0b01c83db56807bf3c0b83da568a",
+      "all_other_source_equal_ignoring_comments_whitespace": true,
+      "cfgtest_suffix_byte_exact": "no test module",
+      "test_count_current": 0,
+      "test_count_before": 0
+    },
+    "crates/fabelgeist-hair/src/gpu/mod.rs": {
+      "sha256": "f5696d4762b8a0414cd89406639a49edeabbd1acbd330df25eeee220291cac9a",
+      "manifest_match": true,
+      "before_sha256": "f163ffb8a42b0ad714ea0d96f2c7ef1a191da8d085d01310e143f941a63caf22",
+      "all_other_source_equal_ignoring_comments_whitespace": true,
+      "cfgtest_suffix_byte_exact": true,
+      "test_count_current": 11,
+      "test_count_before": 11
+    },
+    "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs": {
+      "sha256": "7eb85b1be589db745f6411247e2b22ee076a63ebf49f97dcec29fab7caf14043",
+      "manifest_match": true,
+      "before_sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "all_other_source_equal_ignoring_comments_whitespace": true,
+      "cfgtest_suffix_byte_exact": "no test module",
+      "test_count_current": 0,
+      "test_count_before": 0
+    }
+  },
+  "dependencies": {
+    "crates/fabelgeist-hair/src/gpu/error.rs": "8c9e0cfc1381290739c5cb166996fa345de9def1e25532ad367f1963cfd5c8af",
+    "crates/fabelgeist-hair/src/gpu/guides.rs": "f4c9e231efc1a770670e14030140640b5d22d12e26814c7c6613259395e4e71f",
+    "crates/fabelgeist-hair/src/gpu/readback.rs": "e78544e5d43fd63fa4be775f79e0488d0e35e952982c7d94ce8d0dac2487d7ea",
+    "crates/fabelgeist-hair/src/hairdo.rs": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+    "crates/fabelgeist-compute/src/kernel/mod.rs": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs": "70b94328d0cfb9388ff86b5cc7960a7bf2420867a0a0ad406002ead4dd1c5a27"
+  }
+}

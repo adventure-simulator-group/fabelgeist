@@ -1,0 +1,62 @@
+{
+  "at": "2026-10-23T08:06:32.356052+00:00",
+  "checkpoint": "a03ccb5da481872dff2aa2bdbb0222b93c7314a6",
+  "claim_source": "target/pr780-audit/774/records/parallel-ownership/rig_garments-claims.json",
+  "claim_source_sha256": "dc8cd207f817478e08854ab7703b357000cc5deee5905d922e99a8dc2ed67d64",
+  "exact_claims": [
+    {
+      "index": 264,
+      "claim": {
+        "file": "crates/fabelgeist-hair/src/gpu/guides.rs",
+        "functions": [
+          "Guides::Hairdo retained variation/seed fields",
+          "GpuGroomer::record_guide_roots",
+          "GpuGroomer::record_hairdo_guides",
+          "longest_guide"
+        ],
+        "audit_refs": [
+          "RIG-OWNER-F004"
+        ],
+        "trace_refs": [
+          "RIG-OWNER-HAIR-018"
+        ],
+        "status": "ownership only; all13 initial source discovery freeze",
+        "authority": "Root explicit whole first-traced guide record/function transfer2026-10-21 after rig current-lens owner proof; no existing exact overlapping claim in current claim metadata. No source change authorized before all13gate.",
+        "requirements": [
+          "Complete existing PointsPerStrand/Ratio/Seed propagation for host/GPU highlevel guide APIs, retained Guides recipe and Groom.points once for every reached hair/P09-consumer requirement; original family exit classification remains root ledger authority, no family completion/reopen inferred.",
+          "Preserve HairSeed signed32 native role vs Seed full64 role. Existing Look word() as u64 signextends negativei32; backing canonical Seed zeroextends32. Owning checked-to-checked conversion must preserve old signextended full64 word, not use backing directly or re-admit primitive at caller.",
+          "Preserve exact guide_key native Murmur fold, CPU/GPU random bits/draw order, native WGSL HairdoGpu layout and data, max2/resampling count policy, errors and all existing fixture input/count/order/assertions. No RNG substitution or equivalent wrappers."
+        ]
+      }
+    },
+    {
+      "index": 266,
+      "claim": {
+        "file": "crates/fabelgeist-hair/src/gpu/grow.rs",
+        "functions": [
+          "GpuGroomer::grow_look",
+          "GpuGroomer::grow"
+        ],
+        "audit_refs": [
+          "RIG-OWNER-F004"
+        ],
+        "trace_refs": [
+          "RIG-OWNER-HAIR-018"
+        ],
+        "status": "ownership only; all13 initial source discovery freeze",
+        "authority": "Root explicit whole first-traced guide record/function transfer2026-10-21 after rig current-lens owner proof; no existing exact overlapping claim in current claim metadata. No source change authorized before all13gate.",
+        "requirements": [
+          "Complete existing PointsPerStrand/Ratio/Seed propagation for host/GPU highlevel guide APIs, retained Guides recipe and Groom.points once for every reached hair/P09-consumer requirement; original family exit classification remains root ledger authority, no family completion/reopen inferred.",
+          "Preserve HairSeed signed32 native role vs Seed full64 role. Existing Look word() as u64 signextends negativei32; backing canonical Seed zeroextends32. Owning checked-to-checked conversion must preserve old signextended full64 word, not use backing directly or re-admit primitive at caller.",
+          "Preserve exact guide_key native Murmur fold, CPU/GPU random bits/draw order, native WGSL HairdoGpu layout and data, max2/resampling count policy, errors and all existing fixture input/count/order/assertions. No RNG substitution or equivalent wrappers."
+        ]
+      }
+    }
+  ],
+  "overlap": "Checkpoint guides.rs guide_select grid port lies inside whole GpuGroomer::record_guide_roots and grow.rs line590 grid port inside whole GpuGroomer::grow. Proposed guides.rs303 port lies inside whole record_hairdo_guides. These hair functions remain Adler-owned; the verified #826 shared core GPU transfer did not include them.",
+  "agreement": "none for these retained hair functions; readonly/grid-port intent is not an exemption to exact whole-function ownership",
+  "action": "Sent #826 exact claim pointers and asked to exclude retained hunks from consumable source export and not change guides303 until explicit agreement, while preserving its checkpoint history and continuing assigned native work. StrandSet::settle and scalp port had no exact claims found in current four claim files; no blanket hair file restriction.",
+  "receiver_mismatches": "Other exact armor/Creator/underlayer raw array receivers reported by #826 are already in F01/F02/owner inventory; no primitive array overload/temporary adapter will be introduced.",
+  "kernel_cache_doc": "Current KernelCache misses may race and compile same program more than once before retaining one map entry. Reconcile compile-once wording with actual source/device cache behavior; no unrelated performance redesign authorized.",
+  "source_changes_here": "none"
+}

@@ -1,0 +1,295 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs
+
++++ filtered826-c798/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs
+
+@@ -1,19 +1,26 @@
+
++use std::sync::Arc;
++
++use anyhow::Result;
++
++use crate::{
++    data::gpu::texture::{TextureFormat, TextureViewError},
++    data::vector::Vec2,
++    globals::WgpuContext,
++};
++
++pub use image::*;
++
+ mod image;
+-pub use image::*;
+-
+-use std::sync::Arc;
+-
+-use anyhow::Result;
+-
+-use crate::{data::gpu::texture::TextureFormat, data::vector::Vec2, globals::WgpuContext};
++mod views;
+ 
+ #[derive(Clone, Debug)]
+ pub struct Texture2d {
+-    pub texture: Option<Arc<wgpu::Texture>>,
+-    pub view: Option<Arc<wgpu::TextureView>>,
+-    pub size: (u32, u32),
+-    pub format: TextureFormat,
+-    pub usage: wgpu::TextureUsages,
++    pub(super) texture: Option<Arc<wgpu::Texture>>,
++    pub(super) view: Option<Arc<wgpu::TextureView>>,
++    pub(super) size: (u32, u32),
++    pub(super) format: TextureFormat,
++    pub(super) usage: wgpu::TextureUsages,
++    pub(super) device: Option<Arc<wgpu::Device>>,
+ }
+ 
+ impl PartialEq for Texture2d {
+@@ -27,6 +34,7 @@
+
+             (None, None) => true,
+             _ => false,
+         }) && self.size == other.size
++            && self.device == other.device
+             && self.format == other.format
+             && self.usage == other.usage
+     }
+@@ -35,6 +43,7 @@
+
+ impl Default for Texture2d {
+     fn default() -> Self {
+         Self {
++            device: None,
+             texture: None,
+             view: None,
+             size: (0, 0),
+@@ -51,7 +60,12 @@
+
+     ) -> Result<Texture2d> {
+         Self::create(
+             context,
+-            size.unwrap_or_else(|| Vec2::new(256.0, 256.0)),
++            size.unwrap_or_else(|| {
++                Vec2::new(
++                    super::DEFAULT_TEXTURE_EDGE_PIXELS,
++                    super::DEFAULT_TEXTURE_EDGE_PIXELS,
++                )
++            }),
+             format.unwrap_or_default(),
+         )
+     }
+@@ -123,10 +137,8 @@
+
+             view_formats: &view_formats,
+         };
+ 
+-        // Reading the error scope means draining the queue, and on a borrowed
+-        // device -- one an application is submitting to every frame -- that
+-        // waits for a queue that never empties. The same rule the shader and
+-        // pipeline paths follow: only a context that owns its device drains it.
++        // Borrowed contexts avoid synchronous validation readback; see
++        // WgpuContext::blocking_validation.
+         #[cfg(not(target_arch = "wasm32"))]
+         let error_scope = context.blocking_validation.then(|| {
+             context
+@@ -136,15 +148,8 @@
+
+ 
+         let texture = context.device.create_texture(&texture_desc);
+ 
+-        let mut initial_view_format = format;
+-        // WebGPU Limitation: If a texture has STORAGE_BINDING, it cannot have an sRGB view.
+-        if usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
+-            // Fallback to linear counterpart to avoid validation error during creation.
+-            initial_view_format = format.linear_counterpart();
+-        }
+-
+         let view = texture.create_view(&wgpu::TextureViewDescriptor {
+-            format: Some(initial_view_format.into()),
++            format: Some(format.into()),
+             ..Default::default()
+         });
+ 
+@@ -152,11 +157,13 @@
+
+         if let Some(error_scope) = error_scope {
+             let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+             if let Some(err) = pollster::block_on(error_scope.pop()) {
+-                return Err(anyhow::anyhow!("WGPU Texture2d Creation Error: {}", err));
++                let message = format!("WGPU Texture2d Creation Error: {err}");
++                return Err(anyhow::Error::new(err).context(message));
+             }
+         }
+ 
+         let texture_value = Texture2d {
++            device: Some(context.device.clone()),
+             texture: Some(Arc::new(texture)),
+             view: Some(Arc::new(view)),
+             size: (width, height),
+@@ -207,7 +214,10 @@
+
+ 
+         context.queue.write_texture(
+             wgpu::TexelCopyTextureInfo {
+-                texture: tex.texture.as_ref().unwrap(),
++                texture: tex
++                    .texture
++                    .as_ref()
++                    .ok_or(TextureViewError::Uninitialized)?,
+                 mip_level: 0,
+                 origin: wgpu::Origin3d::ZERO,
+                 aspect: wgpu::TextureAspect::All,
+@@ -236,7 +246,12 @@
+
+     ) -> Result<Texture2d> {
+         Self::create_from_color(
+             context,
+-            size.unwrap_or_else(|| Vec2::new(256.0, 256.0)),
++            size.unwrap_or_else(|| {
++                Vec2::new(
++                    super::DEFAULT_TEXTURE_EDGE_PIXELS,
++                    super::DEFAULT_TEXTURE_EDGE_PIXELS,
++                )
++            }),
+             color.unwrap_or_else(|| crate::data::vector::Vec4::new(0.0, 0.0, 0.0, 1.0)),
+             format.unwrap_or(TextureFormat::Rgba8UnormSrgb),
+         )
+@@ -256,7 +271,8 @@
+
+         let texture = self
+             .texture
+             .as_ref()
+-            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
++            .ok_or(TextureViewError::Uninitialized)?;
++        self.ensure_device(context)?;
+         let pixel_size = self.format.pixel_size();
+         let bytes_per_row = width * pixel_size;
+         let align = wgpu::COPY_BYTES_PER_ROW_ALIGNMENT;
+@@ -361,19 +377,13 @@
+
+         self_tex.read_image(context).await
+     }
+ 
+-    /// The texture's pixels, read back as an image.
+-    ///
+-    /// The inverse of [`Image::packed_for`], and no transfer function here
+-    /// either: the stored bytes of an eight-bit texture are the image's bytes,
+-    /// so uploading a picture and reading it back returns the picture. A float
+-    /// texture is narrowed to eight bits, which is the one lossy step, and a
+-    /// single-channel one is spread across the three.
+     pub fn write<T: bytemuck::NoUninit>(&self, context: &WgpuContext, data: &[T]) -> Result<()> {
+         let (width, height) = self.size;
+         let texture = self
+             .texture
+             .as_ref()
+-            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
++            .ok_or(TextureViewError::Uninitialized)?;
++        self.ensure_device(context)?;
+         let bytes = bytemuck::cast_slice(data);
+         let pixel_size = self.format.pixel_size();
+ 
+@@ -398,52 +408,6 @@
+
+         );
+ 
+         Ok(())
+-    }
+-    pub fn view_with_format(
+-        &self,
+-        _context: &WgpuContext,
+-        format: TextureFormat,
+-    ) -> Result<Arc<wgpu::TextureView>> {
+-        if format == self.format {
+-            return Ok(self.view.as_ref().unwrap().clone());
+-        }
+-        let texture = self
+-            .texture
+-            .as_ref()
+-            .ok_or_else(|| anyhow::anyhow!("Texture is not initialized"))?;
+-
+-        let mut requested_format = format;
+-
+-        // WebGPU Limitation: If a texture has STORAGE_BINDING, it cannot have an sRGB view.
+-        if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
+-            // Fallback to linear counterpart to avoid validation error.
+-            requested_format = format.linear_counterpart();
+-            // Optional: log or return a warning if we had a way to do so without noise.
+-        }
+-
+-        #[cfg(not(target_arch = "wasm32"))]
+-        let error_scope = _context
+-            .device
+-            .push_error_scope(wgpu::ErrorFilter::Validation);
+-
+-        let view = texture.create_view(&wgpu::TextureViewDescriptor {
+-            format: Some(requested_format.into()),
+-            ..Default::default()
+-        });
+-
+-        #[cfg(not(target_arch = "wasm32"))]
+-        {
+-            let _ = _context.device.poll(wgpu::PollType::wait_indefinitely());
+-            if let Some(err) = pollster::block_on(error_scope.pop()) {
+-                return Err(anyhow::anyhow!(
+-                    "WGPU Texture2d view_with_format Error (requested {:?}): {}",
+-                    format,
+-                    err
+-                ));
+-            }
+-        }
+-
+-        Ok(Arc::new(view))
+     }
+ 
+     pub fn to_view(self_tex: Texture2d) -> super::texture_view::TextureView {
+@@ -517,18 +481,20 @@
+
+         Ok(output)
+     }
+     pub fn blit(&self, context: &WgpuContext, target: &Texture2d) -> Result<()> {
+-        let blitter = crate::globals::Blitter::new(&context.device, target.format.into());
++        let source_view = self.view.as_ref().ok_or(TextureViewError::MissingView)?;
++        let target_view = target.view.as_ref().ok_or(TextureViewError::MissingView)?;
++        self.ensure_device(context)?;
++        target.ensure_device(context)?;
++        let blitter = crate::globals::Blitter::new(
++            &context.device,
++            target.effective_format(target.format).into(),
++        );
+         let mut encoder = context
+             .device
+             .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                 label: Some("Texture2d Blit Encoder"),
+             });
+-        blitter.blit(
+-            &context.device,
+-            &mut encoder,
+-            self.view.as_ref().unwrap(),
+-            target.view.as_ref().unwrap(),
+-        );
++        blitter.blit(&context.device, &mut encoder, source_view, target_view);
+         context.queue.submit(std::iter::once(encoder.finish()));
+         Ok(())
+     }
+@@ -544,10 +510,8 @@
+
+         Ok(target)
+     }
+     pub fn clear_raw(&self, context: &WgpuContext, color: crate::data::vector::Vec4) -> Result<()> {
+-        let view = self
+-            .view
+-            .as_ref()
+-            .ok_or_else(|| anyhow::anyhow!("Texture has no view"))?;
++        let view = self.view.as_ref().ok_or(TextureViewError::MissingView)?;
++        self.ensure_device(context)?;
+         let mut encoder = context
+             .device
+             .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+@@ -623,9 +587,6 @@
+
+     }
+ }
+ 
+-unsafe impl Send for Texture2d {}
+-unsafe impl Sync for Texture2d {}
+-
+ #[cfg(test)]
+ mod tests {
+     use super::*;

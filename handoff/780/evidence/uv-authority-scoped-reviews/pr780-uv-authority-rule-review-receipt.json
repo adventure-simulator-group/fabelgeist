@@ -1,0 +1,109 @@
+{
+  "head": "59bb96d07af08244582c6767d81e969b820ec3ed",
+  "scope": "exact six-file UV authority increment; maps-only surface and sole per-vertex texcoords",
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "f5fd53af89771488b500f8b2e661505b5b169dd355785fafe6005127f7c23fad",
+      "matches_ledger": true,
+      "before_sha256": "b53b6a874c7a23f38f7895c75a03c65c599c21e122d45b1843e5b3efa2b3a25e",
+      "read_extent": "Whole current source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "37d9aad2bed62e065620cccd542180cc439dba8aae9726d0b3177d9f7cb7311a",
+      "matches_ledger": true,
+      "before_sha256": "93b0aa654eacc98d66c072b54cb1a1d0444b75e6bdc3cc0ecd7d76325f085bd6",
+      "read_extent": "Whole current source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "2f01964984a42e98201c8cb2be6095d0779a2f6292d8571021b64f70bc976656",
+      "matches_ledger": true,
+      "before_sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "read_extent": "Whole current source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "a542629ff77155448219d508e544a55f2da0c3f024f7454fb2c26a597f1da13a",
+      "matches_ledger": true,
+      "before_sha256": "33f6b05450b7b1eb8e1080aa330b35696e6ee4c57da0bb4d208a18f66ebec963",
+      "read_extent": "Whole current source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "bc324c39eaed75e445e0b5247a8ce1adcd1cc336525d221ba6f174aacfb2cbd8",
+      "matches_ledger": true,
+      "before_sha256": "2906c6c5115f7924743595c1808b2337d4b167c27d301436ac22304c75479428",
+      "read_extent": "Whole current source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "e725590d8bfe60bfe165344b3476bacfc4ed84d7426fd7f59c2586a992fbf368",
+      "matches_ledger": true,
+      "before_sha256": "82c083e495d9e3b992abf5ad23d3f99f48acc42da6900cd44ca99405140095de",
+      "read_extent": "Current actual export_rigged_glb entry/pipeline590-852 and changed textured fixture1239-1384; other source proven byte-exact against before receipt, not a new whole-exporter audit"
+    }
+  ],
+  "dependency_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "9b57fb4bbcebe5b20113a06d530507253693a37d40f85f1617a38cbccb63fa87",
+      "read_extent": "Whole current source, including exact same source-index selection for all channels and reconstruction."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "read_extent": "1-78 and172-258 current map/alpha/sides/sampler definitions and ordered material applications; other texture-writing bodies not new clearance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/buffer.rs",
+      "sha256": "c92b80be46c77268cf276c3686aaedbd70bba5be1e4f7d5eaef7041f865be104",
+      "read_extent": "Whole current source; actual little-endian f32 row packing and buffer alignment."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "8f76594ec3871a68df2f8e98740aa629e479b1e6fc7a0ad9a63e4e7f029e30a1",
+      "read_extent": "180-284 current component map clearing and clothing/armor/trim source constructors."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/export.rs",
+      "sha256": "0b57ba3d094cdb3ac0ea1e872f7177837ffae8c16be441a1dbcb823d220b26dc",
+      "read_extent": "Whole current source; mail/cloth generic map UV source."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "read_extent": "75-97 current hair map/UV shell constructor; broader native hair not reviewed."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_extent": "Applicable governing rules read during current independent Rule task."
+    }
+  ],
+  "source_comparisons": {
+    "crates/adventuresim-character-creator/src/export/compact.rs": {
+      "byte_exact": true,
+      "comparison_source": "before source backup"
+    },
+    "crates/adventuresim-character-creator/src/export/textures.rs": {
+      "byte_exact": true,
+      "comparison_source": "before source backup"
+    },
+    "crates/adventuresim-character-creator/src/export.rs": {
+      "production_prefix_byte_exact": true,
+      "existing_fixture_old_api_occurrences": 1,
+      "entire_existing_fixture_suffix_exact_after_two_line_api_adaptation": true
+    },
+    "crates/adventuresim-character-creator/src/character_export.rs": {
+      "entire_file_exact_after_two_maps_only_source_adaptations": true
+    },
+    "crates/adventuresim-character-creator/src/equipment_export.rs": {
+      "entire_file_exact_after_maps_only_source_adaptation": true
+    }
+  },
+  "verdict": "No new actionable Rule finding in this UV authority increment; PBR-OUTPUT-2 closed at source for the direct final API/receiving graph. No executed validation or broader clearance.",
+  "global_clearance": false,
+  "no_source_edits_checks_tests_probes": true
+}

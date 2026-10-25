@@ -1,0 +1,72 @@
+--- crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs current780
++++ crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs canonical826
+@@ -1,3 +1,5 @@
++#[cfg(not(target_arch = "wasm32"))]
++use crate::globals::ValidationScope;
+ use std::sync::Arc;
+ 
+ use anyhow::Result;
+@@ -116,11 +118,7 @@
+         };
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+-        let error_scope = context.blocking_validation.then(|| {
+-            context
+-                .device
+-                .push_error_scope(wgpu::ErrorFilter::Validation)
+-        });
++        let error_scope = ValidationScope::new(context);
+ 
+         let texture = context.device.create_texture(&texture_desc);
+ 
+@@ -134,10 +132,10 @@
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+         if let Some(error_scope) = error_scope {
+-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+-            if let Some(err) = pollster::block_on(error_scope.pop()) {
+-                let message = format!("WGPU TextureCube Creation Error: {err}");
+-                return Err(anyhow::Error::new(err).context(message));
++            if let Err(cause) = error_scope.finish() {
++                let cause = cause.into_anyhow();
++                let message = format!("WGPU TextureCube Creation Error: {cause}");
++                return Err(cause.context(message));
+             }
+         }
+ 
+@@ -614,7 +612,7 @@
+             }}
+             "#,
+             shader_src,
+-            self.effective_format(self.format).to_wgsl_storage_format()?
++            self.format.to_wgsl_storage_format()
+         );
+ 
+         let shader_module = context
+@@ -652,7 +650,7 @@
+                             visibility: wgpu::ShaderStages::COMPUTE,
+                             ty: wgpu::BindingType::StorageTexture {
+                                 access: wgpu::StorageTextureAccess::WriteOnly,
+-                                format: self.effective_format(self.format).into(),
++                                format: self.format.linear_counterpart().into(),
+                                 view_dimension: wgpu::TextureViewDimension::D2Array,
+                             },
+                             count: None,
+@@ -787,7 +785,7 @@
+             }}
+             "#,
+             shader_src,
+-            self.effective_format(self.format).to_wgsl_storage_format()?
++            self.format.to_wgsl_storage_format()
+         );
+ 
+         let shader_module = context
+@@ -818,7 +816,7 @@
+                             visibility: wgpu::ShaderStages::COMPUTE,
+                             ty: wgpu::BindingType::StorageTexture {
+                                 access: wgpu::StorageTextureAccess::WriteOnly,
+-                                format: self.effective_format(self.format).into(),
++                                format: self.format.linear_counterpart().into(),
+                                 view_dimension: wgpu::TextureViewDimension::D2Array,
+                             },
+                             count: None,

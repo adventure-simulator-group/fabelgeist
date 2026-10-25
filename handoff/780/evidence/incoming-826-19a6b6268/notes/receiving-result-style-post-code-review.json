@@ -1,0 +1,174 @@
+{
+  "review": "Independent receiving Result style post-repair Code review",
+  "base_revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "snapshot_manifest": "target/pr826-audit/receiving-result-style-working-snapshot/manifest.json",
+  "snapshot_manifest_sha256": "747f51fb7b5901c2668a1b20e98faf2e51dd3f25eb682cda32d6d68561f1505c",
+  "pre_review_sha256": "25a55541803bcdc8f433056056700e6596ccb32e32fc76f6824a44178bb68ba8",
+  "verdict": "No actionable finding in the bounded two-source style successor; RRS-1 and RRS-2 closed. No combined graph/compilation or final clearance.",
+  "findings": [],
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "d840e177522b7d59f70ae3373c25707b3cc0d1ac06c93939da1ca6cb126b261f",
+      "manifest_matches": true,
+      "before_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "before_manifest_matches": true,
+      "independent_inverse_recovers_complete_original_source": true,
+      "working_file_matches_snapshot": true,
+      "coverage": "Fresh complete frozen successor source and complete ccb diff read, all function/error/type bodies."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "5630af2ffd526d8dcc22aff829309aa31fb634de49ec9b795e03021a468bdcaf",
+      "manifest_matches": true,
+      "before_sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "before_manifest_matches": true,
+      "independent_inverse_recovers_complete_original_source": true,
+      "working_file_matches_snapshot": true,
+      "coverage": "Fresh complete frozen successor source and complete ccb diff read, all function/error/type bodies."
+    }
+  ],
+  "dependency_accounts": [
+    {
+      "path": "crates/AGENTS.md",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit_readback.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "e0eec83161d5b4ab6df8ee5f654a3832f47d9d7f55452bc34b703cdba644d47c",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/facade.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "c171604705f38aa9963c178b7b93ca9afbd001e81bca8e46c6ba9ea57e3abd3e",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "eafeb8cc32adf57b5c8e3f80afbf7dcb030fd9f33bf3632e553652bdfdb603f7",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/program.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "bacc25932f7cc1a95d6831c870111186644a9581603d94da93aa932fe8895589",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/readback.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter/program.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "8b9abcab3f6b7682c61d65c1b1382ea7aae18b2a556ca94a7420190322cd4d3c",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/neighborhood/fetch.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "84b1d84fb4043e8dc16961272f54856e19e49edb85dd9a9ece666fe7cf02dac3",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/program.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "3f96a9dcc7cf5fd005c41d4304f0da8494133c870c449395892e902dc4fbc674",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/program.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "345b4ec7ccbd94c59c299e41d3f2324bbc58605246250b5f57b11b747e5b529a",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/read_error.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "a4633e3cff89760ee125ba52738e67ab345a901027da35e47ce87f04db77d20f",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "revision": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "current_working_source_exact_pin": true,
+      "coverage": "Prior pre-review source/body/registration coverage carried with independent full byte identity proof; current receiver contract retraced, no fresh whole dependency-body reread in successor."
+    }
+  ],
+  "closed_findings": [
+    {
+      "id": "RRS-1",
+      "evidence": "TextureValue TryFrom now spells Result<Self,Self::Error>. Associated Error remains TextureValueError. Result resolves to the ordinary standard prelude type in this module. The public TextureValueResult alias remains unchanged for owning inherent/native generated operations. Independent inverse of this signature and the sole formatting condensation recovers every original source byte."
+    },
+    {
+      "id": "RRS-2",
+      "evidence": "gpu/staging.rs owns public StagingResult<T>=Result<T,StagingError>. prefix/status use it; Result still resolves to standard prelude Result and both ArmorGpu grouped read methods keep their explicit GenerateError signatures. The public staging module already exposes the owner, with no duplicate facade type. Independent inverse of the alias and two signature/format deltas recovers all original bytes."
+    }
+  ],
+  "current_contract_revalidation": [
+    "TextureValue numeric scalar/vector admission, borrowed scalar lifetimes, rejected element-type payload, lane selection, padding zeros and complete generated WGSL strings remain exact. All actual fetch/store consumers still see the same concrete error and ? conversions.",
+    "Staging retains foreign-session/index admission before ZST/product/prefix checks, count0 success, overflow/short-prefix payloads, fallible host reserve, exact byte copy and one-word status selection. Operation bodies are exact, not merely considered equivalent by inference.",
+    "StagingError remains InvalidTicket/PrefixSizeOverflow/Decode(BufferReadError); BufferReadError actual host/native/map/poll/channel sources and GenerateError::Staging/Readback conversions retain byte identity. Alias spelling adds no new wrapper or source loss.",
+    "ArmorGpu grouped batch/readback/submit/read/results publication and producing device/paired queue/external mapping preconditions remain unchanged. No validator, public carrier widening or alias guarantee introduced.",
+    "All seventeen direct type/error/consumer/rule dependency paths remain byte-exact pinned ccb. Known old get/status ticket/result and Readback signature composition remains canonical #780 receiving work, not repaired or cleared by this two-source style change."
+  ],
+  "limits": [
+    "Full two source reads and source-only inverse/hash proof only. No project build/check/lint/test/scanner/generator/runtime/probe, new test/case/helper/assertion/doctest, source edit/copy, push or CI request.",
+    "No new fixture or native source string changed in the bounded delta. Source proof is not a compiled or dynamic behavioral test.",
+    "The wider canonical producer/receiver/caller/manifest/lock graph remains required and incomplete. Final thirteen lenses, independent same-pushed-head reviews and hosted gates remain open."
+  ]
+}

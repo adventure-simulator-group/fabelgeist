@@ -1,0 +1,27 @@
+{
+  "revision": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+  "base": "a2ca851015b9649097635f9f580e409028682ffa",
+  "files": {
+    "crates/fabelgeist-hair/src/sim.rs": "61f1db429d25290869a495bcfa270d73d92a203fb5de405f255384f9e8081632",
+    "crates/fabelgeist-hair/src/sim/build.rs": "badb20a3e56c8fe3a51a2c629a6bf9b5fcdbac0c9f9f52774ebabcf660d18d5d",
+    "crates/fabelgeist-hair/src/sim/frame.rs": "0bec2f5a59de545d2968c962ab28be07e91d685dc097fa0a17af5db09312adc3",
+    "crates/fabelgeist-hair/src/sim/pose.rs": "0cc72e5d058745c9d41c7de3f31fba92c839ae85845dd599bcf3c1fe50c892f4",
+    "crates/fabelgeist-hair/src/sim/settings.rs": "8f900903b50fd6f9ba4ca81c01c2205a4be919589899569594db60a4041d3b32",
+    "crates/fabelgeist-hair/src/gpu/sim.rs": "413f88a20d71eac80a2028f44826ba8f910df760078175d6eba83321233943bc",
+    "crates/fabelgeist-hair/src/gpu/sim/collision.rs": "432b9250fbd2810918ab7ca663e1596d715b4cd6a7f4491b109b3dfd6cc8fe6e",
+    "crates/fabelgeist-hair/src/gpu/sim/execution.rs": "09689764502410c3fcd3bede867e66b30941a329ebfc280438f822c9b928c3cd",
+    "crates/fabelgeist-hair/src/gpu/sim/inspect.rs": "f019273dd3c0d3c216f8e2b48b7ecf49fd9d8333f5b26f81b8e3f936777d1597",
+    "crates/fabelgeist-hair/src/gpu/mod.rs": "2b2bc94e4178a098e4ae5dac1794f82380d037922fce244ce833a0d73482b7fe"
+  },
+  "contracts": [
+    "sim::{HairSim,SimBinding,SimFrame,SimError,SimResult,SimSettings,SimLevel,Rigid} owning API; frame lifetime borrows actualsim",
+    "HairSim::new(&HairLods,SimSettings)->SimResult<Self>; from_level(Arc<StrandLevel>,SimSettings)->SimResult<Self>; layout()->StrandShape; frame()->SimFrame; no loose tuple/rawpoints/strands/level_points API",
+    "SimFrame Copy: source()->&Arc<StrandLevel> actualdrawnfirst; layout()->StrandShape actualsimulated; binding()->&Arc<SimBinding> actualimmutabledata identity; rest()->&[Vec3] headframe; positions()->&[Vec3] worldframe; head()->Rigid; collision_offset()->Metres",
+    "SimBinding readonly source/sample Arc accessors; layout; guides()->&[[u32;4]] and weights()->&[[f32;4]] fullactualdrawnsourcepopulation; sampled()!=source() allowed asactualnearestpointlevel",
+    "BindingguideprefixIDs selfidentity preserved because sealedHairLods sharedshuffle; othersquery actualdrawnroots againstselectedsampleroots. Singlefrom_level source==sampled actualArc",
+    "SimSettings.guides/collision_strands and SimLevel.strands existingStrandCount; SimSettings.points/SimLevel.points existingPointsPerStrand; SimSettings.collision_offset existingMetres signedf32 no new numericalpolicy. Nativeinspect returnssameleaves, native params/hostRod onlyscalarports",
+    "No syntheticbrand/generation; no bindingcrop ofguidepopulation; receiver maxresident drawnprefix acrosslevels mustfit fullsource; Renderer826 ownsnativebounds/bytes/device/retry/publication",
+    "Pose/settings extracted modules source-preserved; positiveemptystride2/count0; checked doubledpoint/samplework extent; fallibleownedworkarrays; guidecountu32 admittedbeforePointGrid"
+  ],
+  "limits": "Source comparison only, no compiler/runtime claim. New admission/Binding construction reviewed as source; broader physical/grid/Renderer826/Creator pending."
+}

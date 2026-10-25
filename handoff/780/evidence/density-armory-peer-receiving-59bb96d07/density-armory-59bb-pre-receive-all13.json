@@ -1,0 +1,477 @@
+{
+  "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+  "tree": "4cd32ada6fcfa89ff977cd836ee2b0649df73d28",
+  "base": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+  "root_head_at_review": "919ba9b9415c06981ff5dc01d21666f49407eb3e",
+  "root_scope": "Root generated implementation dirty and unrelated; incoming packet not received",
+  "candidate_source_accounts": [
+    {
+      "path": "crates/fabelgeist-armor/src/material/density.rs",
+      "sha256": "94db413bd0eeefd9fc860abb8eee368ee1d11a55cb48cbb4cd7ba2113fd0d665",
+      "lines": 122,
+      "manifest_match": true,
+      "git_match": true,
+      "coverage": "fresh full body, all lines; immutable packet export matched immutable Git",
+      "id": "S1"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "sha256": "12debec1a00cb2ff34e5ef09978a4a3c523bde4bfb1926a1dbef86b7decaf6ea",
+      "lines": 119,
+      "manifest_match": true,
+      "git_match": true,
+      "coverage": "fresh full body, all lines; immutable packet export matched immutable Git",
+      "id": "S2"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "00f657217f6dc1b7b5677176fad2153836a7aabc133a1c7b518bba391a607c16",
+      "lines": 171,
+      "manifest_match": true,
+      "git_match": true,
+      "coverage": "fresh full body, all lines; immutable packet export matched immutable Git",
+      "id": "S3"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "d71953e80a22f666f64d7733ae41279fe18700e1f6b0531ee1cfd404f4c95559",
+      "lines": 478,
+      "manifest_match": true,
+      "git_match": true,
+      "coverage": "fresh full body, all lines; immutable packet export matched immutable Git",
+      "id": "S4"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory/exhibit.rs",
+      "sha256": "b2f4f006cf78814970012ab94d85d178176813c53cd2fbd9768ff2b17349c221",
+      "lines": 95,
+      "manifest_match": true,
+      "git_match": true,
+      "coverage": "fresh full body, all lines; immutable packet export matched immutable Git",
+      "id": "S5"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory.rs",
+      "sha256": "74f95648715bc2456ec986093c649779f02d3c773607d24af7ff0ccfc4ca18ef",
+      "lines": 427,
+      "manifest_match": true,
+      "git_match": true,
+      "coverage": "fresh full body, all lines; immutable packet export matched immutable Git",
+      "id": "S6"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "ff67d80dde117a3e4dd23e394d0a5bc6efe5049ca032c0e5fc0a30eaaeec3429",
+      "lines": 288,
+      "manifest_match": true,
+      "git_match": true,
+      "coverage": "fresh full body, all lines; immutable packet export matched immutable Git",
+      "id": "S7"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_ui.rs",
+      "sha256": "dea23f6efe94e9b5439739548675be1b0cfd109a3e153e2a083d7a816db43aeb",
+      "lines": 332,
+      "manifest_match": true,
+      "git_match": true,
+      "coverage": "fresh full body, all lines; immutable packet export matched immutable Git",
+      "id": "S8"
+    }
+  ],
+  "closure_source_accounts": [
+    {
+      "path": "crates/fabelgeist-armor/src/design.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "86dac554a42b48cf1547e5656337fb718b4a4fc7e231a30009ce00ff7207dd00",
+      "lines": 183,
+      "coverage": "fresh full source",
+      "root_present": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "lines": 120,
+      "coverage": "fresh full source",
+      "root_present": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "lines": 146,
+      "coverage": "fresh full source",
+      "root_present": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "lines": 170,
+      "coverage": "fresh full source",
+      "root_present": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "2906c6c5115f7924743595c1808b2337d4b167c27d301436ac22304c75479428",
+      "lines": 346,
+      "coverage": "fresh full source",
+      "root_present": true,
+      "root_equal": false
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_cache.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+      "lines": 192,
+      "coverage": "fresh full source",
+      "root_present": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "33f6b05450b7b1eb8e1080aa330b35696e6ee4c57da0bb4d208a18f66ebec963",
+      "lines": 250,
+      "coverage": "fresh full source",
+      "root_present": true,
+      "root_equal": false
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "lines": 187,
+      "coverage": "fresh full source",
+      "root_present": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/item_design.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "lines": 232,
+      "coverage": "fresh full source",
+      "root_present": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "lines": 28,
+      "coverage": "fresh full source",
+      "root_present": true,
+      "root_equal": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "1346098aa561b83aa6d045c8744f19edc6605674fd0bbf313af4dcfc4ef595e5",
+      "lines": 82,
+      "coverage": "fresh full source",
+      "root_present": true,
+      "root_equal": false
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/lib.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "d4b6a4af8b3137b359c2d08f8ef03445e100edc2d1280ca74ec816212af31264",
+      "lines": 239,
+      "coverage": "fresh full source",
+      "root_present": true,
+      "root_equal": true
+    }
+  ],
+  "source_comparisons": {
+    "Creator exact after old helper removal and sole existing fixture API reversal": true,
+    "whole parametric source exact after sole call reversal": true,
+    "whole scene source fixtures exact after mesh projection reversal": true,
+    "material exact except density export and module": true,
+    "GeneratedArmor whole definition owner source exact": true,
+    "whole Armory layout and camera target implementation exact": true
+  },
+  "governing_rules": [
+    "Root AGENTS.md",
+    "crates/AGENTS.md",
+    "crates/fabelgeist-armor/AGENTS.md",
+    "crates/adventuresim-character-creator/AGENTS.md",
+    "rule-review/SKILL.md",
+    "rule-review/references/bespoke-type-review.md"
+  ],
+  "limits": [
+    "Source-only receiving discovery; no source copy or edit, no project execution/scanner/generator/check/build/lint/test/runtime/push/CI.",
+    "All eight packet files (2032 lines) freshly read completely. Twelve immutable reference sources freshly read fully; main scheduling only rg locator evidence, not full main coverage.",
+    "Six independent byte/arithmetic-source comparisons are recorded. Peer fourteen-comparison receipt is supplementary, not automatically inherited as this reviewer's body coverage.",
+    "Exact existing fixture blocks preserved after the one density fixture API reversal; all three armor_metal fixture cases/helpers/oracles and scene fixture remain. No new cases/helpers/assertions/doctests.",
+    "All eight raw files under500 lines and newly added methods/functions under100 raw lines by actual source inspection; no scanner/counting clone run. Existing oversized/reference debt and final hosted baseline export remain required.",
+    "Broad native generator, geometry fitting, material bake, body source, count/physical/cardinality graph and all final validation remain incomplete; no whole-family correctness or compilation claim."
+  ],
+  "discovery": "Complete thirteen-lens receiving inventory for exact eight-file packet, prior to Root receipt; no implementation/global clearance.",
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "source": "S1,S3,S4,S5-S8; closure equipment_export, studio_cache, character_export, studio_generation",
+      "contract": "Sole production fitted_catalog_item calls the owning method with ?. fit/selected, export armor, studio cache and Armory workers propagate the actual error; only final Studio/UI status formats it.",
+      "disposition": "Correct increment; broader material and application producers remain required.",
+      "connected_repairs": "DG1,DG2,DG3",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "Reject incomplete triangles, row mismatch, nonfinite inputs, unrepresentable/out-of-range indices, nonfinite edge accumulation/scale/final products before any write. Preserve valid zero and all original ordinary arithmetic.",
+        "No fake failure for pending, no formatting before retained state, preview failure does not replace a successful fit; actual scene/bounds/triangles use only Fitted meshes.",
+        "No duplicate helper/type/API, compatibility path, new fixtures or weakened baseline; complete actual canonical dependency graph and exact final hosted gates."
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "source": "S1,S2; design.rs, units.rs, Armor lib/Cargo",
+      "contract": "GeneratedArmor owns mutation, Metal owns TILES_PER_METRE, Math Ratio owns the dimensionless resulting multiplier. Host arrays and u32 indices are the actual numerical/collection ports, not GPU launch quantities.",
+      "disposition": "Reuse matches actual roles; no duplicate generic mesh/device/count owner introduced.",
+      "connected_repairs": "DG1,DG3",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "Reject incomplete triangles, row mismatch, nonfinite inputs, unrepresentable/out-of-range indices, nonfinite edge accumulation/scale/final products before any write. Preserve valid zero and all original ordinary arithmetic.",
+        "No duplicate helper/type/API, compatibility path, new fixtures or weakened baseline; complete actual canonical dependency graph and exact final hosted gates."
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "source": "S1:57-83,85-113; S4:94-112",
+      "contract": "Public mutable GeneratedArmor is re-admitted at every density operation: complete triples, paired finite columns including unused rows, representable and present indices. Only inputs read by this operation are certified.",
+      "disposition": "All density admission paths funnel through the method; no serde/default bypass added.",
+      "connected_repairs": "DG1",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "Reject incomplete triangles, row mismatch, nonfinite inputs, unrepresentable/out-of-range indices, nonfinite edge accumulation/scale/final products before any write. Preserve valid zero and all original ordinary arithmetic."
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "source": "S1:44-53,85-122",
+      "contract": "Every candidate output is checked under an immutable borrow before a second replacement pass under exclusive access. f32 subtraction, f64 square/sum/root and accumulation, ratio narrowing then tile multiplication preserve old order.",
+      "disposition": "MAT-C1 source counterexample closed; no epsilon, arbitrary physical floor or clamping added.",
+      "connected_repairs": "DG1",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "Reject incomplete triangles, row mismatch, nonfinite inputs, unrepresentable/out-of-range indices, nonfinite edge accumulation/scale/final products before any write. Preserve valid zero and all original ordinary arithmetic."
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "source": "S1 DensityInput; S5; S6:295-330; catalog selection closure",
+      "contract": "Private borrowed DensityInput ties triangle membership to the exact columns. ExhibitFit owns its successful mesh or error; preview_error is independent. wearable guarantees a nonempty retained nonempty-surface placement; fit_exhibits maps exactly that placement population.",
+      "disposition": "Actual constructors/consumers preserve relations; this is no universal mesh/skin/morph validity certificate.",
+      "connected_repairs": "DG1,DG2",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "Reject incomplete triangles, row mismatch, nonfinite inputs, unrepresentable/out-of-range indices, nonfinite edge accumulation/scale/final products before any write. Preserve valid zero and all original ordinary arithmetic.",
+        "No fake failure for pending, no formatting before retained state, preview failure does not replace a successful fit; actual scene/bounds/triangles use only Fitted meshes."
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "source": "S5:29-34,72-95; S6/S7/S8",
+      "contract": "Pending, Fitted(GeneratedArmor), Failed(anyhow::Error) replace Err(\"not fitted\"). Existing view/frame/region enums carry closed roles; steel/stale/visibility are ordinary predicates or actual Bevy adapters.",
+      "disposition": "New state shape resolves fake-pending and fit-overwrite defects; no independent state booleans added.",
+      "connected_repairs": "DG2",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "No fake failure for pending, no formatting before retained state, preview failure does not replace a successful fit; actual scene/bounds/triangles use only Fitted meshes."
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "source": "S1,S3,S5-S7",
+      "contract": "Old free density helper is removed, without forwarding alias. No stored scale/second UV authority. finished records the attempted finish; preview_error is replaced by each actual attempt and cannot overwrite fitted geometry.",
+      "disposition": "Successful fit remains reusable after preview failure. Existing retry-on-finish-change/refit policy retained.",
+      "connected_repairs": "DG1,DG2",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "Reject incomplete triangles, row mismatch, nonfinite inputs, unrepresentable/out-of-range indices, nonfinite edge accumulation/scale/final products before any write. Preserve valid zero and all original ordinary arithmetic.",
+        "No fake failure for pending, no formatting before retained state, preview failure does not replace a successful fit; actual scene/bounds/triangles use only Fitted meshes."
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "source": "S1-S8; six independent source comparisons in shared proof",
+      "contract": "Empty triangles or constant finite chart leave UVs unchanged. Zero surface with positive chart-edge length retains zero scaling. Invalid input now fails before mutation. Original edge weighting and output order stay exact; UI intentionally stops labeling Pending as failure.",
+      "disposition": "Source proof only. No numerical/device/artistic runtime validation performed.",
+      "connected_repairs": "DG1,DG2",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "Reject incomplete triangles, row mismatch, nonfinite inputs, unrepresentable/out-of-range indices, nonfinite edge accumulation/scale/final products before any write. Preserve valid zero and all original ordinary arithmetic.",
+        "No fake failure for pending, no formatting before retained state, preview failure does not replace a successful fit; actual scene/bounds/triangles use only Fitted meshes."
+      ]
+    },
+    {
+      "lens": "derivability",
+      "source": "S1,S5,S6; Cargo closure",
+      "contract": "Density error derives thiserror and retains TryFromIntError source. No Clone shim for anyhow errors, unsafe trait assertion, new derive deserialize, unchecked Default certificate or duplicate wrapper.",
+      "disposition": "Existing parent derives unchanged; no new dependency/feature/lock edit in this packet.",
+      "connected_repairs": "DG1,DG2",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "Reject incomplete triangles, row mismatch, nonfinite inputs, unrepresentable/out-of-range indices, nonfinite edge accumulation/scale/final products before any write. Preserve valid zero and all original ordinary arithmetic.",
+        "No fake failure for pending, no formatting before retained state, preview failure does not replace a successful fit; actual scene/bounds/triangles use only Fitted meshes."
+      ]
+    },
+    {
+      "lens": "magic-strings",
+      "source": "S1,S5-S8; item_design/catalog closure",
+      "contract": "Density classifications are typed. Placement IDs are actual open catalogue keys; contextual messages annotate causes. UI labels/status are terminal presentation. Missing-parametric-design is still only a prose root carried in Failed, recorded as application admission debt below.",
+      "disposition": "No prose branching introduced, but not all carried application error kinds are typed yet.",
+      "connected_repairs": "DG2,DG3",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "No fake failure for pending, no formatting before retained state, preview failure does not replace a successful fit; actual scene/bounds/triangles use only Fitted meshes.",
+        "No duplicate helper/type/API, compatibility path, new fixtures or weakened baseline; complete actual canonical dependency graph and exact final hosted gates."
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "source": "S1,S2,S4,S6-S8; units/design closure",
+      "contract": "Triangle width3, vector dimensions2/3, zero presence and actual index/length diagnostics are intrinsic native shape/collection roles. Native geometry arithmetic is documented in metres/UV frame; tile frequency uses existing owner. Existing material/scene lengths, PBR/tuples and UI policy remain broader MAT/type work.",
+      "disposition": "No new density tuning literal or u32 host-array cap; do not misapply launch counts to CPU geometry.",
+      "connected_repairs": "DG1,DG3",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "Reject incomplete triangles, row mismatch, nonfinite inputs, unrepresentable/out-of-range indices, nonfinite edge accumulation/scale/final products before any write. Preserve valid zero and all original ordinary arithmetic.",
+        "No duplicate helper/type/API, compatibility path, new fixtures or weakened baseline; complete actual canonical dependency graph and exact final hosted gates."
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "source": "S1,S2,S3,S5; Armor lib and Creator callers",
+      "contract": "Focused material/density owns the operation/error; armory/exhibit owns retained fitting outcomes. Creator no longer implements Armor mutation. Reexports precede modules in the changed density/Armory owners.",
+      "disposition": "Native Root bodies and broad libs must be composed, not overwritten; modified-owner residual order debts remain required.",
+      "connected_repairs": "DG1,DG2,DG3",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "Reject incomplete triangles, row mismatch, nonfinite inputs, unrepresentable/out-of-range indices, nonfinite edge accumulation/scale/final products before any write. Preserve valid zero and all original ordinary arithmetic.",
+        "No fake failure for pending, no formatting before retained state, preview failure does not replace a successful fit; actual scene/bounds/triangles use only Fitted meshes.",
+        "No duplicate helper/type/API, compatibility path, new fixtures or weakened baseline; complete actual canonical dependency graph and exact final hosted gates."
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "source": "S1,S5; design and canonical units closure",
+      "contract": "DensityInput is an operation-scoped borrowed aggregate, not a cloned universal GeneratedArmor validator. Ratio retains exact numerical multiplier; error host usize lengths and native u32 index report actual adapter values. Failed retains original error rather than placement/message tuple.",
+      "disposition": "No overbroad skin/normal/morph policy or speculative device/count owner. Existing other semantic tuples are not cleared.",
+      "connected_repairs": "DG1,DG2,DG3",
+      "dependencies": [
+        "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+        "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+        "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+        "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+      ],
+      "acceptance": [
+        "Reject incomplete triangles, row mismatch, nonfinite inputs, unrepresentable/out-of-range indices, nonfinite edge accumulation/scale/final products before any write. Preserve valid zero and all original ordinary arithmetic.",
+        "No fake failure for pending, no formatting before retained state, preview failure does not replace a successful fit; actual scene/bounds/triangles use only Fitted meshes.",
+        "No duplicate helper/type/API, compatibility path, new fixtures or weakened baseline; complete actual canonical dependency graph and exact final hosted gates."
+      ]
+    }
+  ],
+  "repair_groups": [
+    {
+      "id": "DG1",
+      "repair": "Receive one GeneratedArmor density operation and remove Creator free helper; propagate its existing owning Result into fitted_catalog_item.",
+      "acceptance": "Reject incomplete triangles, row mismatch, nonfinite inputs, unrepresentable/out-of-range indices, nonfinite edge accumulation/scale/final products before any write. Preserve valid zero and all original ordinary arithmetic."
+    },
+    {
+      "id": "DG2",
+      "repair": "Retain real Pending/Fitted/Failed outcomes and independent preview error, preserving context/source into final UI.",
+      "acceptance": "No fake failure for pending, no formatting before retained state, preview failure does not replace a successful fit; actual scene/bounds/triangles use only Fitted meshes."
+    },
+    {
+      "id": "DG3",
+      "repair": "Compose canonical modules/callers and settle application admission/type/style dependencies without unrelated source replacement.",
+      "acceptance": "No duplicate helper/type/API, compatibility path, new fixtures or weakened baseline; complete actual canonical dependency graph and exact final hosted gates."
+    }
+  ],
+  "findings": [
+    {
+      "id": "DENS-R1",
+      "severity": "P3",
+      "kind": "existing application admission migration gap, not new runtime regression",
+      "location": "crates/adventuresim-character-creator/src/armory.rs:399-405; item_design.rs:121-130",
+      "rule": "crates/AGENTS.md:23-35,69-71,85-86",
+      "evidence": "fit_exhibits converts absent catalog.design to an anyhow prose root; it passes through Context and ExhibitFit::Failed to terminal UI. CatalogDesigns::set_default has the equivalent missing-design classification. Real lower fitting/native causes are now retained correctly.",
+      "consequence": "The reusable missing-design failure remains distinguishable only by its message, despite being carried as a retained application outcome. This is representable through public catalog/design state; no current authored-catalog runtime failure is claimed.",
+      "repair": "Coordinate one canonical catalogue/design admission error at the lowest shared application owner, or preserve a source-backed retained-design invariant that eliminates this failure path. Keep arbitrary contextual IDs and lower causes; do not introduce a separate Armory enum duplicating the shared kind.",
+      "dedup": "Application admission/cause closure, consistent with MAT-R5 and BA-R1/GW-R1; not another density/native corruption issue."
+    }
+  ],
+  "dependencies": [
+    "MAT-R1..R5 material semantic units, named records, Result aliases, changed-owner order and typed application admission remain required; MAT-C1 alone is repaired here.",
+    "Complete unreceived material22+6, async/native and canonical source/physical/count/stride/caller/lock/export graph remains required. Selective composition must preserve Root native MetalGpu/Buffer/context and current generated work.",
+    "Application admission error ownership, existing StudioCache/ItemDesign production expects and modified-owner item order need coordinated resolution before final whole-family Rule clearance.",
+    "Same final pushed SHA must pass complete global all13, independent Code/Rule/Comment and required hosted checks/baseline reductions."
+  ],
+  "correctness": "MAT-C1 fixed in exact incoming operation; no new bounded density or Armory state/native cause defect found.",
+  "completeness": "Partial. DENS-R1 and named existing semantic/style/canonical integration/global gates remain required."
+}

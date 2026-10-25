@@ -1,0 +1,28 @@
+{
+  "head": "bcbc1129b76d378917d8134fbe93a5687606f129",
+  "scope": "Root canonical Surface render layout and head-source/cover producer family only; no826Renderer/manifest/policy takeover",
+  "api": "SurfaceRenderLayout::try_from(&Surface), getters vertices/triangles/corners. Constructor on canonical owner; no forwarding Surface method. set_head_mesh(Arc<Surface>), GpuHeadCover source/buffer/device getters, Option cover. HeadMesh::allocate_cover binds its own source/layout to actual allocation device.",
+  "files": [
+    {
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "sha256": "0c54c21fb94e4b1df748a29cdbef562802d717acfc810211072be30d236a3298"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "6b262acb80061a2278ae7fd74d6b04fbe0d744d103ceb412bff1deeb24238557"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "0a3ef27ab38d9fefbc257e8d9de378a1473e3c65a939eaf21ced5b094a31395e"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/surface/render_layout.rs",
+      "sha256": "a494654990087180a401c2f0f80b258d3c01ae652d66d6f12017a657c04c969c"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/head.rs",
+      "sha256": "8007a20dddb728fae9bce4f80cbfab46ba06795e047cf0a49cbd50b4a7b1bdf5"
+    }
+  ],
+  "validation": "Source-only. Exact existing fixture admission/getter adaptations; all cases/assertions unchanged. Missing826meshmanifest/Rendererreceivers and broader Hair count/sort/launch producer family; no fullwaves/reviews/hostedclearance"
+}

@@ -1,0 +1,23 @@
+{
+  "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "base": "a6a37a8f5a99398789f512a7b4edec4ba9ab2a25",
+  "files": {
+    "crates/fabelgeist-compute/src/kernel/mod.rs": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+    "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs": "c1e2f58f4f5a2bdb5a220a2e633075fc0fedc981e036958586b411ab050685d5"
+  },
+  "contracts": [
+    "KernelCache/KernelBatch declarations moved beforeimpls; every body/fixture/shader byte-equivalent under move",
+    "Batching/perbatchuniformslot/freshbindgroup docs accurate, no unmeasured performance claim",
+    "Fast whole-block supportedprovidedvariant skip retained, no expectedkind gate/new rejection; onlypackerdocumentation clarified"
+  ],
+  "source_comparisons": [
+    "complete Kernel file exact after reversing only type-definition moves and two prose replacements, including final absent-uniform-block precision",
+    "complete fast uniform packer exact after reversing only documentation replacement; supportedwholeblockskip/representation/missingunsupportederrors unchanged"
+  ],
+  "independent_scoped_reviews": [
+    "/tmp/pr780-kernel-order-code-review.md",
+    "/tmp/pr780-kernel-order-rule-review.md",
+    "/tmp/pr780-kernel-order-comment-review.md"
+  ],
+  "limits": "Only this delta cleared Code/Rule/Comment with finalfingerprints. Full13 finalcombinedreviews/hostedCI remainpending; no push/CI."
+}

@@ -1,0 +1,290 @@
+--- Root/crates/fabelgeist-hair/src/render/simulation.rs
++++ 826/crates/fabelgeist-hair/src/render/simulation.rs
+@@ -0,0 +1,287 @@
++//! Source-bound simulation installation and retained deformation resources.
++
++pub use error::{RenderSimulationError, SimulationBufferRole, SimulationMode};
++
++use super::HairRenderer;
++use super::deformation::{DeformLevel, DeformationBuffers};
++use crate::gpu::error::{HairGpuError, Result};
++use crate::gpu::{GpuSim, StrandLayout};
++use crate::lod::StrandLevel;
++use crate::parameters::StrandCount;
++use crate::sim::{Rigid, SimBinding, SimFrame};
++use buffers::{SimulationBuffer, pack_positions, preflight};
++use fabelgeist_gpu::prelude::BufferByteLength;
++use fabelgeist_math::units::Metres;
++use std::sync::Arc;
++
++pub(super) mod buffers;
++mod error;
++mod frames;
++
++pub(super) struct Dynamics {
++    pub inputs: SimulationInputs,
++    pub layout: StrandLayout,
++    origin: DynamicsOrigin,
++    pub levels: Vec<DeformLevel>,
++}
++
++pub(super) struct SimulationInputs {
++    pub ids: SimulationBuffer,
++    pub weights: SimulationBuffer,
++    pub guide_rest: SimulationBuffer,
++    pub guide_now: SimulationBuffer,
++    pub body: DeformationBody,
++}
++
++pub(super) enum GroomSource {
++    Host(Arc<StrandLevel>),
++    Native(Arc<crate::gpu::GpuLevel>),
++}
++
++enum DynamicsOrigin {
++    Host(Arc<SimBinding>),
++    Native,
++}
++
++pub(super) enum DeformationBody {
++    Absent(SimulationBuffer),
++    Present {
++        buffer: SimulationBuffer,
++        offset: Metres,
++    },
++}
++
++impl DeformationBody {
++    pub fn buffer(&self) -> &SimulationBuffer {
++        match self {
++            Self::Absent(buffer) | Self::Present { buffer, .. } => buffer,
++        }
++    }
++
++    pub fn offset(&self) -> Option<Metres> {
++        match self {
++            Self::Absent(_) => None,
++            Self::Present { offset, .. } => Some(*offset),
++        }
++    }
++}
++
++impl HairRenderer {
++    /// Install a host frame from the actual uploaded groom's first level.
++    ///
++    /// Binding, rest, current positions and head pose come from one simulation.
++    /// Structural admission precedes native allocation and publication. The
++    /// host renderer keeps its existing behavior without a body collider.
++    pub fn set_dynamics(&mut self, frame: SimFrame<'_>) -> Result<()> {
++        use SimulationBufferRole as Role;
++        use wgpu::BufferUsages as U;
++        self.check_host_source(frame)?;
++        let layout = StrandLayout::try_from(frame.layout()).map_err(RenderSimulationError::from)?;
++        let drawn = self.binding_population(frame.source().layout().strands())?;
++        preflight(self)?;
++        buffers::host_limits(self, drawn, layout)?;
++        let rest = pack_positions(frame.rest())?;
++        let current = pack_positions(frame.positions())?;
++        let binding = frame.binding();
++        let inputs = SimulationInputs {
++            ids: SimulationBuffer::upload(
++                self,
++                Role::BindingIndices,
++                bytemuck::cast_slice(&binding.guides()[..drawn.count()]),
++                U::STORAGE,
++            )?,
++            weights: SimulationBuffer::upload(
++                self,
++                Role::BindingWeights,
++                bytemuck::cast_slice(&binding.weights()[..drawn.count()]),
++                U::STORAGE,
++            )?,
++            guide_rest: SimulationBuffer::upload(
++                self,
++                Role::GuideRest,
++                bytemuck::cast_slice(&rest),
++                U::STORAGE,
++            )?,
++            guide_now: SimulationBuffer::upload(
++                self,
++                Role::GuidePositions,
++                bytemuck::cast_slice(&current),
++                U::STORAGE | U::COPY_DST,
++            )?,
++            body: DeformationBody::Absent(SimulationBuffer::upload(
++                self,
++                Role::Body,
++                &[],
++                U::STORAGE,
++            )?),
++        };
++        self.bind_dynamics(
++            inputs,
++            layout,
++            DynamicsOrigin::Host(binding.clone()),
++            frame.head(),
++        );
++        Ok(())
++    }
++
++    /// Install native simulation resources for the actual installed GPU groom.
++    ///
++    /// Source, native device, logical extents and buffer capabilities are
++    /// checked before recording. Construction and submission retain the
++    /// device's native error policy; success does not certify GPU completion.
++    /// Subsequent updates use [`Self::set_moved`] with this same simulation.
++    pub fn set_gpu_dynamics(&mut self, sim: &GpuSim) -> Result<()> {
++        use SimulationBufferRole as Role;
++        self.check_native_source(sim)?;
++        let layout = sim.layout();
++        let drawn = self.binding_population(sim.source().layout().strands())?;
++        preflight(self)?;
++        // The drawn binding arrays and simulated guide arrays have independent
++        // populations. Never crop the guides to the resident draw prefix.
++        let bytes = binding_vector_bytes(drawn);
++        let ids =
++            SimulationBuffer::from_native(self, Role::BindingIndices, sim.binding_ids(), bytes)?;
++        let weights = SimulationBuffer::from_native(
++            self,
++            Role::BindingWeights,
++            sim.binding_weights(),
++            bytes,
++        )?;
++        let guide_rest = SimulationBuffer::from_native(
++            self,
++            Role::GuideRest,
++            sim.rest(),
++            layout.positions_bytes(),
++        )?;
++        let guide_now = SimulationBuffer::from_native(
++            self,
++            Role::GuidePositions,
++            sim.positions(),
++            layout.positions_bytes(),
++        )?;
++        let body = match sim.body() {
++            Some(body) => DeformationBody::Present {
++                // The producer owns this ABI. Its actual logical upload extent
++                // is authoritative, rather than a duplicated record count.
++                buffer: SimulationBuffer::from_native(self, Role::Body, body, body.size)?,
++                offset: sim.settings.collision_offset,
++            },
++            None => DeformationBody::Absent(SimulationBuffer::upload(
++                self,
++                Role::Body,
++                &[],
++                wgpu::BufferUsages::STORAGE,
++            )?),
++        };
++        self.bind_dynamics(
++            SimulationInputs {
++                ids,
++                weights,
++                guide_rest,
++                guide_now,
++                body,
++            },
++            layout,
++            DynamicsOrigin::Native,
++            sim.head(),
++        );
++        Ok(())
++    }
++
++    /// Restore logical rest data after admitting every copy endpoint.
++    /// Absent dynamics is already clear. State changes after normal submission,
++    /// which neither guarantees completion nor rolls back provider-handled errors.
++    pub fn clear_dynamics(&mut self) -> Result<()> {
++        let Some(dynamics) = &self.dynamics else {
++            return Ok(());
++        };
++        preflight(self)?;
++        let mut encoder = self.device.create_command_encoder(&Default::default());
++        for (level, deform) in self.levels.iter().zip(&dynamics.levels) {
++            let bytes = u64::from(level.layout.positions_bytes());
++            if bytes > 0 {
++                encoder.copy_buffer_to_buffer(&deform.rest, 0, &level.positions, 0, bytes);
++            }
++        }
++        self.queue.submit([encoder.finish()]);
++        self.dynamics = None;
++        self.head_matrix = super::IDENTITY;
++        self.invalidate_view();
++        Ok(())
++    }
++
++    fn binding_population(&self, available: StrandCount) -> Result<StrandCount> {
++        // A coarser level can fit more strands than the finest one under the
++        // storage limit. Any of them may be selected for main, shadow or blend.
++        let required = self
++            .levels
++            .iter()
++            .map(|level| level.layout.strands())
++            .max()
++            .unwrap_or_default();
++        if required > available {
++            return Err(RenderSimulationError::BindingPopulation {
++                required,
++                available,
++            }
++            .into());
++        }
++        Ok(required)
++    }
++
++    fn bind_dynamics(
++        &mut self,
++        inputs: SimulationInputs,
++        layout: StrandLayout,
++        origin: DynamicsOrigin,
++        head: Rigid,
++    ) {
++        let buffers = DeformationBuffers {
++            ids: &inputs.ids,
++            weights: &inputs.weights,
++            guide_rest: &inputs.guide_rest,
++            guide_now: &inputs.guide_now,
++            body: inputs.body.buffer(),
++        };
++        let mut encoder = self
++            .device
++            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
++                label: Some("hair rest poses"),
++            });
++        let levels = self
++            .levels
++            .iter()
++            .enumerate()
++            .map(|(at, level)| {
++                // A legitimate simulation switch keeps the original undeformed
++                // rest capture instead of capturing the current deformed geometry.
++                let old_rest = self
++                    .dynamics
++                    .as_ref()
++                    .and_then(|d| d.levels.get(at))
++                    .map(|l| &l.rest);
++                DeformLevel::new(self, &mut encoder, level, old_rest, &buffers)
++            })
++            .collect();
++        self.queue.submit([encoder.finish()]);
++        self.dynamics = Some(Dynamics {
++            inputs,
++            layout,
++            origin,
++            levels,
++        });
++        self.invalidate_view();
++        self.publish_simulation_pose(head);
++    }
++}
++
++impl From<RenderSimulationError> for HairGpuError {
++    fn from(cause: RenderSimulationError) -> Self {
++        Self::Backend(cause.into())
++    }
++}
++
++fn binding_vector_bytes(strands: StrandCount) -> BufferByteLength {
++    // The maximum comes from native-admitted resident layouts (u32 counts).
++    BufferByteLength::from(strands.count() as u64 * size_of::<[u32; 4]>() as u64)
++}

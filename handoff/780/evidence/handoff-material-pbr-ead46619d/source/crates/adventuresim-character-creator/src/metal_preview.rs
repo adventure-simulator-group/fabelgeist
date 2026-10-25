@@ -1,0 +1,72 @@
+//! Preview materials for scratched armor metal, shared by plate and catalog armor.
+use super::*;
+use bevy::{
+    image::{ImageAddressMode, ImageSampler, ImageSamplerDescriptor},
+    render::render_resource::{Extent3d, TextureDimension, TextureFormat},
+};
+use fabelgeist_armor::material::{Metal, MetalTextureSize};
+
+/// A metal's baked maps, uploaded for the preview.
+pub(super) struct MetalImages {
+    normal: Handle<Image>,
+    metal_roughness: Handle<Image>,
+    /// The engraving's parallax depth map and its depth in texture units.
+    depth: Option<(Handle<Image>, f32)>,
+}
+
+impl MetalImages {
+    /// Bake at the offline studio's synchronous native UI boundary.
+    pub(super) fn new(images: &mut Assets<Image>, metal: &Metal) -> anyhow::Result<Self> {
+        let textures = pollster::block_on(async {
+            adventuresim_character_creator::metal_gpu()
+                .await?
+                .textures(metal, MetalTextureSize::PREVIEW)
+                .await
+        })?;
+        let size = textures.size();
+        let maps = textures.into_maps();
+        let mut upload = |data| {
+            let mut image = Image::new(
+                Extent3d {
+                    width: size.into(),
+                    height: size.into(),
+                    depth_or_array_layers: 1,
+                },
+                TextureDimension::D2,
+                data,
+                TextureFormat::Rgba8Unorm,
+                RenderAssetUsages::default(),
+            );
+            image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
+                address_mode_u: ImageAddressMode::Repeat,
+                address_mode_v: ImageAddressMode::Repeat,
+                ..ImageSamplerDescriptor::linear()
+            });
+            images.add(image)
+        };
+        Ok(Self {
+            normal: upload(maps.normal),
+            metal_roughness: upload(maps.metal_roughness),
+            depth: maps
+                .depth
+                .map(|depth| (upload(depth.pixels), depth.uv_scale)),
+        })
+    }
+
+    /// The metal's color with its baked maps; roughness comes from the map and
+    /// an engraved cut shows its depth in parallax.
+    pub(super) fn material(&self, metal: &Metal, metallic: fabelgeist_math::units::Ratio) -> StandardMaterial {
+        let (depth_map, parallax_depth_scale) = match &self.depth {
+            Some((image, uv_scale)) => (Some(image.clone()), *uv_scale),
+            None => (None, 0.0),
+        };
+        StandardMaterial {
+            perceptual_roughness: 1.0,
+            normal_map_texture: Some(self.normal.clone()),
+            metallic_roughness_texture: Some(self.metal_roughness.clone()),
+            depth_map,
+            parallax_depth_scale,
+            ..adventuresim_character_creator::surface_projection::standard_material(metal.appearance(metallic))
+        }
+    }
+}

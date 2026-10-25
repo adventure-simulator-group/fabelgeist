@@ -1,0 +1,58 @@
+{
+  "head": "bb4aa8aeb4132a1de2de85f6d4eda720d89cee88",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "11d9cb92749cc9e59c634b98a1ac4f46c27493668304c6030c668a0cf3bbc6cf",
+      "role": "transferred canonical definition/impl"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "949b9a749edab5e37a710f6b33e4270e0235538833b7d78bb6874810361bb473",
+      "role": "transferred canonical definition/impl"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/tests.rs",
+      "sha256": "b869b3d96cf3ddf562c56498e25d77101f2c38fbba71dec4d57ad98152036aa5",
+      "role": "existing fixture/export/native receiving context; Root dispatch_folded caller retained by780"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape/native-cases.json",
+      "sha256": "842b52b27499c33ebc45e4f2d85d239e0f5498a906056b0a942757b4f4aaabc3",
+      "role": "existing fixture/export/native receiving context; Root dispatch_folded caller retained by780"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "283bb3e9c9691cb9f15e51f9cdf5013cf3d4ab9aec22282670d7d1fa63671a24",
+      "role": "existing fixture/export/native receiving context; Root dispatch_folded caller retained by780"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "1d6d8fdb930ec1e7cef5c99cd16aac39ae33e5868c1d219860c043de70f3c2c6",
+      "role": "existing fixture/export/native receiving context; Root dispatch_folded caller retained by780"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "role": "existing fixture/export/native receiving context; Root dispatch_folded caller retained by780"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "role": "existing fixture/export/native receiving context; Root dispatch_folded caller retained by780"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "role": "existing fixture/export/native receiving context; Root dispatch_folded caller retained by780"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "f606388457ecab58ccb272496b1a5ac8361d592446d745b967923d9edd513d02",
+      "role": "existing fixture/export/native receiving context; Root dispatch_folded caller retained by780"
+    }
+  ],
+  "ownership": "#826 explicitly accepted whole WorkgroupGrid/WorkgroupCount and WorkgroupShape/projections; accompanying owning error/reexport lines composed by826. Root retains dispatch_folded caller/producers, adapts once pinned; no competing implementation or new fixture population.",
+  "agreed_api": "WorkgroupGrid::validate_device(&Device)->Result<Self,WorkgroupGridError>; Shape.covering_folded_x(InvocationCount)->Result<Grid,FoldedDispatchError> prevents flattened padded u32 overflow, preserves65535 row policy where representable; native WorkgroupGrid.folded_x remains geometry, no global arbitraryShaderaddressclaim.",
+  "restrictions": "No new tests/cases/helpers/assertions. Existing fixture operands only. Hosted project checks after connectedfamilies complete; sourceonly artifact, no clearance."
+}

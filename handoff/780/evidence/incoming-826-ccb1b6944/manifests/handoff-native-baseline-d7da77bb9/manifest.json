@@ -1,0 +1,62 @@
+{
+  "revision": "d7da77bb9d21200170b522b8e6a1f7aa4aef2bab",
+  "tree": "868959fcaec6f7b624c0c462c6bea4a6a70528d4",
+  "files": {
+    "rust-quality-baseline.toml": "fa4fcada546c6e5f6350d0de7cd7d03e88cd5f4b3ec92034e12432f60c6df8dc"
+  },
+  "base_sha256": "29cf0fe6f201db298936ac11c3d854a08cd2d96e22b9ef65bd2ee1ef9023621e",
+  "removed_records": [
+    {
+      "table": "files",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "ceiling": 538
+    },
+    {
+      "table": "files",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "ceiling": 899
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "item": "create_bind_groups",
+      "ceiling": 278
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "item": "ComputePass::record",
+      "ceiling": 410
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::blit_texture_to_face",
+      "ceiling": 161
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_face_shader_raw",
+      "ceiling": 149
+    },
+    {
+      "table": "functions",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_shader_raw",
+      "ceiling": 142
+    }
+  ],
+  "authority": "Apply these seven exact native debt deletions. Whole-file receipt is safe only when the receiver baseline matches base_sha256; otherwise preserve other work and compose the exact seven deletions.",
+  "all13_successor": "target/pr826-audit/root-baseline-d7da-all13-successor.json",
+  "independent_reviews": [
+    "root-baseline-d7da-code-review.json",
+    "root-baseline-d7da-rule-review.json",
+    "root-baseline-d7da-comment-review.json"
+  ],
+  "limits": [
+    "The remaining canonical producer, caller and lock graph is incomplete.",
+    "The combined hosted baseline export and required quality checks remain mandatory.",
+    "No complete PR audit, final three-review or same-final-pushed-revision CI clearance is claimed."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "revision": "03ad4103f2e9a892e1682be580cb9d3c9a52669f",
+  "published_existing_fixture_revision": "71f9cab8a5f97760e2e61ca4c74876b715f8aebc",
+  "scope": "supplementary dependencies already present in original published #779, not newly authored cases",
+  "files": {
+    "crates/fabelgeist-compute/src/kernel/workgroup.rs": "ffa8f8f0beb9bf408f7a259919960bdd22329afd9c20141b151e9c4b16c9c0ee",
+    "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f"
+  },
+  "compile_fail": {
+    "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+    "identical": true,
+    "lines": 6,
+    "sha256": "811a087bc52a767dab277e0f011863f63ab1a5d76f1b8a973ac38492d1ca55cf"
+  },
+  "dispatch_fixture": {
+    "path": "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs",
+    "same_two_test_cases": true,
+    "whole_source_exact_after_only_enumerated_api_changes": true,
+    "changes": [
+      "Compile native pipeline after forcing the existing General path because pipeline construction became lazy",
+      "Use checked BufferCopy record with zero source/destination byte offsets and same12byte extent",
+      "Propagate the existing batch.submit result"
+    ],
+    "assertions": "all unchanged, proven by exact wholefile substitution"
+  }
+}

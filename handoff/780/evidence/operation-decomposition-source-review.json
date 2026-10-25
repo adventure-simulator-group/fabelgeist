@@ -1,0 +1,56 @@
+{
+  "status": "source-only, no project checks or full-wave clearance",
+  "specific_parameters": [
+    {
+      "operation": "Orient",
+      "native_fields": 22,
+      "comparison": "exact after receiver-name substitution"
+    },
+    {
+      "operation": "Trim",
+      "native_fields": 6,
+      "comparison": "exact after receiver-name substitution"
+    },
+    {
+      "operation": "Clump",
+      "native_fields": 14,
+      "comparison": "exact after receiver-name substitution"
+    },
+    {
+      "operation": "Curl",
+      "native_fields": 10,
+      "comparison": "exact after receiver-name substitution"
+    },
+    {
+      "operation": "Wave",
+      "native_fields": 6,
+      "comparison": "exact after receiver-name substitution"
+    },
+    {
+      "operation": "Noise",
+      "native_fields": 14,
+      "comparison": "exact after receiver-name substitution"
+    },
+    {
+      "operation": "Frizz",
+      "native_fields": 10,
+      "comparison": "exact after receiver-name substitution"
+    },
+    {
+      "operation": "Smooth",
+      "native_fields": 6,
+      "comparison": "exact after receiver-name substitution"
+    },
+    {
+      "operation": "Shrinkwrap",
+      "native_fields": 6,
+      "comparison": "exact after receiver-name substitution"
+    }
+  ],
+  "common_bindings": "all5 exact logical fields; native count/point derive retained checked layout",
+  "settle_parameters": "few/normal/apply field maps exact after canonical buffer/layout name substitution and two retained scratch handle clones; clones share native storage, compliance equation exact",
+  "control_flow": "Manual review: Orient<=0 retain; Profile retain; relative standard-load threshold retains before allocation; all other native position paths swap after successful recording; interpolation error unchanged; few threshold16384/SETTLE_FEW_POINTS and workgroups[count,relative?2:1,1] unchanged; folded reference solve only relative and notfew",
+  "mapped": "Clump/Curl/Wave same seed constants, reuse+mapped predicate, guide distance/mask and guide_of source; one shared record_set_map implementation",
+  "native_sources_and_fixtures": "Only4production source paths changed; no native shader or existing fixture changes, additions, helpers or assertions",
+  "limits": "No compile/native/runtime/formatter/Clippy/quality or final independent review run; all required hosted gates pending"
+}

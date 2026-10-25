@@ -1,0 +1,52 @@
+{
+  "head": "a6a37fb5c07d10982cc717b0be5f754474c251ed",
+  "scope": "Root canonical storage-format owner+callers; TextureBinaryOp builder explicitly retained826 and excluded",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "sha256": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "f4359ff256dd3af7910156478037065d29e390b47a2679f2ea3a03abe904b2bb"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "1b980d4e70b78653c3c8c246e2cf7da33f4bc5cec208060e5ef4acbf059ba24e"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "95da5cd7a5e390cb9ea21c4dd61be55d324726a9d1dfef9c9bc769629318bfd9"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "6bac7f1ff95532004d88a383de80e559f550f4e8d3223d5adbbffd50a8907071"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "00acbafb4d8eb3a62f4620d9480f9cf5c2cd9cc6adbc5f3005923240b5f910da"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "4b94a0b3a1a1e51b108608d28ca28fda6178e366ab2c8f49980a4968e2aff721"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs",
+      "sha256": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b"
+    }
+  ],
+  "api": "texture::StorageFormatResult<T>; TextureFormat::to_wgsl_storage_format Result<&static str>; ResourceDescriptor storage/output_binding Result<String>; all errors implementStdError; sharedbuilder adds?",
+  "validation": "Source-only; no existing tests changed; sharedbuilderreceiving and broaderfamilies/finalgatespending"
+}

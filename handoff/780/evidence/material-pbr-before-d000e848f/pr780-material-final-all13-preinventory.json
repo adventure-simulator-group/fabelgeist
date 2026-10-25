@@ -1,0 +1,1015 @@
+{
+  "head": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+  "selected_scope": "Color/PBR/appearance/roughness/actual native receivers/skin/UI/review artifact only",
+  "selected_final_api_preinventory_complete": true,
+  "repair": "not started",
+  "validation": "not started",
+  "no_source_edits_tests_checks_probes": true,
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-armor/src/components.rs",
+      "sha256": "0cee8ea4265d2ec61509c2c7a516a7dfa6d9d46a483d83fdae928bd1fe010ad5",
+      "read_extent": "Whole current source: record, derives/serde, PBR owner and all role/metadata contracts.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile.rs",
+      "sha256": "15db7df94796b698c31fed85b836eddca6737ede411b7b1a4fcb88ed8f29dc30",
+      "read_extent": "Whole current source, exact u8-to-encoded-float producer.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_pattern.rs",
+      "sha256": "5eb511d902255a5f0b52b7f0de48232b1ee202e4e069cae7802be6cad5ec4f09",
+      "read_extent": "1-112 and172-251 current schema/admission/material operation; unrelated fill/raster algorithms excluded.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_seams.rs",
+      "sha256": "3882e3a17758fc8e0ec7ee8c6559353c07b0902f93bd84b70734484950ddc128",
+      "read_extent": "Whole source read active sequence; textile classification and exact source component cloning identified; broader physical correctness not claimed.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "def762808a49aeb39b51f92cbc23450db6811d6f0eef2db8c97c963625114f73",
+      "read_extent": "310-370 current BuiltPart metadata/append introduction only; native GPU implementation not cleared.",
+      "coverage_kind": "Current actual material responsibility inspected in this active review sequence; prior report is source map only. No whole-file clearance inferred where extent is partial."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_layout.rs",
+      "sha256": "b7381d70280af87d9fdd65c064d5048239c9f001182df31961346e76eb07e602",
+      "read_extent": "72-94 component publication and borrowed metadata; native clipping/layout math excluded.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime.rs",
+      "sha256": "a41d7583511916f837e5a9402fe4658589c54e4cfe15fa29cb04dd6a585ca000",
+      "read_extent": "1-52 current retained components declaration only; GPU functions not cleared.",
+      "coverage_kind": "Current actual material responsibility inspected in this active review sequence; prior report is source map only. No whole-file clearance inferred where extent is partial."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_piece_components.rs",
+      "sha256": "f6fb5fcd8c755d324faac65bffc7a5fa82abd5f87be2e40263deab5dd925ed7d",
+      "read_extent": "Whole current source; component partition clones and copies appearance with original topology association.",
+      "coverage_kind": "Current actual material responsibility inspected in this active review sequence; prior report is source map only. No whole-file clearance inferred where extent is partial."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_textile_materials.rs",
+      "sha256": "5d457ed74d03a8130d204d48803cb881c977c580d8e36a25ff94971dd2288f37",
+      "read_extent": "1-48 and84-104 current actual variant replacement paths; complete file read active sequence.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_textile_relief.rs",
+      "sha256": "de0860c5622ce947641038fe25033226ed7902722064cc5bcb4c8dd2e03e1542",
+      "read_extent": "Whole source read active sequence; exact mutable textile chart/relief payload operations inspected; no independent new physical assurance.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/sewn_eyelet_mesh.rs",
+      "sha256": "33ef4daa09c4bb138ca81a7cbcf163235670f05842c3671154ce5246d844fc95",
+      "read_extent": "Whole source read active sequence, current10-28 constructor reread; only appearance propagation changes selected.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "sha256": "39b44062b3a3fb8db93c869721bcd0ede9f01f588cbde35ea6cdf4b9a26377e3",
+      "read_extent": "1-106,155-184 and258-307 current tuple producer, retained weave and actual existing .6/NaN fixture/oracle adaptations; physical ring policy elsewhere not cleared.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/export.rs",
+      "sha256": "0b57ba3d094cdb3ac0ea1e872f7177837ffae8c16be441a1dbcb823d220b26dc",
+      "read_extent": "Whole current source.",
+      "coverage_kind": "Current actual material responsibility inspected in this active review sequence; prior report is source map only. No whole-file clearance inferred where extent is partial."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "f5fd53af89771488b500f8b2e661505b5b169dd355785fafe6005127f7c23fad",
+      "read_extent": "Whole current declaration read UV review; current40-50 raw retained triple checked; same committed UV-only drift.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "2f01964984a42e98201c8cb2be6095d0779a2f6292d8571021b64f70bc976656",
+      "read_extent": "Whole current source read UV review; current136-163 source PBR finite policy reread.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "9b57fb4bbcebe5b20113a06d530507253693a37d40f85f1617a38cbccb63fa87",
+      "read_extent": "Whole current source; rebuilding and plate-only UV stale-source hazard.",
+      "coverage_kind": "Current actual material responsibility inspected in this active review sequence; prior report is source map only. No whole-file clearance inferred where extent is partial."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "37d9aad2bed62e065620cccd542180cc439dba8aae9726d0b3177d9f7cb7311a",
+      "read_extent": "Whole current source reread; effective scalar projection insertion point, Result propagation and native image precedence.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "read_extent": "1-78 and172-258 current native map policies, plus177-205 fresh white-factor source reread. Remaining FS/cache implementation not changed by scalar policy.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "e725590d8bfe60bfe165344b3476bacfc4ed84d7426fd7f59c2586a992fbf368",
+      "read_extent": "Current575-612 duplicate decode/public validation,747-783 skin writer and actual native append/publication order read active sequence; full socket algorithm excluded.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "8f76594ec3871a68df2f8e98740aa629e479b1e6fc7a0ad9a63e4e7f029e30a1",
+      "read_extent": "184-282 current component/retained clothed/armor source constructors; fit algorithm remainder excluded.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "a542629ff77155448219d508e544a55f2da0c3f024f7454fb2c26a597f1da13a",
+      "read_extent": "130-230 current complete catalog_shells body and geometry source contract; remainder not fresh clearance.",
+      "coverage_kind": "Current actual material responsibility inspected in this active review sequence; prior report is source map only. No whole-file clearance inferred where extent is partial."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "bc324c39eaed75e445e0b5247a8ce1adcd1cc336525d221ba6f174aacfb2cbd8",
+      "read_extent": "55-115 current catalog materials/maps/component override and native output path.",
+      "coverage_kind": "Current actual material responsibility inspected in this active review sequence; prior report is source map only. No whole-file clearance inferred where extent is partial."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "read_extent": "64-100 current RiggedShell construction; pigment/native generation not fresh clearance.",
+      "coverage_kind": "Current actual material responsibility inspected in this active review sequence; prior report is source map only. No whole-file clearance inferred where extent is partial."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/preview.rs",
+      "sha256": "f7fa8bef88e0b718991dab2245cce57436b6748186df1769f7fadcef64ceb698",
+      "read_extent": "1-145 actual material receivers and150-220 body PBR/skin source/native policies; actual scalp hair material not changed.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "read_extent": "1-144 current all cloth/mail material receiving operations; later drape/geometry code outside PBR scope.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing_material.rs",
+      "sha256": "879486f9beb55903e6b6788555437f70413b4449dbf5ebfcf6295b1a81e5d2b5",
+      "read_extent": "Whole current source; exact ten-variant naked-triple catalog producer.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "read_extent": "25-109 current retained/constructor API, 665-698 existing fixture API. Whole physical implementation was read in prior sequence but is not current PBR clearance.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_export.rs",
+      "sha256": "3f0d6674ab64abd4e90c50836ccc7028edb39f616d8758b2c6ff25e8380d9059",
+      "read_extent": "Whole110-line current fixture source read, exact pixel/alpha/topology expectations retained; no execution.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "43e385b5074a6c8884aabe7f27f70c016f9b16b16e19a0020d58cd01090de0b8",
+      "read_extent": "1-94 current existing helper signature, literal and normal-only source scenario; remaining known oracles from fixture source map, no new assertions.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "sha256": "4994b1974149becac0c96f9e0dafeb0d26c1db776cc4adef9d2e1b388b033058",
+      "read_extent": "1-105 and166-end current partition key, variant selection and catalog native adapter; skin remapping previously read, not new physical clearance.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "sha256": "142460bac2304c4a63a77c9759a003d9bd57a9d5b6210b8d7954105d6ee3e827",
+      "read_extent": "1-76 current two canonical PBR literals and component constructors; remaining fixture oracles peer account only.",
+      "coverage_kind": "Current actual material responsibility inspected in this active review sequence; prior report is source map only. No whole-file clearance inferred where extent is partial."
+    },
+    {
+      "path": "crates/fabelgeist-color/src/color.rs",
+      "sha256": "ec95ce41e0de2b14f31c2d8a206461d2ed69f95183e18ae020c7ce956de86c74",
+      "read_extent": "Whole current source including feature-gated traits and existing constructors, which remain unchanged.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "read_extent": "Whole current source; public reexports/mod ordering and existing Color unchanged.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-color/src/transfer.rs",
+      "sha256": "81b5c5f4a55d8191a178ea71fc618c968db91c2b601fa7b72e0cadf466ecad62",
+      "read_extent": "1-157 current exact canonical encode/decode and byte conversion distinction; other color profiles outside.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "read_extent": "Whole current manifest; serde/bytemuck/wgpu feature ownership.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "read_extent": "Whole current manifest; required new direct Color serde edge and existing Math/serde/thiserror.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "1346098aa561b83aa6d045c8744f19edc6605674fd0bbf313af4dcfc4ef595e5",
+      "read_extent": "Whole current manifest; standalone workspace/direct Color composition.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "8aa55633cd7ff303e586406b52582fd208269232ae9217364c309fa085b074d1",
+      "read_extent": "1-95 current complete dependency/native/wasm/lint region; bin tail unchanged irrelevant to PBR.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "read_extent": "Actual package/dependency arrays for Color/Armor/Creator/Tactical plus serde_json/egui versions parsed and read; not full registry graph clearance.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "ca7c957fbd5d63fc3b507a0023e05ba2e74a3aef48c3dba54276013f7de6769a",
+      "read_extent": "Actual standalone Color/Armor/Creator package arrays plus versions parsed/read; Tactical absent by workspace design.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/value/from.rs",
+      "sha256": "ae4b5f93b27e578fa40e3a8d25d0df2032fe40b680cddb15963e47cbd56db613",
+      "read_extent": "29-45 actual pinned f32 Value conversion",
+      "coverage_kind": "Current actual material responsibility inspected in this active review sequence; prior report is source map only. No whole-file clearance inferred where extent is partial."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/value/ser.rs",
+      "sha256": "11f2b7daa1eba826d4086d5497f73729478dd7647bff77deccde5e47b0f126f2",
+      "read_extent": "146-163 actual pinned Serialize f32 delegation",
+      "coverage_kind": "Current actual material responsibility inspected in this active review sequence; prior report is source map only. No whole-file clearance inferred where extent is partial."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "sha256": "82a6a4729b279187a9e7012181e5b85601f4ab3924c707d3243816168a83bc62",
+      "read_extent": "286-320 current complete component publication expression; native planning before it excluded.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_armor.rs",
+      "sha256": "0aeea0b47034016130f42d75d0cc2f050d6ab6447c71d05accff1c34e517cc32",
+      "read_extent": "85-104 and165-188 current fabric/trunk-hose component material construction; physical fitting outside.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/waist_support_mesh.rs",
+      "sha256": "3e272c03e30186833e70e0b054c64b4b153f852114a5a5ce03b4f1926e2c1b0f",
+      "read_extent": "146-162 current component publication and material/textile source; physical tessellation outside.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "sha256": "dcd91f8fa4f1fc251a4195f28cd8b7954b77f03a174d2f6d455c70550c53e7dc",
+      "read_extent": "300-323 current fauld/tasset inherited component constructor; unrelated native fitting excluded.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "sha256": "09af59779312ad82dd8a82bace7284c98503db7e55eab5018e1deee5dae3bf14",
+      "read_extent": "Whole current source; real Ratio/encoded-color native receiving boundaries and retained map depth. Depth semantic family remains separately open.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "read_extent": "Whole current source: canonical catalog/metal producer chain, metallic API, mail native image/alpha publication.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material/rings.rs",
+      "sha256": "6905eff437f36dde6d25965152bfde07ab25c57596f1d5068c14fb52fe75a222",
+      "read_extent": "1-130 current native encoded color byte conversion, map constructor and texture descriptors; ray-tracing/geometry remainder outside.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/textile_surface.rs",
+      "sha256": "6eb0a624f247ea8c1ed2ffd6b25f65ece4b8742d30dd44d190914c9e0b399726",
+      "read_extent": "1-80 current material/texture producer and scalar white-factor/alpha/specularity behavior; exported texture descriptors previously directly read, no rasterizer clearance.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/bare_body.rs",
+      "sha256": "68cef7d12e388a580394d74d3162513902fc9a8c6539ae328aac33e1240bd4cb",
+      "read_extent": "Whole current source; exact independently authored PBR and unchanged reflectance/native body metadata.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_controls.rs",
+      "sha256": "fa3594e3f5dc55f7ad90ba02d05fedfff207c5a0d394e03faad2da235b3d6d14",
+      "read_extent": "Whole current source, but only color/roughness paths selected for this inventory; physical/engraving controls remain pending.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/construction_controls.rs",
+      "sha256": "3f3fa3760c04b76557e2a6927b461eb83c134a41d561952d22579c3f3f286599",
+      "read_extent": "1-103 current color/roughness receiving and change detection; plate/radius physical rules remain pending.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/fabric_controls.rs",
+      "sha256": "808639ee1e2d7dd0547a68e1fbc3d05f666359e67c6cfad683c5c26918ce215f",
+      "read_extent": "Whole current source, including deliberate byte sRGB picker with changed-only writeback; physical mail controls outside this repair.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "sha256": "12debec1a00cb2ff34e5ef09978a4a3c523bde4bfb1926a1dbef86b7decaf6ea",
+      "read_extent": "Current color/roughness fields, defaults and finite/range validation; density export is the only drift from f2c and already committed. Other material leaves pending.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "sha256": "c589129c7386c136feaf7f63fc21ed925f81dd035642ea3dacdc92d054659854",
+      "read_extent": "Current Lacing fields/defaults/admission and Lamellar/Scale authored literals; other physical plate/lacing semantics pending.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "09072dcebe7d27d7866f20305953af487020335484821994e5b90db655683268",
+      "read_extent": "1-130 includes complete Root-owned async bake body and roughness PassParameters native use; remaining protected native record functions excluded from edits.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "sha256": "fdc04f19250688292a3a3f1830e0b6ca7cdab927e166dd2940ddd549f6587e9c",
+      "read_extent": "95-126 existing invalid roughness/texture-size fixture source; other fixtures remain as source-mapped unchanged cases, not independently run.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_fastener_mesh.rs",
+      "sha256": "bae2477655a7d54619d1f5265775f85fce6b4e1ec02693613f69a6b697ca3657",
+      "read_extent": "1-118,175-200 and actual button-loop material/cord variant use read in active sequence; geometry untouched outside selected appearance responsibilities.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_hook_mesh.rs",
+      "sha256": "f0561bc0a88d651c54ed6c5d6334c2fdc9bb6b1e6d2408a35132eac95a07a131",
+      "read_extent": "115-147 current direct metal hook PBR constructor; other geometry excluded.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_lacing_mesh.rs",
+      "sha256": "328fbd586aca214f25884be7bcf0d69be4ba4375e6b3baada8f4f6c4ddbb7b99",
+      "read_extent": "60-105 and118-136 current direct fabric/metal eyelet/cord appearance; geometry rules not cleared.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/review_export.rs",
+      "sha256": "e9ae7ed8089bca0317e77661168325bad4467de6bdc6ab5c08696808b15205f0",
+      "read_extent": "Whole current125-line file; direct source component serde leak, exact output producer/context and serialized metadata.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "scripts/render_museum_armor.py",
+      "sha256": "6bd9fd305c94e259b76a706c76ea6a491ab7456c4eae238a464faffee0e59f31",
+      "read_extent": "Whole current402-line source; native linear bounded Material protocol, actual component/material/override/import paths, no Python changes proposed.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "scripts/test_render_museum_armor.py",
+      "sha256": "33f1212402df10175523bc4e1d0121835e8dfe68bed5e492996d20d45bdf7485",
+      "read_extent": "Whole current existing test source, including preset material and Blender import/pose/camera fixtures; no execution/additions.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "scripts/armor_bake_projection.py",
+      "sha256": "1207b3fa8367208256823e7efba0bc78a9171c53f1dd26423f71c570df5e9945",
+      "read_extent": "Whole current source; role/range-only artifact receiver, physical projection algorithm excluded from clearance.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "scripts/render_armor_review.py",
+      "sha256": "f6e41c0f0f4ecd90ce83153901ed7b9426acfb5597a8c6cb18a3077a351167c7",
+      "read_extent": "1-112 current component ranges/material/hinge native consumer and surrounding entry point; trailing report metadata outside selected API.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "read_extent": "1-70 and export/garment/gpu initialization module region; exact library/public-versus-binary composition, not full unrelated library audit.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/tests.rs",
+      "sha256": "4b726c8fb494223caa41cf5539d152fc924226f7c1baa3b4b40506bbe560da35",
+      "read_extent": "215-241 current two inherited ArmorComponent literal adaptations; existing geometry oracles source map only.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/skin_rules.rs",
+      "sha256": "f1ab48b207688209504ac8ab5ddef2286d7ebac5d6e2d8545313f87e1e3db474",
+      "read_extent": "235-263 and actual ArmorComponent fixture literal region source map; support/skin algorithms unchanged outside.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "e0c18e02e9345a8e02e21334af5c2ad1a7bc2dbdc19e203915d5af87df8ecb10",
+      "read_extent": "399-412 current existing skin_material use; no fixture/oracle change needed beyond shared source.",
+      "coverage_kind": "Source-backed selected material responsibility; explicitly bounded unrelated regions."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/egui-0.34.3/src/ui.rs",
+      "sha256": "30995097d9587e0576344e54f99e5eb33b5aa255167c9f90e3f4efc99ac1606b",
+      "read_extent": "2270-2283 actual float-linear versus byte-sRGB API.",
+      "coverage_kind": "Pinned native dependency source."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/egui-0.34.3/src/widgets/color_picker.rs",
+      "sha256": "ef6853846e055d2134346b166ea83e75a93b4eddfb20472e4eaee57e083c96d7",
+      "read_extent": "536-557 actual unconditional float writeback; changed guard required.",
+      "coverage_kind": "Pinned native dependency source."
+    }
+  ],
+  "drift_from_api42": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "old_sha256": "b53b6a874c7a23f38f7895c75a03c65c599c21e122d45b1843e5b3efa2b3a25e",
+      "current_sha256": "f5fd53af89771488b500f8b2e661505b5b169dd355785fafe6005127f7c23fad",
+      "disposition": "Exactly committed UV authority d000e848f changes; actual material responsibilities reread, source comparisons retained in UV receipt."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "old_sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "current_sha256": "2f01964984a42e98201c8cb2be6095d0779a2f6292d8571021b64f70bc976656",
+      "disposition": "Exactly committed UV authority d000e848f changes; actual material responsibilities reread, source comparisons retained in UV receipt."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "old_sha256": "93b0aa654eacc98d66c072b54cb1a1d0444b75e6bdc3cc0ecd7d76325f085bd6",
+      "current_sha256": "37d9aad2bed62e065620cccd542180cc439dba8aae9726d0b3177d9f7cb7311a",
+      "disposition": "Exactly committed UV authority d000e848f changes; actual material responsibilities reread, source comparisons retained in UV receipt."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "old_sha256": "82c083e495d9e3b992abf5ad23d3f99f48acc42da6900cd44ca99405140095de",
+      "current_sha256": "e725590d8bfe60bfe165344b3476bacfc4ed84d7426fd7f59c2586a992fbf368",
+      "disposition": "Exactly committed UV authority d000e848f changes; actual material responsibilities reread, source comparisons retained in UV receipt."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "old_sha256": "33f6b05450b7b1eb8e1080aa330b35696e6ee4c57da0bb4d208a18f66ebec963",
+      "current_sha256": "a542629ff77155448219d508e544a55f2da0c3f024f7454fb2c26a597f1da13a",
+      "disposition": "Exactly committed UV authority d000e848f changes; actual material responsibilities reread, source comparisons retained in UV receipt."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "old_sha256": "2906c6c5115f7924743595c1808b2337d4b167c27d301436ac22304c75479428",
+      "current_sha256": "bc324c39eaed75e445e0b5247a8ce1adcd1cc336525d221ba6f174aacfb2cbd8",
+      "disposition": "Exactly committed UV authority d000e848f changes; actual material responsibilities reread, source comparisons retained in UV receipt."
+    }
+  ],
+  "committed_drift": "59bb96d07 density+Armory and d000e848f UV only since f2c7422fd",
+  "actual_lock_packages": {
+    "Cargo.lock": {
+      "adventuresim-character-creator": {
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-core",
+          "adventuresim-world-schema",
+          "anyhow",
+          "async-lock",
+          "base64 0.22.1",
+          "bevy",
+          "bevy_egui",
+          "blake3",
+          "bytemuck",
+          "clap",
+          "derive_more 2.1.1",
+          "egui_extras",
+          "fabelgeist-armor",
+          "fabelgeist-bvh",
+          "fabelgeist-cloth",
+          "fabelgeist-compute",
+          "fabelgeist-determinism",
+          "fabelgeist-garment-code",
+          "fabelgeist-garment-fit",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-hair",
+          "fabelgeist-math",
+          "fabelgeist-mesh",
+          "fabelgeist-rig",
+          "fabelgeist-shell",
+          "image",
+          "pollster",
+          "rand 0.9.5",
+          "rayon",
+          "serde",
+          "serde_json",
+          "spade",
+          "thiserror 2.0.20",
+          "tokio",
+          "wgpu"
+        ]
+      },
+      "adventuresim-tactical-client": {
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-building-generator",
+          "adventuresim-character-creator",
+          "adventuresim-core",
+          "adventuresim-plant-generator",
+          "adventuresim-procedural-materials",
+          "adventuresim-procedural-textures",
+          "adventuresim-tactical-core",
+          "adventuresim-tactical-netcode",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "anyhow",
+          "bevy",
+          "bevy_egui",
+          "bevy_eidolon",
+          "bevy_flair",
+          "bevy_mod_outline",
+          "blake3",
+          "bytemuck",
+          "ciborium",
+          "clap",
+          "console_error_panic_hook",
+          "derive_more 2.1.1",
+          "fabelgeist-armor",
+          "fabelgeist-bvh",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-math",
+          "fabelgeist-rig",
+          "flate2",
+          "gltf",
+          "pollster",
+          "postcard",
+          "semver",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "strum 0.27.2",
+          "thiserror 2.0.20",
+          "toml",
+          "tracing",
+          "tracing-subscriber",
+          "tracing-tracy",
+          "tracy-client-sys 0.28.0",
+          "wasm-bindgen",
+          "wasm-bindgen-futures",
+          "web-time"
+        ]
+      },
+      "egui": {
+        "version": "0.34.3",
+        "dependencies": [
+          "accesskit",
+          "ahash",
+          "bitflags 2.13.1",
+          "emath",
+          "epaint",
+          "log",
+          "nohash-hasher",
+          "profiling",
+          "smallvec",
+          "unicode-segmentation"
+        ]
+      },
+      "fabelgeist-armor": {
+        "version": "0.1.0",
+        "dependencies": [
+          "anyhow",
+          "blake3",
+          "bytemuck",
+          "fabelgeist-compute",
+          "fabelgeist-garment-code",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-math",
+          "fabelgeist-mesh",
+          "fabelgeist-rig",
+          "image",
+          "pollster",
+          "postcard",
+          "serde",
+          "serde_json",
+          "spade",
+          "thiserror 2.0.20"
+        ]
+      },
+      "fabelgeist-color": {
+        "version": "0.1.0",
+        "dependencies": [
+          "bytemuck",
+          "serde",
+          "serde_json",
+          "thiserror 2.0.20",
+          "wgpu"
+        ]
+      },
+      "serde_json": {
+        "version": "1.0.151",
+        "dependencies": [
+          "indexmap 2.14.1",
+          "itoa",
+          "memchr",
+          "serde",
+          "serde_core",
+          "zmij"
+        ]
+      }
+    },
+    "crates/adventuresim-character-creator/Cargo.lock": {
+      "adventuresim-character-creator": {
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-core",
+          "adventuresim-world-schema",
+          "anyhow",
+          "async-lock",
+          "base64",
+          "bevy",
+          "bevy_egui",
+          "blake3",
+          "burn",
+          "bytemuck",
+          "clap",
+          "derive_more 2.1.1",
+          "egui_extras",
+          "fabelgeist-armor",
+          "fabelgeist-bvh",
+          "fabelgeist-cloth",
+          "fabelgeist-compute",
+          "fabelgeist-determinism",
+          "fabelgeist-garment-code",
+          "fabelgeist-garment-fit",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-hair",
+          "fabelgeist-math",
+          "fabelgeist-mesh",
+          "fabelgeist-mhr",
+          "fabelgeist-rig",
+          "fabelgeist-shell",
+          "gltf",
+          "image",
+          "pollster",
+          "rand 0.9.5",
+          "rayon",
+          "serde",
+          "serde_json",
+          "spade",
+          "thiserror 2.0.20",
+          "tokio",
+          "wgpu 29.0.4"
+        ]
+      },
+      "egui": {
+        "version": "0.34.3",
+        "dependencies": [
+          "accesskit",
+          "ahash",
+          "bitflags 2.13.1",
+          "emath",
+          "epaint",
+          "log",
+          "nohash-hasher",
+          "profiling",
+          "smallvec",
+          "unicode-segmentation"
+        ]
+      },
+      "fabelgeist-armor": {
+        "version": "0.1.0",
+        "dependencies": [
+          "anyhow",
+          "blake3",
+          "bytemuck",
+          "fabelgeist-compute",
+          "fabelgeist-garment-code",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-math",
+          "fabelgeist-mesh",
+          "fabelgeist-rig",
+          "image",
+          "pollster",
+          "postcard",
+          "serde",
+          "serde_json",
+          "spade",
+          "thiserror 2.0.20"
+        ]
+      },
+      "fabelgeist-color": {
+        "version": "0.1.0",
+        "dependencies": [
+          "bytemuck",
+          "serde",
+          "thiserror 2.0.20",
+          "wgpu 29.0.4"
+        ]
+      },
+      "serde_json": {
+        "version": "1.0.151",
+        "dependencies": [
+          "indexmap",
+          "itoa",
+          "memchr",
+          "serde",
+          "serde_core",
+          "zmij"
+        ]
+      }
+    }
+  },
+  "lenses_in_sequence": [
+    {
+      "lens": "producer-propagation",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "Encoded RGB/RGBA, roughness/metallic and PBR records retain one canonical semantic owner from actual recipe/catalog producer through mutable state and native export/UI/image paths.",
+      "disposition": "Actionable migration: current naked triple/PBR columns and raw color/roughness leaves are unfinished.",
+      "connected_repairs": "Replace four exact triple owners: equipment_pbr/clothing_material::pbr, CLOTH_PBR, MailWeave::pbr, MailSurface::pbr. Type Metal.color/Lacing.color/MailWeave.steel_color_srgb with Srgb and their roughness with Ratio; EquipmentMaps/MetalImages metallic API with Ratio. Carry SurfaceMaterial in GarmentSpecification.appearance and RiggedShell.appearance; migrate every component/skin/catalog/trim/cord/hair/mail/native receiver directly.",
+      "dependencies": "Armor -> Color serde + existing Math; Creator/Tactical actual direct imports and two locks. No physical/count/seed/engraving widening.",
+      "acceptance": "No raw retained duplicate triple, old ArmorComponentMaterial or ClosureMaterial, tuple adapter, repeated primitive admission or duplicate color formula in selected graph. Native `.ratio()`/encoded channels only at real admission/arithmetic/image/UI/Bevy/JSON boundaries.",
+      "source_evidence": [
+        "components.rs",
+        "material.rs",
+        "construction.rs",
+        "garment_material.rs",
+        "clothing_material.rs",
+        "clothing.rs",
+        "underlayer_preview.rs",
+        "metal_preview.rs",
+        "character_morphs.rs",
+        "character_export.rs",
+        "equipment_export.rs",
+        "meshes.rs"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "lens": "existing-type-owners",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "Reuse the lowest shared existing concept; equal primitive layout does not merge different encoding/unit/role authority.",
+      "disposition": "Canonical final owners selected; no necessary alternate PBR framework found.",
+      "connected_repairs": "Promote ArmorComponentMaterial into sole Armor SurfaceMaterial; Color adds encoded Srgb/Srgba without replacing existing unqualified Color or u8 TextileColor; Math Ratio reused. Creator library owns authored SKIN_APPEARANCE and shared native surface_projection for GLB/review binary.",
+      "dependencies": "Existing Color optional serde, existing Math unrestricted Ratio; no Color -> Armor/Creator or Bevy/GPU edge.",
+      "acceptance": "One real type definition and direct export per concept, no compatibility alias/forwarder; native record never retained beside PBR; physical ShellMaterial, image maps and anatomical SurfaceUvLayout stay distinct.",
+      "source_evidence": [
+        "color/lib.rs",
+        "color/color.rs",
+        "color/transfer.rs",
+        "components.rs",
+        "textile.rs",
+        "math/units.rs",
+        "lib.rs",
+        "bare_body.rs",
+        "preview.rs",
+        "review_export.rs"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "lens": "admission-contracts",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "Encoding/unit leaves are not finite or unit-range certificates; source recipe and actual native output admission retain distinct policies.",
+      "disposition": "Actionable PBR-PROJECTION-1 plus exact schema change identified, all selected admissions inventoried.",
+      "connected_repairs": "Private encoded arrays with transparent feature-gated serde; required appearance enum, snake_case and component deny_unknown_fields without serde default/alias. Preserve source finite validator and each recipe bound. LinearSurfaceMaterial::try_from uses canonical decode and finite checks, errors BaseColor/Metallic/Roughness.",
+      "dependencies": "Metal .08..=.9; Mail .05..=1; Lacing current0..=1; generic finite out-of-unit allowed. Python review Material remains a stricter [0,1] protocol unchanged.",
+      "acceptance": "No invalid original source field bypass, no NaN/Inf reaches native JSON, finite projected out-of-unit not clamped/rejected globally. Existing zero/NaN fixtures stay same cases; old component wire fails cleanly instead of disappearing into Inherit.",
+      "source_evidence": [
+        "textile_pattern.rs:191",
+        "material.rs:77",
+        "construction.rs:276",
+        "garment_material.rs:90",
+        "export/validation.rs:141",
+        "export.rs:578",
+        "serde_json1.0.151/value/from.rs",
+        "render_museum_armor.py:Material.parse"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "lens": "invariant-operations",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "Replacement, transfer and mutation preserve encoding/alpha/recipe bounds and geometry/appearance relationships; finite inputs can overflow conversion.",
+      "disposition": "Actionable native f32 projection overflow, known widget mismatch and mutable dual authority.",
+      "connected_repairs": "Keep f32 canonical formula/order, decode RGB once and alpha never; guarded float picker local conversion; typed producer field updates preserve exact recipes. Apply effective color-map scalar policy before projection; preserve UV-only repair.",
+      "dependencies": "Srgba.with_alpha(f32) is explicit native component operation for existing Permille decode; public Ratio/Srgb still require owner validation.",
+      "acceptance": "One exclusive payload update; no unchanged-frame float round-trip writeback, quantization of Metal/Lacing floats, arbitrary clamping/tolerance, redecoded linear pigment image or native numerical behavior changes. Huge finite shadowed factor still succeeds if final white factor represents it; unshadowed overflow errors before publication.",
+      "source_evidence": [
+        "transfer.rs:98-150",
+        "egui0.34.3/color_picker.rs:536",
+        "metal_controls.rs:12",
+        "construction_controls.rs:73",
+        "fabric_controls.rs:48",
+        "textures.rs:180",
+        "export.rs:578"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "lens": "aggregate-states",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "One component appearance determines its scalar PBR, actual textile recipe, finish and selected maps; independent source facts cannot drift.",
+      "disposition": "MCF-1 remains actionable in current source and final payload schema closes it.",
+      "connected_repairs": "ArmorComponent.appearance Inherit/Surface/Textile; direct payload queries and mutable textile access. Migrate seams, device assignment/relief, component clone/partition and every renderer/export receiver. Delete ClosureMaterial dual fields. ReviewComponent native record retains role/ranges/hinge/mount, optional projected material, no textile cache.",
+      "dependencies": "Source metadata/vertex/index/range associations stay exact; inherited absence remains catalog/default policy.",
+      "acceptance": "Changing textile finish changes scalar result in preview/Tactical/GLB/review consistently; Surface clears inherited maps, Textile clears inherited plate maps and supplies its own optional maps, Inherit preserves inherited data. No independent PBR beside textile.",
+      "source_evidence": [
+        "components.rs:111",
+        "device_textile_materials.rs",
+        "device_textile_relief.rs",
+        "textile_seams.rs",
+        "cloth_fastener_mesh.rs",
+        "waist_support_mesh.rs",
+        "character_morphs.rs:184",
+        "review_export.rs:107"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "lens": "type-ownership",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "Definitions sit at their actual lowest shared owner and module/API access follows real binary/library and native composition.",
+      "disposition": "Final shared ownership selected; scope excludes protected #826 helpers.",
+      "connected_repairs": "Armor surface_material.rs owns PBR, components owns appearance; Creator library surface_projection.rs owns terminal LinearSurfaceMaterial/error/alias and SKIN_APPEARANCE public export; review binary uses it. Focused new modules before source growth.",
+      "dependencies": "Root owns async metal bake function; do not change protected dispatch/scratch/new/batch/upload helpers or generated tranche. Preserve function bodies on required declaration moves.",
+      "acceptance": "No Color PBR dependency, renderer into Armor, or private binary skin source inaccessible to library. Rust module order imports/reexports -> mods -> const/alias -> records -> enum -> impl -> functions -> tests last.",
+      "source_evidence": [
+        "Creator/lib.rs",
+        "review_export.rs",
+        "bare_body.rs",
+        "preview.rs",
+        "Color/Cargo.toml",
+        "Armor/Cargo.toml",
+        "gpu/metal/bake.rs:24"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "lens": "redundant-authority",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "Store each source fact once; legitimate native derived output is ephemeral and caches own a distinct fact.",
+      "disposition": "MCF-1/current PBR columns/duplicate skin and transfer formula actionable; UV authority already repaired.",
+      "connected_repairs": "One canonical enum/PBR, one skin constant, one existing transfer implementation, one effective scalar policy SurfaceTextures::scalar_appearance. Remove TextureImages::apply white-factor write when policy moves. Retain image cache and recipe snapshot policies.",
+      "dependencies": "Native LinearSurfaceMaterial can serialize only actual checked projection output in authoritative code; consider private fields/read access where needed.",
+      "acceptance": "No second Python formula/dual parser; same checked projection for GLB/review, image identity cache unaffected; CompactShell sole texcoords preserved.",
+      "source_evidence": [
+        "textures.rs:174-185",
+        "export.rs:578",
+        "preview.rs:158",
+        "bare_body.rs:57",
+        "review_export.rs:109",
+        "export/compact.rs"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "lens": "behavior-preservation",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "Mechanical types preserve source scalars/arrays/encoding/native precedence; explicitly inventoried corrections are schema, color-space and overflow changes.",
+      "disposition": "Selected deliberate changes recorded; remaining physical/material numerical families not cleared.",
+      "connected_repairs": "Preserve catalog coefficients, u8/255, roughness policies, alpha/side/sampler/specular/maps order, native scratch roughness bits. Correct skin encoded-to-linear GLB output and review encoded-to-linear output. Keep native shadowed-factor behavior via effective projection.",
+      "dependencies": "Python renderer accepts linear [0,1] and stays unchanged; source component serde new schema differs intentionally, artifact explicit native adapter preserves consumed metadata.",
+      "acceptance": "No case/assertion/helper added, fixture numeric/color/geometry/PNG oracles preserved; existing NaN cases still reject; source finite-out-of-unit admission remains. Skin body only: leave actual scalp cap hair material; fix stale doc only.",
+      "source_evidence": [
+        "clothing_material.rs",
+        "textile.rs",
+        "textile_surface.rs",
+        "export/textures.rs",
+        "review_export.rs",
+        "render_museum_armor.py",
+        "render_armor_review.py",
+        "gpu/metal/bake.rs"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "lens": "enum-shapes",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "Closed states own their payload and absence is intentional; independent texture families remain independent.",
+      "disposition": "Required component enum selected; no need to turn independent maps into exclusive enum.",
+      "connected_repairs": "Inherit/Surface/Textile replaces two independent Options; semantic native failure enum BaseColor/Metallic/Roughness. Keep SurfaceTextures/ShellTextures independent, alpha/sides/sampling enums. Real textile_mut handles physical payload use.",
+      "dependencies": "ComponentAppearance Clone/PartialEq, not Copy because textile owns memory; SurfaceMaterial leaves Copy.",
+      "acceptance": "No fake pending/default PBR, bool material role, compatibility fields or original enum deserialize fallback. Tactical explicit Inherit/untagged faces normalize same inherited partition.",
+      "source_evidence": [
+        "components.rs",
+        "textile_pattern.rs",
+        "meshes.rs",
+        "export/textures.rs",
+        "device_textile_relief.rs"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "lens": "derivability",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "Derive representations/traits when behavior matches, without weakening admission or inventing policies.",
+      "disposition": "Current derive contracts and new projection error have direct derive solutions.",
+      "connected_repairs": "Srgb/Srgba derive Clone/Copy/Debug/PartialEq, cfg serde + cfg transparent consistently; SurfaceMaterial same serde/Copy; component enum Clone/Debug/PartialEq/serde; projection error thiserror with cohesive owning alias, no fabricated cause for pure arithmetic failure.",
+      "dependencies": "Existing Color manual authored Default remains outside; do not add universal PBR Default, Eq for float, serde default appearance or unnecessary bytemuck/POD/Hash policy.",
+      "acceptance": "No new manual Error/Clone boilerplate, source-erasing string wrapper or unchecked claimed-finite deserializer. Existing thiserror2.0.20 covers actual lock; no new dependency.",
+      "source_evidence": [
+        "Color/color.rs",
+        "Math/units.rs",
+        "components.rs",
+        "Color/Cargo.toml",
+        "Creator/Cargo.toml",
+        "both locks"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "lens": "type-granularity",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "Generic encoded colors, roughness ratios, recipe-specific bounds, PBR aggregate, appearance state and terminal linear scalar projection express distinct useful roles.",
+      "disposition": "Scope matches actual hazards without universal wrapper/validator expansion.",
+      "connected_repairs": "One Srgba/SurfaceMaterial and one closed component payload; Srgb on real RGB producers. Terminal record uses raw native arrays/scalars only at actual GLB/review boundary, never application storage. Keep textile u8, physical coordinates and image bytes separate.",
+      "dependencies": "Metal/Lacing/Mail typed roughness scope ends before physical dimensions/counts/seeds/engraving/trim migration.",
+      "acceptance": "No per-consumer PBR type, generic launch/sort/count reuse, RGB/RGBA byte conversion shim or alternate native color implementation.",
+      "source_evidence": [
+        "Color/color.rs",
+        "textile.rs",
+        "material.rs",
+        "construction.rs",
+        "garment_material.rs",
+        "export/rigged.rs",
+        "review_export.rs"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "lens": "magic-strings",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "Closed schema/role tokens have explicit native/serde owners; open names/paths and terminal diagnostics remain real text.",
+      "disposition": "No new prose-based branching required; exact schema strings now selected.",
+      "connected_repairs": "Snake_case inherit/surface/textile tags and projection failure variants; retain role.name, catalog IDs, file paths, glTF native keys, PNG MIME and actual Blender socket labels. Review uses a single native material record, no legacy parser.",
+      "dependencies": "Library public reexport names/API direct; no display strings used as identity/status classifiers.",
+      "acceptance": "No string round-trip for causes, debug-based classification, duplicate transfer policy text turned into code, or extra alias decoder. Python readers preserve exact own protocol checks.",
+      "source_evidence": [
+        "components.rs",
+        "review_export.rs",
+        "render_museum_armor.py",
+        "render_armor_review.py",
+        "export/shell.rs"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "lens": "magic-numbers",
+      "inventory": "complete for selected final API responsibilities before implementation",
+      "contract": "Every selected scalar has an authored unit/encoding/native representation and owner; repeated policy not waived by one use.",
+      "disposition": "Selected RGB/RGBA/roughness/metallic facts fully inventoried; physical tuning outside scope remains open.",
+      "connected_repairs": "Typed leaf construction at actual catalogs/defaults/native fixtures; canonical skin source. Preserve 255/1000 encoding conversions, canonical transfer constants, native f32 roughness insert. No unit cap/tolerance added to generic PBR.",
+      "dependencies": "Distinct roughness bounds remain owning recipe policies; u8 mail picker/image quantization remains deliberate actual native boundary, Metal/Lacing float picker adds none.",
+      "acceptance": "Exact f32 formula/order and coefficients, alpha unchanged; finite final conversion checked before JSON. Plate/hair/textile map policies and UV f32 pairs unchanged. No new GPU quantities/ceilings.",
+      "source_evidence": [
+        "textile.rs",
+        "material.rs",
+        "construction.rs",
+        "garment_material.rs",
+        "fabric_controls.rs",
+        "garment_material/rings.rs",
+        "gpu/metal/bake.rs",
+        "transfer.rs"
+      ],
+      "repair": "not started",
+      "validation": "not started"
+    }
+  ],
+  "native_policy_receipt": "Root concrete pre-edit Creator library projection/effective scalar policy/review adapter receipt recorded in MD",
+  "explicit_open_scope": [
+    "remaining physical units/counts/seeds/scratch/closedEngraving/trim causes/Inventory",
+    "native Grid/generated/shared GPU composition",
+    "full external client universe and physical/native shader/rasterizer algorithms",
+    "all executed validation/final reviews/hosted gates"
+  ],
+  "global_clearance": false
+}

@@ -1,0 +1,30 @@
+{
+  "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "files": {
+    "crates/fabelgeist-gpu/src/data/gpu/compute/resource_addressing.rs": "3fc5be3aee86a4b639de572e8309ffeea38a34d0157e5533252e9b15919e9503",
+    "crates/fabelgeist-compute/src/resource_pipeline.rs": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+    "crates/fabelgeist-compute/src/resource_recipe.rs": "620d3f2477548bfff9c9c15e5ba64e534a9ee2e2a756d1b1dbeeff64dd792ac2",
+    "crates/fabelgeist-compute/src/extraction/wgsl.rs": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+    "crates/fabelgeist-compute/src/scan.rs": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+    "crates/fabelgeist-compute/src/lib.rs": "c04feb5e8852212086b588c9946c8b191bb96ff90814d1278192e7b4bce73d07",
+    "crates/fabelgeist-compute/src/prelude.rs": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+    "crates/fabelgeist-compute/src/kernel/workgroup.rs": "ffa8f8f0beb9bf408f7a259919960bdd22329afd9c20141b151e9c4b16c9c0ee"
+  },
+  "reference_files": {
+    "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+    "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs": "4a34f1d75e228c0e8f5c9012eda4a8cdd7b99e79aebc3ef53cfaf061ebdf3ac6",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs": "7998ee67967dc4ea5747e1396944628c1e9e89060c350d0e75d2a91bb85c81f2",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs": "13cfda2ca90d3fb38739dd6564b412dfb99af3289242b9e277ee8e840baee8d3"
+  },
+  "authority": "Root resource_addressing/ResourcePipeline/resource_recipe and listed Compute callers; lib/prelude source context requires composition; native GPU parameters/count/grid/shape/pipeline remain826 reference only. Exact bytes are e216, not whole-file overwrite permission for mixed ownership.",
+  "contracts": [
+    "ResourceFetch source+TextureAddressing inseparable; LinearIndex admits population-1, LinearPopulation admits full population, Coordinates no flat cap",
+    "ResourcePipeline owns reflected actual controlling resource stride/layout and actual native declared WorkgroupShape; admission before dispatch, textures independent axes plus generated addressing projection",
+    "SecondaryResources sorts names/descriptors as exact recipe identity; not independently mutable primitive cache key",
+    "PassParameter::Unsigned is canonical actual native u32 parameter port; no temporary primitive internal adapter"
+  ],
+  "tests": "No tests/cases/helpers/assertions added by packaging. Existing original main990/#77971f fixture provenance and adaptation claims remain in ledger, no fresh compiled verdict."
+}

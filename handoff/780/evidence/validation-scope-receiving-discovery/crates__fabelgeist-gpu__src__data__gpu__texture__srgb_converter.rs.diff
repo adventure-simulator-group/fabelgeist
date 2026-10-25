@@ -1,0 +1,70 @@
+--- crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs current780
++++ crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs canonical826
+@@ -1,5 +1,7 @@
+ use crate::data::gpu::texture::{Texture2d, TextureViewError};
+ use crate::data::{ComputePassError, ComputePipelineError, ComputeShader};
++#[cfg(not(target_arch = "wasm32"))]
++use crate::globals::ValidationScope;
+ use crate::globals::WgpuContext;
+ use anyhow::{Context, Result};
+ use std::sync::Arc;
+@@ -41,9 +43,7 @@
+         let device = &context.device;
+         let shader = ComputeShader::new(context, CONVERSION_SHADER.to_owned())?;
+         #[cfg(not(target_arch = "wasm32"))]
+-        let scope = context
+-            .blocking_validation
+-            .then(|| device.push_error_scope(wgpu::ErrorFilter::Validation));
++        let scope = ValidationScope::new(context);
+ 
+         let bind_group_layout = device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
+             label: Some("sRGB Conversion Bind Group Layout"),
+@@ -88,10 +88,7 @@
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+         if let Some(scope) = scope {
+-            let _ = device.poll(wgpu::PollType::wait_indefinitely());
+-            if let Some(cause) = pollster::block_on(scope.pop()) {
+-                return Err(ComputePipelineError::Native(Arc::new(cause)).into());
+-            }
++            scope.finish().map_err(ComputePipelineError::from)?;
+         }
+         Ok(Self {
+             pipeline: Arc::new(pipeline),
+@@ -117,9 +114,7 @@
+         let src_view = src.select_view(context, src.format())?;
+         let dst_view = dst.select_view(context, dst.format())?;
+         #[cfg(not(target_arch = "wasm32"))]
+-        let scope = context
+-            .blocking_validation
+-            .then(|| device.push_error_scope(wgpu::ErrorFilter::Validation));
++        let scope = ValidationScope::new(context);
+ 
+         let bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
+             label: Some("sRGB Conversion Bind Group"),
+@@ -157,22 +152,14 @@
+         let commands = encoder.finish();
+         #[cfg(not(target_arch = "wasm32"))]
+         if let Some(scope) = scope {
+-            let _ = device.poll(wgpu::PollType::wait_indefinitely());
+-            if let Some(cause) = pollster::block_on(scope.pop()) {
+-                return Err(ComputePassError::Native(Arc::new(cause)).into());
+-            }
++            scope.finish().map_err(ComputePassError::from)?;
+         }
+         #[cfg(not(target_arch = "wasm32"))]
+-        let scope = context
+-            .blocking_validation
+-            .then(|| device.push_error_scope(wgpu::ErrorFilter::Validation));
++        let scope = ValidationScope::new(context);
+         context.queue.submit(Some(commands));
+         #[cfg(not(target_arch = "wasm32"))]
+         if let Some(scope) = scope {
+-            let _ = device.poll(wgpu::PollType::wait_indefinitely());
+-            if let Some(cause) = pollster::block_on(scope.pop()) {
+-                return Err(ComputePassError::Native(Arc::new(cause)).into());
+-            }
++            scope.finish().map_err(ComputePassError::from)?;
+         }
+         Ok(())
+     }

@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "whole source exact after declared final API reversal: export/rigged.rs": true,
+    "whole source exact after declared final API reversal: export/shell.rs": true,
+    "whole source exact after declared final API reversal: export/validation.rs": true,
+    "whole source exact after declared final API reversal: character_export.rs": true,
+    "whole source exact after declared final API reversal: equipment_export.rs": true,
+    "whole source exact after declared final API reversal: export.rs": true,
+    "all declared unchanged dependencies exact": true,
+    "whole compactor geometry UV skin morph remap exact": true,
+    "entire fixture source exact apart from same UV slice field movement": true,
+    "all6 current declared hashes exact": true,
+    "all27 transferred generated sources remain exact": true
+  },
+  "unchanged_source_fingerprints": {
+    "crates/adventuresim-character-creator/src/export/compact.rs": true,
+    "crates/adventuresim-character-creator/src/character_morphs.rs": true,
+    "crates/adventuresim-character-creator/src/garment/export.rs": true,
+    "crates/adventuresim-character-creator/src/character_export/hair.rs": true,
+    "crates/adventuresim-character-creator/src/export/textures.rs": true,
+    "crates/adventuresim-character-creator/src/export/assembly.rs": true,
+    "crates/adventuresim-character-creator/src/export/morphs.rs": true,
+    "crates/adventuresim-character-creator/src/export/textures/tests.rs": true,
+    "crates/adventuresim-character-creator/src/export/buffer.rs": true,
+    "crates/adventuresim-character-creator/tests/textile_export.rs": true,
+    "crates/adventuresim-character-creator/src/garment_material.rs": true,
+    "crates/adventuresim-character-creator/src/garment_material/rings.rs": true,
+    "crates/adventuresim-character-creator/src/textile_surface.rs": true,
+    "crates/adventuresim-character-creator/src/underlayer_material.rs": true,
+    "crates/adventuresim-character-creator/src/main.rs": true,
+    "crates/adventuresim-character-creator/src/lib.rs": true,
+    "crates/adventuresim-character-creator/Cargo.toml": true
+  },
+  "current_files": {
+    "crates/adventuresim-character-creator/src/export/rigged.rs": "f5fd53af89771488b500f8b2e661505b5b169dd355785fafe6005127f7c23fad",
+    "crates/adventuresim-character-creator/src/export/shell.rs": "37d9aad2bed62e065620cccd542180cc439dba8aae9726d0b3177d9f7cb7311a",
+    "crates/adventuresim-character-creator/src/export/validation.rs": "2f01964984a42e98201c8cb2be6095d0779a2f6292d8571021b64f70bc976656",
+    "crates/adventuresim-character-creator/src/character_export.rs": "a542629ff77155448219d508e544a55f2da0c3f024f7454fb2c26a597f1da13a",
+    "crates/adventuresim-character-creator/src/equipment_export.rs": "bc324c39eaed75e445e0b5247a8ce1adcd1cc336525d221ba6f174aacfb2cbd8",
+    "crates/adventuresim-character-creator/src/export.rs": "e725590d8bfe60bfe165344b3476bacfc4ed84d7426fd7f59c2586a992fbf368"
+  },
+  "limits": "Source-only exact text/hash comparisons. No project checks or numerical/runtime execution or new fixture/case/helper/assertion. API/admission/sole-remap contracts require independent review. Broad global/hosted gates remain pending."
+}

@@ -1,0 +1,138 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-compute/src/distance_field.rs
+
++++ filtered826-c798/crates/fabelgeist-compute/src/distance_field.rs
+
+@@ -2,7 +2,7 @@
+
+ use crate::{Map, MapDefinition};
+ use fabelgeist_gpu::data::gpu::parameters::{PassParameter, PassParameters};
+ use fabelgeist_gpu::data::gpu::resource::GpuResource;
+-use fabelgeist_gpu::data::gpu::texture::Texture3d;
++use fabelgeist_gpu::data::gpu::texture::{Texture3d, TextureViewError};
+ 
+ pub struct DistanceField;
+ 
+@@ -32,6 +32,8 @@
+
+         parameters: Option<PassParameters>,
+         io: &Texture3d,
+     ) -> Result<()> {
++        let native_input = io.native_texture().ok_or(TextureViewError::Uninitialized)?;
++        io.ensure_device(context)?;
+         let sig = MapDefinition::parse_signature(&definition.code)?;
+         let re = regex::Regex::new(r"\bfn\s+map\b")?;
+         let user_code = re.replace(&definition.code, "fn user_map").to_string();
+@@ -62,11 +64,11 @@
+
+         let temp_tex = Texture3d::new(
+             context,
+             fabelgeist_gpu::data::vector::Vec3::new(
+-                io.size.0 as f32,
+-                io.size.1 as f32,
+-                io.size.2 as f32,
++                io.extent().width as f32,
++                io.extent().height as f32,
++                io.extent().depth_or_array_layers as f32,
+             ),
+-            io.format,
++            io.format(),
+         )?;
+ 
+         let mut encoder = context
+@@ -77,21 +79,23 @@
+
+ 
+         encoder.copy_texture_to_texture(
+             wgpu::TexelCopyTextureInfo {
+-                texture: io.texture.as_ref().unwrap(),
+-                mip_level: 0,
+-                origin: wgpu::Origin3d::ZERO,
+-                aspect: wgpu::TextureAspect::All,
+-            },
+-            wgpu::TexelCopyTextureInfo {
+-                texture: temp_tex.texture.as_ref().unwrap(),
++                texture: native_input,
++                mip_level: 0,
++                origin: wgpu::Origin3d::ZERO,
++                aspect: wgpu::TextureAspect::All,
++            },
++            wgpu::TexelCopyTextureInfo {
++                texture: temp_tex
++                    .native_texture()
++                    .ok_or(TextureViewError::Uninitialized)?,
+                 mip_level: 0,
+                 origin: wgpu::Origin3d::ZERO,
+                 aspect: wgpu::TextureAspect::All,
+             },
+             wgpu::Extent3d {
+-                width: io.size.0,
+-                height: io.size.1,
+-                depth_or_array_layers: io.size.2,
++                width: io.extent().width,
++                height: io.extent().height,
++                depth_or_array_layers: io.extent().depth_or_array_layers,
+             },
+         );
+         context.queue.submit(Some(encoder.finish()));
+@@ -110,6 +114,8 @@
+
+         k: f32,
+         io: &Texture3d,
+     ) -> Result<()> {
++        let native_input = io.native_texture().ok_or(TextureViewError::Uninitialized)?;
++        io.ensure_device(context)?;
+         let sig = MapDefinition::parse_signature(&definition.code)?;
+         let re = regex::Regex::new(r"\bfn\s+map\b")?;
+         let user_code = re.replace(&definition.code, "fn user_map").to_string();
+@@ -149,11 +155,11 @@
+
+         let temp_tex = Texture3d::new(
+             context,
+             fabelgeist_gpu::data::vector::Vec3::new(
+-                io.size.0 as f32,
+-                io.size.1 as f32,
+-                io.size.2 as f32,
++                io.extent().width as f32,
++                io.extent().height as f32,
++                io.extent().depth_or_array_layers as f32,
+             ),
+-            io.format,
++            io.format(),
+         )?;
+ 
+         let mut encoder = context
+@@ -164,21 +170,23 @@
+
+ 
+         encoder.copy_texture_to_texture(
+             wgpu::TexelCopyTextureInfo {
+-                texture: io.texture.as_ref().unwrap(),
+-                mip_level: 0,
+-                origin: wgpu::Origin3d::ZERO,
+-                aspect: wgpu::TextureAspect::All,
+-            },
+-            wgpu::TexelCopyTextureInfo {
+-                texture: temp_tex.texture.as_ref().unwrap(),
++                texture: native_input,
++                mip_level: 0,
++                origin: wgpu::Origin3d::ZERO,
++                aspect: wgpu::TextureAspect::All,
++            },
++            wgpu::TexelCopyTextureInfo {
++                texture: temp_tex
++                    .native_texture()
++                    .ok_or(TextureViewError::Uninitialized)?,
+                 mip_level: 0,
+                 origin: wgpu::Origin3d::ZERO,
+                 aspect: wgpu::TextureAspect::All,
+             },
+             wgpu::Extent3d {
+-                width: io.size.0,
+-                height: io.size.1,
+-                depth_or_array_layers: io.size.2,
++                width: io.extent().width,
++                height: io.extent().height,
++                depth_or_array_layers: io.extent().depth_or_array_layers,
+             },
+         );
+         context.queue.submit(Some(encoder.finish()));

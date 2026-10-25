@@ -1,0 +1,79 @@
+{
+  "base": "46b4bf6d2b26e2f71be8bb3c33f8d6b9d97380fc",
+  "checks": [
+    "crates/fabelgeist-gpu/src/globals/validation_scope.rs exact826owner",
+    "crates/fabelgeist-gpu/src/globals/mod.rs exact826owner",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs exact826owner",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs exact826owner",
+    "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs exact826owner",
+    "crates/fabelgeist-compute/src/kernel/mod.rs one inventoriedscope",
+    "crates/fabelgeist-compute/src/kernel/mod.rs entirefile exact after inventoried scope/error substitutions",
+    "crates/fabelgeist-compute/src/kernel/fast.rs one inventoriedscope",
+    "crates/fabelgeist-compute/src/kernel/fast.rs entirefile exact after inventoried scope/error substitutions",
+    "crates/fabelgeist-compute/src/kernel/fast/compile.rs one inventoriedscope",
+    "crates/fabelgeist-compute/src/kernel/fast/compile.rs entirefile exact after inventoried scope/error substitutions",
+    "crates/fabelgeist-compute/src/kernel/fast/arena.rs one inventoriedscope",
+    "crates/fabelgeist-compute/src/kernel/fast/arena.rs entirefile exact after inventoried scope/error substitutions",
+    "crates/fabelgeist-compute/src/kernel/copy.rs one inventoriedscope",
+    "crates/fabelgeist-compute/src/kernel/copy.rs entirefile exact after inventoried scope/error substitutions",
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs context-onlysource preserved",
+    "crates/fabelgeist-gpu/texture-views.md context-onlysource preserved"
+  ],
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "9ad9d82531693820aff5a33f0b7ee8afdefa9ef4fb790fc87b77977cb9e3fb04"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "sha256": "144e811d92cebbfe99af991eec710ecb229048db20c4c7ec3a109c76941442bc"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "b230362ffd1eaa842d73ad52c75b7f563e9a4b8001f4b1d4861c17e7ceb2278e"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "085502d120e5ba4f365bd8015990a4347e758f698a00b1bb530c93ae3066ca9a"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+      "sha256": "27eac828acc971124b7d84558344bf34813821e999bb23d16e4d283ce282894b"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+      "sha256": "85c7d90117d3d5bc30b5239f0863256038074ebfcc4a820a4d8c8e96e3a3c666"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/copy.rs",
+      "sha256": "daef21f6ff3e71ca32792eccae8f20274a691fe0f14f5641683a8f35710e7285"
+    }
+  ],
+  "limitations": "Exact content/hash comparisons and manually reviewed dataflow, not compile/runtime/fmt/lint/test clearance; lower826 composition/global13/final independent reviews/hostedgates pending."
+}

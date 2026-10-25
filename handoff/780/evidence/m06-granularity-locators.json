@@ -1,0 +1,1953 @@
+[
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+    "source_sha256": "f05e7916ac7e0e1474973913f4628d94cd99a9ca69d900d1306101f3286ce169",
+    "declaration_locators": [
+      {
+        "line": 9,
+        "declaration": "pub struct ComputeShader {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+    "source_sha256": "6fc53b4c9d35946662928727e0b88b0916e57795447ff78039f52338890f407d",
+    "declaration_locators": [
+      {
+        "line": 5,
+        "declaration": "pub type ShaderResult<T> = std::result::Result<T, ShaderError>;"
+      },
+      {
+        "line": 8,
+        "declaration": "pub struct UniformMember {"
+      },
+      {
+        "line": 16,
+        "declaration": "pub struct TextureBinding {"
+      },
+      {
+        "line": 24,
+        "declaration": "pub struct BufferBinding {"
+      },
+      {
+        "line": 31,
+        "declaration": "pub struct SamplerBinding {"
+      },
+      {
+        "line": 37,
+        "declaration": "pub struct BindGroupReflection {"
+      },
+      {
+        "line": 48,
+        "declaration": "pub struct ReflectionData {"
+      },
+      {
+        "line": 56,
+        "declaration": "pub enum ShaderLanguage {"
+      },
+      {
+        "line": 63,
+        "declaration": "pub enum UniformValueShape {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+    "source_sha256": "0cec16cc3e11d085d3a2b3902b4cd810b7d8413eef744b421c03468b5c2dcd57",
+    "declaration_locators": [
+      {
+        "line": 5,
+        "declaration": "pub enum ShaderError {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+    "source_sha256": "99a42845d64d2256870d952e264b1d57fbf2add013e6e6ab4ab22f952df96777",
+    "declaration_locators": [
+      {
+        "line": 14,
+        "declaration": "type PipelineCache = HashMap<String, CachedPipeline>;"
+      },
+      {
+        "line": 18,
+        "declaration": "pub struct ComputePipeline {"
+      },
+      {
+        "line": 27,
+        "declaration": "enum CompilationState {"
+      },
+      {
+        "line": 33,
+        "declaration": "enum CachedPipeline {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+    "source_sha256": "ccde9c8ed962581f4b797bad4d66dd7c5adea1b97ae62c39ba2b0e3b4d5af665",
+    "declaration_locators": [
+      {
+        "line": 4,
+        "declaration": "pub type ComputePipelineResult<T> = Result<T, ComputePipelineError>;"
+      },
+      {
+        "line": 8,
+        "declaration": "pub enum UnsupportedBindingKind {"
+      },
+      {
+        "line": 17,
+        "declaration": "pub enum ComputePipelineError {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+    "source_sha256": "08718381092205c02babdfd58f47e606c5181987c2dfaf25640278036de0c5e7",
+    "declaration_locators": [
+      {
+        "line": 9,
+        "declaration": "pub(super) struct ReflectedInterface {"
+      },
+      {
+        "line": 14,
+        "declaration": "struct GroupBuilder {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/images.rs",
+    "source_sha256": "3130b402b58ceb84fa372a2d3b4108517795df791998c26dded8b5bed8d5d145",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection/uniforms.rs",
+    "source_sha256": "d51d501d8a392647cf9edd81c7e551713f04c8fbe90c7f3a1249240fa79184e0",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+    "source_sha256": "0de7bed006752d346fa4cf6c7763cca9ccbaed89dbf4809ec56aa123836f5f27",
+    "declaration_locators": [
+      {
+        "line": 13,
+        "declaration": "pub struct ComputePass;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+    "source_sha256": "dbf2857af270b0bd3a7f16fe87169990a8a225d86f0ebadc1395e3ff239ae589",
+    "declaration_locators": [
+      {
+        "line": 6,
+        "declaration": "pub enum ComputeBindingKind {"
+      },
+      {
+        "line": 15,
+        "declaration": "pub enum ComputePassError {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+    "source_sha256": "955f5bb0e7dc346933dab81076091f23ba15158a268849dcc0121858fc648658",
+    "declaration_locators": [
+      {
+        "line": 8,
+        "declaration": "struct BoundTexture {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+    "source_sha256": "8c508dc80b50a645ca4f6eba3f4b5d82937995015671b1c38a87837c4be2a506",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniforms.rs",
+    "source_sha256": "1e4d003467028e39848e03315f99a246791f9323a3dc457b554966c5fda9684e",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+    "source_sha256": "28255d76850a2ac982bd46ca52eda7fbe64ff6a5a2742b76f68fc27e143b25fd",
+    "declaration_locators": [
+      {
+        "line": 9,
+        "declaration": "pub struct ComputeBindGroup {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/binding.rs",
+    "source_sha256": "920c45e78aa599496843e3c49d1ae632e9f2f892991ca25f8092761cbcd8fc99",
+    "declaration_locators": [
+      {
+        "line": 6,
+        "declaration": "pub enum BufferBindingError {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+    "source_sha256": "1819eca61bb43d797c554b9cb173e7f0c8df30d26cdb4c27471106af5204200b",
+    "declaration_locators": [
+      {
+        "line": 32,
+        "declaration": "pub(super) struct FastPath {"
+      },
+      {
+        "line": 45,
+        "declaration": "struct BoundBuffer {"
+      },
+      {
+        "line": 51,
+        "declaration": "pub(super) struct Prepared {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/fast/arena.rs",
+    "source_sha256": "c9488a11c8a8c9c481f6b948041544dea9ec19a9405405ec969f51c4e2d2db2d",
+    "declaration_locators": [
+      {
+        "line": 8,
+        "declaration": "pub(in crate::kernel) struct UniformArena {"
+      },
+      {
+        "line": 13,
+        "declaration": "pub(super) struct UniformSlot {"
+      },
+      {
+        "line": 19,
+        "declaration": "pub(super) enum UniformArenaError {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/fast/compile.rs",
+    "source_sha256": "3da0ed15d713993309cd7d6445965bcbe667f96522b840bb8797b207cea8c3af",
+    "declaration_locators": [
+      {
+        "line": 3,
+        "declaration": "pub(super) struct CompiledLayout {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/fast/uniforms.rs",
+    "source_sha256": "dd69cd826a3a0b08f3eb0eb81f3352ebb2a0c2abac485612ab4e35657016a3dc",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+    "source_sha256": "7f4f6a94badc05a943431c2e9c8fccea6e2c110d3b21915bbe58734da093657e",
+    "declaration_locators": [
+      {
+        "line": 47,
+        "declaration": "pub struct Kernel {"
+      },
+      {
+        "line": 179,
+        "declaration": "pub struct KernelCache {"
+      },
+      {
+        "line": 219,
+        "declaration": "pub struct KernelBatch<'a> {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/batch_error.rs",
+    "source_sha256": "cb3793527b44a96ae64c16459e0e0f656c6e662600002ceb678b1e01573bdac8",
+    "declaration_locators": [
+      {
+        "line": 5,
+        "declaration": "pub enum KernelBatchError {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/kernel/dispatch_count.rs",
+    "source_sha256": "095ae805ef6999f6256a8a49b7c75739ae421028abdeddd1b5a3cbb7a6d1535c",
+    "declaration_locators": [
+      {
+        "line": 5,
+        "declaration": "pub struct RecordedDispatchCount(usize);"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+    "source_sha256": "3e73d10fdc2d644e8d0e3909147979a1c7023dfff0d82b12a7a88c751770fa02",
+    "declaration_locators": [
+      {
+        "line": 20,
+        "declaration": "pub struct Buffer {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/selection.rs",
+    "source_sha256": "8a600e85d0724eb9f9cfb46e9c6d781eec1186c336335f266c7cff2a7e5cc661",
+    "declaration_locators": [
+      {
+        "line": 6,
+        "declaration": "pub(crate) type SelectedTextureViewResult = TextureViewResult<SelectedTextureView>;"
+      },
+      {
+        "line": 9,
+        "declaration": "pub(crate) struct SelectedTextureView {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+    "source_sha256": "99ed61259eca72b2d3e88923bd098df3d454754f3fedbd35a41b1809298e3f89",
+    "declaration_locators": [
+      {
+        "line": 10,
+        "declaration": "pub struct TextureView {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+    "source_sha256": "8c69fd43e818b86bee07c975f463afbbf8d62250a9a86cd65a995237d9ba1dcc",
+    "declaration_locators": [
+      {
+        "line": 10,
+        "declaration": "pub type TextureViewResult<T> = std::result::Result<T, TextureViewError>;"
+      },
+      {
+        "line": 17,
+        "declaration": "pub enum TextureViewError {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+    "source_sha256": "a084bd9266444ce4ed50458bfac88cc19e31ba899933eea8ad1ec20f176934ac",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+    "source_sha256": "2a09fff5d2d38ccd60190e1d41cd806f8298d3c40cb27bccb2a7844febdc7952",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+    "source_sha256": "1a0b48f936366ef8573be58c96d41f8a0d591cae174944a7341e0d7812cf4f95",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+    "source_sha256": "01e776aa79ad686723af71aff644feae92ce5294fd92df8378d3b12b8fda642f",
+    "declaration_locators": [
+      {
+        "line": 17,
+        "declaration": "pub struct Texture2d {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+    "source_sha256": "3d25dc0035dbbd9460bde6ae307b5338e0bf1a7b621fe1b9be93a33da235c834",
+    "declaration_locators": [
+      {
+        "line": 11,
+        "declaration": "pub struct Texture3d {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+    "source_sha256": "e5112ab6bf1035c3bb5dceb8c6611d75a8c477b55e7c6ba5221226112b51c077",
+    "declaration_locators": [
+      {
+        "line": 14,
+        "declaration": "pub struct TextureCube {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+    "source_sha256": "b7a403ce0f4a856e97457918a1b1fe9a0d4e34fc8365ce806107ff48a6d4d049",
+    "declaration_locators": [
+      {
+        "line": 9,
+        "declaration": "pub struct Image {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/image_data.rs",
+    "source_sha256": "f87b692b2940ed4e0d4cab594bf78080bb75520040d9708e518977570b2edc42",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+    "source_sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+    "declaration_locators": [
+      {
+        "line": 6,
+        "declaration": "pub enum GpuResource {"
+      },
+      {
+        "line": 13,
+        "declaration": "pub enum ResourceType {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+    "source_sha256": "af62bc5f779bdd68942676c201137eec786b0c405216c1626b4b414cab2fe98f",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+    "source_sha256": "a43d92af530a01a18187f8f21a247b1e482564f3c07145287294a5006fb992b6",
+    "declaration_locators": [
+      {
+        "line": 20,
+        "declaration": "pub enum ResourceDescriptor {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+    "source_sha256": "075e68bc46397002d6e838baa275b6e6f97e098aaeef1f24dcaa95087d6d0a46",
+    "declaration_locators": [
+      {
+        "line": 7,
+        "declaration": "type TexturePipelineCache ="
+      },
+      {
+        "line": 11,
+        "declaration": "pub struct TextureBinaryOpDefinition {"
+      },
+      {
+        "line": 123,
+        "declaration": "pub struct TextureBinaryOp;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+    "source_sha256": "0d3f5e9e2e5e13e996b56268861d52e7f3b5dd8dabb4360e18f961cb0691fa3b",
+    "declaration_locators": [
+      {
+        "line": 8,
+        "declaration": "pub struct WgpuContext {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+    "source_sha256": "339eb4bc4fecb2b3bf33e8b486b0a42214398ce4a391687745cce49464b267d9",
+    "declaration_locators": [
+      {
+        "line": 33,
+        "declaration": "pub struct TextureSrgbConverter {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+    "source_sha256": "f374b7a0f7816531b43160e4aade0b76afb2321f89bcd961063a5e1f4c76ddfe",
+    "declaration_locators": [
+      {
+        "line": 8,
+        "declaration": "pub struct InvocationCount(u32);"
+      },
+      {
+        "line": 15,
+        "declaration": "pub struct WorkgroupShape([NonZeroU32; 3]);"
+      },
+      {
+        "line": 19,
+        "declaration": "pub struct WorkgroupShapeError([u32; 3]);"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+    "source_sha256": "2ad51b8c638245db350d8814c93f5338929b8604267169499ca850814d75b57b",
+    "declaration_locators": [
+      {
+        "line": 3,
+        "declaration": "pub struct WorkgroupGrid([u32; 3]);"
+      },
+      {
+        "line": 5,
+        "declaration": "pub enum DispatchOccupancy {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/broadcast.rs",
+    "source_sha256": "7da9a0079b61abcc68277eee6ca203597d0decf6e1e501c4ed08bb9ba2831d93",
+    "declaration_locators": [
+      {
+        "line": 7,
+        "declaration": "pub struct BroadcastDefinition {"
+      },
+      {
+        "line": 49,
+        "declaration": "pub struct Broadcast;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/matmul.rs",
+    "source_sha256": "df1ea7e01f2c80f1068a2d519fb69100b10aa284a3d8c3122b4c6c4edf71507a",
+    "declaration_locators": [
+      {
+        "line": 7,
+        "declaration": "pub struct MatMulDefinition {"
+      },
+      {
+        "line": 50,
+        "declaration": "pub struct MatMul;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/reshape.rs",
+    "source_sha256": "09d4bc2f9ee569d1f0f2f2ec1ebb4edebdfb8e86759013e107cae7f83535ab03",
+    "declaration_locators": [
+      {
+        "line": 7,
+        "declaration": "pub struct ReshapeDefinition {"
+      },
+      {
+        "line": 49,
+        "declaration": "pub struct Reshape;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/transpose.rs",
+    "source_sha256": "fc0c3a1dd15e81ec79e15176da047c62ef2a467a5f43acb54273d3b09a5111cd",
+    "declaration_locators": [
+      {
+        "line": 7,
+        "declaration": "pub struct TransposeDefinition {"
+      },
+      {
+        "line": 49,
+        "declaration": "pub struct Transpose;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/README.md",
+    "source_sha256": "2950b32efa885b1c1cad27e6ed1939afd3a809fc0dce1b65e6870f624c34c2cd",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/texture-views.md",
+    "source_sha256": "7dcf6b5150989f96c1b252c0a4223b420024b3cf9e029114a4373802ebfb16ea",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+    "source_sha256": "4bcdf153d75c4579bbcca8548abfcc30eb993fa799c3a87f1d3198f39dfd2d09",
+    "declaration_locators": [
+      {
+        "line": 8,
+        "declaration": "pub struct AdvectSignature {"
+      },
+      {
+        "line": 15,
+        "declaration": "type AdvectPipelineCache = HashMap<"
+      },
+      {
+        "line": 26,
+        "declaration": "pub struct AdvectDefinition {"
+      },
+      {
+        "line": 221,
+        "declaration": "pub struct Advect;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+    "source_sha256": "711af7b2f6c5c55f9e3440b44d73e492fc773c217963a4378371299cfe06a064",
+    "declaration_locators": [
+      {
+        "line": 7,
+        "declaration": "type DivergencePipelineCache ="
+      },
+      {
+        "line": 11,
+        "declaration": "pub struct DivergenceDefinition {"
+      },
+      {
+        "line": 155,
+        "declaration": "pub struct Divergence;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+    "source_sha256": "488eaebcc4ad0b2c2d0b2441e722ff6ac9cdedf68bf8cdff3381f4f55bb09a0d",
+    "declaration_locators": [
+      {
+        "line": 7,
+        "declaration": "type GradientPipelineCache = HashMap<"
+      },
+      {
+        "line": 18,
+        "declaration": "pub struct GradientDefinition {"
+      },
+      {
+        "line": 176,
+        "declaration": "pub struct Gradient;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/distance_field.rs",
+    "source_sha256": "0b46bdcd4dfba732411b2922b12c0526a6109c8c2b47102d3c9844e80ff4a47c",
+    "declaration_locators": [
+      {
+        "line": 7,
+        "declaration": "pub struct DistanceField;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+    "source_sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+    "declaration_locators": [
+      {
+        "line": 8,
+        "declaration": "pub struct DistanceFieldJfa;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/sort/mod.rs",
+    "source_sha256": "0875af22982b215bebcf4fa357f966b369bd3b901abb5bc168e9b5285fd130e6",
+    "declaration_locators": [
+      {
+        "line": 48,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 93,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 150,
+        "declaration": "pub struct SortScratch {"
+      },
+      {
+        "line": 200,
+        "declaration": "pub struct RadixSort {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+    "source_sha256": "c7684eb551f3975e1df694f65d846b241a65581d8cd467916b0f5872dcf949e3",
+    "declaration_locators": [
+      {
+        "line": 21,
+        "declaration": "pub struct ScanElementCount(u32);"
+      },
+      {
+        "line": 25,
+        "declaration": "pub enum ScanError {"
+      },
+      {
+        "line": 42,
+        "declaration": "type Result<T> = std::result::Result<T, ScanError>;"
+      },
+      {
+        "line": 75,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 132,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 165,
+        "declaration": "pub struct PrefixSumScratch {"
+      },
+      {
+        "line": 216,
+        "declaration": "pub struct PrefixSum {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+    "source_sha256": "445cdb7d9acb7b0f1502b38e2e98652e4a79ef5467b6ddbc6cf8b6d042cdc8c9",
+    "declaration_locators": [
+      {
+        "line": 14,
+        "declaration": "pub struct ReduceDefinition {"
+      },
+      {
+        "line": 20,
+        "declaration": "pub struct ReduceScratchpad {"
+      },
+      {
+        "line": 192,
+        "declaration": "pub struct Reduce;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/scan.rs",
+    "source_sha256": "8707f22541301abe03d18cc6792021abc856eab4d005aea7b61bbb36d89ffa1f",
+    "declaration_locators": [
+      {
+        "line": 7,
+        "declaration": "pub struct ScanDefinition {"
+      },
+      {
+        "line": 147,
+        "declaration": "pub struct Scan;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+    "source_sha256": "591b2acc0e91118d14df8eb16d27966145ecdd661c8917dc58352ddec320ec9d",
+    "declaration_locators": [
+      {
+        "line": 34,
+        "declaration": "pub struct BvhKernels {"
+      },
+      {
+        "line": 68,
+        "declaration": "pub struct GpuBvh {"
+      },
+      {
+        "line": 350,
+        "declaration": "pub struct HostNode {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-physics/src/contact.rs",
+    "source_sha256": "a68dc722ac5181a1f310a1a1b13f9c694574799f3952a9ef19de71f3c018cceb",
+    "declaration_locators": [
+      {
+        "line": 28,
+        "declaration": "pub struct Collisions {"
+      },
+      {
+        "line": 236,
+        "declaration": "pub struct HookChain<'a> {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-mesh/src/gpu.rs",
+    "source_sha256": "d35d69e9ea33e0f07b7f4327acea3ca4764d5f34530a0d2a1b22e551725d4668",
+    "declaration_locators": [
+      {
+        "line": 13,
+        "declaration": "pub struct GpuMesh {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+    "source_sha256": "2d85bb7c8a1674a8918169e0bf10ec8b5e2ffed332713b418fcda7faea3e283f",
+    "declaration_locators": [
+      {
+        "line": 14,
+        "declaration": "pub struct DualContouring;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+    "source_sha256": "102937a8cee5211a52a5fd4a72548d64d6020ddf8e674dde8ef03a8e05ddc714",
+    "declaration_locators": [
+      {
+        "line": 16,
+        "declaration": "pub struct MarchingCubesDefinition {"
+      },
+      {
+        "line": 58,
+        "declaration": "struct Params {"
+      },
+      {
+        "line": 123,
+        "declaration": "struct Vertex {{"
+      },
+      {
+        "line": 296,
+        "declaration": "pub struct MarchingCubes;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/map/mod.rs",
+    "source_sha256": "93a07d7a5a79e1627640c19e1f61ce28ba791c902c691f982fb6806b3f2a2992",
+    "declaration_locators": [
+      {
+        "line": 7,
+        "declaration": "pub struct MapSignature {"
+      },
+      {
+        "line": 20,
+        "declaration": "type MapPipelineCache = HashMap<"
+      },
+      {
+        "line": 30,
+        "declaration": "pub struct MapDefinition {"
+      },
+      {
+        "line": 449,
+        "declaration": "pub struct Map;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+    "source_sha256": "b2100325e8183d2f7caecc97ba40fb0ee2fdbd8112a9a7218dc8d03ecbac88cc",
+    "declaration_locators": [
+      {
+        "line": 8,
+        "declaration": "pub struct GatherSignature {"
+      },
+      {
+        "line": 17,
+        "declaration": "type GatherPipelineCache ="
+      },
+      {
+        "line": 21,
+        "declaration": "pub struct GatherDefinition {"
+      },
+      {
+        "line": 348,
+        "declaration": "pub struct Gather;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/scatter.rs",
+    "source_sha256": "01a56cecc1945dcdd10f06482e1b55b9abf56beb8760de13423918fe9fa99c62",
+    "declaration_locators": [
+      {
+        "line": 7,
+        "declaration": "pub struct ScatterSignature {"
+      },
+      {
+        "line": 16,
+        "declaration": "type ScatterPipelineCache = HashMap<(ResourceType, ResourceType), Arc<(ComputePipeline, u64, u64)>>;"
+      },
+      {
+        "line": 19,
+        "declaration": "pub struct ScatterDefinition {"
+      },
+      {
+        "line": 336,
+        "declaration": "pub struct Scatter;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+    "source_sha256": "f411ff9731b0a3c23effc2758e8579f9bd97db55f96efb5b31bd91c4c852aa91",
+    "declaration_locators": [
+      {
+        "line": 8,
+        "declaration": "pub struct StreamSignature {"
+      },
+      {
+        "line": 20,
+        "declaration": "pub struct StreamDefinition {"
+      },
+      {
+        "line": 305,
+        "declaration": "pub struct Stream;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stencil.rs",
+    "source_sha256": "c648a889e866a0a7d0c62a2316e223ad5562e467ebfa5115c7c97de870133d0d",
+    "declaration_locators": [
+      {
+        "line": 25,
+        "declaration": "pub struct StencilSignature {"
+      },
+      {
+        "line": 40,
+        "declaration": "type StencilPipelineCache = HashMap<"
+      },
+      {
+        "line": 51,
+        "declaration": "pub struct StencilDefinition {"
+      },
+      {
+        "line": 901,
+        "declaration": "pub struct Stencil;"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/pipeline.rs",
+    "source_sha256": "9d445971b09d2a86858e8947d1a41ab7321b931ab1fd6cd7ede724bf521b8980",
+    "declaration_locators": [
+      {
+        "line": 14,
+        "declaration": "pub type Matrix4 = [[f32; 4]; 4];"
+      },
+      {
+        "line": 28,
+        "declaration": "pub struct TriangulationSettings {"
+      },
+      {
+        "line": 49,
+        "declaration": "pub struct TemporalSettings {"
+      },
+      {
+        "line": 71,
+        "declaration": "pub enum Stage {"
+      },
+      {
+        "line": 89,
+        "declaration": "struct Kernels {"
+      },
+      {
+        "line": 111,
+        "declaration": "struct Views {"
+      },
+      {
+        "line": 125,
+        "declaration": "pub struct StereoDepth {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+    "source_sha256": "eda4c9002081e8d83174e01bca0caddda93d9f90301d48b5ac2a5eb29033ce4c",
+    "declaration_locators": [
+      {
+        "line": 36,
+        "declaration": "pub(super) struct PingPong {"
+      },
+      {
+        "line": 67,
+        "declaration": "pub(super) struct StrandSet {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+    "source_sha256": "51aa86bfd6b6d5036da4ce6c3687a8c165546f519924b4a4e97030067776d842",
+    "declaration_locators": [
+      {
+        "line": 22,
+        "declaration": "pub struct GpuScalp {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+    "source_sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+    "declaration_locators": [
+      {
+        "line": 6,
+        "declaration": "pub struct PassParameters {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+    "source_sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+    "declaration_locators": [
+      {
+        "line": 11,
+        "declaration": "pub enum PassParameter {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+    "source_sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+    "declaration_locators": [
+      {
+        "line": 5,
+        "declaration": "pub struct BufferByteLength(u64);"
+      },
+      {
+        "line": 9,
+        "declaration": "pub struct BufferByteOffset(u64);"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+    "source_sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+    "declaration_locators": [
+      {
+        "line": 8,
+        "declaration": "pub enum BufferUploadOccupancy {"
+      },
+      {
+        "line": 21,
+        "declaration": "pub struct BufferUpload<'a>(&'a [u8]);"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+    "source_sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+    "declaration_locators": [
+      {
+        "line": 5,
+        "declaration": "pub(super) struct Readback<T> {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+    "source_sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+    "declaration_locators": [
+      {
+        "line": 9,
+        "declaration": "pub enum BufferUse {"
+      },
+      {
+        "line": 22,
+        "declaration": "enum UsageSelection {"
+      },
+      {
+        "line": 28,
+        "declaration": "pub struct BufferDefinition {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+    "source_sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+    "declaration_locators": [
+      {
+        "line": 10,
+        "declaration": "pub struct BufferLabel(String);"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+    "source_sha256": "7ab3a1fe9e5c19e58ba3f9b6e6494ded69096cc71579c3b5c2f8f3b2f28be1ac",
+    "declaration_locators": [
+      {
+        "line": 5,
+        "declaration": "pub enum ResourceBaseType {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-physics/src/contact/count.rs",
+    "source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+    "declaration_locators": [
+      {
+        "line": 7,
+        "declaration": "pub(super) struct ColliderCount(usize);"
+      },
+      {
+        "line": 28,
+        "declaration": "pub(super) struct ColliderCapacity(u32);"
+      },
+      {
+        "line": 49,
+        "declaration": "pub(super) enum ColliderCapacityFit {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/grow/input.rs",
+    "source_sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+    "declaration_locators": [
+      {
+        "line": 3,
+        "declaration": "pub(super) struct Interpolation<'a> {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/scalp/layout.rs",
+    "source_sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+    "declaration_locators": [
+      {
+        "line": 4,
+        "declaration": "pub(super) struct ScalpGrid {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-xpbd/src/particles.rs",
+    "source_sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+    "declaration_locators": [
+      {
+        "line": 21,
+        "declaration": "pub struct Particles {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-bvh/src/morton.rs",
+    "source_sha256": "1f582746a5ccf20f0f53718f9ba397ef3906ac6311d18f87f99e4cb091bad532",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-bvh/src/gpu/shaders.rs",
+    "source_sha256": "2022b9f9947af21ed0ada98816b862f6569d1237a5c6d0557c46441a78022e32",
+    "declaration_locators": [
+      {
+        "line": 65,
+        "declaration": "struct Params {"
+      },
+      {
+        "line": 396,
+        "declaration": "pub struct TraversalConfig {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+    "source_sha256": "fd6684fbe63e2641aea1a50abccb504ad774aebf000ba782d6852dcd35514eb6",
+    "declaration_locators": [
+      {
+        "line": 6,
+        "declaration": "pub struct DualContouringDefinition {"
+      },
+      {
+        "line": 30,
+        "declaration": "struct Params {"
+      },
+      {
+        "line": 173,
+        "declaration": "struct Vertex {{"
+      },
+      {
+        "line": 353,
+        "declaration": "struct Vertex {{"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/rig.rs",
+    "source_sha256": "4b4d8d481e1060fe483ddf3c782568d4d44dd3a15b1c78a7fba7f4831df52e92",
+    "declaration_locators": [
+      {
+        "line": 30,
+        "declaration": "pub type Matrix3 = [[f32; 3]; 3];"
+      },
+      {
+        "line": 119,
+        "declaration": "pub enum FisheyeModel {"
+      },
+      {
+        "line": 177,
+        "declaration": "pub enum Projection {"
+      },
+      {
+        "line": 383,
+        "declaration": "pub struct Eye {"
+      },
+      {
+        "line": 432,
+        "declaration": "pub enum Geometry {"
+      },
+      {
+        "line": 459,
+        "declaration": "pub struct StereoRig {"
+      },
+      {
+        "line": 485,
+        "declaration": "pub enum Grid {"
+      },
+      {
+        "line": 535,
+        "declaration": "pub struct Rectification {"
+      },
+      {
+        "line": 544,
+        "declaration": "pub struct Rectified {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/common.wgsl",
+    "source_sha256": "8141efc7a9edc82d5e931b6177dd18bb22323c3800007153cdf5e66277ea10d2",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/depth.wgsl",
+    "source_sha256": "f73929e415b90422fff8509a7107224b46680fd241a625c847cc392c50584e4e",
+    "declaration_locators": [
+      {
+        "line": 16,
+        "declaration": "struct Params {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/temporal.wgsl",
+    "source_sha256": "ea45add84443e58340cb91d673a49c84e294e5622e5d81a3bf1facb7dbf35b9d",
+    "declaration_locators": [
+      {
+        "line": 15,
+        "declaration": "struct Params {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/stereo/unrectify.wgsl",
+    "source_sha256": "b4ef51ab624411979be6ea94923c705ad437305c7cf42139453f51d7b2e67969",
+    "declaration_locators": [
+      {
+        "line": 22,
+        "declaration": "struct Params {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+    "source_sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+    "declaration_locators": [
+      {
+        "line": 119,
+        "declaration": "pub struct StrandGpu {"
+      },
+      {
+        "line": 128,
+        "declaration": "pub struct GpuGroom {"
+      },
+      {
+        "line": 177,
+        "declaration": "struct Kernels {"
+      },
+      {
+        "line": 320,
+        "declaration": "struct Scratches {"
+      },
+      {
+        "line": 369,
+        "declaration": "struct HeadMesh {"
+      },
+      {
+        "line": 377,
+        "declaration": "pub struct GpuGroomer {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+    "source_sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7",
+    "declaration_locators": [
+      {
+        "line": 12,
+        "declaration": "pub(super) struct Scratch {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+    "source_sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+    "declaration_locators": [
+      {
+        "line": 10,
+        "declaration": "pub struct ParticlePositionRecord {"
+      },
+      {
+        "line": 18,
+        "declaration": "pub struct ParticleVelocityRecord {"
+      },
+      {
+        "line": 24,
+        "declaration": "pub struct ParticlePositions(Vec<ParticlePositionRecord>);"
+      },
+      {
+        "line": 69,
+        "declaration": "pub struct ParticleVelocities(Vec<ParticleVelocityRecord>);"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/wgsl/mod.rs",
+    "source_sha256": "a15fa14b15efdff7da3bf54a5ce9b5b3f911fa117cb37c5fd3e9d6fad95b7e9b",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+    "source_sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+    "declaration_locators": [
+      {
+        "line": 6,
+        "declaration": "pub type Result<T> = std::result::Result<T, HairGpuError>;"
+      },
+      {
+        "line": 9,
+        "declaration": "pub enum HairGpuError {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/wgsl/scalp.rs",
+    "source_sha256": "cc5ad35615a4f666696cf74cfaf49438343456cb5476a7fbfea2b130553e6374",
+    "declaration_locators": [
+      {
+        "line": 306,
+        "declaration": "struct Params {"
+      },
+      {
+        "line": 339,
+        "declaration": "struct Params {"
+      },
+      {
+        "line": 377,
+        "declaration": "struct Params {"
+      },
+      {
+        "line": 423,
+        "declaration": "struct Params {"
+      },
+      {
+        "line": 478,
+        "declaration": "struct Params {"
+      },
+      {
+        "line": 510,
+        "declaration": "struct Params {"
+      },
+      {
+        "line": 549,
+        "declaration": "struct Params {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/collide.rs",
+    "source_sha256": "af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+    "declaration_locators": [
+      {
+        "line": 23,
+        "declaration": "pub struct FieldHeader {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+    "source_sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/guides.rs",
+    "source_sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+    "declaration_locators": [
+      {
+        "line": 22,
+        "declaration": "pub enum Guides<'a> {"
+      },
+      {
+        "line": 37,
+        "declaration": "pub struct GpuGuides {"
+      },
+      {
+        "line": 64,
+        "declaration": "struct HairdoGpu {"
+      },
+      {
+        "line": 122,
+        "declaration": "pub(super) struct GuideRoots {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs",
+    "source_sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+    "declaration_locators": [
+      {
+        "line": 129,
+        "declaration": "struct Params {"
+      },
+      {
+        "line": 241,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 297,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 417,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 490,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 583,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 651,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 713,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 784,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 890,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 947,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 1040,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 1091,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 1148,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 1207,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 1289,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 1333,
+        "declaration": "struct Params {"
+      },
+      {
+        "line": 1444,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 1501,
+        "declaration": "struct Params {{"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/adventuresim-character-creator/src/device_underlayer/gap.rs",
+    "source_sha256": "c241e0c48765b819983381fd2fcac12cd0cb1bee1f600774f73df65d2a190913",
+    "declaration_locators": [
+      {
+        "line": 146,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 195,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 282,
+        "declaration": "struct Params {{"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/adventuresim-character-creator/src/device_underlayer/weld.rs",
+    "source_sha256": "021944e78b35144fca87c603d1f168cb53a570f4178fabdb5647866e5c067949",
+    "declaration_locators": [
+      {
+        "line": 87,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 134,
+        "declaration": "struct Params {{"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/adventuresim-character-creator/src/device_underlayer/workspace.rs",
+    "source_sha256": "7e94d4b4a91f817e93d5b64d77f218425609896af1cada1ab2ef7aa2b1f6160a",
+    "declaration_locators": [
+      {
+        "line": 16,
+        "declaration": "pub(super) struct Workspace<'a> {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/vertex_normals.rs",
+    "source_sha256": "83a5f253998390f885f8ea5ff04f50f83d79670636c25a2246fe32d61a85fced",
+    "declaration_locators": [
+      {
+        "line": 23,
+        "declaration": "pub enum NormalWeighting {"
+      },
+      {
+        "line": 72,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 126,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 162,
+        "declaration": "struct Params {{"
+      },
+      {
+        "line": 212,
+        "declaration": "pub struct VertexNormals {"
+      },
+      {
+        "line": 273,
+        "declaration": "pub struct VertexNormalKernels {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-shell/src/selfcollision.rs",
+    "source_sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+    "declaration_locators": [
+      {
+        "line": 20,
+        "declaration": "pub struct SelfCollision {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-shell/src/shell.rs",
+    "source_sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+    "declaration_locators": [
+      {
+        "line": 23,
+        "declaration": "pub struct HostContactSchedule {"
+      },
+      {
+        "line": 34,
+        "declaration": "pub struct Shell {"
+      },
+      {
+        "line": 60,
+        "declaration": "struct ShellHook<'a> {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/mesh_query/mod.rs",
+    "source_sha256": "32201338d839719acd4a4637a5b0f672f8b2cadb4871e9947f122d4c2c211bfa",
+    "declaration_locators": [
+      {
+        "line": 23,
+        "declaration": "pub struct PointTargets<'a> {"
+      },
+      {
+        "line": 34,
+        "declaration": "pub struct TriangleTargets<'a> {"
+      },
+      {
+        "line": 47,
+        "declaration": "pub enum Crossing {"
+      },
+      {
+        "line": 54,
+        "declaration": "pub struct Rays<'a> {"
+      },
+      {
+        "line": 70,
+        "declaration": "pub struct QueryHits {"
+      },
+      {
+        "line": 84,
+        "declaration": "pub struct Hit {"
+      },
+      {
+        "line": 136,
+        "declaration": "pub struct MeshQuery {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-physics/src/mesh.rs",
+    "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+    "declaration_locators": [
+      {
+        "line": 20,
+        "declaration": "pub struct MeshSurface {"
+      },
+      {
+        "line": 36,
+        "declaration": "pub struct MeshCollider {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/lib.rs",
+    "source_sha256": "17d52c28a3489b266ec2a514084215b192e6bdea87d3326ab518ea5001f15771",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-xpbd/src/constraint.rs",
+    "source_sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+    "declaration_locators": [
+      {
+        "line": 28,
+        "declaration": "pub type Attachments = Vec<(String, Buffer)>;"
+      },
+      {
+        "line": 32,
+        "declaration": "pub struct ConstraintSet {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-xpbd/src/solver.rs",
+    "source_sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde",
+    "declaration_locators": [
+      {
+        "line": 31,
+        "declaration": "pub struct SolverSettings {"
+      },
+      {
+        "line": 113,
+        "declaration": "pub struct Solver {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/sort/tests.rs",
+    "source_sha256": "60e3c4541c2597b08537f54d485057aba9d5f528c8d3139e9c5832809c045ffd",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+    "source_sha256": "a65b3e3dcf21071874767801c95cc42c345a78247638a8963b071b90b0a1c7f3",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-bvh/src/gpu/tests.rs",
+    "source_sha256": "85811b6011b987ade76feadef1481d898b159d429f5ac443f2e3a3cb3c0111ea",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-cloth/src/cloth/tests.rs",
+    "source_sha256": "5262ec58f985121e0e11d2db11221b795d41268242028aed3eee900623d90fe1",
+    "declaration_locators": [
+      {
+        "line": 10,
+        "declaration": "struct Harness {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-xpbd/src/tests/mod.rs",
+    "source_sha256": "8323fb9f423eec97346de3ff2e590429fe710005227de25e75a1da78c0f48f1c",
+    "declaration_locators": [
+      {
+        "line": 20,
+        "declaration": "struct Reference {"
+      },
+      {
+        "line": 27,
+        "declaration": "struct ReferenceConstraints {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/adventuresim-character-creator/src/surface_cut/assembly.rs",
+    "source_sha256": "d1df81c16d10ee5c899b2742d839d3ad6650dc44cc865385d1e0f37bc89f34da",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-armor/AGENTS.md",
+    "source_sha256": "52390164bf3eb74a0160ee3ac19527fd43856aa998920d16824f2f41058cf47f",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-compute/src/prelude.rs",
+    "source_sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/engraving.rs",
+    "source_sha256": "678b5940a6ed8ab768eee0cefbe366694b743df49a22e6cb75f8d5e55234a005",
+    "declaration_locators": [
+      {
+        "line": 15,
+        "declaration": "pub struct Engraving {"
+      },
+      {
+        "line": 30,
+        "declaration": "pub enum ReliefSource {"
+      },
+      {
+        "line": 40,
+        "declaration": "pub enum Relief {"
+      },
+      {
+        "line": 155,
+        "declaration": "pub(crate) enum Cut<'a> {"
+      },
+      {
+        "line": 161,
+        "declaration": "pub struct ReliefImage {"
+      },
+      {
+        "line": 167,
+        "declaration": "pub(crate) enum ReliefPixels {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/clip_carrier.rs",
+    "source_sha256": "9294208bbf4dd5f5f0cc8f69fbc8df82e5515923bb6f9601b09d7050b17696fb",
+    "declaration_locators": [
+      {
+        "line": 8,
+        "declaration": "pub(super) struct CutSample {"
+      },
+      {
+        "line": 14,
+        "declaration": "pub(super) struct ClippedCarrier {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/clip_tests.rs",
+    "source_sha256": "ef61da1f0a05ddcf1c286db7133756fd5ace4aaa867604f3db73aa80ef3b24b1",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/construction_columns.rs",
+    "source_sha256": "9476b595b3dda3da12dc040bdca43bdbe73bc46816a95674a3f0f2cda579c486",
+    "declaration_locators": [
+      {
+        "line": 5,
+        "declaration": "pub(crate) struct ConstructionColumns {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/course_clip.rs",
+    "source_sha256": "50e047c7bb7a221c96ee91ea6e476d2c4a636f0c3e81d687352c7c1e5e84479f",
+    "declaration_locators": [
+      {
+        "line": 15,
+        "declaration": "pub(super) struct SourceSample {"
+      },
+      {
+        "line": 29,
+        "declaration": "pub(super) struct CourseClip {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/course_coordinates.rs",
+    "source_sha256": "be5b236c9d6ee30e618484916ba573e1844bf66db8c3375477ab1a83add561ff",
+    "declaration_locators": [
+      {
+        "line": 5,
+        "declaration": "pub(crate) struct CourseCoordinates {"
+      },
+      {
+        "line": 13,
+        "declaration": "pub(super) struct CourseSeams<'a> {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/cut_frame.rs",
+    "source_sha256": "a1eea4d7ec9fd3802af3c3a9add938511ec78b1fc86aa31e48cec49910bf206f",
+    "declaration_locators": [
+      {
+        "line": 5,
+        "declaration": "pub(super) struct CourseFrame {"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/cut_resolution.rs",
+    "source_sha256": "49aa0b45bee57eb26c2f5e157480530588573667a7983e0112305a88ff706050",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/solid_grid.rs",
+    "source_sha256": "91518dbb43e9de546a9fa5436a50448dda29753dbbd93355a40fa74db0da2a95",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/gpu/breastplate/trimmed_carrier.rs",
+    "source_sha256": "98125d01ac528538cc9113a3a6ec8e32375c0f4584febe68d41345c19762de8b",
+    "declaration_locators": [],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  },
+  {
+    "path": "crates/fabelgeist-armor/src/surface_grid.rs",
+    "source_sha256": "d2e76894c4233cad8a8656215bf15fe6defcce235adc2350b3e2d5ad0308465e",
+    "declaration_locators": [
+      {
+        "line": 9,
+        "declaration": "pub struct SurfaceGrid {"
+      },
+      {
+        "line": 20,
+        "declaration": "pub struct SurfaceSample {"
+      },
+      {
+        "line": 32,
+        "declaration": "pub enum SurfaceEdgeDistance {"
+      },
+      {
+        "line": 52,
+        "declaration": "pub struct SurfaceColumn(f32);"
+      }
+    ],
+    "status": "Organizer includes embedded nativeWGSL declarations, not countofRusttypes orcoverage; actualuses/mixups/dispositions areindependentfamilytraces."
+  }
+]

@@ -1,0 +1,14 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-physics/src/contact.rs
+
++++ filtered826-c798/crates/fabelgeist-physics/src/contact.rs
+
+@@ -197,7 +197,7 @@
+
+         batch.copy_buffer(
+             &particles.positions,
+             &particles.previous,
+-            particles.count() as u64 * 16,
++            (particles.count() as u64 * 16).into(),
+         )?;
+         self.record_mesh(batch, particles, search_radius)?;
+         Ok(())

@@ -1,0 +1,424 @@
+{
+  "head": "ead46619dec5ef45993f63202cb289bd3986b018",
+  "scope": "PBR fixture literal correction plus exact Stage declaration/public-method order only",
+  "discovery": "complete-before-source-repair-for-this-narrow-delta",
+  "repair": "not-started-by-reviewer",
+  "validation": "no project execution",
+  "before_source": "/tmp/pr780-stage-literal-before.rs",
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/stages.rs",
+      "sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+      "read_extents": [
+        [
+          1,
+          352
+        ]
+      ],
+      "status": "complete-source-read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "sha256": "098f2b193a044af8ad54a0517a96a2308c30ec0fd002c2e7f6905747eb2fd9c1",
+      "read_extents": [
+        [
+          1,
+          348
+        ]
+      ],
+      "status": "complete-source-read"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "read_extents": [
+        [
+          1,
+          120
+        ]
+      ],
+      "status": "complete-source-read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "read_extents": [
+        [
+          1,
+          271
+        ]
+      ],
+      "status": "complete-source-read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "read_extents": [
+        [
+          1,
+          334
+        ]
+      ],
+      "status": "complete-source-read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/drape_worker.rs",
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "read_extents": [
+        [
+          1,
+          131
+        ]
+      ],
+      "status": "complete-source-read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/outfit.rs",
+      "sha256": "571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "read_extents": [
+        [
+          1,
+          82
+        ]
+      ],
+      "status": "complete-source-read"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_extents": [
+        [
+          1,
+          192
+        ]
+      ],
+      "status": "complete-source-read"
+    }
+  ],
+  "before_blocks": {
+    "prefix": {
+      "lines": [
+        1,
+        11
+      ],
+      "sha256": "eb7cc09abceccb4f7da2fac686687e4486b51a43e3c1fcce96f89ee0dd1acca9"
+    },
+    "StageSettings declaration with docs attrs": {
+      "lines": [
+        12,
+        34
+      ],
+      "sha256": "1dd35c279230785a8e2f4da459a3ed1f7284aef758c118bad78df39faf9ba0ea"
+    },
+    "StageSettings impl": {
+      "lines": [
+        35,
+        108
+      ],
+      "sha256": "b48e2de7f96143ecde4b427913306293595ba04e2adcd563f945c6ddc862aa63"
+    },
+    "DrapeSettings declaration with docs attrs": {
+      "lines": [
+        109,
+        121
+      ],
+      "sha256": "9531767ea6128d6cb63e803cafd7ab8908f74e791790bfce708df15ba1b51417"
+    },
+    "DrapeSettings impl": {
+      "lines": [
+        122,
+        172
+      ],
+      "sha256": "6d4524b5b40ccbd01e31eea05331b124b91a5a0227468d6d4317c0f36b8c2187"
+    },
+    "DrapeCheckpoints declaration with docs attrs": {
+      "lines": [
+        173,
+        181
+      ],
+      "sha256": "4656513856e42b608f39f6e39a04c9c86d44ab35e25ec447c1429649d3a8b446"
+    },
+    "DrapeStart enum with docs": {
+      "lines": [
+        182,
+        193
+      ],
+      "sha256": "313de6cedce87068afe3cc5393080518aa336ae61210bfd1b090a5e440280a4c"
+    },
+    "DrapeCheckpoints impl": {
+      "lines": [
+        194,
+        234
+      ],
+      "sha256": "6315faf7b3cee1c221e9d64ec07cf1a2a6abec928ad88354d0b57239b112c5ba"
+    },
+    "DrapeInput impl": {
+      "lines": [
+        235,
+        255
+      ],
+      "sha256": "82bf7e36c538083cda1ad47dddcd7c3bc821b4e0e9ed6cc1039738a63305f0f9"
+    },
+    "unchanged test module": {
+      "lines": [
+        256,
+        352
+      ],
+      "sha256": "4b64d308157b7e1a7c3489127207d11047c322dcc2db06d355941bda98b15ecf"
+    },
+    "StageSettings constants": {
+      "lines": [
+        36,
+        42
+      ],
+      "sha256": "8c240a0d657e066d0eb2ed0d654f70cef326f8006b6f91928ff3e13eef4ec093"
+    },
+    "StageSettings validate": {
+      "lines": [
+        43,
+        80
+      ],
+      "sha256": "44cdecdff8846df54412b024a9f5cb65d6993b27654f1b0d2195e4653e7d4c78"
+    },
+    "StageSettings apply with docs": {
+      "lines": [
+        81,
+        106
+      ],
+      "sha256": "586412dbf9d797fa8c1408ac63a4bc61915b9d7e459511e4ae174012cdc36834"
+    }
+  },
+  "exact_literal": {
+    "line": 308,
+    "from": "start(&|i| i.selection.mail.roughness = 0.9)",
+    "to": "start(&|i| i.selection.mail.roughness = fabelgeist_math::units::Ratio::from_ratio(0.9))"
+  },
+  "final_order": [
+    "prefix",
+    "StageSettings declaration with docs attrs",
+    "DrapeSettings declaration with docs attrs",
+    "DrapeCheckpoints declaration with docs attrs",
+    "DrapeStart enum with docs",
+    "StageSettings impl (associated constants, apply+doc, validate)",
+    "DrapeSettings impl",
+    "DrapeCheckpoints impl",
+    "DrapeInput impl",
+    "test module last"
+  ],
+  "permutation_contract": "Move complete blocks, retaining docs/attrs/cfg/vis and original blank separators. Within StageSettings impl retain header/associated constants, move full apply method with doc before full validate method; no function body edit. Reverse exact permutation and one RHS constructor must reproduce whole original source.",
+  "lens_cells": [
+    {
+      "sequence": 1,
+      "lens": "producer-propagation",
+      "contract": "Existing fixture is a native numeric literal producer for MailWeave.roughness, which is canonical Ratio; insert exact unit-named leaf at literal source, no primitive adapter.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    },
+    {
+      "sequence": 2,
+      "lens": "existing-type-owners",
+      "contract": "Math units::Ratio is already the actual canonical owner; reuse it and no alternate Roughness wrapper/dependency.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    },
+    {
+      "sequence": 3,
+      "lens": "admission-contracts",
+      "contract": "Ratio::from_ratio preserves f32 exactly and adds no finite/range policy; 0.9 remains valid MailWeave roughness. Existing tests intentionally use existing data structures, no API bypass is introduced.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    },
+    {
+      "sequence": 4,
+      "lens": "invariant-operations",
+      "contract": "Only assignment RHS changes. The closure still mutates only mail roughness, not any simulation field; no arithmetic or operation order changes.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    },
+    {
+      "sequence": 5,
+      "lens": "aggregate-states",
+      "contract": "DrapeStart::Finish current same_setup excludes mail appearance. Existing assertion remains same contract/case. Source setup/sewn/settled transition relations remain exact.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    },
+    {
+      "sequence": 6,
+      "lens": "type-ownership",
+      "contract": "No owner move: lower Math Ratio and existing MailWeave remain canonical. Source order repair stays in Root-owned Creator file and changes no protected native function.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    },
+    {
+      "sequence": 7,
+      "lens": "redundant-authority",
+      "contract": "No new state/default/derived copy is introduced. Existing body/checkpoint fields and source comparisons remain byte-exact.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    },
+    {
+      "sequence": 8,
+      "lens": "behavior-preservation",
+      "contract": "All three existing stage tests and all assertions/helpers remain byte-for-byte except one existing literal construction. Production bodies stay byte-exact after block permutation reversal; native programs untouched.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    },
+    {
+      "sequence": 9,
+      "lens": "enum-shapes",
+      "contract": "Existing StageSettings/DrapeSettings/DrapeCheckpoints records and DrapeStart payload enum remain unchanged. No new role/flag or state transition.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    },
+    {
+      "sequence": 10,
+      "lens": "derivability",
+      "contract": "Existing derives remain exact and attached to the same struct; no manual trait implementation added. Reordering is mechanical, not behavioral.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    },
+    {
+      "sequence": 11,
+      "lens": "type-granularity",
+      "contract": "Ratio distinguishes dimensionless authored roughness; stage counts, gravity and damping remain current types and explicitly outside this correction. Do not infer raw stage-unit clearance.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    },
+    {
+      "sequence": 12,
+      "lens": "magic-strings",
+      "contract": "All strings/docs/errors/native host API names in moved blocks are byte-preserved. No prose classification or API text changes.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    },
+    {
+      "sequence": 13,
+      "lens": "magic-numbers",
+      "contract": "Only source literal0.9 gains the existing Ratio unit constructor; all stage constants, zero/empty policies, defaults and other fixture numeric values remain exact.",
+      "disposition": "source-backed narrow correction inventoried; preserve all other source",
+      "connected_repair": "One fully qualified Ratio literal and declared whole-block order repair only",
+      "dependencies": [
+        "Actual MailWeave Ratio field and Math unit-named constructor",
+        "No Cargo or lock edge change",
+        "No protected native body or facade signature change"
+      ],
+      "acceptance": "Exact inverse whole-source comparison; identical fixture/case/helper/assertion inventory; production body bytes unchanged; no local project checks. Independent Code/Rule/Comment successor required after Root edits.",
+      "discovery_status": "complete",
+      "repair_status": "pending-root",
+      "validation_status": "not-executed"
+    }
+  ],
+  "limits": [
+    "Broader stage physical units, errors and lower solver interfaces remain open and are not repaired by literal/order change.",
+    "Initial MP-6 solver rerun claim is superseded: completed checkpoints take Finish for mail-only change; no confirmed dynamics rerun from that case.",
+    "No new tests/cases/helpers/assertions/doctests; no existing behavior or acceptance oracle deletion."
+  ]
+}

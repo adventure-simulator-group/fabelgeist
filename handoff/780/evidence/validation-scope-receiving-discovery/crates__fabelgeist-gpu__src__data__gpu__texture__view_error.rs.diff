@@ -1,0 +1,126 @@
+--- crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs current780
++++ crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs canonical826
+@@ -1,13 +1,37 @@
+ //! Texture resource admission and whole-texture format-view failures.
+ 
+ use super::TextureFormat;
++use crate::globals::ValidationProgressError;
++#[cfg(not(target_arch = "wasm32"))]
++use crate::globals::ValidationScopeError;
+ 
+ /// The concrete result of selecting a whole-texture format view.
+ ///
+ /// A generic caller admits the error with `?` or a standard error conversion;
+ /// the public producer itself retains this bespoke error type.
+ ///
++/// ```compile_fail
++/// use fabelgeist_gpu::prelude::{Texture2d, TextureFormat};
++/// use fabelgeist_gpu::globals::WgpuContext;
++/// use std::sync::Arc;
++///
++/// fn erase_at_producer(
++///     texture: &Texture2d,
++///     context: &WgpuContext,
++/// ) -> anyhow::Result<Arc<wgpu::TextureView>> {
++///     texture.view_with_format(context, TextureFormat::R32Float)
++/// }
++/// ```
+ pub type TextureViewResult<T> = std::result::Result<T, TextureViewError>;
++
++/// The view operation whose validation observation could not finish.
++#[derive(Clone, Copy, Debug)]
++pub enum TextureViewOperation {
++    Texture2d,
++    Texture3d,
++    TextureCube,
++    CubeArray,
++}
+ 
+ /// Missing texture resources and native whole-texture format-view failures.
+ ///
+@@ -28,6 +52,12 @@
+     DimensionMismatch {
+         expected: wgpu::TextureViewDimension,
+         actual: wgpu::TextureViewDimension,
++    },
++    /// Failed progress retains the request and any captured native rejection.
++    Progress {
++        requested: TextureFormat,
++        operation: TextureViewOperation,
++        cause: Box<ValidationProgressError>,
+     },
+     /// Native rejection of a two-dimensional texture view.
+     Texture2d {
+@@ -51,28 +81,29 @@
+     },
+ }
+ 
+-// Native validation admission keeps operation selection and cause ownership
+-// together; view methods retain the descriptor and polling policy.
++// Native-only admission preserves the original operation-specific SDK cause.
+ #[cfg(not(target_arch = "wasm32"))]
+ impl TextureViewError {
+-    pub(super) fn from_texture_2d_view(requested: TextureFormat, cause: wgpu::Error) -> Self {
+-        Self::Texture2d {
+-            requested,
+-            cause: Box::new(cause),
+-        }
+-    }
+-
+-    pub(super) fn from_texture_3d_view(requested: TextureFormat, cause: wgpu::Error) -> Self {
+-        Self::Texture3d {
+-            requested,
+-            cause: Box::new(cause),
+-        }
+-    }
+-
+-    pub(super) fn from_texture_cube_view(requested: TextureFormat, cause: wgpu::Error) -> Self {
+-        Self::TextureCube {
+-            requested,
+-            cause: Box::new(cause),
++    pub(super) fn from_observation(
++        requested: TextureFormat,
++        operation: TextureViewOperation,
++        cause: ValidationScopeError,
++    ) -> Self {
++        match cause {
++            ValidationScopeError::Progress(cause) => Self::Progress {
++                requested,
++                operation,
++                cause: Box::new(cause),
++            },
++            ValidationScopeError::Native(cause) => {
++                let cause = Box::new(cause);
++                match operation {
++                    TextureViewOperation::Texture2d => Self::Texture2d { requested, cause },
++                    TextureViewOperation::Texture3d => Self::Texture3d { requested, cause },
++                    TextureViewOperation::TextureCube => Self::TextureCube { requested, cause },
++                    TextureViewOperation::CubeArray => Self::CubeArray { requested, cause },
++                }
++            }
+         }
+     }
+ }
+@@ -91,6 +122,14 @@
+             Self::DimensionMismatch { expected, actual } => write!(
+                 formatter,
+                 "Texture dimension mismatch. Expected {expected:?}, got {actual:?}"
++            ),
++            Self::Progress {
++                requested,
++                operation,
++                cause,
++            } => write!(
++                formatter,
++                "WGPU {operation:?} view validation observation Error (requested {requested:?}): {cause}"
+             ),
+             Self::Texture2d { requested, cause } => write!(
+                 formatter,
+@@ -119,6 +158,7 @@
+             | Self::Texture3d { cause, .. }
+             | Self::TextureCube { cause, .. }
+             | Self::CubeArray { cause, .. } => Some(cause.as_ref()),
++            Self::Progress { cause, .. } => Some(cause.as_ref()),
+             _ => None,
+         }
+     }

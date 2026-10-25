@@ -1,0 +1,183 @@
+{
+  "head": "59bb96d07af08244582c6767d81e969b820ec3ed",
+  "verdict": "discovery only; no implementation, PBR or global clearance",
+  "sources": [
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/tests/textile_export.rs",
+      "sha256": "3f0d6674ab64abd4e90c50836ccc7028edb39f616d8758b2c6ff25e8380d9059",
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "43e385b5074a6c8884aabe7f27f70c016f9b16b16e19a0020d58cd01090de0b8",
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export/morphs.rs",
+      "sha256": "49339af440cea4592fc08969075def3ca3380fe9a495d0b77180049f879ceee3",
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export/assembly.rs",
+      "sha256": "69228ac01428944c7113f479834ac9179928ab25512d652a741cd799c562b494",
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "9b57fb4bbcebe5b20113a06d530507253693a37d40f85f1617a38cbccb63fa87",
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "93b0aa654eacc98d66c072b54cb1a1d0444b75e6bdc3cc0ecd7d76325f085bd6",
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "b53b6a874c7a23f38f7895c75a03c65c599c21e122d45b1843e5b3efa2b3a25e",
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/garment/export.rs",
+      "sha256": "0b57ba3d094cdb3ac0ea1e872f7177837ffae8c16be441a1dbcb823d220b26dc",
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "82c083e495d9e3b992abf5ad23d3f99f48acc42da6900cd44ca99405140095de",
+      "read_extent": [
+        [
+          1,
+          95
+        ],
+        [
+          585,
+          925
+        ],
+        [
+          1030,
+          1785
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "8f76594ec3871a68df2f8e98740aa629e479b1e6fc7a0ad9a63e4e7f029e30a1",
+      "read_extent": [
+        [
+          180,
+          389
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "33f6b05450b7b1eb8e1080aa330b35696e6ee4c57da0bb4d208a18f66ebec963",
+      "read_extent": [
+        [
+          145,
+          225
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "2906c6c5115f7924743595c1808b2337d4b167c27d301436ac22304c75479428",
+      "read_extent": [
+        [
+          65,
+          105
+        ]
+      ]
+    }
+  ],
+  "fixture_literal_sites": [
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export.rs",
+      "line": 1151,
+      "existing_function": "exports_clothing_as_a_separately_materialed_skinned_primitive",
+      "current_surface": "none",
+      "current_texcoords_and_obligation": "none"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export.rs",
+      "line": 1275,
+      "existing_function": "exports_textured_garment_with_independent_topology_and_skin",
+      "current_surface": "Some((&uvs,&textures))",
+      "current_texcoords_and_obligation": "None; migrate exact uvs to Some"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export.rs",
+      "line": 1402,
+      "existing_function": "exports_shell_only_equipment_without_character_attachment_geometry",
+      "current_surface": "none",
+      "current_texcoords_and_obligation": "none"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export.rs",
+      "line": 1547,
+      "existing_function": "exports_independent_skinned_armor_topology_with_named_morph_targets",
+      "current_surface": "none",
+      "current_texcoords_and_obligation": "none"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export.rs",
+      "line": 1695,
+      "existing_function": "fitted_socket_resolves_uv_per_lod_and_bootstrap_recovers_the_anchor",
+      "current_surface": "none",
+      "current_texcoords_and_obligation": "none; separate SurfaceUvLayout"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export.rs",
+      "line": 1753,
+      "existing_function": "fitted_socket_resolves_uv_per_lod_and_bootstrap_recovers_the_anchor (existing open-shell rejection)",
+      "current_surface": "none",
+      "current_texcoords_and_obligation": "none"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export/assembly.rs",
+      "line": 162,
+      "existing_function": "compact_components_keep_names_hinges_skin_and_all_morphs",
+      "current_surface": "none; SurfaceTextures",
+      "current_texcoords_and_obligation": "Some; texcoords[1..] exact oracle"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export/morphs.rs",
+      "line": 135,
+      "existing_function": "rejects_incompatible_channels_and_non_finite_deltas",
+      "current_surface": "none",
+      "current_texcoords_and_obligation": "none"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "line": 40,
+      "existing_function": "existing export_equipment_with_maps helper, called by two existing tests",
+      "current_surface": "none; SurfaceTextures",
+      "current_texcoords_and_obligation": "Some"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/adventuresim-character-creator/tests/textile_export.rs",
+      "line": 36,
+      "existing_function": "portable_sheer_cloth_blends_once_and_retains_opaque_pattern_pixels",
+      "current_surface": "none; SurfaceTextures+TextileFinish",
+      "current_texcoords_and_obligation": "Some"
+    }
+  ],
+  "execution": "none; source reads and hashes only",
+  "edits": "none"
+}

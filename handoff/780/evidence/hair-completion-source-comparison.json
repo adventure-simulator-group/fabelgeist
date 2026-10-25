@@ -1,0 +1,63 @@
+{
+  "comparisons": [
+    {
+      "comparison": "Whole existing inline test module byteexact",
+      "matches": true
+    },
+    {
+      "comparison": "Root module docs/doctest unchanged",
+      "matches": true
+    },
+    {
+      "comparison": "Whole native structs/fields StrandGpu unchanged",
+      "matches": true
+    },
+    {
+      "comparison": "Whole Kernels resource fields unchanged",
+      "matches": true
+    },
+    {
+      "comparison": "Whole Scratches and GpuGroomer fields unchanged",
+      "matches": true
+    },
+    {
+      "comparison": "Whole Kernels initialization unchanged",
+      "matches": true
+    },
+    {
+      "comparison": "Whole head_shape numerical layout unchanged",
+      "matches": true
+    },
+    {
+      "comparison": "Headless constructor and required device limits unchanged",
+      "matches": true
+    },
+    {
+      "comparison": "Whole GpuGroomer methods unchanged except obsolete rawpoll deletion",
+      "matches": true
+    },
+    {
+      "comparison": "Whole Creator method/field/storage/upload source unchanged except completion",
+      "matches": true
+    },
+    {
+      "comparison": "Whole params macro and reexport unchanged",
+      "matches": true
+    },
+    {
+      "comparison": "Entire existing fixture exactly two completion call API adaptations",
+      "matches": true
+    },
+    {
+      "comparison": "Canonical native owner unchanged crates/fabelgeist-gpu/src/globals/wgpu_context/completion.rs",
+      "matches": true
+    },
+    {
+      "comparison": "Canonical native owner unchanged crates/fabelgeist-gpu/src/globals/wgpu_context/submission.rs",
+      "matches": true
+    }
+  ],
+  "new_tests_cases_helpers_assertions": false,
+  "project_checks_run": false,
+  "limitation": "Direct source equivalence only, no runtime/build/global clearance"
+}

@@ -1,0 +1,35 @@
+{
+  "revision": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+  "base": "59bb96d07af08244582c6767d81e969b820ec3ed",
+  "files": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "f5fd53af89771488b500f8b2e661505b5b169dd355785fafe6005127f7c23fad"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "37d9aad2bed62e065620cccd542180cc439dba8aae9726d0b3177d9f7cb7311a"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "2f01964984a42e98201c8cb2be6095d0779a2f6292d8571021b64f70bc976656"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "a542629ff77155448219d508e544a55f2da0c3f024f7454fb2c26a597f1da13a"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "bc324c39eaed75e445e0b5247a8ce1adcd1cc336525d221ba6f174aacfb2cbd8"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "e725590d8bfe60bfe165344b3476bacfc4ed84d7426fd7f59c2586a992fbf368"
+    }
+  ],
+  "scope": "Exact6 sole UV authority/maps-only API only; not full material/native/physical receipt",
+  "contract": "RiggedShell.surface only maps; texcoords sole vertex UVs. Both map families require finite position-sized UVs. Unchanged compactor remaps once and Writer reads sole column; no stale source UV fallback. Both character/equipment map producers and same existing textured fixture adapted directly. Image/PBR override policy, other fixture helpers/scenarios/oracles exact.",
+  "reviews": "Fresh Code+Rule+Comment and full13 increment source review clear on6 hashes;11 preservation comparisons true; no compiled/runtime/project/CI pass.",
+  "integration": "These Creator files are Root-owned composition context; later PBR changes must preserve maps-only/sole-UV API. No generated/native function change in receipt.",
+  "remaining": "Canonical material/color/component appearance/closed recipes/units/counts/seeds/causes and full native/body/physical/generated composition remain open. No push/CI/merge."
+}

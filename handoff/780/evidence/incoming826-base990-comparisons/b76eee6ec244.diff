@@ -1,0 +1,16 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-gpu/src/data/gpu/resource.rs
+
++++ filtered826-c798/crates/fabelgeist-gpu/src/data/gpu/resource.rs
+
+@@ -20,8 +20,8 @@
+
+     pub fn base_type(&self) -> ResourceBaseType {
+         match self {
+             GpuResource::Buffer(_) => ResourceBaseType::F32, // Default to f32 for buffers
+-            GpuResource::Texture2d(t) => ResourceBaseType::from_texture_format(t.format),
+-            GpuResource::Texture3d(t) => ResourceBaseType::from_texture_format(t.format),
++            GpuResource::Texture2d(t) => ResourceBaseType::from_texture_format(t.format()),
++            GpuResource::Texture3d(t) => ResourceBaseType::from_texture_format(t.format()),
+         }
+     }
+ 

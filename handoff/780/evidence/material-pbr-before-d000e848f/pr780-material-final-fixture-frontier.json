@@ -1,0 +1,327 @@
+{
+  "head": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+  "scope": "Pre-edit fixture and native color boundary discovery for material_final_api_design; not implementation clearance",
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_export.rs",
+      "sha256": "3f0d6674ab64abd4e90c50836ccc7028edb39f616d8758b2c6ff25e8380d9059",
+      "lines": 110,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_appearance.rs",
+      "sha256": "2e1613f877cb04558ff0524ed8f83feb75eb0ec8d3655c45b8c3efd10e323840",
+      "lines": 760,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "sha256": "142460bac2304c4a63a77c9759a003d9bd57a9d5b6210b8d7954105d6ee3e827",
+      "lines": 141,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "sha256": "4994b1974149becac0c96f9e0dafeb0d26c1db776cc4adef9d2e1b388b033058",
+      "lines": 185,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/assembly.rs",
+      "sha256": "69228ac01428944c7113f479834ac9179928ab25512d652a741cd799c562b494",
+      "lines": 315,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/morphs.rs",
+      "sha256": "49339af440cea4592fc08969075def3ca3380fe9a495d0b77180049f879ceee3",
+      "lines": 164,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "43e385b5074a6c8884aabe7f27f70c016f9b16b16e19a0020d58cd01090de0b8",
+      "lines": 205,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "e725590d8bfe60bfe165344b3476bacfc4ed84d7426fd7f59c2586a992fbf368",
+      "lines": 1785,
+      "read_extent": "current lines 550-620,730-795,825-1785; complete test module and all six shell literals; unrelated socket math not freshly complete"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "lines": 699,
+      "read_extent": "current lines 1-145,445-EOF; complete both test modules and constructor; fitting implementation between omitted"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/skin_rules.rs",
+      "sha256": "f1ab48b207688209504ac8ab5ddef2286d7ebac5d6e2d8545313f87e1e3db474",
+      "lines": 480,
+      "read_extent": "current lines 225-EOF; complete test module/helper/callers; production fitting not freshly read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/tests.rs",
+      "sha256": "4b726c8fb494223caa41cf5539d152fc924226f7c1baa3b4b40506bbe560da35",
+      "lines": 278,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "sha256": "39b44062b3a3fb8db93c869721bcd0ede9f01f588cbde35ea6cdf4b9a26377e3",
+      "lines": 334,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "f5fd53af89771488b500f8b2e661505b5b169dd355785fafe6005127f7c23fad",
+      "lines": 62,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "37d9aad2bed62e065620cccd542180cc439dba8aae9726d0b3177d9f7cb7311a",
+      "lines": 111,
+      "read_extent": "complete current file in preceding UV review at identical hash; present native references reread"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "2f01964984a42e98201c8cb2be6095d0779a2f6292d8571021b64f70bc976656",
+      "lines": 162,
+      "read_extent": "current lines 130-EOF; complete file preceding UV review at identical hash"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "9b57fb4bbcebe5b20113a06d530507253693a37d40f85f1617a38cbccb63fa87",
+      "lines": 105,
+      "read_extent": "complete current file preceding UV review at identical hash; present references reread"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "lines": 237,
+      "read_extent": "complete current file preceding UV review at identical hash; present precedence references reread"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "sha256": "99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "lines": 38,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/bare_body.rs",
+      "sha256": "68cef7d12e388a580394d74d3162513902fc9a8c6539ae328aac33e1240bd4cb",
+      "lines": 71,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/preview.rs",
+      "sha256": "f7fa8bef88e0b718991dab2245cce57436b6748186df1769f7fadcef64ceb698",
+      "lines": 206,
+      "read_extent": "current lines 1-230 (complete file)"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "8f76594ec3871a68df2f8e98740aa629e479b1e6fc7a0ad9a63e4e7f029e30a1",
+      "lines": 389,
+      "read_extent": "current lines 180-285"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/export.rs",
+      "sha256": "0b57ba3d094cdb3ac0ea1e872f7177837ffae8c16be441a1dbcb823d220b26dc",
+      "lines": 32,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "lines": 144,
+      "read_extent": "current lines 72-99 preceding UV review at identical hash; occurrence enumeration now"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "e0c18e02e9345a8e02e21334af5c2ad1a7bc2dbdc19e203915d5af87df8ecb10",
+      "lines": 512,
+      "read_extent": "current lines 385-420 only; existing skin material caller"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_shade.rs",
+      "sha256": "4bee07accb46e2b52d29da58644b4b620c69f55278774fcd1fff1d591d4c8779",
+      "lines": 71,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/textile_surface.rs",
+      "sha256": "6eb0a624f247ea8c1ed2ffd6b25f65ece4b8742d30dd44d190914c9e0b399726",
+      "lines": 161,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material/rings.rs",
+      "sha256": "6905eff437f36dde6d25965152bfde07ab25c57596f1d5068c14fb52fe75a222",
+      "lines": 258,
+      "read_extent": "current lines 1-100 only, native color/alpha publication and docs"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing_material.rs",
+      "sha256": "879486f9beb55903e6b6788555437f70413b4449dbf5ebfcf6295b1a81e5d2b5",
+      "lines": 20,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "lines": 312,
+      "read_extent": "current lines 80-122 plus source occurrence map for cloth tuple at130"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/components.rs",
+      "sha256": "0cee8ea4265d2ec61509c2c7a516a7dfa6d9d46a483d83fdae928bd1fe010ad5",
+      "lines": 128,
+      "read_extent": "current lines 95-EOF only, actual component/material definitions"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile.rs",
+      "sha256": "15db7df94796b698c31fed85b836eddca6737ede411b7b1a4fcb88ed8f29dc30",
+      "lines": 22,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_pattern.rs",
+      "sha256": "5eb511d902255a5f0b52b7f0de48232b1ee202e4e069cae7802be6cad5ec4f09",
+      "lines": 358,
+      "read_extent": "current lines 210-242 only"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "sha256": "82a6a4729b279187a9e7012181e5b85601f4ab3924c707d3243816168a83bc62",
+      "lines": 311,
+      "read_extent": "current lines 260-315 only, actual production component constructor"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_layout.rs",
+      "sha256": "b7381d70280af87d9fdd65c064d5048239c9f001182df31961346e76eb07e602",
+      "lines": 128,
+      "read_extent": "current lines 1-35,65-100 only, production component constructor"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "sha256": "dcd91f8fa4f1fc251a4195f28cd8b7954b77f03a174d2f6d455c70550c53e7dc",
+      "lines": 510,
+      "read_extent": "current lines 285-335 only, production whole-component constructor"
+    },
+    {
+      "path": "crates/fabelgeist-armor/tests/common/mod.rs",
+      "sha256": "2a42c8782162e902ce082adcd8baeb03ea6ea6dcf9b9ef98edad988d11ef68bc",
+      "lines": 229,
+      "read_extent": "current lines 180-245 only, helper return-type/unchanged topology evidence"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/color.rs",
+      "sha256": "ec95ce41e0de2b14f31c2d8a206461d2ed69f95183e18ae020c7ce956de86c74",
+      "lines": 80,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "lines": 24,
+      "read_extent": "complete current file"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/transfer.rs",
+      "sha256": "81b5c5f4a55d8191a178ea71fc618c968db91c2b601fa7b72e0cadf466ecad62",
+      "lines": 271,
+      "read_extent": "complete current file read across initial full and focused repeated output"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "lines": 120,
+      "read_extent": "current lines 1-145 only; Ratio declaration/constructor/getter"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/runtime_equipment/clothing.rs",
+      "sha256": "72974a2d1ab294dcd4b04a06a153d9781a559e9478b7f429ff32909fd6a03f8e",
+      "lines": 68,
+      "read_extent": "current lines1-42 only"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "lines": 301,
+      "read_extent": "current lines135-165 plus equipment_pbr export occurrence"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "lines": 13116,
+      "read_extent": "selected bevy_color0.19.1 and serde_json1.0.151 entries only"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/value/from.rs",
+      "sha256": "ae4b5f93b27e578fa40e3a8d25d0df2032fe40b680cddb15963e47cbd56db613",
+      "lines": 284,
+      "read_extent": "current lines25-65"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/value/ser.rs",
+      "sha256": "11f2b7daa1eba826d4086d5497f73729478dd7647bff77deccde5e47b0f126f2",
+      "lines": 1063,
+      "read_extent": "current lines135-165"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_color-0.19.1/src/srgba.rs",
+      "sha256": "f6bc4fc540e5d861e9b73d7311bb85f3664a1417e72007bc1844e16c6ab6e2b3",
+      "lines": 521,
+      "read_extent": "current lines195-230,350-405 plus exact occurrence map"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_color-0.19.1/src/color.rs",
+      "sha256": "02af4493fa9e96eba4a7f79442744ee7386181801561607010c8f83ac120f097",
+      "lines": 951,
+      "read_extent": "current lines90-125 only"
+    }
+  ],
+  "findings": [
+    {
+      "id": "PBR-FIXTURE-C1",
+      "priority": 3,
+      "path": "crates/adventuresim-character-creator/src/garment_material/rings.rs",
+      "line": 69,
+      "current": "Color and alpha are sRGB; normal and occlusion are linear data.",
+      "mismatch": "RGB is encoded; alpha is direct coverage and must not be transfer decoded. Actual map construction writes u8::MAX or zero alpha and Bevy conversion preserves alpha.",
+      "suggestion": "RGB color channels are sRGB; alpha, normal and occlusion are linear data."
+    },
+    {
+      "id": "PBR-FIXTURE-C2",
+      "priority": 3,
+      "path": "crates/adventuresim-character-creator/src/preview.rs",
+      "line": 189,
+      "current": "The previewed skin: of the body, and of the scalp cap under hair.",
+      "mismatch": "Actual cap uses scalp_shade::material based on assets::hair_surface; skin_material callers shade the body, including skin beneath the separate cap.",
+      "suggestion": "The body's skin, visible beneath the separate hair-painted scalp cap."
+    },
+    {
+      "id": "PBR-FIXTURE-C3",
+      "priority": 3,
+      "path": "crates/fabelgeist-armor/src/components.rs",
+      "line": 122,
+      "current": "Unlit surface parameters; generated textures supply normal and AO detail.",
+      "mismatch": "Current receivers construct StandardMaterial metallic/roughness PBR with default unlit false. Already known material documentation finding, independently reconfirmed here.",
+      "suggestion": "Describe encoded base color and dimensionless metallic/perceptual roughness in the new canonical SurfaceMaterial owner, without calling it unlit."
+    }
+  ],
+  "source_only_comparison": {
+    "current_local_glb_channel_body_equals_canonical_srgb_after_identifier_and_whitespace_normalization": true
+  },
+  "limits": [
+    "No source edits or project execution/checks/tests/probes. No new tests/cases/helpers/assertions/doctests.",
+    "All listed fixture bodies freshly read. Partial production/native extents explicitly recorded; searches enumerate occurrences, not clearance.",
+    "New APIs are selected design, not current implementation. Final receiving review remains required.",
+    "Encoded float widget bug remains separate next Metal semantic scope; no clearance.",
+    "Broad physical/native/generated/material/global PR work remains open."
+  ]
+}

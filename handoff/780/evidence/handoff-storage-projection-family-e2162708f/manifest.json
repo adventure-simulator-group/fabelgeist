@@ -1,0 +1,56 @@
+{
+  "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "files": {
+    "crates/fabelgeist-compute/src/advect/mod.rs": "4b94a0b3a1a1e51b108608d28ca28fda6178e366ab2c8f49980a4968e2aff721",
+    "crates/fabelgeist-compute/src/divergence/mod.rs": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38",
+    "crates/fabelgeist-compute/src/gather/mod.rs": "95da5cd7a5e390cb9ea21c4dd61be55d324726a9d1dfef9c9bc769629318bfd9",
+    "crates/fabelgeist-compute/src/gradient/mod.rs": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97",
+    "crates/fabelgeist-compute/src/map/mod.rs": "6bac7f1ff95532004d88a383de80e559f550f4e8d3223d5adbbffd50a8907071",
+    "crates/fabelgeist-compute/src/reduce/mod.rs": "e97b56c90018e2382c2715260d0608d334eff6d141bc7dd8bb8fe6f708ed20ce",
+    "crates/fabelgeist-compute/src/scatter.rs": "20e9e3f15f7e286e98018ec8bba3d8e4d430e24a13d800d2fd8246f8f0c50932",
+    "crates/fabelgeist-compute/src/stencil.rs": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+    "crates/fabelgeist-compute/src/stream/mod.rs": "5d8fdfbb20b5107dc061d22f3bae3611904ea4828ec4ee38fd47ce3518e5ba6e",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs": "991f1eebf5b1a9cf7f8fa7314793b2610a78fa7f5b01236a19c84ea9f73773fd",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs": "3cdc160eca2363969ca49ee4c5f8c1f1c05b78038f6c1df887d56b457510811b",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format/storage.rs": "5c67a62164329d7fc2a0d7b96fb4eac6e7cc7317bb6c122ba671ddc95c40335b",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": "1b980d4e70b78653c3c8c246e2cf7da33f4bc5cec208060e5ef4acbf059ba24e"
+  },
+  "reference_files": {
+    "crates/fabelgeist-color/src/wgpu.rs": "7e35c05565fa8fa492ddc7ea0886a7305272d5692607ecc8a91745a3a461b16a",
+    "crates/fabelgeist-gpu/Cargo.toml": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58"
+  },
+  "ownership": {
+    "Root780_ready_definitions": [
+      "TextureFormat module + format/storage.rs canonicalchecked WGSLspelling viaexistingcolor::PixelFormat",
+      "compute/signature.rs + signature/texture_value.rs + signature/coordinates.rs canonical type/value/coordinate ownerdefinitions",
+      "ResourceDescriptor::base_type andbinding/string/textureprojection/generatedprogram helpers; ResourcePipeline shape owner",
+      "Listed Compute Map/Gather/Stencil/Scatter/Advect/Gradient/Divergence/Reduce/Stream producer/program functions"
+    ],
+    "Root780_cube_receipt_authority": [
+      "TextureCube::render_face_shader_raw",
+      "TextureCube::render_shader_raw"
+    ],
+    "Root826_preserve": [
+      "Whole TextureBinaryOpDefinition::build_pipeline remains826; Rootcurrentfileiscomposecontext notoverride",
+      "GPU compute/pipeline/shader/reflection andentryselection functions remain826, no copyingRootoldlowerimplementation",
+      "Cube::new/upload/transfer/scope/view functions remain826; suppliedwholeCubefilecontext extractONLYexacttwoRootshaderfunctions",
+      "Allother Buffer/WgpuContext/nativeScope/Texture transfer/readback ownerfunctions remain826"
+    ]
+  },
+  "contracts": [
+    "StorageFormatError exactactualformat, canonical color WGSLname, no rgba32float unsupportedfallback",
+    "Cube shaderstorage/native layout derive actual self.effective_format(self.format), storage spellingResult propagated",
+    "TextureValue borrows canonical ResourceBaseType andadmits numericlane projection; preservegeneralCustomBuffer path",
+    "ResourceDescriptor::base_type()->existingResourceBaseType, no base_type_str leakedstring orparallel classifier",
+    "Mixedpath source MUST composebyagreedwholefunctions with826162completeGPUreference, notwholepathoverwrite"
+  ],
+  "validation": "ReadyRootcontracts recorded/source-compared in ignored ledger sections; allprovidedbytes freshlyverifiedexactimmutableGit e216. This packaging addsnosource or tests. Notglobal/final/runtimeclearance.",
+  "limits": [
+    "No tests/cases/helpers/assertions newlyauthored; existingfixtureAPI changesonly",
+    "Remainingconnectedfamilies/global13/final3reviews/requiredhostedCI mustcomplete beforepush/CI",
+    "Finalcombinedgraphmanifest stillpending RootCreator/physical/body/armor/lowercomposition"
+  ]
+}

@@ -1,0 +1,13 @@
+--- crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs current780
++++ crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs canonical826
+@@ -31,7 +31,9 @@
+     ///
+     /// Native contexts created here enable this; borrowed contexts disable it
+     /// to avoid blocking their caller on GPU work. A blocking poll waits for
+-    /// the latest submission observed when polling begins and has no timeout.
++    /// the latest submission observed when polling begins, requesting no explicit
++    /// timeout. A backend can still fail that wait; observing construction
++    /// propagates the actual polling error and any captured validation error.
+     /// Finalization and submission read their scopes without a completion wait.
+     /// When disabled, these operations install no verdict scope, so
+     /// native errors follow the device's configured error handling. Browser

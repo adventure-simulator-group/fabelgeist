@@ -1,0 +1,245 @@
+{
+  "head": "59bb96d07af08244582c6767d81e969b820ec3ed",
+  "kind": "read-only preimplementation design reconciliation",
+  "canonical_proposed_owner": "fabelgeist_armor::SurfaceMaterial in surface_material.rs; no compatibility alias",
+  "component_schema": "required ComponentAppearance::{Inherit,Surface(SurfaceMaterial),Textile(TextileAppearance)}",
+  "exact_tuple_producers": [
+    "clothing_material::pbr / equipment_pbr",
+    "garment_material::CLOTH_PBR",
+    "MailWeave::pbr",
+    "MailSurface::pbr"
+  ],
+  "new_source_finding": {
+    "id": "PBR-PROJECTION-1",
+    "priority": 2,
+    "contract": "finite input does not imply finite f32 sRGB decode; admitted native output must be numeric before JSON publication",
+    "evidence": [
+      "export/validation.rs finite-only PBR",
+      "export.rs linear_base_color powf(2.4)",
+      "pinned serde_json1.0.151 nonfinite f32 -> Value::Null"
+    ],
+    "counterexample": "encoded finite RGB channel 1e20; decoded approximately1e48 not representable in f32",
+    "execution": "source-derived; no probe/test",
+    "repair_requires_all13_preinventory": true
+  },
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-armor/src/components.rs",
+      "sha256": "0cee8ea4265d2ec61509c2c7a516a7dfa6d9d46a483d83fdae928bd1fe010ad5",
+      "read_extent": "105-129 current; whole source previously read; canonical record and component serde directly reread."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile.rs",
+      "sha256": "15db7df94796b698c31fed85b836eddca6737ede411b7b1a4fcb88ed8f29dc30",
+      "read_extent": "Whole current source."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_pattern.rs",
+      "sha256": "5eb511d902255a5f0b52b7f0de48232b1ee202e4e069cae7802be6cad5ec4f09",
+      "read_extent": "218-237 current material operation; broader schema/admission fully read in constructor discovery, not new whole-file clearance."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_seams.rs",
+      "sha256": "3882e3a17758fc8e0ec7ee8c6559353c07b0902f93bd84b70734484950ddc128",
+      "read_extent": "Whole current source; exact textile-payload predicates and correlated attribute cloning."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "def762808a49aeb39b51f92cbc23450db6811d6f0eef2db8c97c963625114f73",
+      "read_extent": "310-370 current BuiltPart metadata/append introduction only; native GPU implementation not cleared."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_layout.rs",
+      "sha256": "b7381d70280af87d9fdd65c064d5048239c9f001182df31961346e76eb07e602",
+      "read_extent": "1-45 current metadata constructor introduction only; numerical layout not cleared."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime.rs",
+      "sha256": "a41d7583511916f837e5a9402fe4658589c54e4cfe15fa29cb04dd6a585ca000",
+      "read_extent": "1-52 current retained components declaration only; GPU functions not cleared."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_piece_components.rs",
+      "sha256": "f6fb5fcd8c755d324faac65bffc7a5fa82abd5f87be2e40263deab5dd925ed7d",
+      "read_extent": "Whole current source; component partition clones and copies appearance with original topology association."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_textile_materials.rs",
+      "sha256": "5d457ed74d03a8130d204d48803cb881c977c580d8e36a25ff94971dd2288f37",
+      "read_extent": "Whole current source; all textile/material replacement paths."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_textile_relief.rs",
+      "sha256": "de0860c5622ce947641038fe25033226ed7902722064cc5bcb4c8dd2e03e1542",
+      "read_extent": "Whole current source, including relief/needlework mutation through actual textile payload."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/sewn_eyelet_mesh.rs",
+      "sha256": "33ef4daa09c4bb138ca81a7cbcf163235670f05842c3671154ce5246d844fc95",
+      "read_extent": "Whole current source assembled from constructor/body and 75-111 tail; appearance publication and chart extension."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "sha256": "39b44062b3a3fb8db93c869721bcd0ede9f01f588cbde35ea6cdf4b9a26377e3",
+      "read_extent": "Whole current source including existing fixture APIs; no execution."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/export.rs",
+      "sha256": "0b57ba3d094cdb3ac0ea1e872f7177837ffae8c16be441a1dbcb823d220b26dc",
+      "read_extent": "Whole current source."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "b53b6a874c7a23f38f7895c75a03c65c599c21e122d45b1843e5b3efa2b3a25e",
+      "read_extent": "Whole current source."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "read_extent": "Whole current source; generic appearance admission finite-only."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "9b57fb4bbcebe5b20113a06d530507253693a37d40f85f1617a38cbccb63fa87",
+      "read_extent": "Whole current source; rebuilding and plate-only UV stale-source hazard."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "93b0aa654eacc98d66c072b54cb1a1d0444b75e6bdc3cc0ecd7d76325f085bd6",
+      "read_extent": "Whole source read in constructor frontier; current native PBR projection/source references checked, no new exporter whole-graph clearance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "read_extent": "150-223 current actual white-factor replacement/alpha/specular native policy, broader map handling not fresh clearance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "82c083e495d9e3b992abf5ad23d3f99f48acc42da6900cd44ca99405140095de",
+      "read_extent": "555-595 and 747-783 current competing decoder and skin writer; field occurrence map used only for fixture frontier, not source clearance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "8f76594ec3871a68df2f8e98740aa629e479b1e6fc7a0ad9a63e4e7f029e30a1",
+      "read_extent": "168-282 current component/clothing/armor constructors from both latest direct reads; unrelated fit math not cleared."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "33f6b05450b7b1eb8e1080aa330b35696e6ee4c57da0bb4d208a18f66ebec963",
+      "read_extent": "130-230 current complete catalog_shells body and geometry source contract; remainder not fresh clearance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "2906c6c5115f7924743595c1808b2337d4b167c27d301436ac22304c75479428",
+      "read_extent": "55-115 current catalog materials/maps/component override and native output path."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "read_extent": "64-100 current RiggedShell construction; pigment/native generation not fresh clearance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/preview.rs",
+      "sha256": "f7fa8bef88e0b718991dab2245cce57436b6748186df1769f7fadcef64ceb698",
+      "read_extent": "1-145 current native clothing/lacing/component paths; skin declaration source map from peer report, not whole-file clearance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "read_extent": "Material-related 1-145 and surrounding receiving entry points read; large output display truncated beyond unrelated geometry; no whole-file clearance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing_material.rs",
+      "sha256": "879486f9beb55903e6b6788555437f70413b4449dbf5ebfcf6295b1a81e5d2b5",
+      "read_extent": "Whole current source read constructor frontier; direct triple signature verified unchanged in current source."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "read_extent": "Whole current source read constructor frontier; source schema references retained, not a fresh fitting-algorithm clearance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_export.rs",
+      "sha256": "3f0d6674ab64abd4e90c50836ccc7028edb39f616d8758b2c6ff25e8380d9059",
+      "read_extent": "1-53 current exact fixture construction/API; rest covered by peer account only, not independent fresh clearance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "43e385b5074a6c8884aabe7f27f70c016f9b16b16e19a0020d58cd01090de0b8",
+      "read_extent": "1-92 current exact existing helper signature/literals and normal-only case start; remaining fixture details from peer account only."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "sha256": "4994b1974149becac0c96f9e0dafeb0d26c1db776cc4adef9d2e1b388b033058",
+      "read_extent": "Whole current source; all partition/appearance/catalog receivers and native geometry association."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "sha256": "142460bac2304c4a63a77c9759a003d9bd57a9d5b6210b8d7954105d6ee3e827",
+      "read_extent": "1-76 current two canonical PBR literals and component constructors; remaining fixture oracles peer account only."
+    },
+    {
+      "path": "crates/fabelgeist-color/src/color.rs",
+      "sha256": "ec95ce41e0de2b14f31c2d8a206461d2ed69f95183e18ae020c7ce956de86c74",
+      "read_extent": "Whole current source; existing Color is a struct, named serde component fields, unrestricted f32 values."
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "read_extent": "Whole current source exports."
+    },
+    {
+      "path": "crates/fabelgeist-color/src/transfer.rs",
+      "sha256": "81b5c5f4a55d8191a178ea71fc618c968db91c2b601fa7b72e0cadf466ecad62",
+      "read_extent": "1-154 current transfer enum, RGB conversion methods and exact scalar sRGB formulas; other transfer families not cleared."
+    },
+    {
+      "path": "crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "read_extent": "Whole current source; actual optional serde/bytemuck/wgpu features."
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "read_extent": "Whole current manifest read in constructor frontier; Color dependency currently absent."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "1346098aa561b83aa6d045c8744f19edc6605674fd0bbf313af4dcfc4ef595e5",
+      "read_extent": "Whole current manifest read in constructor frontier; direct Color dependency currently absent."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "8aa55633cd7ff303e586406b52582fd208269232ae9217364c309fa085b074d1",
+      "read_extent": "17-28 and 90-120 current actual Math/Armor/Creator dependency composition; rest not independently cleared."
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "read_extent": "Parsed actual serde_json version only; no lock regeneration."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "ca7c957fbd5d63fc3b507a0023e05ba2e74a3aef48c3dba54276013f7de6769a",
+      "read_extent": "Parsed actual serde_json version only; no lock regeneration."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/value/from.rs",
+      "sha256": "ae4b5f93b27e578fa40e3a8d25d0df2032fe40b680cddb15963e47cbd56db613",
+      "read_extent": "29-45 actual pinned f32 Value conversion"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/value/ser.rs",
+      "sha256": "11f2b7daa1eba826d4086d5497f73729478dd7647bff77deccde5e47b0f126f2",
+      "read_extent": "146-163 actual pinned Serialize f32 delegation"
+    }
+  ],
+  "global_clearance": false,
+  "no_source_edits": true,
+  "no_checks_tests_probes": true,
+  "limits": [
+    "Each read extent explicit; no whole-file or whole-family clearance inferred from hashes or peer reports.",
+    "Concrete enum serde tagging and required-field policy must be recorded by Root before implementation.",
+    "Full durable component external clients and physical/native rasterizer graph not independently cleared."
+  ]
+}

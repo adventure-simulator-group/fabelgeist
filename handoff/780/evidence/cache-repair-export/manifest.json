@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-23T14:15:10.658272+00:00",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "local_checkpoint": "464b1c82b578444067767d629ceb21ccaeba84dd",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "393bb49e7e4bab85af8bf3c20b69ae4d22a3e1b38ae8f005ec267c994dc4aebd"
+    }
+  ],
+  "integration": "source_cache.rs is the new final shared cache owner. kernel/mod.rs is reference only: take only KernelCache struct/impl and changed cache imports; do not overwrite #826 receiving bodies or replace #779 canonical launch owners. GPU compute/mod.rs adds mod source_cache and pub use source_cache::ComputeSourceCache. Existing tests unchanged. Later source update: also preserve canonical FOLDED_INDEX_WGSL constant/doc overflow guards; this does not edit shared receiver functions. F15 caller/duplicate closure remains incomplete.",
+  "validation": "not-run; no push or CI"
+}

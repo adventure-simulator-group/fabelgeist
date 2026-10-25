@@ -1,0 +1,37 @@
+--- crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs current780
++++ crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs canonical826
+@@ -1,6 +1,9 @@
+ //! Compute bindings are reflected before choosing a dispatch pipeline layout.
++
+ use super::*;
+ use crate::data::gpu::shader::{BindGroupReflection, BufferBinding, SamplerBinding, validate_naga};
++#[cfg(not(target_arch = "wasm32"))]
++use crate::globals::ValidationScope;
+ use std::collections::BTreeMap;
+ 
+ mod images;
+@@ -77,11 +80,7 @@
+             return Err(ComputePipelineError::BindGroupLimit { index, limit });
+         }
+         #[cfg(not(target_arch = "wasm32"))]
+-        let scope = context.blocking_validation.then(|| {
+-            context
+-                .device
+-                .push_error_scope(wgpu::ErrorFilter::Validation)
+-        });
++        let scope = ValidationScope::new(context);
+         let mut layouts = Vec::new();
+         let mut reflected = Vec::new();
+         for (index, mut group) in groups {
+@@ -99,10 +98,7 @@
+         }
+         #[cfg(not(target_arch = "wasm32"))]
+         if let Some(scope) = scope {
+-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+-            if let Some(cause) = pollster::block_on(scope.pop()) {
+-                return Err(ComputePipelineError::Native(Arc::new(cause)));
+-            }
++            scope.finish().map_err(ComputePipelineError::from)?;
+         }
+         Ok(Self {
+             reflection: Arc::new(ComputeReflection {

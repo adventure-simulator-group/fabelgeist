@@ -1,0 +1,12 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-gpu/README.md
+
++++ filtered826-c798/crates/fabelgeist-gpu/README.md
+
+@@ -29,3 +29,6 @@
+
+ Empty uploads fail allocation. Armor consumers explicitly call
+ `with_empty_word` when an empty logical input still requires a scalar binding.
+ The generic buffer layer does not silently pad every input.
++
++The [whole-texture format-view contract](texture-views.md) describes view
++selection errors, native causes and cached-view sharing.

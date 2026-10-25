@@ -1,0 +1,327 @@
+//! Grouped copies into one host-mapped staging buffer.
+//!
+//! For an unmappable source, [`Buffer::read`] allocates staging and submits a
+//! separate copy before mapping. [`Readback`] records all source copies into
+//! their producing batch, preserves their byte order and maps one allocation
+//! after successful submission. Its allocation and polling device come from
+//! that batch.
+//!
+//! [`Readback::record_pending`] requests mapping after the submission helper
+//! returns `Ok`. [`PendingReadback`] polls for results without requesting a GPU
+//! completion wait. Discard it if submission fails or the batch is dropped:
+//! its mapping callback is not requested on those paths. [`Readback::read`]
+//! instead waits explicitly for native device work while mapping.
+
+use std::sync::{Arc, Mutex, MutexGuard};
+
+use fabelgeist_gpu::prelude::{
+    Buffer, BufferByteLength, BufferByteOffset, BufferDefinition, BufferUse,
+};
+
+use crate::{BufferCopy, KernelBatch};
+
+type Result<T> = std::result::Result<T, ReadbackError>;
+
+/// A buffer's admitted location in the shared staging allocation.
+#[derive(Clone, Copy, Debug)]
+struct StagedRange {
+    offset: BufferByteOffset,
+    length: BufferByteLength,
+}
+
+/// Results staged for one mapping.
+#[derive(Debug)]
+pub struct Readback {
+    device: wgpu::Device,
+    staging: Buffer,
+    ranges: Vec<StagedRange>,
+}
+
+/// Results on their way back: see [`Readback::record_pending`].
+#[derive(Debug)]
+pub struct PendingReadback {
+    device: wgpu::Device,
+    staging: Buffer,
+    ranges: Vec<StagedRange>,
+    state: Arc<Mutex<ReadbackState>>,
+}
+
+/// Failures of recording or retrieving a batch of GPU results.
+#[derive(Debug, thiserror::Error)]
+pub enum ReadbackError {
+    #[error("readback staging extent exceeds the addressable buffer size")]
+    ExtentOverflow,
+    #[error("readback staging extent {bytes} cannot be addressed on this host")]
+    HostExtent {
+        bytes: BufferByteLength,
+        #[source]
+        source: std::num::TryFromIntError,
+    },
+    #[error("readback range allocation failed")]
+    RangeAllocation(#[source] std::collections::TryReserveError),
+    #[error("readback staging allocation failed")]
+    Staging(#[source] anyhow::Error),
+    #[error("readback copy recording failed")]
+    Copy(#[source] anyhow::Error),
+    #[error("readback mapping callback was dropped")]
+    ChannelClosed,
+    #[error("readback mapping failed")]
+    Mapping(#[source] wgpu::BufferAsyncError),
+    #[error("readback device polling failed")]
+    Poll(#[source] wgpu::PollError),
+    #[error("readback results have already been taken")]
+    AlreadyRead,
+}
+
+#[derive(Debug)]
+enum ReadbackState {
+    Pending,
+    Ready,
+    Failed(wgpu::BufferAsyncError),
+    Taken,
+}
+
+impl StagedRange {
+    /// Convert byte addresses only when slicing the mapped native bytes.
+    fn bytes(self, data: &[u8]) -> Vec<u8> {
+        // record admits the complete staging extent within isize::MAX;
+        // every range ends within it, so both casts and their sum fit usize.
+        let start = u64::from(self.offset) as usize;
+        let length = u64::from(self.length) as usize;
+        data[start..start + length].to_vec()
+    }
+}
+
+impl Readback {
+    /// Record each source's typed extent in an aligned staging allocation.
+    /// Overflow is rejected before a GPU allocation or copy is recorded.
+    pub fn record(batch: &mut KernelBatch, buffers: &[&Buffer]) -> Result<Self> {
+        let context = batch.context();
+        let mut ranges = Vec::new();
+        ranges
+            .try_reserve_exact(buffers.len())
+            .map_err(ReadbackError::RangeAllocation)?;
+        let mut end = BufferByteOffset::START;
+        for buffer in buffers {
+            ranges.push(StagedRange {
+                offset: end,
+                length: buffer.size,
+            });
+            // wgpu's copy alignment is a byte-layout boundary. Preserve the
+            // original padding and ordering while checking the total extent.
+            let padded = u64::from(buffer.size)
+                .div_ceil(wgpu::COPY_BUFFER_ALIGNMENT)
+                .checked_mul(wgpu::COPY_BUFFER_ALIGNMENT)
+                .ok_or(ReadbackError::ExtentOverflow)?;
+            end = end
+                .checked_after(BufferByteLength::from(padded))
+                .ok_or(ReadbackError::ExtentOverflow)?;
+        }
+        let bytes = BufferByteLength::from(u64::from(end).max(wgpu::COPY_BUFFER_ALIGNMENT));
+        isize::try_from(u64::from(bytes))
+            .map_err(|source| ReadbackError::HostExtent { bytes, source })?;
+        let staging = Buffer::new(
+            context,
+            bytes,
+            BufferDefinition::map_read()
+                .with_usage(BufferUse::CopyDestination)
+                .with_label("Readback".into()),
+        )
+        .map_err(ReadbackError::Staging)?;
+        for (buffer, range) in buffers.iter().zip(&ranges) {
+            batch
+                .copy_buffer(
+                    buffer,
+                    &staging,
+                    BufferCopy {
+                        source_offset: BufferByteOffset::START,
+                        destination_offset: range.offset,
+                        bytes: range.length,
+                    },
+                )
+                .map_err(ReadbackError::Copy)?;
+        }
+        Ok(Self {
+            device: context.device.as_ref().clone(),
+            staging,
+            ranges,
+        })
+    }
+
+    /// Record copies and request mapping after a successful batch submission.
+    /// Discard the pending result if submission fails or the batch is dropped.
+    pub fn record_pending(
+        batch: &mut KernelBatch,
+        buffers: &[&Buffer],
+    ) -> Result<PendingReadback> {
+        let Self {
+            device,
+            staging,
+            ranges,
+        } = Self::record(batch, buffers)?;
+        let state = Arc::new(Mutex::new(ReadbackState::Pending));
+        let (mapped, shared) = (staging.buffer.clone(), state.clone());
+        batch.after_submit(move || {
+            mapped
+                .slice(..)
+                .map_async(wgpu::MapMode::Read, move |result| {
+                    *lock_state(&shared) = match result {
+                        Ok(()) => ReadbackState::Ready,
+                        Err(error) => ReadbackState::Failed(error),
+                    };
+                });
+        });
+        Ok(PendingReadback {
+            device,
+            staging,
+            ranges,
+            state,
+        })
+    }
+
+    /// Map once after the producing batch has submitted successfully.
+    /// Return source bytes in recording order. Native builds explicitly wait
+    /// on the retained device; browser builds await the mapping callback.
+    pub async fn read(self) -> Result<Vec<Vec<u8>>> {
+        let slice = self.staging.buffer.slice(..);
+        let (sender, receiver) = futures_channel::oneshot::channel();
+        slice.map_async(wgpu::MapMode::Read, move |result| {
+            let _ = sender.send(result);
+        });
+        #[cfg(not(target_arch = "wasm32"))]
+        self.device
+            .poll(wgpu::PollType::wait_indefinitely())
+            .map_err(ReadbackError::Poll)?;
+        receiver
+            .await
+            .map_err(|_| ReadbackError::ChannelClosed)?
+            .map_err(ReadbackError::Mapping)?;
+        let data = slice.get_mapped_range();
+        let results = self.ranges.iter().map(|range| range.bytes(&data)).collect();
+        drop(data);
+        self.staging.buffer.unmap();
+        Ok(results)
+    }
+}
+
+impl PendingReadback {
+    /// Poll the staging device without requesting a GPU completion wait.
+    /// Take results once, returning `None` while mapping is pending.
+    pub fn try_read(&self) -> Result<Option<Vec<Vec<u8>>>> {
+        poll(&self.device)?;
+        let mut state = lock_state(&self.state);
+        match &*state {
+            ReadbackState::Pending => return Ok(None),
+            ReadbackState::Failed(error) => return Err(ReadbackError::Mapping(error.clone())),
+            ReadbackState::Taken => return Err(ReadbackError::AlreadyRead),
+            ReadbackState::Ready => {}
+        }
+        let slice = self.staging.buffer.slice(..);
+        let data = slice.get_mapped_range();
+        let results = self.ranges.iter().map(|range| range.bytes(&data)).collect();
+        drop(data);
+        self.staging.buffer.unmap();
+        *state = ReadbackState::Taken;
+        Ok(Some(results))
+    }
+
+    /// Observe readiness without taking the mapped results.
+    pub fn is_ready(&self) -> Result<bool> {
+        poll(&self.device)?;
+        match &*lock_state(&self.state) {
+            ReadbackState::Ready => Ok(true),
+            ReadbackState::Failed(error) => Err(ReadbackError::Mapping(error.clone())),
+            ReadbackState::Pending | ReadbackState::Taken => Ok(false),
+        }
+    }
+}
+
+fn poll(device: &wgpu::Device) -> Result<()> {
+    #[cfg(not(target_arch = "wasm32"))]
+    device
+        .poll(wgpu::PollType::Poll)
+        .map_err(ReadbackError::Poll)?;
+    #[cfg(target_arch = "wasm32")]
+    let _ = device;
+    Ok(())
+}
+
+fn lock_state(state: &Mutex<ReadbackState>) -> MutexGuard<'_, ReadbackState> {
+    // The callback replaces one complete enum value. A poisoned lock cannot
+    // expose a partially updated record, so retain the recorded GPU outcome.
+    match state.lock() {
+        Ok(state) => state,
+        Err(poisoned) => poisoned.into_inner(),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use fabelgeist_gpu::prelude::{BufferDefinition, BufferUpload, WgpuContext};
+
+    #[tokio::test]
+    async fn every_buffer_comes_back_in_order() -> anyhow::Result<()> {
+        let context = WgpuContext::new().await?;
+        let definition = BufferDefinition::storage();
+        // Odd lengths, so that the staged copies need padding between them.
+        let a = Buffer::from_upload(
+            &context,
+            BufferUpload::from_elements(&[1u32, 2, 3]),
+            definition.clone(),
+        )?;
+        let b = Buffer::from_upload(
+            &context,
+            BufferUpload::from_elements(&[7u8, 8, 9, 10, 11, 12, 13, 14]),
+            definition.clone(),
+        )?;
+        let c = Buffer::from_upload(&context, BufferUpload::from_elements(&[0.5f32]), definition)?;
+        let mut batch = KernelBatch::new(&context);
+        let readback = Readback::record(&mut batch, &[&a, &b, &c])?;
+        batch.submit()?;
+        let results = readback.read().await?;
+        assert_eq!(bytemuck::cast_slice::<u8, u32>(&results[0]), &[1, 2, 3]);
+        assert_eq!(results[1], [7, 8, 9, 10, 11, 12, 13, 14]);
+        assert_eq!(bytemuck::cast_slice::<u8, f32>(&results[2]), &[0.5]);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn a_pending_readback_arrives_without_waiting() -> anyhow::Result<()> {
+        let context = WgpuContext::new().await?;
+        let definition = BufferDefinition::storage();
+        let a = Buffer::from_upload(
+            &context,
+            BufferUpload::from_elements(&[4u32, 5, 6]),
+            definition.clone(),
+        )?;
+        let b = Buffer::from_upload(
+            &context,
+            BufferUpload::from_elements(&[0.25f32, 0.75]),
+            definition,
+        )?;
+        let mut batch = KernelBatch::new(&context);
+        let pending = Readback::record_pending(&mut batch, &[&a, &b])?;
+        // Nothing has been submitted, so nothing can have come back.
+        assert!(pending.try_read()?.is_none());
+        batch.submit()?;
+        let started = std::time::Instant::now();
+        let results = loop {
+            if let Some(results) = pending.try_read()? {
+                break results;
+            }
+            assert!(
+                started.elapsed().as_secs() < 10,
+                "the readback never arrived"
+            );
+            std::thread::yield_now();
+        };
+        assert_eq!(bytemuck::cast_slice::<u8, u32>(&results[0]), &[4, 5, 6]);
+        assert_eq!(bytemuck::cast_slice::<u8, f32>(&results[1]), &[0.25, 0.75]);
+        assert!(
+            pending.try_read().is_err(),
+            "a readback is read once"
+        );
+        Ok(())
+    }
+}

@@ -1,0 +1,679 @@
+{
+  "kind": "pre-repair semantic discovery, no source or project execution",
+  "head": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+  "sources": [
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "sha256": "bf177dcb1b678b06f9174b3aa283e4aa7634638681ce88c8722a900052734d72",
+      "lines": 117,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material/textures.rs",
+      "sha256": "89a5b76b6d0a2783ce6dbacb7329e7a2cda93ddceaf4fc12c060e7ff2c96036e",
+      "lines": 100,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material/tile.rs",
+      "sha256": "a094fe52ceba98b71a00ae2fa974ba24cf769131e3c265373727f353f3885869",
+      "lines": 67,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/engraving.rs",
+      "sha256": "c612e940bd0898395fad63b7d819dce7b863022f3258ade844f72d8a6a1c3dd2",
+      "lines": 288,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/engraving/error.rs",
+      "sha256": "0a96086e52a505d0b70fb45480e744c08a6415a804a39dc8880d44748173e83e",
+      "lines": 45,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/engraving/decoded_image.rs",
+      "sha256": "7ef1b572bf5a5c2e5684487da81194d1793c4025654f099c0898d97dfba064f1",
+      "lines": 75,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/engraving/sampling.rs",
+      "sha256": "d042b91ea2f8b98dd53b7733dd4f5f11a282b4763211f3ca3288b2e18879d548",
+      "lines": 108,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/ornament.rs",
+      "sha256": "74d886336dc4fbeeb4f9ff4ec29530a32fef42865dcb7ef2f6b2220b678c1ebf",
+      "lines": 194,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim.rs",
+      "sha256": "81abc6494df0d4f051b0c4548517fe80061204de7e90d9d2eb190635a12de5f2",
+      "lines": 128,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/finish.rs",
+      "sha256": "5ce0e0d224987f30347d1f4ae5feaf79f58a61aa3eec607ca22ee0ad7fe5c34b",
+      "lines": 156,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/edges.rs",
+      "sha256": "ffdc73a54de37023064d476bba8fbf666fe57f7597a910468c96fa3e9f63b2c7",
+      "lines": 319,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/split.rs",
+      "sha256": "44aafa5468b01108bee89840514846df79aa2075ea6c2e154b21d93cee321b9a",
+      "lines": 330,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/tests.rs",
+      "sha256": "4b726c8fb494223caa41cf5539d152fc924226f7c1baa3b4b40506bbe560da35",
+      "lines": 278,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "sha256": "c589129c7386c136feaf7f63fc21ed925f81dd035642ea3dacdc92d054659854",
+      "lines": 374,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/components.rs",
+      "sha256": "0cee8ea4265d2ec61509c2c7a516a7dfa6d9d46a483d83fdae928bd1fe010ad5",
+      "lines": 128,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile.rs",
+      "sha256": "15db7df94796b698c31fed85b836eddca6737ede411b7b1a4fcb88ed8f29dc30",
+      "lines": 22,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "sha256": "166181e2197cd6959a0f894ef512effae10f1ff508b6aec4108aabdcaee919be",
+      "lines": 42,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "b94c9bc6659a4ca3a7e9ef3bfbe5a52026c70dd86abd4c40f91c5066c9ebde8e",
+      "lines": 149,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "09072dcebe7d27d7866f20305953af487020335484821994e5b90db655683268",
+      "lines": 264,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "sha256": "e6e7f6eb9a2ef8dbb4d28132efa4d82f95ef220730cc20d12ccd376c43a14a9d",
+      "lines": 323,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+      "sha256": "d49752ba70390e3801be29f335f22fea33532331b7e73c555474f8a55e866741",
+      "lines": 135,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/ornament.rs",
+      "sha256": "6a9f887c5c746b8b70fc8a3c9741ffa1a68dd3580a61483ca88fbc244dcb4152",
+      "lines": 198,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/wgsl.rs",
+      "sha256": "90083b6c258f47bcf6e52babf50abc2cda917c32ea982b0404edcd75b8157f83",
+      "lines": 69,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/decoration.rs",
+      "sha256": "7b677abc0f1a167c6b25343e2964d611aa479132a32330ebd2bd8b03fbf2619e",
+      "lines": 153,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/decoration_controls.rs",
+      "sha256": "ca0d51e0b1984ca87534afb472882f25280b26fb445232ec0e3e178920e3f3a2",
+      "lines": 97,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_controls.rs",
+      "sha256": "fa3594e3f5dc55f7ad90ba02d05fedfff207c5a0d394e03faad2da235b3d6d14",
+      "lines": 201,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/ornament_controls.rs",
+      "sha256": "c10940e30bdb0ae77feaca37d5d33b6aac96e7cd7a97a48fc729c69be81aad3a",
+      "lines": 43,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/construction_controls.rs",
+      "sha256": "3f3fa3760c04b76557e2a6927b461eb83c134a41d561952d22579c3f3f286599",
+      "lines": 93,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_controls.rs",
+      "sha256": "ffb59abadd6add1be06909169480d7b845f7e90652cbadf9cc360c3fe3d50e33",
+      "lines": 180,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba",
+      "lines": 198,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing_material.rs",
+      "sha256": "879486f9beb55903e6b6788555437f70413b4449dbf5ebfcf6295b1a81e5d2b5",
+      "lines": 20,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "lines": 142,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "sha256": "09af59779312ad82dd8a82bace7284c98503db7e55eab5018e1deee5dae3bf14",
+      "lines": 74,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "3b90085dce11463f05a859d535dae2006b41e3332441d7f407c8b2b8dd837535",
+      "lines": 22,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/gpu_initialization.rs",
+      "sha256": "10bc50519c97e93024e55b870b20dac09dc6bee84958a36366e2b9eb07cc5e01",
+      "lines": 27,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/preview.rs",
+      "sha256": "f7fa8bef88e0b718991dab2245cce57436b6748186df1769f7fadcef64ceb698",
+      "lines": 206,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "aad333ef6af184900a6ac5da03ab5dea1e6bea08a26dea86cd8da164b37b6fbc",
+      "lines": 288,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "b53b6a874c7a23f38f7895c75a03c65c599c21e122d45b1843e5b3efa2b3a25e",
+      "lines": 61,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "93b0aa654eacc98d66c072b54cb1a1d0444b75e6bdc3cc0ecd7d76325f085bd6",
+      "lines": 111,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "sha256": "4994b1974149becac0c96f9e0dafeb0d26c1db776cc4adef9d2e1b388b033058",
+      "lines": 185,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/lib.rs",
+      "sha256": "bd588528cad05e62401905c31645e928a15b1175985219d9d79d21b2b2e81510",
+      "lines": 17,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "lines": 120,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "lines": 40,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "lines": 104,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "lines": 24,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/color.rs",
+      "sha256": "ec95ce41e0de2b14f31c2d8a206461d2ed69f95183e18ae020c7ce956de86c74",
+      "lines": 80,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "lines": 213,
+      "coverage": "complete current source read for this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "lines": 699,
+      "coverage": "1-165: GarmentSpecification material producer and retained columns; remainder of geometric fitting not read in this discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "8f76594ec3871a68df2f8e98740aa629e479b1e6fc7a0ad9a63e4e7f029e30a1",
+      "lines": 389,
+      "coverage": "145-265: component_materials, rigged_clothing, rigged_armor material producer; rest of morph algorithms not read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+      "lines": 478,
+      "coverage": "1-245: density caller, SelectedTrim/Finish and construct/trim; later trim fixture/caller identified, not full tail read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "sha256": "3031832a29165a676c81ee7b80a78ee5463dab02dbc69bdd959cd8bd3fd5d066",
+      "lines": 187,
+      "coverage": "1-100: material/trim material receiving method; remaining systems not read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/inventory.rs",
+      "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "lines": 442,
+      "coverage": "1-205,340-375: serde records and Article/Inventory cause barrier; other inventory operations not read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "e468ea09b75d60d64e6b1d7612bc80f852b125d62c7473f34bfcd2a878f1b2dc",
+      "lines": 301,
+      "coverage": "1-140,180-240: exports, recipe construction/validation barrier; remainder not read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/generation.rs",
+      "sha256": "eb3d54908cc923b9cd761ca5abaf748d4ad9ed9175289a2d3342d0e2d4c6a4a1",
+      "lines": 93,
+      "coverage": "1-65: recipe admission barrier; rest not read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "566a69fc6cd50bd7d7ea5c0347567c39f2bdc37e9f8004675dc5328e3751e12e",
+      "lines": 667,
+      "coverage": "113-160,258-285 declarations and startup paths; recipe load/save code only identified, Code reviewer owns full cause trace"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/studio_ui.rs",
+      "sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+      "lines": 435,
+      "coverage": "295-322: actual decoration library text-input/reload boundary"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_ui.rs",
+      "sha256": "5c519edc1b220e1bdb7d874160b997ffb77a98266e5f6c5de49565d4ab5e9ada",
+      "lines": 332,
+      "coverage": "215-260: actual construction and decoration editors; remainder not read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/inventory_article_editor.rs",
+      "sha256": "bfaf8082b9b0e3aba214dbe23016ae3d83f78b3a66f777ea6e2601ddc5475cf9",
+      "lines": 199,
+      "coverage": "1-125: selected catalog decoration/editor receiver; remainder not read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cli.rs",
+      "sha256": "75a646db6855544be80e795e8a46aa8467929113159c7c94011e641e00472c9c",
+      "lines": 70,
+      "coverage": "45-67: actual PathBuf configuration and decoration library default"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_fastener_mesh.rs",
+      "sha256": "bae2477655a7d54619d1f5265775f85fce6b4e1ec02693613f69a6b697ca3657",
+      "lines": 381,
+      "coverage": "1-165: ClosureMaterial, constructor PBR literal and button-loop material; geometry tail not read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_hook_mesh.rs",
+      "sha256": "f0561bc0a88d651c54ed6c5d6334c2fdc9bb6b1e6d2408a35132eac95a07a131",
+      "lines": 147,
+      "coverage": "115-145: actual hook PBR producer"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_lacing_mesh.rs",
+      "sha256": "328fbd586aca214f25884be7bcf0d69be4ba4375e6b3baada8f4f6c4ddbb7b99",
+      "lines": 136,
+      "coverage": "110-145: actual ring PBR producer"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_closure_controls.rs",
+      "sha256": "90841ec44c161926694e979084174360cf77b9cf6d47d11abc365cf5eb5345eb",
+      "lines": 153,
+      "coverage": "1-95: control context; existing TextileColor GUI is u8 sRGB, not float RGB owner"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "lines": 164,
+      "coverage": "1-125,145-166: material/UV validity receiver; intermediate skin part only partially read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "d4b6a4af8b3137b359c2d08f8ef03445e100edc2d1280ca74ec816212af31264",
+      "lines": 239,
+      "coverage": "1-145: public material/trim/component exports; root module remainder unreviewed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_pattern.rs",
+      "sha256": "5eb511d902255a5f0b52b7f0de48232b1ee202e4e069cae7802be6cad5ec4f09",
+      "lines": 358,
+      "coverage": "90-125,210-240: repeat/thread owners and actual PBR material producer"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/tiling/mod.rs",
+      "sha256": "7ff5bfe0408afa8433957ee7575dd1fbb9f83d6afe4bb3af59a581a81724280d",
+      "lines": 137,
+      "coverage": "1-150: actual metal-density chart producer and construction path"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/tiling/lacing.rs",
+      "sha256": "cce09840d83fc6c71d1020fc45961df2a0c9b4c2a85d5702bc0f65d6fad902a4",
+      "lines": 321,
+      "coverage": "250-295: actual length-to-metal-UV native geometry producer"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/transfer.rs",
+      "sha256": "81b5c5f4a55d8191a178ea71fc618c968db91c2b601fa7b72e0cadf466ecad62",
+      "lines": 271,
+      "coverage": "119-145: canonical float sRGB/linear conversions; rest not read"
+    },
+    {
+      "path": "crates/adventuresim-procedural-textures/src/palette.rs",
+      "sha256": "ed8f9afcc9b1ee24aa5e7d8aa42160703e0e6132c99775df7e29fe2e71f7eea8",
+      "lines": 118,
+      "coverage": "1-120: existing u8 SrgbColor owner and encoded/linear behavior"
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "lines": 142,
+      "coverage": "complete file read as owner candidate, rejected dependency/role location for portable material angles; no change proposed to building semantics"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "82c083e495d9e3b992abf5ad23d3f99f48acc42da6900cd44ca99405140095de",
+      "lines": 1785,
+      "coverage": "complete source read in immediately preceding current-source tranche review; current exact bytes fingerprinted again here, not historical verdict clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "lines": 237,
+      "coverage": "complete source read in immediately preceding current-source tranche review; current exact bytes fingerprinted again here, not historical verdict clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "2906c6c5115f7924743595c1808b2337d4b167c27d301436ac22304c75479428",
+      "lines": 346,
+      "coverage": "complete source read in immediately preceding current-source tranche review; current exact bytes fingerprinted again here, not historical verdict clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "33f6b05450b7b1eb8e1080aa330b35696e6ee4c57da0bb4d208a18f66ebec963",
+      "lines": 250,
+      "coverage": "complete source read in immediately preceding current-source tranche review; current exact bytes fingerprinted again here, not historical verdict clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "sha256": "fdc04f19250688292a3a3f1830e0b6ca7cdab927e166dd2940ddd549f6587e9c",
+      "lines": 259,
+      "coverage": "complete source read in immediately preceding current-source tranche review; current exact bytes fingerprinted again here, not historical verdict clearance"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "e76fa8ed410f3a4c8609d2b7528761832a8103ba075659ecfb3d1cc85a268d69",
+      "lines": 13116,
+      "coverage": "governing rules or dependency metadata read/inspected; no build performed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "ca7c957fbd5d63fc3b507a0023e05ba2e74a3aef48c3dba54276013f7de6769a",
+      "lines": 12316,
+      "coverage": "governing rules or dependency metadata read/inspected; no build performed"
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "5a51ad1fc7ac2e848b3d8fd8b016f5e5d12c4e433c5ff600353d0530d0b6eba1",
+      "lines": 28,
+      "coverage": "governing rules or dependency metadata read/inspected; no build performed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "1346098aa561b83aa6d045c8744f19edc6605674fd0bbf313af4dcfc4ef595e5",
+      "lines": 82,
+      "coverage": "governing rules or dependency metadata read/inspected; no build performed"
+    },
+    {
+      "path": "crates/fabelgeist-math/Cargo.toml",
+      "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "lines": 17,
+      "coverage": "governing rules or dependency metadata read/inspected; no build performed"
+    },
+    {
+      "path": "crates/fabelgeist-geometry/Cargo.toml",
+      "sha256": "a301b39ec718fa3959414680a15d2fa22226c216298da879aed86b9a1fb62165",
+      "lines": 21,
+      "coverage": "governing rules or dependency metadata read/inspected; no build performed"
+    },
+    {
+      "path": "crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "lines": 25,
+      "coverage": "governing rules or dependency metadata read/inspected; no build performed"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "lines": 113,
+      "coverage": "governing rules or dependency metadata read/inspected; no build performed"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "lines": 192,
+      "coverage": "governing rules or dependency metadata read/inspected; no build performed"
+    },
+    {
+      "path": "crates/fabelgeist-determinism/Cargo.toml",
+      "sha256": "c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303",
+      "lines": 26,
+      "coverage": "complete dependency manifest read before the Root native32 owner decision; no thiserror dependency exists"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/textile_surface.rs",
+      "sha256": "6eb0a624f247ea8c1ed2ffd6b25f65ece4b8742d30dd44d190914c9e0b399726",
+      "lines": 161,
+      "coverage": "1-105 read; material() actual inferred ArmorComponentMaterial receiving projection; remaining helpers not read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/export.rs",
+      "sha256": "0b57ba3d094cdb3ac0ea1e872f7177837ffae8c16be441a1dbcb823d220b26dc",
+      "lines": 32,
+      "coverage": "identified receiving API frontier only; not read in this semantic discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "bc1d25835f665c6c251087d1262e851bc01da86beda413c4d21b398b90cf594d",
+      "lines": 144,
+      "coverage": "identified receiving API frontier only; not read in this semantic discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "9b57fb4bbcebe5b20113a06d530507253693a37d40f85f1617a38cbccb63fa87",
+      "lines": 105,
+      "coverage": "identified receiving API frontier only; not read in this semantic discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/assembly.rs",
+      "sha256": "69228ac01428944c7113f479834ac9179928ab25512d652a741cd799c562b494",
+      "lines": 315,
+      "coverage": "identified receiving API frontier only; not read in this semantic discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/morphs.rs",
+      "sha256": "49339af440cea4592fc08969075def3ca3380fe9a495d0b77180049f879ceee3",
+      "lines": 164,
+      "coverage": "identified receiving API frontier only; not read in this semantic discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "43e385b5074a6c8884aabe7f27f70c016f9b16b16e19a0020d58cd01090de0b8",
+      "lines": 205,
+      "coverage": "identified existing fixture API frontier only; not read in this semantic discovery"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_export.rs",
+      "sha256": "3f0d6674ab64abd4e90c50836ccc7028edb39f616d8758b2c6ff25e8380d9059",
+      "lines": 110,
+      "coverage": "identified existing fixture API frontier only; not read in this semantic discovery"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "sha256": "142460bac2304c4a63a77c9759a003d9bd57a9d5b6210b8d7954105d6ee3e827",
+      "lines": 141,
+      "coverage": "identified existing fixture API frontier only; not read in this semantic discovery"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/tiling/tests.rs",
+      "sha256": "166ec2be7855c465b709326152b2be1babfdcd538a062213cc6a5d8ae680d1f9",
+      "lines": 192,
+      "coverage": "identified existing positive TrimBand fixture API frontier only; not read in this semantic discovery"
+    }
+  ],
+  "external_primary_sources": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/egui-0.34.3/src/ui.rs",
+      "sha256": "30995097d9587e0576344e54f99e5eb33b5aa255167c9f90e3f4efc99ac1606b",
+      "coverage": "ui.rs 2274-2281 and widgets/color_picker.rs 536-554; pinned version 0.34.3 verified in Creator lock"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/egui-0.34.3/src/widgets/color_picker.rs",
+      "sha256": "ef6853846e055d2134346b166ea83e75a93b4eddfb20472e4eaee57e083c96d7",
+      "coverage": "ui.rs 2274-2281 and widgets/color_picker.rs 536-554; pinned version 0.34.3 verified in Creator lock"
+    }
+  ],
+  "lens_order": [
+    "producer-propagation",
+    "existing-type-owners",
+    "admission-contracts",
+    "invariant-operations",
+    "aggregate-states",
+    "type-ownership",
+    "redundant-authority",
+    "behavior-preservation",
+    "enum-shapes",
+    "derivability",
+    "type-granularity",
+    "magic-strings",
+    "magic-numbers"
+  ],
+  "lenses": {
+    "producer-propagation": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 1. Producer propagation\n\nContract: semantic leaves survive constructors/defaults, serde, library copies,\ncontrols, trim arithmetic, retained cache/PBR records and native/image outputs.\nCurrent disposition: MAT-R1/R2/R5 remain incomplete. Exact earliest raw producers\nare material/engraving/ornament/trim schema fields and clothing_material::pbr;\ncontrols and catalog defaults mutate/construct them directly. Carry typed leaves\nthrough the field inventory above, including unchanged tiling density producers,\nArmorComponentMaterial and tactical runtime. Native PassParameters, generated\nWGSL, image encoding, Bevy and egui are real primitive boundaries. Dependencies:\nshared owners/serde/UI policy first, then all actual receivers. Acceptance: no\ninternal primitive relay/re-admission or parallel old/new API; all named call\nfamilies compile against the same owners; existing cases retain their values."
+    },
+    "existing-type-owners": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 2. Existing type owners\n\nContract: reuse requires equal meaning, arity, unit, range and authority.\nMetres/Ratio/PerMetre are transparent unit-only Math leaves; record admission\nmust still enforce finiteness/bounds. PositiveLength is already available to\nArmor/Creator and exactly matches geometric positive band dimensions. Existing\nArmorComponentMaterial is the PBR owner to consume/refactor. Generic Color is\nRGBA with named-field serde and no encoded-space invariant; TextileColor and\nprocedural SrgbColor are u8; Seed is u64 named-record serde. They cannot be\nblindly substituted for float RGB3/native32 words. Missing general angle and\nfractional texel-span/native32-seed roles need the lowest real shared owner,\nnot temporary local equivalents. Dependencies: dependency direction and both\nlocks, plus complete users if an owner moves. Acceptance: document exact owner\nfit and direct adapters, no quantization, altered RNG, needless new wrapper or\nnew dependency to a high-level building crate."
+    },
+    "admission-contracts": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 3. Admission contracts\n\nContract: every construction/deserialize/default/GUI update has the invariant it\nclaims; immutable admitted values remain stable through native use. Current\nMetal/Engraving/Ornament/Trim are publicly editable raw recipes with explicit\nvalidation; native ValidatedMetal and Cut protect baking. This is not proof that\nthe public fields/serde already enforce bounded scalar contracts. Introduce\nchecked decoding where a new type promises checks, or keep honest unit-only\nleaves with authoritative aggregate admission. Preserve Metal's actual default,\nall zero cases, bounded fractional repeats and strict finite checks. Retain\nimage extent/word/signed-wrap/sample-address admission and original causes.\nDependencies: aggregate relief shape and existing invalid-value fixtures.\nAcceptance: no derive bypass/private unchecked invalid default; API-only fixture\nadaptation preserves existing scenarios/oracles, with no added case/helper."
+    },
+    "invariant-operations": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 4. Invariant operations\n\nContract: period, narrowing, UV rescale, projection, count arithmetic and mutable\nreplacement preserve their admitted guarantees or fail without partial publish.\nMAT-C1 is confirmed in armor_metal density rescale and Code Review is completing\nits exact source/repair family. This inventory also requires admission/failure\npolicy for public Trim::narrowed and typed finite output in period/cell helpers.\nDo not infer finite results from finite operands or add an arbitrary epsilon.\nNative tile limits bound texel/word products; scratch count cap bounds five-draw\noffsets. Preserve 32-bit LCG wrapping and all native float operation order.\nDependencies: density/cause review and source geometry policy. Acceptance: compute\nand validate replacements before mutation; propagate failure through actual\ncatalog/trim callers; retain valid zero and geometric band breadth."
+    },
+    "aggregate-states": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 5. Aggregate states\n\nContract: source and supported relief agree, decoded image shape/pixels/recipe\nagree, all maps match a single tile, UVs match output mesh order, PBR fields travel\nas one named appearance, library admission occurs before publishing a copy.\nCurrent Cut/EngravingImage immutable borrows and MetalTextures admission are\nsound local owners. Public Engraving can represent Ornament+Normal, rejected only\nlater; choose payload-owning source variants or cohesive controlled admission.\nTrim output's correlated mesh/UVs and preview depth handle/scale need named\nrecords. Preserve Split's skin/morph/coordinate permutation with one order.\nDependencies: serde and complete PBR receiving API. Acceptance: no independently\nmutable duplicate source/relief facts, swapped tuple members or stale layout\npacket; explicit native transfer packets remain legitimate."
+    },
+    "type-ownership": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 6. Type ownership\n\nContract: one lowest shared owner per meaning, with direct final schema/API.\nPBR already crosses Armor, Creator and tactical client; it cannot be completed\nby a Creator-only wrapper. Physical band leaves can reuse Geometry; generic\nunits belong in Math, color-space conversion in canonical Color/framework, and\nnative32 generator identity below its users. Specific motif/repeat/scratch roles\nstay with their material owner when not equal to existing textile/hair roles.\nDependencies: Root/peer ownership composition for shared exports/manifests; no\nsource-edit permission is inferred from this report. Acceptance: direct imports,\nall users updated, no compatibility alias/forwarder or duplicate implementation."
+    },
+    "redundant-authority": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 7. Redundant authority\n\nContract: bounds/defaults, recipe/projection and cache dependencies have a single\ncurrent authority. Metal default is already used by polished catalog PBR; keep\nthat link instead of reintroducing a copy. Controls repeat several material\nbounds and millimetre conversion policy; consume named typed authoritative\nranges. Other catalog material colors/roughness are authored choices, not\nautomatically redundant merely because some numbers repeat. Native motif\nparameters are a derived packet, not a second mutable motif state. BakedMetal's\npath-keyed snapshot and first initialization outcome are deliberate current\nlifetimes, not proof of live file freshness. Dependencies: record/range owner\nselection. Acceptance: one bounds/default authority, read-only derived native\nprojection, explicit snapshot/cache policy and no speculative watcher."
+    },
+    "behavior-preservation": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 8. Behavior preservation\n\nContract: retain every supported value, shape, bound, arithmetic order, optional\ncase, source error, image color space and RNG word protocol except explicitly\nidentified repairs. Native shaders keep the same count-vs-launch distinction,\nLCG stream partition, RGB/RGBA transfer, wrapped bilinear coordinates, slopes,\ntruncation/saturation and stencil-free workgroup constants. Preserve -pi/pi\nendpoints, strength up to four, slant up to three, tiles 0.25..64, zero scratches,\nzero physical depth, plain decoration, independent trim/engraving and geometric\npositive bands. Default field JSON scalar/array semantics should stay explicit;\nany deliberate final schema change must be recorded, with no dual decoding or\nlegacy adapter. Dependencies: frozen shader/fixture source comparison and full\ncause/density repair. Acceptance: existing hosted fixtures/checks on final SHA;\nno claim of numeric/visual execution from this discovery."
+    },
+    "enum-shapes": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 9. Enum shapes\n\nContract: semantic choices own their payload; primitive flags remain only at\nactual native/checkbox/wire adapters. Fillet lines is a carried semantic role,\nso replace application bool with a named two-state owner and define its exact\nwire true/false mapping. Motif and Relief already own shape-specific values;\nkeep those payloads, with a named derived native motif packet. Source/relief\ncorrelation needs a final cohesive representation; an image may genuinely be\nHeight or Normal, an Ornament may not. Decoration engraving/trim are independent\naxes and must remain separately optional; cache.used and is_plain are ordinary\npredicates/history, not mechanical enum targets. Acceptance: impossible semantic\ncombinations rejected by final owner without erasing legitimate inactive/edit\nstate; native u32 flags still map to the same shader codes."
+    },
+    "derivability": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 10. Derivability\n\nContract: mechanical derives preserve both invariants and representation.\nExisting serde/Clone/Copy/PartialEq/Error derives are appropriate for recipe and\nclosed value owners. Custom Metal/Ornament/Trim defaults carry authored nonzero\npolicy and must not become zero-derived Default. ReliefSource Display performs\nsemantic path/procedural presentation; MetalGpu Debug intentionally hides device\ninternals. GpuInitializationError keeps the reviewed derived source and manual\nDisplay. New transparent unit owners can derive serde; bounded owners may derive\nthrough checked conversion and must not transparently deserialize unchecked.\nNo additional local handwritten trait boilerplate was shown necessary.\nDependencies: actual pinned derives and chosen leaf admission. Acceptance: exact\nsame public/wire semantics; no dependency added solely for cosmetic derive use."
+    },
+    "type-granularity": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 11. Type granularity\n\nContract: distinctions prevent actual role/unit mistakes without a universal\nquantity framework or one wrapper per literal. Ratio is not restricted to one;\nMetres need not always be positive; signed origin is not roughness; float texel\nspan is not integer count; scratch/ornament/curve counts are not HairStrandCount,\nSortItemCount, ScanElementCount, InvocationCount or WorkgroupGrid. Geometric\nTrimBand and authored Trim bounds differ. Prefer one shared PBR appearance\nrecord, small mesh/UV and depth records, and one native motif packet. Keep raw\npixel arrays, fixed mathematical vectors, dimensions and exact serialization/\nframework tokens at the actual boundary. Acceptance: explain the mix-up each\nnew distinction prevents; do not add arbitrary lower bounds, quantization or\npass-through adapter modules."
+    },
+    "magic-strings": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 12. Magic strings\n\nContract: every string occurrence is accounted by its actual owner or real text\nboundary. ReliefSource uses open PathBuf; LibraryName owns open user names;\nMotif display names and UI labels are presentation, while discriminants/variants\ncontrol behavior. Shader binding names, source fragments, serde snake_case tags,\nPNG/glTF tokens, filenames and existing fixture strings are actual native/wire/\nauthored text, not missing application enums. Decoration path text is a real\neditable egui buffer admitted to Path at the filesystem call; CLI already owns\nPathBuf. Preserve typed errors until terminal UI formatting: Article/Inventory/\nCharacterRecipe String barriers are MAT-R5, not a legitimate native boundary.\nDependencies: Code Review's complete cause graph. Acceptance: no prose-driven\nbranch/new status-string protocol; no closed filename/name vocabulary; all real\nsemantic identity owners retained through application APIs."
+    },
+    "magic-numbers": {
+      "inventory_status": "pre-repair inventory completed for explicitly read material semantic source responsibilities; incomplete regions remain dependencies, not cleared",
+      "contract_disposition_repair_dependencies_acceptance": "### 13. Magic numbers\n\nContract: every literal/extraction has a checked unit/role or concrete native\noperation. Material/relief/ornament/trim bounds and defaults have the units and\nzero cases in the field inventory; controls must consume the actual policy owner.\nGenerated shader literals are ABI widths/bit masks, normalized coordinates,\nworkgroup dimensions, seed generator constants or owned visual policy. Preserve\nwhich are float texels, metres, ratios, counts, byte stride and word indices.\nPixel packing's 8/24/255, four-byte words, binding padding zeros, sine/cosine\npairs, current sampler endpoint arithmetic and existing authored fixtures have\nconcrete native purposes. This is not a blanket exemption for all numbers in\nshader/private code: each meaningful material/native parameter is traced above.\nNo new arbitrary tolerance/epsilon or generic raw scalar helper is authorized.\nAcceptance: typed producers reach real numeric boundaries, native values/order\nstay exact, and actual final hosted quality checks enforce unchanged policies."
+    }
+  },
+  "new_finding": {
+    "id": "MS-COLOR",
+    "priority": "P2",
+    "locations": [
+      "crates/adventuresim-character-creator/src/metal_controls.rs:12",
+      "crates/adventuresim-character-creator/src/construction_controls.rs:73"
+    ],
+    "contract": "float encoded sRGB material and lacing colors are passed to egui 0.34.3 linear RGB editor then interpreted again as encoded sRGB",
+    "repair": "canonical conversion at actual GUI boundary, float precision retained, commit only on actual changed response; no u8 quantization"
+  },
+  "clearance": "none; preinventory only, existing MAT-C1/R1-R5 and explicit incomplete regions remain open",
+  "root_design_receipt": "## Root design receipt before implementation\n\nRoot explicitly supplied the following design decisions after reading the\ninventory; no implementation had started. They refine the proposed repair,\nwithout supplying clearance for unread receivers.\n\n- Reuse Math Metres/Ratio/PerMetre. Add one portable unit-only scalar Radians in\n  Math. Reconcile the building generator's stricter finite/frame-owned Radians\n  by composing the shared leaf while retaining its stricter admission and\n  role. Do not add a second general angle implementation or import the\n  high-level building crate into portable material code.\n- Add a distinct native u32 seed word owner to Determinism. Preserve scalar JSON,\n  all 32 bits, zero, wrapping native LCG arithmetic and existing draw order. The\n  existing u64 Seed retains its independent contract; introduce no new RNG.\n  Determinism already has serde and has no direct thiserror dependency; the\n  unit-only word needs no new validation-error dependency.\n- Add float encoded three-channel Srgb and four-channel Srgba owners at Color,\n  distinct from unqualified RGBA Color and higher-level u8 palette colors.\n  Preserve scalar array wire precision and existing color-space meaning.\n  Resolve MS-COLOR only at the real UI adapter, with no quantization and no\n  conversion on an unchanged editor response.\n- Retain material terminal finite/range admission by immutable borrow; unit-only\n  Math/Color leaves do not independently claim all application bounds. Introduce\n  admitted bounded roles for scratch-per-tile count (zero permitted), motif\n  repeats and Guilloche strands. One authoritative range owner must feed both\n  admission and controls; do not create independently adjustable duplicate caps.\n- Promote/reuse ArmorComponentMaterial as the one named PBR owner throughout\n  catalog, components, retained records and callers. Do not add a second\n  Creator Pbr record or tuple/primitive bridge. Final name/location and its\n  construction/receiver frontier remain deliberately incomplete below.\n- Close the Engraving source/relief state so Ornament+Normal cannot persist.\n  Migrate controls, serde, Cut and native consumers directly to that final\n  schema. Keep no compatibility fields, aliases, dual implementations or\n  fallback decoder. Exact scalar/array/enum representation decisions must be\n  recorded before source repair; the earlier current-wire inventory is not a\n  demand to introduce a legacy adapter.",
+  "receiving_frontier": "## Exact broader PBR and construction frontier\n\nThe following is a source-discovery frontier, not search-based clearance. It\nidentifies the actual owners, constructors and retained receivers Root must\ncompose before calling the chosen PBR API inventory complete.\n\n| Frontier | Current inspected evidence | Remaining obligation |\n| --- | --- | --- |\n| Canonical PBR owner and producers | components.rs fully read; TextileColor::material fully read; TextileAppearance::material selected source read; hook/ring/fastener PBR constructors selected source read | Before changing owner leaves/name/location, inspect all associated construction and mutation routes in textile_pattern.rs, cloth_fastener_mesh.rs, cloth_hook_mesh.rs and cloth_lacing_mesh.rs. Preserve current u8-to-float channel division, opacity and metallic/roughness values. |\n| Catalog appearance | clothing_material::pbr and armor_metal::metal fully read; GarmentSpecification fields and producer selected source read | Carry one appearance owner through retained GarmentSpecification instead of unpacking into new raw fields. Review any later clones/mutations in clothing.rs; no geometric fitting clearance is implied. |\n| Creator preview and cache | preview.rs, metal_preview.rs and underlayer_preview.rs fully read; studio_generation material method and armory_scene fully read | Keep actual Bevy color/ratio projections at material construction, including component override, lacing, trim and no-texture fallback; preserve cache lifetimes. |\n| Inferred textile receiver | textile_surface.rs:1-105 newly read, especially material() receiving fabric.material() | This consumer does not spell ArmorComponentMaterial but receives it by inference. Its base_color/metallic/roughness projection must migrate with the owner. Remaining texture/PNG helpers are unreviewed for unrelated behavior. |\n| Portable/rigged output | export/rigged.rs and export/shell.rs fully read; full current export.rs/textures/equipment_export/character_export were directly read in the immediately preceding source review and same bytes are fingerprinted | Named appearance plus correlated surface/texture packet must propagate through character_morphs.rs, garment/export.rs, character_export/hair.rs and export compact/assembly/morph rebuilding, not just the initial Writer. Selected material-producing character_morphs functions are read; other named paths below remain unread. |\n| Tactical runtime | equipment/runtime_equipment/meshes.rs fully read, including inferred component.material and equipment_pbr fallback | Adapt both material partitions and fallback atomically. Existing mesh_tests.rs must only receive API changes; its cases/oracles are not reviewed here. |\n| Existing fixture receivers | material/engraving/ornament/trim fixture cases and preceding current metal/export fixtures were read | Existing textile_export.rs, export/textures/tests.rs and tactical mesh_tests.rs are identified but unread. No test, helper, case or assertion may be added. Preserve all existing valid/invalid scenarios when bounded count admission moves. |\n| Construction and trim | construction.rs plus trim owners/edges/split/tests fully read; ParametricEquipment first 245 lines, actual selected trim path and armory trim source read | Finish parametric_equipment.rs tail (including its second trimmed caller/fixture) before changing the return API. Keep Construction::trim_on and Plate::widest_trim's current minimum behavior. |\n| Shared density producer | tiling/mod.rs actual tiles chart function and tiling/lacing.rs length-to-chart projection read | Read whole surrounding production functions before a typed density change; preserve f32 multiplication/order, scatter and unchanged lacing native units. Existing tiling/tests.rs positive-band receiver is identified but unread. |\n| Cause/serde | Decoration/library owners and selected Article/Inventory/CharacterRecipe validators read | Root must compose the Code agent's complete cause/density report and Comment agent's consumer inventory. Other source coverage is not inferred from those agents' names or historical reports. |\n\nIdentified but not fully read source dependencies now have explicit SHA-256\naccounts marked unreviewed in the JSON: garment/export.rs,\ncharacter_export/hair.rs, export/{compact,assembly,morphs}.rs,\nexport/textures/tests.rs, tests/textile_export.rs, tactical runtime\nmesh_tests.rs and Armor tiling/tests.rs. This list is a receiving API frontier,\nnot a declaration that no other inferred receiver exists. Source searches were\nused to locate paths; direct receiving source and exact chosen API determine\nclosure. Root acknowledged that this shared-owner/API/PBR construction frontier\nremains incomplete before implementation.",
+  "final_head": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+  "design_status": "Root decisions recorded; final shared owner/API/PBR construction frontier explicitly incomplete before implementation",
+  "report_sha256": "a3e57d8921ae75f150d7ec9a6b58f9af609ff129babde15c0a4cc359207f8a5f"
+}

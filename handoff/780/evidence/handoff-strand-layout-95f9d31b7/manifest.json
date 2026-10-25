@@ -1,0 +1,53 @@
+{
+  "head": "95f9d31b7d9fbb56aa8330c72fffb46fb8e0c0be",
+  "files": [
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "9a4cfd422099b6ffde9fb27f49e0c26fccd850684039712cb7e17e28bc7527db",
+      "role": "canonical owned layout exact source"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "role": "read-only dependency source pin, do not blindly overwrite peer-owned/current receiver files"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "c6f4ad80bfb0c67093b1c41be27f683fbbe6aa190fc6f7d1e3c920877d8c8f50",
+      "role": "read-only dependency source pin, do not blindly overwrite peer-owned/current receiver files"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod/counts.rs",
+      "sha256": "44ebb1a94560acc8633f707efbc477822c5c2f46fa4945b8ca640d41c7efc85e",
+      "role": "read-only dependency source pin, do not blindly overwrite peer-owned/current receiver files"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/sort/quantities.rs",
+      "sha256": "ae35c1089ff9353846f021e15346d4372e5b1ccf4d5e8f14744e837e08543103",
+      "role": "read-only dependency source pin, do not blindly overwrite peer-owned/current receiver files"
+    },
+    {
+      "path": "crates/fabelgeist-spatial-hash/src/layout.rs",
+      "sha256": "dc6fd69fe9942a9b8893f1c26ef0b62f7fbb519029bfc2755cf91410c1761930",
+      "role": "read-only dependency source pin, do not blindly overwrite peer-owned/current receiver files"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "role": "read-only dependency source pin, do not blindly overwrite peer-owned/current receiver files"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/shape.rs",
+      "sha256": "949b9a749edab5e37a710f6b33e4270e0235538833b7d78bb6874810361bb473",
+      "role": "read-only dependency source pin, do not blindly overwrite peer-owned/current receiver files"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/grid.rs",
+      "sha256": "11d9cb92749cc9e59c634b98a1ac4f46c27493668304c6030c668a0cf3bbc6cf",
+      "role": "read-only dependency source pin, do not blindly overwrite peer-owned/current receiver files"
+    }
+  ],
+  "api": "gpu::StrandLayout/StrandLayoutError/StrandLayoutResult/StrandAttribute exports. for_host_level validates full host shape before fitting resident; full TryFrom remains fullcapture. positions_binding_bytes/info_binding_bytes use one canonical native record for logical0, data bytes remain0; actual physical/Device binding checks remain receiver. prefix exactbound; fit_level_binding preserves population0. Native width/draw/sample guarantees as docs.",
+  "module_composition": "Root gpu/mod.rs mod layout + pub use layout::{StrandAttribute,StrandLayout,StrandLayoutError,StrandLayoutResult}; Root retains Groom/Guide/Level/Card/Lods/Sim production. No full gpu/mod receiving overwrite.",
+  "limitations": "Host StrandLevel currently retains raw points; canonical layout adapter owns this host/native admission and will be adapted by Root when host leaf producer migrates. Peer imports stable layout API only. Grid/shape transfer proposed, explicit peer acceptance pending. No tests/native/hosted clearance."
+}

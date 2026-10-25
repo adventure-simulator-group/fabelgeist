@@ -1,0 +1,28 @@
+{
+  "revision": "e2162708fcf3885193db434300ed6c2999ab7607",
+  "files": {
+    "crates/fabelgeist-compute/src/map/recipe.rs": "2b74f16ffced873fe963fa9e529ae410a73f41140d10334818b26c8663bef420",
+    "crates/fabelgeist-compute/src/gather/recipe.rs": "f9f1191683c0890a728199fbca3a598436d356ce1857b8ab96ccdafd354bebf8",
+    "crates/fabelgeist-compute/src/stencil/recipe.rs": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+    "crates/fabelgeist-compute/src/stream/call.rs": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+    "crates/fabelgeist-compute/src/reduce/execution.rs": "fdf743edb8382f0bae0750c6255d89a22855f9be09f50179981ffd8f26964435",
+    "crates/fabelgeist-compute/src/reduce/layout.rs": "19f555f68f33ff087db6fb06d6a5f37bb4ca784708e74739098c7c99b2c0de15",
+    "crates/fabelgeist-compute/src/reduce/error.rs": "8dfa0b2e6cbfe706b8e070c9b18e1abf4029d45cc1147a58a5e7b2967071e578",
+    "crates/fabelgeist-compute/src/scan/wgsl.rs": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5"
+  },
+  "reference_files": {
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs": "86e926ab47cd284d07a0e14265aaf7b5ba3ce1b6cc5e2aff66328e05f67aee02",
+    "crates/fabelgeist-gpu/src/data/gpu/mod.rs": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+    "crates/fabelgeist-gpu/src/prelude.rs": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666"
+  },
+  "authority": [
+    "Whole listed Compute recipe/Reduce/ScanWGSL files Root-owned ready source",
+    "Root canonical BufferElementStride/Count definitions and conversions in whole stride.rs; explicit826confirmation requested before composition, no takeover of its native Buffer functions",
+    "buffer/mod.rs CONTEXT ONLY: consume canonical stride module/reexport; preserve826new/write/read/map/native implementations",
+    "Hold ALL extraction receiving until complete Root extraction/MarchingCubes/DualContouring tranche; isolated prior extraction/wgsl supplement is not an integration unit",
+    "Whole TextureBinaryOpDefinition::build_pipeline remains826, prior sources are context only there"
+  ],
+  "test_policy": "No newly added tests/cases/helpers/assertions in packaging; existing fixture adaptation provenance is separately tracked and must be revalidated in final graph",
+  "limits": "Source packaging only, all exact e216; not independent/global/compiled clearance. Composition requires prior16 +supplement8 +this9 owned definitions and actual native lower graph."
+}

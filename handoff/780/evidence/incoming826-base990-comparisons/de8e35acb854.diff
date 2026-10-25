@@ -1,0 +1,58 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-gpu/src/data/gpu/shader/error.rs
+
++++ filtered826-c798/crates/fabelgeist-gpu/src/data/gpu/shader/error.rs
+
+@@ -0,0 +1,52 @@
+
++use std::{error::Error, fmt, sync::Arc};
++
++/// Shader admission failures retain the SDK cause and any source diagnostic.
++#[derive(Clone, Debug)]
++pub enum ShaderError {
++    WgslParse {
++        cause: Arc<wgpu::naga::front::wgsl::ParseError>,
++        diagnostic: String,
++    },
++    GlslParse {
++        cause: Arc<wgpu::naga::front::glsl::ParseErrors>,
++        diagnostic: String,
++    },
++    Validation {
++        cause: Arc<wgpu::naga::WithSpan<wgpu::naga::valid::ValidationError>>,
++        diagnostic: String,
++    },
++    Translation(Arc<wgpu::naga::back::wgsl::Error>),
++    Native(Arc<wgpu::Error>),
++}
++
++impl fmt::Display for ShaderError {
++    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
++        match self {
++            Self::WgslParse { diagnostic, .. } => {
++                write!(formatter, "WGSL Parse Error: {diagnostic}")
++            }
++            Self::GlslParse { diagnostic, .. } => {
++                write!(formatter, "GLSL Parse Error: {diagnostic}")
++            }
++            Self::Validation { diagnostic, .. } => {
++                write!(formatter, "Compute Shader Validation Error: {diagnostic}")
++            }
++            Self::Translation(cause) => {
++                write!(formatter, "Failed to convert GLSL to WGSL: {cause}")
++            }
++            Self::Native(cause) => write!(formatter, "Compute Shader Validation Error: {cause}"),
++        }
++    }
++}
++
++impl Error for ShaderError {
++    fn source(&self) -> Option<&(dyn Error + 'static)> {
++        Some(match self {
++            Self::WgslParse { cause, .. } => cause.as_ref(),
++            Self::GlslParse { cause, .. } => cause.as_ref(),
++            Self::Validation { cause, .. } => cause.as_ref(),
++            Self::Translation(cause) => cause.as_ref(),
++            Self::Native(cause) => cause.as_ref(),
++        })
++    }
++}

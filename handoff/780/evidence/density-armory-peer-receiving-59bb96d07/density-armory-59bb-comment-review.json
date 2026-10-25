@@ -1,0 +1,178 @@
+{
+  "review": "Independent preliminary Comment Review: canonical density/Armory eight-file packet",
+  "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+  "tree": "4cd32ada6fcfa89ff977cd836ee2b0649df73d28",
+  "packet_base": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+  "main_pin": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "manifest": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-density-armory-59bb96d07/manifest.json",
+  "manifest_sha256": "f3f5e2910d4143b6f20a25537a34647cd62b025c654ddc050331a103e2e688e5",
+  "root_receiving_status": "No Root copy reviewed. This is exact incoming packet source, not the current combined Root graph.",
+  "source_accounting": [
+    {
+      "path": "crates/fabelgeist-armor/src/material/density.rs",
+      "sha256": "94db413bd0eeefd9fc860abb8eee368ee1d11a55cb48cbb4cd7ba2113fd0d665",
+      "lines": 122,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-density-armory-59bb96d07/source/crates/fabelgeist-armor/src/material/density.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh complete source read including all existing fixtures and documentation; full packet-base diff read"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "sha256": "12debec1a00cb2ff34e5ef09978a4a3c523bde4bfb1926a1dbef86b7decaf6ea",
+      "lines": 119,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-density-armory-59bb96d07/source/crates/fabelgeist-armor/src/material.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh complete source read including all existing fixtures and documentation; full packet-base diff read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "00f657217f6dc1b7b5677176fad2153836a7aabc133a1c7b518bba391a607c16",
+      "lines": 171,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-density-armory-59bb96d07/source/crates/adventuresim-character-creator/src/armor_metal.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh complete source read including all existing fixtures and documentation; full packet-base diff read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "d71953e80a22f666f64d7733ae41279fe18700e1f6b0531ee1cfd404f4c95559",
+      "lines": 478,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-density-armory-59bb96d07/source/crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh complete source read including all existing fixtures and documentation; full packet-base diff read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory/exhibit.rs",
+      "sha256": "b2f4f006cf78814970012ab94d85d178176813c53cd2fbd9768ff2b17349c221",
+      "lines": 95,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-density-armory-59bb96d07/source/crates/adventuresim-character-creator/src/armory/exhibit.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh complete source read including all existing fixtures and documentation; full packet-base diff read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory.rs",
+      "sha256": "74f95648715bc2456ec986093c649779f02d3c773607d24af7ff0ccfc4ca18ef",
+      "lines": 427,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-density-armory-59bb96d07/source/crates/adventuresim-character-creator/src/armory.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh complete source read including all existing fixtures and documentation; full packet-base diff read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "ff67d80dde117a3e4dd23e394d0a5bc6efe5049ca032c0e5fc0a30eaaeec3429",
+      "lines": 288,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-density-armory-59bb96d07/source/crates/adventuresim-character-creator/src/armory_scene.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh complete source read including all existing fixtures and documentation; full packet-base diff read"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armory_ui.rs",
+      "sha256": "dea23f6efe94e9b5439739548675be1b0cfd109a3e153e2a083d7a816db43aeb",
+      "lines": 332,
+      "source": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-density-armory-59bb96d07/source/crates/adventuresim-character-creator/src/armory_ui.rs",
+      "matches_manifest_and_git": true,
+      "coverage": "Fresh complete source read including all existing fixtures and documentation; full packet-base diff read"
+    }
+  ],
+  "dependency_accounting": [
+    {
+      "path": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "lines": 170,
+      "coverage": "Fresh complete supporting source read including comments and existing fixtures where present"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "lines": 146,
+      "coverage": "Fresh complete supporting source read including comments and existing fixtures where present"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "lines": 120,
+      "coverage": "Fresh complete supporting source read including comments and existing fixtures where present"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/design.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "86dac554a42b48cf1547e5656337fb718b4a4fc7e231a30009ce00ff7207dd00",
+      "lines": 183,
+      "coverage": "Fresh complete supporting source read including comments and existing fixtures where present"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_preview.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "48e7ef34b4f757817c54281efd85160d1920dcb9e61fd8536113fd0927e879ed",
+      "lines": 142,
+      "coverage": "Fresh complete supporting source read including comments and existing fixtures where present"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/preview.rs",
+      "revision": "59bb96d07af08244582c6767d81e969b820ec3ed",
+      "sha256": "f7fa8bef88e0b718991dab2245cce57436b6748186df1769f7fadcef64ceb698",
+      "lines": 206,
+      "coverage": "Fresh complete supporting source read including comments and existing fixtures where present"
+    }
+  ],
+  "coverage_totals": {
+    "owning_files_fresh_full": 8,
+    "supporting_files_fresh_full": 6,
+    "prior_complete_body_carries": 0,
+    "all8_manifest_and_git_identities_match": true
+  },
+  "actionable_comment_findings": [],
+  "contracts": [
+    {
+      "area": "Density pre-mutation admission",
+      "locations": [
+        "material/density.rs:36-54",
+        "material/density.rs:58-115"
+      ],
+      "evidence": "DensityInput checks complete index triples, paired position/UV lengths, every finite position and UV, host-index conversion and membership. Then scale checks both accumulated lengths, narrowed coefficient and every replacement coordinate product before mutation. Exclusive mutable receiver prevents column changes between admission and replacement. Comments limit this admission to positions/chart/topology used here, explicitly excluding normals, skin, components and morphs.",
+      "disposition": "Accurate bounded operation contract; no global GeneratedArmor validity guarantee."
+    },
+    {
+      "area": "Units and exact degenerate policy",
+      "evidence": "Input positions are documented model-space metres and UV chart dimensionless. Difference remains f32 before f64 widening, same edge/sum/root order as old free function. Scale retains f64 ratio -> f32 narrowing -> Metal::TILES_PER_METRE. Ratio is a policy-free unit carrier; owning checks prove current scale finite. No epsilon floor exists. With admitted paired finite columns, empty triangle set or zero accumulated UV edge length returns unchanged. Positive UV edge length and zero surface yields coefficient zero; finite UVs become zero.",
+      "disposition": "Rustdoc matches actual arithmetic and retains successful degenerate behavior. No promise of uniform local surface density or physical-model correctness was inferred."
+    },
+    {
+      "area": "Density errors and actual caller",
+      "evidence": "Only failed usize conversion owns TryFromIntError. Other local admission failures own structured classifications without fabricated SDK causes. Parametric fitted_catalog_item calls the inherent method with ? only for plate steel; anyhow retains the typed source, Armory adds placement fitting context, ExhibitFit stores actual anyhow error, UI formats cause chain at presentation. Old free function is removed.",
+      "disposition": "Accurate cause-preserving API migration within inspected packet/caller chain."
+    },
+    {
+      "area": "Causal Armory states",
+      "evidence": "ExhibitFit distinguishes initial Pending, Fitted(GeneratedArmor) and Failed(anyhow::Error). Preview error is independent Option<anyhow::Error>; spawn_exhibit borrows fitted meshes and constructs clones, failed preview does not overwrite successful fit. finished is updated for every attempt including failure. errors combines both source families; UI formats them only when presenting.",
+      "disposition": "New source docs are accurate. completed failure means completed fitting attempt, not GPU-completion guarantee. No automatic-retry promise is made."
+    },
+    {
+      "area": "Catalog placement and rendering boundaries",
+      "evidence": "ItemCatalog::wearable requires at least one nonempty surface placement; exhibits retains exactly nonempty placements, proving item()[0] and default shown population for producer-created exhibits. OwnedCatalogPlacement retains actual immutable item snapshot/ordinal. Preview can publish earlier assets/commands before a later placement or surface fails. Separate preview_error preserves cause but does not roll back assets/entities, ensure native health or validate the entire material pipeline.",
+      "disposition": "No global transactionality/completion/native-policy claim in new documentation. Existing public raw fields and unrelated catalog mutation are outside new producer proof."
+    }
+  ],
+  "fixture_accounting": {
+    "full_diff_read": true,
+    "armor_metal": "Only existing density fixture call changed from old free function to inherent fallible method plus unwrap. All existing helper bodies/cases/inputs/oracles/assertions otherwise retained.",
+    "parametric_equipment_and_armory_scene": "Existing full fixture bodies read and entire eight-file packet diff read; fixture bodies unchanged.",
+    "new_fixtures": "No new tests/cases/helpers/assertions/doctests introduced by this review; none executed.",
+    "historical14_comparisons": "Owner fourteen preservation comparisons and previous three review verdicts were context only; not substituted for fresh8 reads or adopted as independent global evidence."
+  },
+  "required_dependencies": [
+    "Canonical material MAT-R1..R5 / larger six-group schema/PBR/color/cause family remains required; this packet is not its completion receipt.",
+    "Native/physical/body/material/source/device/caller/cache/lock closure remains required; preserve Root native MetalGpu/Buffer/context helpers and unrelated generated ownership during composition.",
+    "Future Root receive must compose material.rs exports/mod only as agreed, preserve all unrelated source, and validate exact combined consumer closure.",
+    "Existing broader owner findings in prior packets remain open unless exact owner successor proves resolution; this eight-file review does not supersede them.",
+    "All13-lens final inventory/repair waves, independent Code/Rule/Comment reviews and required hosted checks must pass on same final pushed revision."
+  ],
+  "limits": [
+    "Read-only source inspection, Git/source identity comparison and ignored report bookkeeping only. No source edits, project execution/check/build/lint/test/scanner/generator/runtime, new tests/cases/helpers/assertions/doctests, push/CI or external posts.",
+    "No compilation/runtime/native validation/completion/rendering/artistic or all-body acceptance claim. This is density and causal-state documentation review, not a modeling iteration.",
+    "All8 owning and6 necessary supporting files were freshly fully read. Deeper fitting/native/material/export families were not reopened wholesale; broader contracts remain required."
+  ],
+  "verdict": "No actionable Comment finding established for exact incoming eight-file packet. Bounded source-only documentation result; no whole material/native/family/PR or final clearance."
+}

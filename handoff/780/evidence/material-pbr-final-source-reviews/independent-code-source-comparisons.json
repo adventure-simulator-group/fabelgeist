@@ -1,0 +1,347 @@
+{
+  "nine_order_replays": [
+    {
+      "path": "crates/fabelgeist-armor/src/textile_pattern.rs",
+      "step_checks": [
+        {
+          "block": "/// Texture addressing and height differences",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "/// Texture addressing and height differences",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]\n#[serde(deny_unknown_fields)]\npub struct TextileSpan",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        }
+      ],
+      "replay_exact_current": true,
+      "original_sha256": "af05c55de5a1be2e2fc0a71d849503684611799fadb0f976d0463e19820e3be0",
+      "current_sha256": "eb6c1803c7a95f765e79baf0f41e56337a769930576928064e201147ac404ef2"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material/rings.rs",
+      "step_checks": [
+        {
+          "block": "struct Ring {",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "impl Chart {",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        }
+      ],
+      "replay_exact_current": true,
+      "original_sha256": "b9b5049893a1eb04c9a10ab160ba2cf2fd0fe642748438d61f6a456b0373bbae",
+      "current_sha256": "471ad91001a7b09374e81f3e5d774a7fa8f64ac51ca4b7aec860e0433e949d5d"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/bare_body.rs",
+      "step_checks": [
+        {
+          "block": "impl BodyKey {",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        }
+      ],
+      "replay_exact_current": true,
+      "original_sha256": "7566c3f50b16c6b2a8b34a14b220f351707b4d3f5c5896c3450d02bffb4158c1",
+      "current_sha256": "10911f928ebfe620f5a0e3cfd348c481d7d455a52788cfd1a39e0ff2f02c97ad"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/drape_preview.rs",
+      "step_checks": [
+        {
+          "block": "impl DrapeJob {",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "fn cloth_material()",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        }
+      ],
+      "replay_exact_current": true,
+      "original_sha256": "a9a48efcf2af0bd986c63f51cb994af28d1a72047e97471c84e68701b1927fa8",
+      "current_sha256": "a248f8b0ae468ad6f590396c5f2413900f000b9d86fb41b75225d829b2aa8d87"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "step_checks": [
+        {
+          "block": "type CatalogMetals =",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "/// Each worn piece's triangles and morph targets, for one of its meshes.",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        }
+      ],
+      "replay_exact_current": true,
+      "original_sha256": "bcb85488d0dd9de343443715fd6d963684585658282e8a7d53411e4b41e42698",
+      "current_sha256": "6210517f4a5b5ff82c940bfaddb1581c206b3c92630e45a1e733c2ccf5f23bdd"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/textile_surface.rs",
+      "step_checks": [
+        {
+          "block": "#[cfg(feature = \"offline-creator\")]\nimpl From<TextileMaps>",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        }
+      ],
+      "replay_exact_current": true,
+      "original_sha256": "436280eddd068ed508a8991acbb8457472537f397a1f471bb9577ab14b8f2679",
+      "current_sha256": "b9942d38d704ecaf44eb150b0821367cfe3f3c77ce9f94ba603c7f714836aaec"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_controls.rs",
+      "step_checks": [
+        {
+          "block": "pub(super) fn slider(",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        }
+      ],
+      "replay_exact_current": true,
+      "original_sha256": "4aa5acae28f1607f8297fe52826ceec79397833d089e37de6bb17d8e9bf708e4",
+      "current_sha256": "58cb430aed05d49c2d1e9782ff773903f6c26ac15c304e523a4e0a2537ec541d"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "step_checks": [
+        {
+          "block": "use buffer::{",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "pub use textures::{",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use validation::validate;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "pub use rigged::{",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "mod rigged;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "/// Resolves one canonical anatomical UV coordinate",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "/// Authoring utility that converts",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "/// Writes a zero-animation GLB",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        }
+      ],
+      "replay_exact_current": true,
+      "original_sha256": "19b6ca41dc0eb217da648863d4ac3d9b987a744a1bc906cd37dc2656d0435498",
+      "current_sha256": "117a80aebc7a1de9da1a89065490b5407d182b9fbbdae2b70735945084fc353c"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "step_checks": [
+        {
+          "block": "use fabelgeist_determinism::Seed;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use studio_scene::{CreatorPanelRight, orbit_camera, setup};",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use cli::Args;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use catalog::EquipmentCatalog;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use fitted_existing::{fitted_bracer, fitted_breastplate};",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use studio_generation::regenerate_mesh;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use generation::generate_character;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use character_export::export_character;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use equipment_export::generate_equipment_assets;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use adventuresim_character_creator::garment::{FabricPreset, GarmentFor",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use animation_preview::WalkPreview;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use drape_preview::DrapeJob;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use adventuresim_character_creator::lod::{CharacterLod, MAX_CHARACTER_",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use adventuresim_character_creator::profiling;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use adventuresim_character_creator::{\n    CharacterRecipe, IdentityGro",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use anyhow::{Context, Result};",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use bevy::{\n    asset::RenderAssetUsages,\n    mesh::{Indices, skinning",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use bevy_egui::{EguiContexts, EguiPlugin, EguiPrimaryContextPass, egui",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use burn::tensor::{Device, Tensor, TensorData};",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use clap::Parser;",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use fabelgeist_armor::{BracerDesign, BreastplateDesign, GeneratedArmor",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "use fabelgeist_mhr::{Mhr, MhrConfig, NUM_FACE_EXPRESSION_BLEND_SHAPES}",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "/// The studio's saved decorations and garments.",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        },
+        {
+          "block": "impl Studio {",
+          "exact_removed_bytes": true,
+          "start_column_zero": true,
+          "insert_column_zero_after_removal": true
+        }
+      ],
+      "replay_exact_current": true,
+      "original_sha256": "03cb9dc880e607bf6e4b60e3c7a92df3e48fa0cb6c57eaa0d841814a6726f474",
+      "current_sha256": "366087f0e3753b4917fc7fb7fe1f5aa1c6bc654dd4fe3ed03d97c7df0f3395e8"
+    }
+  ],
+  "seam_whole_source_inverse_exact": true
+}

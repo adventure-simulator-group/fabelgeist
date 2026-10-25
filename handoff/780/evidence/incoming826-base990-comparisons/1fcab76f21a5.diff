@@ -1,0 +1,31 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs
+
++++ filtered826-c798/crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs
+
+@@ -33,10 +33,10 @@
+
+                 ResourceDescriptor::Buffer(sig_type)
+             }
+             crate::data::gpu::resource::GpuResource::Texture2d(t) => {
+-                ResourceDescriptor::Texture2d(t.format)
++                ResourceDescriptor::Texture2d(t.format())
+             }
+             crate::data::gpu::resource::GpuResource::Texture3d(t) => {
+-                ResourceDescriptor::Texture3d(t.format)
++                ResourceDescriptor::Texture3d(t.format())
+             }
+         }
+     }
+@@ -207,11 +207,3 @@
+
+         code
+     }
+ }
+-
+-pub fn build_compute_pipeline(
+-    context: &crate::globals::WgpuContext,
+-    shader: &pipeline::ComputeShader,
+-    _entry_point: &str,
+-) -> anyhow::Result<pipeline::ComputePipeline> {
+-    pipeline::ComputePipeline::new(context, shader.clone())
+-}

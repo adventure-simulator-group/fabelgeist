@@ -1,0 +1,67 @@
+{
+  "head": "47c23647be6d0e764076237b8a0a692906663d0a",
+  "files": {
+    "crates/fabelgeist-hair/src/gpu/scalp.rs": {
+      "before_sha256": "8497dc68d32bee89caf41854e8cb0492416acb664f9546b98b5f027e530b0b06",
+      "current_sha256": "40486b2fcb0f2a2742a0a43ac588c71ba46f47495236def99dd6f0b27c821447",
+      "matches_inventory": true,
+      "noncomment_source_after_two_semantic_reversals_exact": true
+    },
+    "crates/fabelgeist-hair/src/gpu/grow.rs": {
+      "before_sha256": "6b746c55f7cc60f88cdac24dbd2b2486d56a439ac5b49dc5c689a07b2f18d0b0",
+      "current_sha256": "b4907574e60ff614aef176c62a138331eb3bc047cb799db0fe6f82d5f92b6c26",
+      "matches_inventory": true,
+      "noncomment_source_after_two_semantic_reversals_exact": true
+    },
+    "crates/fabelgeist-hair/src/gpu/grow/maps.rs": {
+      "before_sha256": "7ff8d6ba755cf671762b1aa0dae9c9f876f074813459b5e4ae2989874e18157d",
+      "current_sha256": "7b8b6157448397c687e7da311bb8ca6a933455934080093196854e20c1c0c0bc",
+      "matches_inventory": true,
+      "noncomment_source_after_two_semantic_reversals_exact": true
+    },
+    "crates/fabelgeist-hair/src/surface.rs": {
+      "before_sha256": "0c54c21fb94e4b1df748a29cdbef562802d717acfc810211072be30d236a3298",
+      "current_sha256": "0cf3b1a2d8fa1e50f2494291f44e803aff7501f7d5f92763c87ef54a5db0ac0d",
+      "matches_inventory": true,
+      "noncomment_source_after_two_semantic_reversals_exact": true,
+      "existing_fixture_tail_byte_exact": true
+    },
+    "crates/fabelgeist-hair/src/head.rs": {
+      "before_sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+      "current_sha256": "c95b6fcaaec095658c85f5c325781ecd1c349ddefb7b7eecd018ab61b500f709",
+      "matches_inventory": true,
+      "noncomment_source_after_two_semantic_reversals_exact": true,
+      "existing_fixture_tail_byte_exact": true
+    },
+    "crates/fabelgeist-hair/src/gpu/buffers.rs": {
+      "before_sha256": "6ebf50208593b3f1c16352bc3665e35f74cb0b01c83db56807bf3c0b83da568a",
+      "current_sha256": "e82d568414119b0fd6077ab911224dc9eee4eefb2d6a5cf7ff38c98dea9a78e1",
+      "matches_inventory": true,
+      "noncomment_source_after_two_semantic_reversals_exact": true
+    },
+    "crates/fabelgeist-hair/src/gpu/mod.rs": {
+      "before_sha256": "f163ffb8a42b0ad714ea0d96f2c7ef1a191da8d085d01310e143f941a63caf22",
+      "current_sha256": "f5696d4762b8a0414cd89406639a49edeabbd1acbd330df25eeee220291cac9a",
+      "matches_inventory": true,
+      "noncomment_source_after_two_semantic_reversals_exact": true,
+      "existing_fixture_tail_byte_exact": true
+    },
+    "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs": {
+      "before_sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "current_sha256": "7eb85b1be589db745f6411247e2b22ee076a63ebf49f97dcec29fab7caf14043",
+      "matches_inventory": true,
+      "noncomment_source_after_two_semantic_reversals_exact": true,
+      "closest_barycentric_helpers_exact": true,
+      "native_rest_after_edgeclosest_exact": true
+    }
+  },
+  "dependencies": {
+    "crates/fabelgeist-compute/src/kernel/mod.rs": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+    "crates/fabelgeist-hair/src/gpu/error.rs": "8c9e0cfc1381290739c5cb166996fa345de9def1e25532ad367f1963cfd5c8af",
+    "crates/fabelgeist-hair/src/gpu/scalp/layout.rs": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+    "crates/fabelgeist-hair/src/gpu/wgsl/scalp.rs": "8ba97a8d2d0211869c962c2f25e6ba5a704ee09c0e273cbc42caa70236c34044",
+    "crates/fabelgeist-hair/src/gpu/wgsl/scalp/edges.rs": "4ae0224f7f9656e7f403400711f510b211478259ba57a67214f25f390c2c1368",
+    "crates/fabelgeist-hair/src/gpu/readback.rs": "e78544e5d43fd63fa4be775f79e0488d0e35e952982c7d94ce8d0dac2487d7ea",
+    "crates/fabelgeist-hair/src/gpu/guides.rs": "f4c9e231efc1a770670e14030140640b5d22d12e26814c7c6613259395e4e71f"
+  }
+}

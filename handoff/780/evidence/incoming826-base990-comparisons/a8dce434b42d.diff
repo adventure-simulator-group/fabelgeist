@@ -1,0 +1,29 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs
+
++++ filtered826-c798/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs
+
+@@ -2,15 +2,19 @@
+
+ use anyhow::{Result, anyhow};
+ use std::sync::Arc;
+ 
++pub use binding::BufferBindingError;
++
++pub use definition::{BufferDefinition, BufferUse};
++pub use extent::{BufferByteLength, BufferByteOffset};
++pub use label::BufferLabel;
++pub use upload::{BufferUpload, BufferUploadOccupancy};
++
++mod binding;
+ mod definition;
+ mod extent;
+ mod label;
+ mod readback;
+ mod upload;
+-pub use definition::{BufferDefinition, BufferUse};
+-pub use extent::{BufferByteLength, BufferByteOffset};
+-pub use label::BufferLabel;
+-pub use upload::{BufferUpload, BufferUploadOccupancy};
+ 
+ #[derive(Clone, Debug)]
+ pub struct Buffer {

@@ -1,0 +1,395 @@
+{
+  "kind": "independent early scoped source Code Review; NOT clearance",
+  "head": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+  "captured_utc": "2026-10-25T09:38:28.583455+00:00",
+  "root": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator",
+  "baseline": "target/pr780-audit/material-pbr-before-d000e848f/source",
+  "findings": [
+    {
+      "id": "EARLY-CODE-1",
+      "severity": "P1",
+      "path": "crates/adventuresim-character-creator/src/skin_rules.rs",
+      "lines": [
+        276,
+        279
+      ],
+      "contract": "An existing fixture receives only an API adaptation and remains syntactically valid; no test/case/helper/assertion is added or changed in behavior.",
+      "evidence": "A stray t, and extra closing brace follow the newly adapted ArmorComponent literal. The before source has only the literal and function closing braces.",
+      "impact": "Rust cannot parse the existing fixture module.",
+      "repair": "Delete the accidental tail, retain one literal-close and one helper-function-close, preserve the existing helper and cases.",
+      "status": "open in pinned bytes; sent Root during review"
+    },
+    {
+      "id": "EARLY-CODE-2",
+      "severity": "P1",
+      "locations": [
+        {
+          "path": "crates/fabelgeist-armor/src/material.rs",
+          "lines": [
+            21,
+            22
+          ]
+        },
+        {
+          "path": "crates/fabelgeist-armor/src/construction.rs",
+          "lines": [
+            254,
+            255
+          ]
+        },
+        {
+          "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+          "lines": [
+            41,
+            43
+          ]
+        }
+      ],
+      "contract": "A named Rust struct field uses comma separation; replacing the field type must preserve syntactically valid declarations.",
+      "evidence": "Six typed Srgb/Ratio field declarations terminate with semicolons.",
+      "impact": "Metal, Lacing and MailWeave declarations cannot parse, independently of the intentionally incomplete receivers.",
+      "repair": "Replace the six accidental field semicolons with commas.",
+      "status": "open in pinned bytes; sent Root during review"
+    }
+  ],
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-color/src/encoded.rs",
+      "sha256": "207692aa2840d13ab24b0bd67e5d228df64245ed80345ea91e833ad23ff827a2",
+      "ledger_sha256": "207692aa2840d13ab24b0bd67e5d228df64245ed80345ea91e833ad23ff827a2",
+      "matches_ledger": true,
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "crates/fabelgeist-color/src/lib.rs",
+      "sha256": "9586a92ca2dcf19911b96b5fd50818df42af552582a7b0955224294ef69b9013",
+      "ledger_sha256": "9586a92ca2dcf19911b96b5fd50818df42af552582a7b0955224294ef69b9013",
+      "matches_ledger": true,
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/surface_material.rs",
+      "sha256": "ea2e7125a8a3e4191aac2a1ab33237df671f8cf0aac607ccbef869fd2f7e691e",
+      "ledger_sha256": "ea2e7125a8a3e4191aac2a1ab33237df671f8cf0aac607ccbef869fd2f7e691e",
+      "matches_ledger": true,
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/body_appearance.rs",
+      "sha256": "b008724145f00db491a58464844d9478f6dc98cb213405155444f151530f5a59",
+      "ledger_sha256": "b008724145f00db491a58464844d9478f6dc98cb213405155444f151530f5a59",
+      "matches_ledger": true,
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/surface_projection.rs",
+      "sha256": "5e0b6b456e8f4c6ecca65e178e88c6be775e9e1a702ba59ca95f6edf73cd7802",
+      "ledger_sha256": "5e0b6b456e8f4c6ecca65e178e88c6be775e9e1a702ba59ca95f6edf73cd7802",
+      "matches_ledger": true,
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "dad88153ff448c8a057914bbeefc5862b3e1716c294476268b1ff8c6df85498f",
+      "ledger_sha256": "dad88153ff448c8a057914bbeefc5862b3e1716c294476268b1ff8c6df85498f",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "0d3fa2ab637b6432fd07a6d2cfc412de7feb0f1ea3b9bea7e8073d8ff43a9978",
+      "ledger_sha256": "0d3fa2ab637b6432fd07a6d2cfc412de7feb0f1ea3b9bea7e8073d8ff43a9978",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "a82f0e3c9912c2ee10b704021d81d667163eb83c6da16804ed8fcc6e23ece052",
+      "ledger_sha256": "a82f0e3c9912c2ee10b704021d81d667163eb83c6da16804ed8fcc6e23ece052",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "89cf06ca88fa0b2863f103f8cf6961345e3c5cfc2c52ad8802bbe3f452d70361",
+      "ledger_sha256": "89cf06ca88fa0b2863f103f8cf6961345e3c5cfc2c52ad8802bbe3f452d70361",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "9ba957e3c79662976f2c48a43ee3b9fdfd5d2e97042f12ffb1f1bada1ea24218",
+      "ledger_sha256": "9ba957e3c79662976f2c48a43ee3b9fdfd5d2e97042f12ffb1f1bada1ea24218",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "ba4082d74f3bdcafdb689588768e1ef4b37041e55493745dcc15e5c541fae33c",
+      "ledger_sha256": "ba4082d74f3bdcafdb689588768e1ef4b37041e55493745dcc15e5c541fae33c",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "a068c4409c2ddee8160dba37c314676eebaafb33c324984a872a9478ebd3e354",
+      "ledger_sha256": "a068c4409c2ddee8160dba37c314676eebaafb33c324984a872a9478ebd3e354",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/components.rs",
+      "sha256": "39076111488cb7bfbc945fbbb14171173b6db894259f1c877af261ddde6109fe",
+      "ledger_sha256": "39076111488cb7bfbc945fbbb14171173b6db894259f1c877af261ddde6109fe",
+      "matches_ledger": true,
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile.rs",
+      "sha256": "ed25de57edc90db43b0e8fe878f3f756bbcb3a3ff08e80d28ad92e159517bcb8",
+      "ledger_sha256": "ed25de57edc90db43b0e8fe878f3f756bbcb3a3ff08e80d28ad92e159517bcb8",
+      "matches_ledger": true,
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_pattern.rs",
+      "sha256": "af05c55de5a1be2e2fc0a71d849503684611799fadb0f976d0463e19820e3be0",
+      "ledger_sha256": "af05c55de5a1be2e2fc0a71d849503684611799fadb0f976d0463e19820e3be0",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_fastener_mesh.rs",
+      "sha256": "3be02700f47bda936316ff4b2b4936a2ecd0029e974dce44b67d69736c56e374",
+      "ledger_sha256": "3be02700f47bda936316ff4b2b4936a2ecd0029e974dce44b67d69736c56e374",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_hook_mesh.rs",
+      "sha256": "e211ff0798a2b34eac5012a2596e82bd51a6adbee6d4199926da6bb0f5e3ee60",
+      "ledger_sha256": "e211ff0798a2b34eac5012a2596e82bd51a6adbee6d4199926da6bb0f5e3ee60",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_lacing_mesh.rs",
+      "sha256": "4294792813aa446c4c17a63e278c8270a72049d5bd7e1cca0e4ea2d06bca8aa9",
+      "ledger_sha256": "4294792813aa446c4c17a63e278c8270a72049d5bd7e1cca0e4ea2d06bca8aa9",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/sewn_eyelet_mesh.rs",
+      "sha256": "609e815e559b85beda642da8d978bfaef834b748b5624d3d088c520afca81be1",
+      "ledger_sha256": "609e815e559b85beda642da8d978bfaef834b748b5624d3d088c520afca81be1",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_armor.rs",
+      "sha256": "2687088c7d1de1b51bfbd8ca4f77b7e65e91235f5dd5449e8c3060a1c8d5dd61",
+      "ledger_sha256": "2687088c7d1de1b51bfbd8ca4f77b7e65e91235f5dd5449e8c3060a1c8d5dd61",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/waist_support_mesh.rs",
+      "sha256": "59f2203c6a21a59d1dac5abc085be16397b0633ada8245f93f949a9a192b6bfb",
+      "ledger_sha256": "59f2203c6a21a59d1dac5abc085be16397b0633ada8245f93f949a9a192b6bfb",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "sha256": "fcf13b47f8b4b88d6aa11e92354548f7d54ae0b08e6d67d2eabff75f17026cb4",
+      "ledger_sha256": "fcf13b47f8b4b88d6aa11e92354548f7d54ae0b08e6d67d2eabff75f17026cb4",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/skin_rules.rs",
+      "sha256": "d6e3cb738958a5ba53df0d8a4904b9effad7fc06a6c6e3c1c51bef39da284c98",
+      "ledger_sha256": "d6e3cb738958a5ba53df0d8a4904b9effad7fc06a6c6e3c1c51bef39da284c98",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "sha256": "2148a9c5c4d2edd7732a6f161c25be9be4d7fb93ece96288182ea68a0aaf7430",
+      "ledger_sha256": "2148a9c5c4d2edd7732a6f161c25be9be4d7fb93ece96288182ea68a0aaf7430",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_layout.rs",
+      "sha256": "e8355470166cde20def8ab479184b5c6f571eda55964be7209ce15f71d4c5c31",
+      "ledger_sha256": "e8355470166cde20def8ab479184b5c6f571eda55964be7209ce15f71d4c5c31",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/trim/tests.rs",
+      "sha256": "b0a2e919bc35d3820de076231dceb2758c9f5cf07d2670e52618485b6352ef7b",
+      "ledger_sha256": "b0a2e919bc35d3820de076231dceb2758c9f5cf07d2670e52618485b6352ef7b",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "sha256": "7b03c7313e19c41c1763f08255739197398d6d082fc1528065c7a05dcdc161dc",
+      "ledger_sha256": "7b03c7313e19c41c1763f08255739197398d6d082fc1528065c7a05dcdc161dc",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_textile_materials.rs",
+      "sha256": "fb59dc33c10a0f7de1957e746e64b9228adb1ecd22e6c464d613811a12df82fb",
+      "ledger_sha256": "fb59dc33c10a0f7de1957e746e64b9228adb1ecd22e6c464d613811a12df82fb",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_textile_relief.rs",
+      "sha256": "4f9bef371feb98e1052fa451496b1798da0cc10b3d182d0a49228699cefba0df",
+      "ledger_sha256": "4f9bef371feb98e1052fa451496b1798da0cc10b3d182d0a49228699cefba0df",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_seams.rs",
+      "sha256": "0b8b72ca450d94434a67b2be48cb700cf67d06f2921369f68efb4986e9f6aa8f",
+      "ledger_sha256": "0b8b72ca450d94434a67b2be48cb700cf67d06f2921369f68efb4986e9f6aa8f",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_appearance.rs",
+      "sha256": "35e7af5d4c6eddea9cc7484f03b4c23e7410581fbc975cc7674d3eef4205d678",
+      "ledger_sha256": "35e7af5d4c6eddea9cc7484f03b4c23e7410581fbc975cc7674d3eef4205d678",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/examples/textile_review/mod.rs",
+      "sha256": "443282a5ef10d47a6b1c1733b1c25f214702f9cc1b1c644ba819add635febf8a",
+      "ledger_sha256": "443282a5ef10d47a6b1c1733b1c25f214702f9cc1b1c644ba819add635febf8a",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/examples/runtime_equipment_bench.rs",
+      "sha256": "fc202ebb9c155a3deaf8e61d5dd8a9a83710849339a879b08cfc00dbc44138d0",
+      "ledger_sha256": "fc202ebb9c155a3deaf8e61d5dd8a9a83710849339a879b08cfc00dbc44138d0",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "sha256": "2a3ad545aaec3be6838c2c0689cd047e52e7a77c30c28006de66bb3ddf8c5c12",
+      "ledger_sha256": "2a3ad545aaec3be6838c2c0689cd047e52e7a77c30c28006de66bb3ddf8c5c12",
+      "matches_ledger": true,
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/construction.rs",
+      "sha256": "45f705557ab1fb883eb2f7b28125b56d0f6d48dd333788e115f264407aed7977",
+      "ledger_sha256": "45f705557ab1fb883eb2f7b28125b56d0f6d48dd333788e115f264407aed7977",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing_material.rs",
+      "sha256": "392c3f5ab383b7eab671eafcfb84d79bf5a013ee8e21b7acb395f22788d5624a",
+      "ledger_sha256": "392c3f5ab383b7eab671eafcfb84d79bf5a013ee8e21b7acb395f22788d5624a",
+      "matches_ledger": true,
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "7c0ab220dff0ffa44df39a73258de057c9b5d7037f694eb2ce32f81d132e5e63",
+      "ledger_sha256": "7c0ab220dff0ffa44df39a73258de057c9b5d7037f694eb2ce32f81d132e5e63",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "6ef02db0cef5c45d6560976ce4f3ae011f591d755a9e0313ec3cc75c04f69a3d",
+      "ledger_sha256": "6ef02db0cef5c45d6560976ce4f3ae011f591d755a9e0313ec3cc75c04f69a3d",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "sha256": "5784fb2e5a6b5c72be402465e6d28a84422e5274759c4674f560abe2aa8cebc4",
+      "ledger_sha256": "5784fb2e5a6b5c72be402465e6d28a84422e5274759c4674f560abe2aa8cebc4",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material.rs",
+      "sha256": "83033e38f32ef620dceea04f2d1dffda5b2d2196496db3608298fa362665a18f",
+      "ledger_sha256": "83033e38f32ef620dceea04f2d1dffda5b2d2196496db3608298fa362665a18f",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment_material/rings.rs",
+      "sha256": "b9b5049893a1eb04c9a10ab160ba2cf2fd0fe642748438d61f6a456b0373bbae",
+      "ledger_sha256": "b9b5049893a1eb04c9a10ab160ba2cf2fd0fe642748438d61f6a456b0373bbae",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/material_color_controls.rs",
+      "sha256": "0aecd247feea1fc977fdc09c6c4795186438557b2687ae0e1d15bc9389431bfb",
+      "ledger_sha256": "0aecd247feea1fc977fdc09c6c4795186438557b2687ae0e1d15bc9389431bfb",
+      "matches_ledger": true,
+      "read_extent": "whole current source"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "03cb9dc880e607bf6e4b60e3c7a92df3e48fa0cb6c57eaa0d841814a6726f474",
+      "ledger_sha256": "03cb9dc880e607bf6e4b60e3c7a92df3e48fa0cb6c57eaa0d841814a6726f474",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_controls.rs",
+      "sha256": "4aa5acae28f1607f8297fe52826ceec79397833d089e37de6bb17d8e9bf708e4",
+      "ledger_sha256": "4aa5acae28f1607f8297fe52826ceec79397833d089e37de6bb17d8e9bf708e4",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/construction_controls.rs",
+      "sha256": "cc9d26e5f71807cfa63e701e752330432e109c59f612b20544df220c59b5a9bd",
+      "ledger_sha256": "cc9d26e5f71807cfa63e701e752330432e109c59f612b20544df220c59b5a9bd",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/fabric_controls.rs",
+      "sha256": "4f576fdfae6f68499082f3da87dbba83f1e587242edc969720b1982a89fb66b0",
+      "ledger_sha256": "4f576fdfae6f68499082f3da87dbba83f1e587242edc969720b1982a89fb66b0",
+      "matches_ledger": true,
+      "read_extent": "complete current material diff and affected responsibility/call sites; no whole-file unrelated-algorithm clearance"
+    }
+  ],
+  "limits": [
+    "Final retained/Bevy/GLB/review receivers are actively incomplete and excluded from new compile-break findings.",
+    "Unrelated generated-program changes are outside this review.",
+    "No project build, parser probe, test, fmt, lint, scanner or hosted CI was run.",
+    "No source, fixture, case, helper or assertion was added or edited by this reviewer.",
+    "This is not a full thirteen-lens pass or final combined same-SHA review."
+  ],
+  "preservation": [
+    "All twelve actual ArmorComponent literal adaptations inspected.",
+    "Existing trim, textile-appearance, metal and benchmark fixture diffs preserve original cases, values and assertion meaning except the reported accidental skin_rules syntax tail.",
+    "The four fastener/eyelet files retain construction math and switch source storage/presence checks to ComponentAppearance.",
+    "Encoded float leaves retain arbitrary precision and do not claim range/finite admission; recipe validators retain those numerical policies.",
+    "Canonical sRGB transfer is used once for linear projection; alpha is copied unchanged.",
+    "Textile scalar material is derived from the retained mutable recipe rather than stored independently.",
+    "Direct Color serde dependency edges are present in both actual lockfiles for the relevant packages."
+  ]
+}

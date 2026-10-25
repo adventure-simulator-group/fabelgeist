@@ -1,0 +1,52 @@
+{
+  "commit": "4ddddf5856d269d36cf898d59f34af7a30186479",
+  "files": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair.rs",
+      "sha256": "7c06f11d607b958e8a9e000bf5b6debeda01e3c253fc863c331317382b196a9a"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs",
+      "sha256": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+      "sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "84e709e87c44bce9a1944ff54427c5b7f84cfb30eb94ff1346f8e3c181b4c5cf"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs",
+      "sha256": "958943b91a03470381744264d571a83be30421501989fa92a56a403cbbec4bee"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "e2a6fab2ecfbae1ae85e86dd40677284d6d03a50747810242247a2be2fbcf194"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "a410d423ff4188de5f759094665c53095193198745913dcb411d9a822f7c3f53"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "8f70a54fc5032060ecf8e46d898e5a9e02a93416e224393437a3b1852946dddd"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "sha256": "3a2e06f64636fadaceac6bb7c0af36cfb12416a4d55a5f203e17b6551455e8ef"
+    }
+  ],
+  "scope": "Complete final ten-source scalp layout/chain/device/Grid/read/upload family, including C1-C4 source-accurate documentation",
+  "supersedes": "handoff-scalp-chain-c6659f6cf; includes WGSL Rustdoc successor, all seven native shader strings unchanged",
+  "ownership": "#780 canonical Creator producers/actual receivers; #826 consumes exact reviewed whole files. No native facade/context function or lockfile included.",
+  "validation": "Complete fresh ten-source Code, Rule and Comment reviews clear all final hashes, thirteen scoped successor dispositions complete, six independent source comparisons true. Broader/global/hosted acceptance pending.",
+  "source_limits": "Actual shader bytes, fixtures and source consumer bodies unchanged by prose correction; producing source/device/layout relationships reviewed. No local project execution, image/runtime or final-pushed-revision claim.",
+  "push": false,
+  "hosted_ci": false
+}

@@ -1,0 +1,536 @@
+--- /dev/null
++++ b/crates/fabelgeist-compute/src/reduce/execution.rs
+@@ -0,0 +1,172 @@
++//! Reduction recording and device-associated reusable scratch buffers.
++//!
++//! Each level has exactly its live byte extent: the shader's arrayLength then
++//! describes logical input, including when later calls reuse the allocation.
++
++use super::layout::{ReductionElements, ReductionStride};
++use super::{Reduce, ReduceDefinition, ReductionPipeline};
++use crate::prelude::*;
++use fabelgeist_gpu::data::gpu::resource::GpuResource;
++use fabelgeist_gpu::prelude::BufferUse;
++
++#[derive(Default)]
++pub struct ReduceScratchpad {
++    buffers: Option<ReductionBuffers>,
++}
++
++struct ReductionBuffers {
++    device: wgpu::Device,
++    levels: Vec<Buffer>,
++}
++
++struct ReductionPlan {
++    first: ReductionPipeline,
++    recurring: ReductionPipeline,
++    input_count: ReductionElements,
++}
++
++impl Reduce {
++    pub fn execute(
++        context: &WgpuContext,
++        definition: &ReduceDefinition,
++        input: &GpuResource,
++        scratchpad: &mut ReduceScratchpad,
++    ) -> Result<Buffer> {
++        let plan = ReductionPlan::new(context, definition, input)?;
++        if plan.input_count.is_finished() {
++            return match input {
++                GpuResource::Buffer(buffer) => Ok(buffer.clone()),
++                _ => Err(anyhow!("Cannot reduce texture of size 1 to buffer")),
++            };
++        }
++
++        let buffers = scratchpad.prepare(context, plan.input_count, plan.first.stride)?;
++        let mut encoder = context
++            .device
++            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
++                label: Some("Reduce Batch Encoder"),
++            });
++        let reduced = plan.record(context, input, buffers, &mut encoder)?;
++        let bytes = plan.first.stride.byte_length();
++        let result = Buffer::new(
++            context,
++            bytes,
++            BufferDefinition::storage()
++                .with_label("reduction_result".into())
++                .with_usage(BufferUse::CopySource)
++                .with_usage(BufferUse::CopyDestination),
++        )?;
++        encoder.copy_buffer_to_buffer(&reduced.buffer, 0, &result.buffer, 0, u64::from(bytes));
++        context.queue.submit(std::iter::once(encoder.finish()));
++        Ok(result)
++    }
++}
++
++impl ReduceScratchpad {
++    fn prepare(
++        &mut self,
++        context: &WgpuContext,
++        input_count: ReductionElements,
++        stride: ReductionStride,
++    ) -> Result<&ReductionBuffers> {
++        let previous = self
++            .buffers
++            .as_ref()
++            .filter(|buffers| &buffers.device == context.device.as_ref());
++        let mut levels = Vec::new();
++        let mut output_count = input_count.reduced();
++        loop {
++            let previous_level = previous.and_then(|buffers| buffers.levels.get(levels.len()));
++            levels.push(scratch_buffer(
++                context,
++                previous_level,
++                output_count.byte_length(stride),
++            )?);
++            if output_count.is_finished() {
++                break;
++            }
++            output_count = output_count.reduced();
++        }
++        Ok(self.buffers.insert(ReductionBuffers {
++            device: context.device.as_ref().clone(),
++            levels,
++        }))
++    }
++}
++
++impl ReductionPlan {
++    fn new(context: &WgpuContext, definition: &ReduceDefinition, input: &GpuResource) -> Result<Self> {
++        let ty = fabelgeist_gpu::data::gpu::signature::parse_binary_op_signature(
++            &definition.code,
++            "reduce",
++        )?;
++        let first = definition.get_or_create_pipeline(
++            context,
++            ResourceDescriptor::from_resource(input, ty.clone()),
++        )?;
++        let recurring = definition.get_or_create_pipeline(context, ResourceDescriptor::Buffer(ty))?;
++        let input_count = ReductionElements::from_resource(input, first.stride)?;
++        Ok(Self {
++            first,
++            recurring,
++            input_count,
++        })
++    }
++
++    fn record(
++        &self,
++        context: &WgpuContext,
++        input: &GpuResource,
++        buffers: &ReductionBuffers,
++        encoder: &mut wgpu::CommandEncoder,
++    ) -> Result<Buffer> {
++        let mut current_resource = input.clone();
++        let mut current_count = self.input_count;
++        for (pass_index, output) in buffers.levels.iter().enumerate() {
++            let mut parameters = PassParameters::new();
++            match &current_resource {
++                GpuResource::Buffer(buffer) => parameters.insert("input", buffer.clone()),
++                GpuResource::Texture2d(texture) => parameters.insert("input", texture.clone()),
++                GpuResource::Texture3d(texture) => parameters.insert("input", texture.clone()),
++            }
++            parameters.insert("output", output.clone());
++            let pipeline = if pass_index == 0 {
++                &self.first.pipeline
++            } else {
++                &self.recurring.pipeline
++            };
++            ComputePass::record(
++                context,
++                pipeline,
++                &parameters,
++                encoder,
++                current_count.covering_workgroups(),
++            )?;
++            current_resource = GpuResource::Buffer(output.clone());
++            current_count = current_count.reduced();
++        }
++        match current_resource {
++            GpuResource::Buffer(buffer) => Ok(buffer),
++            _ => Err(anyhow!("Reduction failed to produce output")),
++        }
++    }
++}
++
++fn scratch_buffer(
++    context: &WgpuContext,
++    previous: Option<&Buffer>,
++    bytes: BufferByteLength,
++) -> Result<Buffer> {
++    if let Some(buffer) = previous
++        && buffer.size == bytes
++    {
++        return Ok(buffer.clone());
++    }
++    Buffer::new(
++        context,
++        bytes,
++        BufferDefinition::storage()
++            .with_label("scratchpad".into())
++            .with_usage(BufferUse::CopySource),
++    )
++}
+--- /dev/null
++++ b/crates/fabelgeist-compute/src/reduce/layout.rs
+@@ -0,0 +1,59 @@
++//! Live reduction populations and the reflected native array stride.
++
++use crate::prelude::*;
++use fabelgeist_gpu::data::gpu::resource::GpuResource;
++use std::num::NonZeroU32;
++
++pub(super) const REDUCTION_WORKGROUP_WIDTH: u32 = 64;
++
++/// Values consumed by one reduction pass, independently of scratch capacity.
++#[derive(Clone, Copy, Debug)]
++pub(super) struct ReductionElements(u32);
++
++/// Byte spacing of records in the shader's output array, including padding.
++#[derive(Clone, Copy, Debug)]
++pub(super) struct ReductionStride(NonZeroU32);
++
++impl ReductionElements {
++    pub(super) fn from_resource(input: &GpuResource, stride: ReductionStride) -> Result<Self> {
++        let elements = match input {
++            GpuResource::Buffer(buffer) => u64::from(buffer.size) / u64::from(stride.0.get()),
++            GpuResource::Texture2d(texture) => u64::from(texture.size.0) * u64::from(texture.size.1),
++            GpuResource::Texture3d(texture) => u64::from(texture.size.0)
++                .checked_mul(u64::from(texture.size.1))
++                .and_then(|plane| plane.checked_mul(u64::from(texture.size.2)))
++                .ok_or_else(|| anyhow!("Reduction texture population overflows"))?,
++        };
++        Ok(Self(u32::try_from(elements)?))
++    }
++
++    pub(super) fn is_finished(self) -> bool {
++        self.0 <= 1
++    }
++
++    /// One output record is written by each workgroup of the current pass.
++    pub(super) fn reduced(self) -> Self {
++        Self(self.0.div_ceil(REDUCTION_WORKGROUP_WIDTH))
++    }
++
++    pub(super) fn covering_workgroups(self) -> WorkgroupGrid {
++        WorkgroupGrid::from([self.0.div_ceil(REDUCTION_WORKGROUP_WIDTH), 1, 1])
++    }
++
++    pub(super) fn byte_length(self, stride: ReductionStride) -> BufferByteLength {
++        // Both operands are admitted native u32 values, so their product fits u64.
++        (u64::from(self.0) * u64::from(stride.0.get())).into()
++    }
++}
++
++impl ReductionStride {
++    pub(super) fn from_native_bytes(bytes: u32) -> Result<Self> {
++        NonZeroU32::new(bytes)
++            .map(Self)
++            .ok_or_else(|| anyhow!("Reduction array stride must be nonzero"))
++    }
++
++    pub(super) fn byte_length(self) -> BufferByteLength {
++        u64::from(self.0.get()).into()
++    }
++}
+--- a/crates/fabelgeist-compute/src/reduce/mod.rs
++++ b/crates/fabelgeist-compute/src/reduce/mod.rs
+@@ -1,23 +1,30 @@
+-use fabelgeist_gpu::prelude::BufferUse;
+-pub mod max;
+-pub mod min;
++use crate::prelude::*;
++use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+ 
++pub use execution::ReduceScratchpad;
+ pub use max::Max;
+ pub use min::Min;
+ 
+-use crate::prelude::*;
+-use fabelgeist_gpu::data::gpu::ResourceDescriptor;
++use layout::{REDUCTION_WORKGROUP_WIDTH, ReductionStride};
++
++mod execution;
++mod layout;
++pub mod max;
++pub mod min;
+ 
+ #[derive(Clone, Debug)]
+ pub struct ReduceDefinition {
+     pub code: String,
+-    cache: ComputeSourceCache<ResourceDescriptor, (ComputePipeline, u64)>,
++    cache: ComputeSourceCache<ResourceDescriptor, ReductionPipeline>,
+ }
+ 
+-#[derive(Default)]
+-pub struct ReduceScratchpad {
+-    pub a: Option<fabelgeist_gpu::data::gpu::Buffer>,
+-    pub b: Option<fabelgeist_gpu::data::gpu::Buffer>,
++/// Records a reduction into one returned native record.
++pub struct Reduce;
++
++#[derive(Clone, Debug)]
++struct ReductionPipeline {
++    pipeline: ComputePipeline,
++    stride: ReductionStride,
+ }
+ 
+ impl Default for ReduceDefinition {
+@@ -44,11 +51,11 @@
+         })
+     }
+ 
+-    pub fn get_or_create_pipeline(
++    fn get_or_create_pipeline(
+         &self,
+         context: &WgpuContext,
+         input_res: ResourceDescriptor,
+-    ) -> Result<(ComputePipeline, u64)> {
++    ) -> Result<ReductionPipeline> {
+         self.cache.get_or_try_insert(context, &self.code, input_res.clone(), || {
+             let ty =
+                 fabelgeist_gpu::data::gpu::signature::parse_binary_op_signature(&self.code, "reduce")?;
+@@ -107,11 +114,11 @@
+                 r#"{}
+ {}
+ 
+-var<workgroup> shared_data: array<{}, 64>;
++var<workgroup> shared_data: array<{}, {width}>;
+ 
+ {}
+ 
+-@compute @workgroup_size(64)
++@compute @workgroup_size({width})
+ fn main(
+     @builtin(global_invocation_id) global_id: vec3<u32>,
+     @builtin(local_invocation_id) local_id: vec3<u32>,
+@@ -127,12 +134,12 @@
+ 
+     workgroupBarrier();
+ 
+-    for (var s = 32u; s > 0u; s >>= 1u) {{
++    for (var s = {half_width}u; s > 0u; s >>= 1u) {{
+         if (local_id.x < s) {{
+             let idx_a = local_id.x;
+             let idx_b = local_id.x + s;
+ 
+-            let global_idx_b = group_id.x * 64u + idx_b;
++            let global_idx_b = group_id.x * {width}u + idx_b;
+ 
+             if (global_idx_b < input_len) {{
+                 shared_data[idx_a] = reduce(shared_data[idx_a], shared_data[idx_b]);
+@@ -146,7 +153,15 @@
+     }}
+ }}
+ "#,
+-                input_binding, output_binding, ty_str, self.code, prologue, input_len_calc, fetch_logic
++                input_binding,
++                output_binding,
++                ty_str,
++                self.code,
++                prologue,
++                input_len_calc,
++                fetch_logic,
++                width = REDUCTION_WORKGROUP_WIDTH,
++                half_width = REDUCTION_WORKGROUP_WIDTH / 2,
+             );
+ 
+             let module = fabelgeist_gpu::data::gpu::shader::parse_naga(
+@@ -154,186 +169,21 @@
+                 wgpu::naga::ShaderStage::Compute,
+             )?;
+ 
+-            let mut element_size = ty.element_size();
+-
+-            if let Some((_, var)) = module
++            let stride = module
+                 .global_variables
+                 .iter()
+-                .find(|(_, v)| v.name.as_deref() == Some("output"))
+-                && let wgpu::naga::TypeInner::Array { base, .. } = module.types[var.ty].inner
+-            {
+-                let mut layouter = wgpu::naga::proc::Layouter::default();
+-                let _ = layouter.update(wgpu::naga::proc::GlobalCtx {
+-                    types: &module.types,
+-                    constants: &module.constants,
+-                    overrides: &module.overrides,
+-                    global_expressions: &module.global_expressions,
+-                });
+-                element_size = layouter[base].size as u64;
+-            }
++                .find(|(_, variable)| variable.name.as_deref() == Some("output"))
++                .and_then(|(_, variable)| match &module.types[variable.ty].inner {
++                    wgpu::naga::TypeInner::Array { stride, .. } => Some(*stride),
++                    _ => None,
++                })
++                .ok_or_else(|| anyhow!("Reduction output has no native array layout"))?;
++            let stride = ReductionStride::from_native_bytes(stride)?;
+ 
+             let shader = ComputeShader::new(context, full_code)?;
+             let pipeline = ComputePipeline::new(context, shader)?;
+-            Ok((pipeline, element_size))
++            Ok(ReductionPipeline { pipeline, stride })
+         })
+-    }
+-}
+-
+-pub struct Reduce;
+-
+-impl Reduce {
+-    pub fn execute(
+-        context: &WgpuContext,
+-        definition: &ReduceDefinition,
+-        input: &fabelgeist_gpu::data::gpu::resource::GpuResource,
+-        scratchpad: &mut ReduceScratchpad,
+-    ) -> Result<fabelgeist_gpu::data::gpu::Buffer> {
+-        let ty = fabelgeist_gpu::data::gpu::signature::parse_binary_op_signature(
+-            &definition.code,
+-            "reduce",
+-        )?;
+-
+-        let input_res_descriptor = ResourceDescriptor::from_resource(input, ty.clone());
+-        let (first_pass_pipeline, element_size) =
+-            definition.get_or_create_pipeline(context, input_res_descriptor)?;
+-
+-        let buffer_res_descriptor = ResourceDescriptor::Buffer(ty.clone());
+-        let (standard_pipeline, _) =
+-            definition.get_or_create_pipeline(context, buffer_res_descriptor)?;
+-
+-        let mut current_resource = input.clone();
+-        let mut current_element_count = match input {
+-            fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(b) => {
+-                (u64::from(b.size) / element_size.max(1)).max(1) as u32
+-            }
+-            fabelgeist_gpu::data::gpu::resource::GpuResource::Texture2d(t) => t.size.0 * t.size.1,
+-            fabelgeist_gpu::data::gpu::resource::GpuResource::Texture3d(t) => {
+-                t.size.0 * t.size.1 * t.size.2
+-            }
+-        };
+-
+-        if current_element_count <= 1 {
+-            return match current_resource {
+-                fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(b) => Ok(b),
+-                _ => Err(anyhow::anyhow!("Cannot reduce texture of size 1 to buffer")),
+-            };
+-        }
+-
+-        // Prepare auxiliary buffers
+-        let first_pass_output_count = current_element_count.div_ceil(64);
+-        let first_pass_output_size = first_pass_output_count as u64 * element_size;
+-
+-        fn ensure_buffer(
+-            ctx: &WgpuContext,
+-            buffer_opt: &mut Option<fabelgeist_gpu::data::gpu::Buffer>,
+-            required_size: u64,
+-        ) -> Result<()> {
+-            let resize = if let Some(buf) = buffer_opt {
+-                u64::from(buf.size) < required_size
+-            } else {
+-                true
+-            };
+-
+-            if resize {
+-                *buffer_opt = Some(fabelgeist_gpu::data::gpu::Buffer::new(
+-                    ctx,
+-                    (required_size).into(),
+-                    fabelgeist_gpu::data::BufferDefinition::storage()
+-                        .with_label(("scratchpad").into())
+-                        .with_usage(BufferUse::CopySource),
+-                )?);
+-            }
+-            Ok(())
+-        }
+-
+-        ensure_buffer(context, &mut scratchpad.a, first_pass_output_size)?;
+-
+-        if first_pass_output_count > 1 {
+-            let second_pass_output_count = first_pass_output_count.div_ceil(64);
+-            ensure_buffer(
+-                context,
+-                &mut scratchpad.b,
+-                second_pass_output_count as u64 * element_size,
+-            )?;
+-        }
+-
+-        let mut encoder = context
+-            .device
+-            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+-                label: Some("Reduce Batch Encoder"),
+-            });
+-
+-        let mut pass_idx = 0;
+-        let mut current_buffer: Option<fabelgeist_gpu::data::gpu::Buffer> = None;
+-
+-        while current_element_count > 1 {
+-            let workgroup_count = current_element_count.div_ceil(64);
+-
+-            let output_buffer = if pass_idx % 2 == 0 {
+-                scratchpad.a.as_ref().unwrap()
+-            } else {
+-                scratchpad.b.as_ref().unwrap()
+-            };
+-
+-            let mut parameters = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
+-            match &current_resource {
+-                fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(b) => {
+-                    parameters.insert("input", b.clone())
+-                }
+-                fabelgeist_gpu::data::gpu::resource::GpuResource::Texture2d(t) => {
+-                    parameters.insert("input", t.clone())
+-                }
+-                fabelgeist_gpu::data::gpu::resource::GpuResource::Texture3d(t) => {
+-                    parameters.insert("input", t.clone())
+-                }
+-            }
+-            parameters.insert("output", output_buffer.clone());
+-
+-            let pipeline = if pass_idx == 0 {
+-                &first_pass_pipeline
+-            } else {
+-                &standard_pipeline
+-            };
+-
+-            fabelgeist_gpu::data::gpu::ComputePass::record(
+-                context,
+-                pipeline,
+-                &parameters,
+-                &mut encoder,
+-                workgroup_count,
+-                1,
+-                1,
+-            )?;
+-
+-            current_buffer = Some(output_buffer.clone());
+-            current_resource =
+-                fabelgeist_gpu::data::gpu::resource::GpuResource::Buffer(output_buffer.clone());
+-            current_element_count = workgroup_count;
+-            pass_idx += 1;
+-        }
+-
+-        let final_buffer = fabelgeist_gpu::data::gpu::Buffer::new(
+-            context,
+-            (element_size).into(),
+-            fabelgeist_gpu::data::BufferDefinition::storage()
+-                .with_label(("reduction_result").into())
+-                .with_usage(BufferUse::CopySource)
+-                .with_usage(BufferUse::CopyDestination),
+-        )?;
+-
+-        encoder.copy_buffer_to_buffer(
+-            &current_buffer
+-                .expect("Reduce failed to produce output")
+-                .buffer,
+-            0,
+-            &final_buffer.buffer,
+-            0,
+-            element_size,
+-        );
+-
+-        context.queue.submit(std::iter::once(encoder.finish()));
+-
+-        Ok(final_buffer)
+     }
+ }
+ 

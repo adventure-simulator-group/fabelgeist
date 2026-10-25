@@ -1,0 +1,41 @@
+{
+  "base": "03ad4103f2e9a892e1682be580cb9d3c9a52669f",
+  "checks": [
+    "native numerical/byte/launch projection unchanged except canonical field ownership: strands",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: points",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: native_strands",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: native_points",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: native_samples",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: native_draw_vertices",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: strand_invocations",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: sample_invocations",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: segment_invocations",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: sort_items",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: hash_points",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: strand_word_bytes",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: positions_bytes",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: info_bytes",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: positions_binding_bytes",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: info_binding_bytes",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: attributes_bytes",
+    "native numerical/byte/launch projection unchanged except canonical field ownership: roots_bytes",
+    "complete GPU fixture module unchanged",
+    "complete existing host simulation and fixtures only enumerated readonly/count API substitutions",
+    "complete CardMesh production numerical emission/order unchanged after early source admission",
+    "LOD unchanged complete per-level parallel sampling/occlusion values and order",
+    "LOD unchanged complete per-strand authored metadata/RNG/order",
+    "LOD unchanged complete card settings and atlas count forwarding",
+    "new shape source introduces no project test/case/helper/assertion/doctest"
+  ],
+  "fingerprints": {
+    "crates/fabelgeist-hair/src/strands/shape.rs": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+    "crates/fabelgeist-hair/src/strands.rs": "3ab9c91b1153b1f7a21e2dd57e9f53c5a6f4b220abde40f9ef666c4b60c4d336",
+    "crates/fabelgeist-hair/src/lod.rs": "66205be78231f6f2176c92e1edf72e615e3528d57d4f598157b4b855af1ba196",
+    "crates/fabelgeist-hair/src/gpu/layout.rs": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+    "crates/fabelgeist-hair/src/gpu/mod.rs": "b900f53dd9b2751914c9b756562e8d9a54465c958b53709b2052d3f70cb7e788",
+    "crates/fabelgeist-hair/src/sim.rs": "3e2784bef61f86973ae6de8cc995023a4d95787bb958638f799e4c3abc6646e5",
+    "crates/fabelgeist-hair/src/cards/build.rs": "43a2bfd975e30c60f0738e6a4c746b99ce16f42b74ccf794bf150f75f113e506",
+    "crates/fabelgeist-hair/src/cards/layout.rs": "ba42c5f262f91abcd074353ea1c9bc7b17f513bde0310c88e13b8743bc007633"
+  },
+  "limit": "Source comparisons only. New shape admission reviewed as source. Renderer/Creator/SimFrame/physical grid pending; no compiled/runtime/global clearance."
+}

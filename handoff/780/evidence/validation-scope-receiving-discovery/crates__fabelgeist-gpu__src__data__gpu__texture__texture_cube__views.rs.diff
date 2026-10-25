@@ -1,0 +1,101 @@
+--- crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs current780
++++ crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs canonical826
+@@ -1,3 +1,5 @@
++#[cfg(not(target_arch = "wasm32"))]
++use crate::{data::gpu::texture::TextureViewOperation, globals::ValidationScope};
+ use std::sync::Arc;
+ 
+ use anyhow::Result;
+@@ -45,11 +47,7 @@
+         }
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+-        let error_scope = context.blocking_validation.then(|| {
+-            context
+-                .device
+-                .push_error_scope(wgpu::ErrorFilter::Validation)
+-        });
++        let error_scope = ValidationScope::new(context);
+ 
+         let view = texture.create_view(&wgpu::TextureViewDescriptor {
+             label: Some("TextureCube View"),
+@@ -61,10 +59,9 @@
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+         if let Some(error_scope) = error_scope {
+-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+-            if let Some(cause) = pollster::block_on(error_scope.pop()) {
+-                return Err(TextureViewError::from_texture_cube_view(format, cause));
+-            }
++            error_scope.finish().map_err(|cause| {
++                TextureViewError::from_observation(format, TextureViewOperation::TextureCube, cause)
++            })?;
+         }
+ 
+         Ok(super::super::SelectedTextureView::new(
+@@ -101,13 +98,7 @@
+         }
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+-        let error_scope = context
+-            .filter(|context| context.blocking_validation)
+-            .map(|context| {
+-                context
+-                    .device
+-                    .push_error_scope(wgpu::ErrorFilter::Validation)
+-            });
++        let error_scope = context.and_then(ValidationScope::new);
+ 
+         let view = texture.create_view(&wgpu::TextureViewDescriptor {
+             label: Some(&format!("TextureCube Face View ({:?})", face)),
+@@ -119,11 +110,11 @@
+         });
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+-        if let (Some(c), Some(scope)) = (context, error_scope) {
+-            let _ = c.device.poll(wgpu::PollType::wait_indefinitely());
+-            if let Some(err) = pollster::block_on(scope.pop()) {
+-                let message = format!("WGPU TextureCube Face View Error: {err}");
+-                return Err(anyhow::Error::new(err).context(message));
++        if let Some(scope) = error_scope {
++            if let Err(cause) = scope.finish() {
++                let cause = cause.into_anyhow();
++                let message = format!("WGPU TextureCube Face View Error: {cause}");
++                return Err(cause.context(message));
+             }
+         }
+ 
+@@ -145,11 +136,7 @@
+         self.ensure_device(context)?;
+         let requested_format = self.effective_format(self.format);
+         #[cfg(not(target_arch = "wasm32"))]
+-        let scope = context.blocking_validation.then(|| {
+-            context
+-                .device
+-                .push_error_scope(wgpu::ErrorFilter::Validation)
+-        });
++        let scope = ValidationScope::new(context);
+         let view = texture.create_view(&wgpu::TextureViewDescriptor {
+             label: Some("TextureCube 2D Array View for Storage"),
+             dimension: Some(wgpu::TextureViewDimension::D2Array),
+@@ -159,13 +146,13 @@
+         });
+         #[cfg(not(target_arch = "wasm32"))]
+         if let Some(scope) = scope {
+-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+-            if let Some(cause) = pollster::block_on(scope.pop()) {
+-                return Err(TextureViewError::CubeArray {
+-                    requested: self.format,
+-                    cause: Box::new(cause),
+-                });
+-            }
++            scope.finish().map_err(|cause| {
++                TextureViewError::from_observation(
++                    self.format,
++                    TextureViewOperation::CubeArray,
++                    cause,
++                )
++            })?;
+         }
+         Ok(view)
+     }

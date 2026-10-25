@@ -1,0 +1,22 @@
+{
+  "revision": "a2ca851015b9649097635f9f580e409028682ffa",
+  "base": "03ad4103f2e9a892e1682be580cb9d3c9a52669f",
+  "files": {
+    "crates/fabelgeist-hair/src/strands/shape.rs": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+    "crates/fabelgeist-hair/src/strands.rs": "3ab9c91b1153b1f7a21e2dd57e9f53c5a6f4b220abde40f9ef666c4b60c4d336",
+    "crates/fabelgeist-hair/src/lod.rs": "66205be78231f6f2176c92e1edf72e615e3528d57d4f598157b4b855af1ba196",
+    "crates/fabelgeist-hair/src/gpu/layout.rs": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+    "crates/fabelgeist-hair/src/gpu/mod.rs": "b900f53dd9b2751914c9b756562e8d9a54465c958b53709b2052d3f70cb7e788",
+    "crates/fabelgeist-hair/src/sim.rs": "3e2784bef61f86973ae6de8cc995023a4d95787bb958638f799e4c3abc6646e5",
+    "crates/fabelgeist-hair/src/cards/build.rs": "43a2bfd975e30c60f0738e6a4c746b99ce16f42b74ccf794bf150f75f113e506",
+    "crates/fabelgeist-hair/src/cards/layout.rs": "ba42c5f262f91abcd074353ea1c9bc7b17f513bde0310c88e13b8743bc007633"
+  },
+  "contracts": [
+    "strands::StrandShape/StrandShapeResult/StrandShapeError/StrandSampleCount/StrandAttribute canonical unconditional host shape owner",
+    "gpu::StrandLayout consumes canonical shape and adds native width only; native getters unchanged",
+    "StrandLevel::new(PointsPerStrand,Vec<vec4>,Vec<StrandInfo>)->StrandShapeResult; layout/positions/infos/len/is_empty/bytes readonly",
+    "HairLods::levels()->&[Arc<StrandLevel>],cards/atlas/bounds/center/cover readonly; strand_count()->StrandCount; firstlevel always exists",
+    "SimBinding/SimFrame still pending; current sim caller only readonly API substitutions, do not receive an intermediate host frame API"
+  ],
+  "limits": "Source comparisons only. New shape admission reviewed as source. Renderer/Creator/SimFrame/physical grid pending; no compiled/runtime/global clearance."
+}

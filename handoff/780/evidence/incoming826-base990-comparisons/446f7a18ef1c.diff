@@ -1,0 +1,34 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-compute/src/sort/mod.rs
+
++++ filtered826-c798/crates/fabelgeist-compute/src/sort/mod.rs
+
+@@ -277,7 +277,7 @@
+
+ 
+             let mut histogram_parameters = parameters.clone();
+             histogram_parameters.insert("keys", source_keys.clone());
+-            batch.dispatch(&self.histogram, &histogram_parameters, [tiles, 1, 1])?;
++            batch.dispatch(&self.histogram, &histogram_parameters, [tiles, 1, 1].into())?;
+ 
+             self.scan.record(
+                 batch,
+@@ -291,15 +291,15 @@
+
+             scatter_parameters.insert("values_in", source_values.clone());
+             scatter_parameters.insert("keys_out", target_keys.clone());
+             scatter_parameters.insert("values_out", target_values.clone());
+-            batch.dispatch(&self.scatter, &scatter_parameters, [tiles, 1, 1])?;
++            batch.dispatch(&self.scatter, &scatter_parameters, [tiles, 1, 1].into())?;
+ 
+             std::mem::swap(&mut source_keys, &mut target_keys);
+             std::mem::swap(&mut source_values, &mut target_values);
+         }
+ 
+         if passes % 2 == 1 {
+-            batch.copy_buffer(&source_keys, keys, needed)?;
+-            batch.copy_buffer(&source_values, values, needed)?;
++            batch.copy_buffer(&source_keys, keys, needed.into())?;
++            batch.copy_buffer(&source_values, values, needed.into())?;
+         }
+ 
+         Ok(())

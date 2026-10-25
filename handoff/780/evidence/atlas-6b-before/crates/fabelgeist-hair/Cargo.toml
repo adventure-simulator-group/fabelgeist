@@ -1,0 +1,39 @@
+[package]
+name = "fabelgeist-hair"
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0"
+repository = "https://github.com/adventure-simulator-group/fabelgeist"
+
+[dependencies]
+fabelgeist-determinism = { path = "../fabelgeist-determinism" }
+fabelgeist-mesh = { path = "../fabelgeist-mesh", default-features = false }
+fabelgeist-math = { "default-features" = false, "path" = "../fabelgeist-math" }
+fabelgeist-bvh = { "default-features" = false, "path" = "../fabelgeist-bvh" }
+anyhow = { "version" = "1.0" }
+thiserror = "2"
+bytemuck = { "version" = "1.16", "features" = ["derive"] }
+rayon = { "version" = "1.10" }
+web-time = { "version" = "1.1.0" }
+serde = { "version" = "1", "features" = ["derive"] }
+serde_json = { "version" = "1.0", "features" = ["preserve_order"] }
+crc32fast = { "version" = "1" }
+miniz_oxide = { "version" = "0.8" }
+futures-channel = { version = "0.3", optional = true }
+wgpu = { "version" = "29.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"], "optional" = true }
+fabelgeist-gpu = { "default-features" = false, "optional" = true, "path" = "../fabelgeist-gpu" }
+fabelgeist-compute = { "optional" = true, "path" = "../fabelgeist-compute" }
+fabelgeist-spatial-hash = { "default-features" = false, "optional" = true, "features" = ["gpu"], "path" = "../fabelgeist-spatial-hash" }
+pollster = { "version" = "0.4", "optional" = true }
+image = { "version" = "0.25", "optional" = true, "default-features" = false, "features" = ["png", "jpeg", "bmp", "tga", "hdr"] }
+
+[dev-dependencies]
+naga = { "version" = "29.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
+
+[features]
+default = ["render"]
+gpu = ["fabelgeist-mesh/gpu", "dep:wgpu", "dep:pollster", "dep:fabelgeist-gpu", "dep:fabelgeist-compute", "dep:fabelgeist-spatial-hash"]
+render = ["gpu", "dep:image", "dep:futures-channel"]
+
+[lints]
+workspace = true

@@ -1,0 +1,1169 @@
+--- a/crates/fabelgeist-compute/src/advect/mod.rs
++++ b/crates/fabelgeist-compute/src/advect/mod.rs
+@@ -1,8 +1,7 @@
+ use crate::prelude::*;
+ use fabelgeist_gpu::data::gpu::parameters::PassParameter;
+ use fabelgeist_gpu::data::gpu::resource::GpuResource;
+-use std::collections::HashMap;
+-use std::sync::{Arc, RwLock};
++use std::sync::Arc;
+ 
+ #[derive(Clone, Debug, PartialEq, Eq, Hash)]
+ pub struct AdvectSignature {
+@@ -12,7 +11,7 @@
+     pub dimension: u32, // 2 or 3
+ }
+ 
+-type AdvectPipelineCache = HashMap<
++type AdvectPipelineCache = ComputeSourceCache<
+     (
+         ResourceDescriptor,
+         ResourceDescriptor,
+@@ -25,14 +24,14 @@
+ #[derive(Clone, Debug)]
+ pub struct AdvectDefinition {
+     pub mode: u32,
+-    pub cache: Arc<RwLock<AdvectPipelineCache>>,
++    cache: AdvectPipelineCache,
+ }
+ 
+ impl AdvectDefinition {
+     pub fn new(mode: u32) -> Self {
+         Self {
+             mode,
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         }
+     }
+ }
+@@ -202,19 +201,11 @@
+             output_res.clone(),
+             self.mode,
+         );
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.get(&key) {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+-        let pipeline = self.build_pipeline(context, velocity_res, quantity_res, output_res)?;
+-        let arc_p = Arc::new(pipeline);
+-
+-        let mut cache = self.cache.write().unwrap();
+-        cache.insert(key, arc_p.clone());
+-        Ok(arc_p)
++        self.cache.get_or_try_insert(context, "", key, || {
++            let pipeline = self.build_pipeline(context, velocity_res, quantity_res, output_res)?;
++            let arc_p = Arc::new(pipeline);
++            Ok(arc_p)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/broadcast.rs
++++ b/crates/fabelgeist-compute/src/broadcast.rs
+@@ -1,11 +1,10 @@
+ use crate::prelude::*;
+ 
+ use fabelgeist_gpu::data::gpu::resource::GpuResource;
+-use std::sync::{Arc, RwLock};
+ 
+ #[derive(Clone, Debug, Default)]
+ pub struct BroadcastDefinition {
+-    pub cache: Arc<RwLock<Option<ComputePipeline>>>,
++    cache: ComputeSourceCache<(), ComputePipeline>,
+ }
+ 
+ impl PartialEq for BroadcastDefinition {
+@@ -17,18 +16,11 @@
+ impl BroadcastDefinition {
+     pub fn new(_context: &WgpuContext, _code: String) -> Result<Self> {
+         Ok(Self {
+-            cache: Arc::new(RwLock::new(None)),
++            cache: ComputeSourceCache::default(),
+         })
+     }
+ 
+     pub fn get_or_create_pipeline(&self, context: &WgpuContext) -> Result<ComputePipeline> {
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.as_ref() {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+         let shader_code = "
+             @group(0) @binding(0) var<storage, read> input: array<f32>;
+             @group(0) @binding(1) var<storage, read_write> output: array<f32>;
+@@ -37,12 +29,12 @@
+                 output[global_id.x] = input[global_id.x];
+             }
+         ";
+-        let shader = ComputeShader::new(context, shader_code.to_string())?;
+-        let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
+ 
+-        let mut cache = self.cache.write().unwrap();
+-        *cache = Some(pipeline.clone());
+-        Ok(pipeline)
++        self.cache.get_or_try_insert(context, shader_code, (), || {
++            let shader = ComputeShader::new(context, shader_code.to_string())?;
++            let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
++            Ok(pipeline)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/divergence/mod.rs
++++ b/crates/fabelgeist-compute/src/divergence/mod.rs
+@@ -1,23 +1,22 @@
+ use crate::prelude::*;
+ use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+ use fabelgeist_gpu::data::gpu::resource::GpuResource;
+-use std::collections::HashMap;
+-use std::sync::{Arc, RwLock};
++use std::sync::Arc;
+ 
+ type DivergencePipelineCache =
+-    HashMap<(ResourceDescriptor, ResourceDescriptor, u32), Arc<ComputePipeline>>;
++    ComputeSourceCache<(ResourceDescriptor, ResourceDescriptor, u32), Arc<ComputePipeline>>;
+ 
+ #[derive(Clone, Debug)]
+ pub struct DivergenceDefinition {
+     pub boundary_mode: u32,
+-    pub cache: Arc<RwLock<DivergencePipelineCache>>,
++    cache: DivergencePipelineCache,
+ }
+ 
+ impl DivergenceDefinition {
+     pub fn new(boundary_mode: u32) -> Self {
+         Self {
+             boundary_mode,
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         }
+     }
+ }
+@@ -136,19 +135,11 @@
+         output_res: ResourceDescriptor,
+     ) -> Result<Arc<ComputePipeline>> {
+         let key = (input_res.clone(), output_res.clone(), self.boundary_mode);
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.get(&key) {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+-        let pipeline = self.build_pipeline(context, input_res, output_res)?;
+-        let arc_p = Arc::new(pipeline);
+-
+-        let mut cache = self.cache.write().unwrap();
+-        cache.insert(key, arc_p.clone());
+-        Ok(arc_p)
++        self.cache.get_or_try_insert(context, "", key, || {
++            let pipeline = self.build_pipeline(context, input_res, output_res)?;
++            let arc_p = Arc::new(pipeline);
++            Ok(arc_p)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/gather/mod.rs
++++ b/crates/fabelgeist-compute/src/gather/mod.rs
+@@ -1,8 +1,7 @@
+ use crate::prelude::*;
+ use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+ use fabelgeist_gpu::data::gpu::resource::GpuResource;
+-use std::collections::HashMap;
+-use std::sync::{Arc, RwLock};
++use std::sync::Arc;
+ 
+ #[derive(Clone, Debug, PartialEq)]
+ pub struct GatherSignature {
+@@ -15,19 +14,19 @@
+ }
+ 
+ type GatherPipelineCache =
+-    HashMap<(ResourceDescriptor, ResourceDescriptor), Arc<(ComputePipeline, u64, u64)>>;
++    ComputeSourceCache<(ResourceDescriptor, ResourceDescriptor), Arc<(ComputePipeline, u64, u64)>>;
+ 
+ #[derive(Clone, Debug)]
+ pub struct GatherDefinition {
+     pub code: String,
+-    pub cache: Arc<RwLock<GatherPipelineCache>>,
++    cache: GatherPipelineCache,
+ }
+ 
+ impl Default for GatherDefinition {
+     fn default() -> Self {
+         Self {
+             code: String::new(),
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         }
+     }
+ }
+@@ -43,7 +42,7 @@
+         let _ = Self::parse_signature(&code)?;
+         Ok(Self {
+             code,
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         })
+     }
+ 
+@@ -329,19 +328,11 @@
+         input_res: ResourceDescriptor,
+         output_res: ResourceDescriptor,
+     ) -> Result<Arc<(ComputePipeline, u64, u64)>> {
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.get(&(input_res.clone(), output_res.clone())) {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+-        let pipeline_info = self.build_pipeline(context, input_res.clone(), output_res.clone())?;
+-        let arc_info = Arc::new(pipeline_info);
+-
+-        let mut cache = self.cache.write().unwrap();
+-        cache.insert((input_res, output_res), arc_info.clone());
+-        Ok(arc_info)
++        self.cache.get_or_try_insert(context, &self.code, (input_res.clone(), output_res.clone()), || {
++            let pipeline_info = self.build_pipeline(context, input_res.clone(), output_res.clone())?;
++            let arc_info = Arc::new(pipeline_info);
++            Ok(arc_info)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/gradient/mod.rs
++++ b/crates/fabelgeist-compute/src/gradient/mod.rs
+@@ -1,10 +1,9 @@
+ use crate::prelude::*;
+ use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+ use fabelgeist_gpu::data::gpu::resource::GpuResource;
+-use std::collections::HashMap;
+-use std::sync::{Arc, RwLock};
+-
+-type GradientPipelineCache = HashMap<
++use std::sync::Arc;
++
++type GradientPipelineCache = ComputeSourceCache<
+     (
+         ResourceDescriptor,
+         ResourceDescriptor,
+@@ -17,14 +16,14 @@
+ #[derive(Clone, Debug)]
+ pub struct GradientDefinition {
+     pub boundary_mode: u32,
+-    pub cache: Arc<RwLock<GradientPipelineCache>>,
++    cache: GradientPipelineCache,
+ }
+ 
+ impl GradientDefinition {
+     pub fn new(boundary_mode: u32) -> Self {
+         Self {
+             boundary_mode,
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         }
+     }
+ }
+@@ -157,19 +156,11 @@
+             output_res.clone(),
+             self.boundary_mode,
+         );
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.get(&key) {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+-        let pipeline = self.build_pipeline(context, velocity_res, pressure_res, output_res)?;
+-        let arc_p = Arc::new(pipeline);
+-
+-        let mut cache = self.cache.write().unwrap();
+-        cache.insert(key, arc_p.clone());
+-        Ok(arc_p)
++        self.cache.get_or_try_insert(context, "", key, || {
++            let pipeline = self.build_pipeline(context, velocity_res, pressure_res, output_res)?;
++            let arc_p = Arc::new(pipeline);
++            Ok(arc_p)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/kernel/mod.rs
++++ b/crates/fabelgeist-compute/src/kernel/mod.rs
+@@ -18,8 +18,7 @@
+ mod fast;
+ 
+ use crate::prelude::*;
+-use std::collections::HashMap;
+-use std::sync::{Arc, RwLock};
++use std::sync::Arc;
+ 
+ // Validation scopes on one device must not interleave during compilation.
+ static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
+@@ -30,9 +29,18 @@
+ /// The flat item index of an invocation dispatched by
+ /// [`KernelBatch::dispatch_folded`], given its `global_invocation_id`, its
+ /// `num_workgroups` and the kernel's workgroup width.
++///
++/// An unrepresentable padded index becomes `u32::MAX`. Callers must reject
++/// indices outside their live prefix before accessing resources; this sentinel
++/// is outside every population representable by an invocation count.
+ pub const FOLDED_INDEX_WGSL: &str = r#"
+ fn folded_index(id: vec3<u32>, groups: vec3<u32>, width: u32) -> u32 {
+-    return id.y * groups.x * width + id.x;
++    let outside_prefix = 0xffffffffu;
++    if (groups.x == 0u || width == 0u) { return outside_prefix; }
++    if (id.y > outside_prefix / groups.x) { return outside_prefix; }
++    let row_groups = id.y * groups.x;
++    if (row_groups > (outside_prefix - id.x) / width) { return outside_prefix; }
++    return row_groups * width + id.x;
+ }
+ "#;
+ 
+@@ -166,15 +174,11 @@
+     }
+ }
+ 
+-/// Compiles each distinct kernel source once and hands out clones after that.
+-///
+-/// Kernels here are generated -- a constraint kernel is a template with the
+-/// fabric model pasted into it -- so the same source comes back around every
+-/// frame and for every solver instance. Compiling it once per source rather
+-/// than once per call is the difference between a stutter and a steady frame.
++/// Shares successful kernel builds for the same source, native device and
++/// validation policy.
+ #[derive(Clone, Debug, Default)]
+ pub struct KernelCache {
+-    kernels: Arc<RwLock<HashMap<String, Arc<Kernel>>>>,
++    kernels: ComputeSourceCache<(), Arc<Kernel>>,
+ }
+ 
+ impl KernelCache {
+@@ -183,27 +187,16 @@
+     }
+ 
+     pub fn get(&self, context: &WgpuContext, code: &str) -> Result<Arc<Kernel>> {
+-        if let Some(kernel) = self.kernels.read().unwrap().get(code) {
+-            return Ok(kernel.clone());
+-        }
+-
+-        // Compiled outside the write lock: a shader compile is slow, and
+-        // holding the lock across it would serialise every other kernel's
+-        // first use behind this one.
+-        let kernel = Arc::new(Kernel::new(context, code)?);
+-
+-        let mut kernels = self.kernels.write().unwrap();
+-        // A racing caller may have inserted the same source in the meantime;
+-        // keep theirs, so that every holder of this source shares one pipeline.
+-        Ok(kernels.entry(code.to_string()).or_insert(kernel).clone())
++        self.kernels
++            .get_or_try_insert(context, code, (), || Ok(Arc::new(Kernel::new(context, code)?)))
+     }
+ 
+     pub fn len(&self) -> usize {
+-        self.kernels.read().unwrap().len()
++        self.kernels.len()
+     }
+ 
+     pub fn is_empty(&self) -> bool {
+-        self.len() == 0
++        self.kernels.is_empty()
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/map/mod.rs
++++ b/crates/fabelgeist-compute/src/map/mod.rs
+@@ -1,7 +1,7 @@
+ use crate::prelude::*;
+ use fabelgeist_gpu::data::gpu::resource::GpuResource;
+ use std::collections::HashMap;
+-use std::sync::{Arc, RwLock};
++use std::sync::Arc;
+ 
+ #[derive(Clone, Debug, PartialEq, Eq, Hash)]
+ pub struct MapSignature {
+@@ -17,7 +17,7 @@
+ 
+ use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+ 
+-type MapPipelineCache = HashMap<
++type MapPipelineCache = ComputeSourceCache<
+     (
+         Option<ResourceDescriptor>,
+         ResourceDescriptor,
+@@ -29,14 +29,14 @@
+ #[derive(Clone, Debug)]
+ pub struct MapDefinition {
+     pub code: String,
+-    pub cache: Arc<RwLock<MapPipelineCache>>,
++    cache: MapPipelineCache,
+ }
+ 
+ impl Default for MapDefinition {
+     fn default() -> Self {
+         Self {
+             code: String::new(),
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         }
+     }
+ }
+@@ -53,7 +53,7 @@
+         let _ = Self::parse_signature(&code)?;
+         Ok(Self {
+             code,
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         })
+     }
+ 
+@@ -425,24 +425,16 @@
+         sec_res_sorted.sort_by(|a, b| a.0.cmp(&b.0));
+         let key = (input_res.clone(), output_res.clone(), sec_res_sorted);
+ 
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.get(&key) {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+-        let pipeline_info = self.build_pipeline(
+-            context,
+-            input_res.clone(),
+-            output_res.clone(),
+-            secondary_resources,
+-        )?;
+-        let arc_info = Arc::new(pipeline_info);
+-
+-        let mut cache = self.cache.write().unwrap();
+-        cache.insert(key, arc_info.clone());
+-        Ok(arc_info)
++        self.cache.get_or_try_insert(context, &self.code, key, || {
++            let pipeline_info = self.build_pipeline(
++                context,
++                input_res.clone(),
++                output_res.clone(),
++                secondary_resources,
++            )?;
++            let arc_info = Arc::new(pipeline_info);
++            Ok(arc_info)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/matmul.rs
++++ b/crates/fabelgeist-compute/src/matmul.rs
+@@ -1,11 +1,10 @@
+ use crate::prelude::*;
+ 
+ use fabelgeist_gpu::data::gpu::resource::GpuResource;
+-use std::sync::{Arc, RwLock};
+ 
+ #[derive(Clone, Debug, Default)]
+ pub struct MatMulDefinition {
+-    pub cache: Arc<RwLock<Option<ComputePipeline>>>,
++    cache: ComputeSourceCache<(), ComputePipeline>,
+ }
+ 
+ impl PartialEq for MatMulDefinition {
+@@ -17,18 +16,11 @@
+ impl MatMulDefinition {
+     pub fn new(_context: &WgpuContext, _code: String) -> Result<Self> {
+         Ok(Self {
+-            cache: Arc::new(RwLock::new(None)),
++            cache: ComputeSourceCache::default(),
+         })
+     }
+ 
+     pub fn get_or_create_pipeline(&self, context: &WgpuContext) -> Result<ComputePipeline> {
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.as_ref() {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+         let shader_code = "
+             @group(0) @binding(0) var<storage, read> input_a: array<f32>;
+             @group(0) @binding(1) var<storage, read> input_b: array<f32>;
+@@ -38,12 +30,12 @@
+                 output[global_id.x] = input_a[global_id.x];
+             }
+         ";
+-        let shader = ComputeShader::new(context, shader_code.to_string())?;
+-        let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
+ 
+-        let mut cache = self.cache.write().unwrap();
+-        *cache = Some(pipeline.clone());
+-        Ok(pipeline)
++        self.cache.get_or_try_insert(context, shader_code, (), || {
++            let shader = ComputeShader::new(context, shader_code.to_string())?;
++            let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
++            Ok(pipeline)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/reshape.rs
++++ b/crates/fabelgeist-compute/src/reshape.rs
+@@ -1,11 +1,10 @@
+ use crate::prelude::*;
+ 
+ use fabelgeist_gpu::data::gpu::resource::GpuResource;
+-use std::sync::{Arc, RwLock};
+ 
+ #[derive(Clone, Debug, Default)]
+ pub struct ReshapeDefinition {
+-    pub cache: Arc<RwLock<Option<ComputePipeline>>>,
++    cache: ComputeSourceCache<(), ComputePipeline>,
+ }
+ 
+ impl PartialEq for ReshapeDefinition {
+@@ -17,18 +16,11 @@
+ impl ReshapeDefinition {
+     pub fn new(_context: &WgpuContext, _code: String) -> Result<Self> {
+         Ok(Self {
+-            cache: Arc::new(RwLock::new(None)),
++            cache: ComputeSourceCache::default(),
+         })
+     }
+ 
+     pub fn get_or_create_pipeline(&self, context: &WgpuContext) -> Result<ComputePipeline> {
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.as_ref() {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+         let shader_code = "
+             @group(0) @binding(0) var<storage, read> input: array<f32>;
+             @group(0) @binding(1) var<storage, read_write> output: array<f32>;
+@@ -37,12 +29,12 @@
+                 output[global_id.x] = input[global_id.x];
+             }
+         ";
+-        let shader = ComputeShader::new(context, shader_code.to_string())?;
+-        let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
+ 
+-        let mut cache = self.cache.write().unwrap();
+-        *cache = Some(pipeline.clone());
+-        Ok(pipeline)
++        self.cache.get_or_try_insert(context, shader_code, (), || {
++            let shader = ComputeShader::new(context, shader_code.to_string())?;
++            let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
++            Ok(pipeline)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/scan.rs
++++ b/crates/fabelgeist-compute/src/scan.rs
+@@ -1,19 +1,18 @@
+ use crate::prelude::*;
+ use fabelgeist_gpu::prelude::BufferUse;
+ 
+-use std::sync::{Arc, RwLock};
+ 
+ #[derive(Clone, Debug)]
+ pub struct ScanDefinition {
+     pub code: String,
+-    pub cache: Arc<RwLock<Option<(ComputePipeline, ComputePipeline, String)>>>,
++    cache: ComputeSourceCache<(), (ComputePipeline, ComputePipeline, String)>,
+ }
+ 
+ impl Default for ScanDefinition {
+     fn default() -> Self {
+         Self {
+             code: String::new(),
+-            cache: Arc::new(RwLock::new(None)),
++            cache: ComputeSourceCache::default(),
+         }
+     }
+ }
+@@ -29,7 +28,7 @@
+         let _ = fabelgeist_gpu::data::gpu::signature::parse_binary_op_signature(&code, "scan")?;
+         Ok(Self {
+             code,
+-            cache: Arc::new(RwLock::new(None)),
++            cache: ComputeSourceCache::default(),
+         })
+     }
+ 
+@@ -37,22 +36,16 @@
+         &self,
+         context: &WgpuContext,
+     ) -> Result<(ComputePipeline, ComputePipeline, String)> {
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.as_ref() {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+-        let ty_base =
+-            fabelgeist_gpu::data::gpu::signature::parse_binary_op_signature(&self.code, "scan")?;
+-        let ty = ty_base.as_str().to_string();
+-
+-        let block_size = 256;
+-
+-        // Pass 1: Local Scan & Block Sums
+-        let scan_blocks_code = format!(
+-            r#"@group(0) @binding(0) var<storage, read> input: array<{ty}>;
++        self.cache.get_or_try_insert(context, &self.code, (), || {
++            let ty_base =
++                fabelgeist_gpu::data::gpu::signature::parse_binary_op_signature(&self.code, "scan")?;
++            let ty = ty_base.as_str().to_string();
++
++            let block_size = 256;
++
++            // Pass 1: Local Scan & Block Sums
++            let scan_blocks_code = format!(
++                r#"@group(0) @binding(0) var<storage, read> input: array<{ty}>;
+ @group(0) @binding(1) var<storage, read_write> output: array<{ty}>;
+ @group(0) @binding(2) var<storage, read_write> aux: array<{ty}>;
+ 
+@@ -102,14 +95,14 @@
+     }}
+ }}
+ "#,
+-            ty = ty,
+-            code = self.code,
+-            block_size = block_size
+-        );
+-
+-        // Pass 3: Add Block Sums to Output
+-        let add_aux_code = format!(
+-            r#"@group(0) @binding(0) var<storage, read_write> output: array<{ty}>;
++                ty = ty,
++                code = self.code,
++                block_size = block_size
++            );
++
++            // Pass 3: Add Block Sums to Output
++            let add_aux_code = format!(
++                r#"@group(0) @binding(0) var<storage, read_write> output: array<{ty}>;
+ @group(0) @binding(1) var<storage, read> aux: array<{ty}>;
+ 
+ {code}
+@@ -126,21 +119,20 @@
+     }}
+ }}
+ "#,
+-            ty = ty,
+-            code = self.code,
+-            block_size = block_size
+-        );
+-
+-        let scan_blocks_shader = ComputeShader::new(context, scan_blocks_code)?;
+-        let add_aux_shader = ComputeShader::new(context, add_aux_code)?;
+-
+-        let p1 = ComputePipeline::new(context, scan_blocks_shader)?;
+-        let p2 = ComputePipeline::new(context, add_aux_shader)?;
+-
+-        let res = (p1, p2, ty);
+-        let mut cache = self.cache.write().unwrap();
+-        *cache = Some(res.clone());
+-        Ok(res)
++                ty = ty,
++                code = self.code,
++                block_size = block_size
++            );
++
++            let scan_blocks_shader = ComputeShader::new(context, scan_blocks_code)?;
++            let add_aux_shader = ComputeShader::new(context, add_aux_code)?;
++
++            let p1 = ComputePipeline::new(context, scan_blocks_shader)?;
++            let p2 = ComputePipeline::new(context, add_aux_shader)?;
++
++            let res = (p1, p2, ty);
++            Ok(res)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/scatter.rs
++++ b/crates/fabelgeist-compute/src/scatter.rs
+@@ -1,7 +1,6 @@
+ use crate::prelude::*;
+ use fabelgeist_gpu::data::gpu::resource::{GpuResource, ResourceType};
+-use std::collections::HashMap;
+-use std::sync::{Arc, RwLock};
++use std::sync::Arc;
+ 
+ #[derive(Clone, Debug, PartialEq)]
+ pub struct ScatterSignature {
+@@ -13,19 +12,19 @@
+     pub param_names: Vec<String>,
+ }
+ 
+-type ScatterPipelineCache = HashMap<(ResourceType, ResourceType), Arc<(ComputePipeline, u64, u64)>>;
++type ScatterPipelineCache = ComputeSourceCache<(ResourceType, ResourceType), Arc<(ComputePipeline, u64, u64)>>;
+ 
+ #[derive(Clone, Debug)]
+ pub struct ScatterDefinition {
+     pub code: String,
+-    pub cache: Arc<RwLock<ScatterPipelineCache>>,
++    cache: ScatterPipelineCache,
+ }
+ 
+ impl Default for ScatterDefinition {
+     fn default() -> Self {
+         Self {
+             code: String::new(),
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         }
+     }
+ }
+@@ -41,7 +40,7 @@
+         let _ = Self::parse_signature(&code)?;
+         Ok(Self {
+             code,
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         })
+     }
+ 
+@@ -317,19 +316,11 @@
+         input_res: ResourceType,
+         output_res: ResourceType,
+     ) -> Result<Arc<(ComputePipeline, u64, u64)>> {
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.get(&(input_res, output_res)) {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+-        let pipeline_info = self.build_pipeline(context, input_res, output_res)?;
+-        let arc_info = Arc::new(pipeline_info);
+-
+-        let mut cache = self.cache.write().unwrap();
+-        cache.insert((input_res, output_res), arc_info.clone());
+-        Ok(arc_info)
++        self.cache.get_or_try_insert(context, &self.code, (input_res, output_res), || {
++            let pipeline_info = self.build_pipeline(context, input_res, output_res)?;
++            let arc_info = Arc::new(pipeline_info);
++            Ok(arc_info)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/stencil.rs
++++ b/crates/fabelgeist-compute/src/stencil.rs
+@@ -3,7 +3,7 @@
+ use fabelgeist_gpu::data::gpu::resource::GpuResource;
+ use fabelgeist_gpu::data::gpu::signature::ResourceBaseType;
+ use std::collections::HashMap;
+-use std::sync::{Arc, RwLock};
++use std::sync::Arc;
+ 
+ fn sanitize_type_name(t: &str) -> String {
+     t.replace("<", "_")
+@@ -37,7 +37,7 @@
+     pub param_names: Vec<String>,
+ }
+ 
+-type StencilPipelineCache = HashMap<
++type StencilPipelineCache = ComputeSourceCache<
+     (
+         ResourceDescriptor,                // input_res
+         ResourceDescriptor,                // output_res
+@@ -51,7 +51,7 @@
+ pub struct StencilDefinition {
+     pub code: String,
+     pub boundary_mode: u32,
+-    pub cache: Arc<RwLock<StencilPipelineCache>>,
++    cache: StencilPipelineCache,
+ }
+ 
+ impl Default for StencilDefinition {
+@@ -59,7 +59,7 @@
+         Self {
+             code: String::new(),
+             boundary_mode: 0,
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         }
+     }
+ }
+@@ -76,7 +76,7 @@
+         Ok(Self {
+             code,
+             boundary_mode: 0,
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         })
+     }
+ 
+@@ -85,7 +85,7 @@
+         Ok(Self {
+             code,
+             boundary_mode,
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         })
+     }
+ 
+@@ -877,24 +877,16 @@
+             self.boundary_mode,
+         );
+ 
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.get(&key) {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+-        let pipeline_info = self.build_pipeline(
+-            context,
+-            input_res.clone(),
+-            output_res.clone(),
+-            secondary_resources,
+-        )?;
+-        let arc_info = Arc::new(pipeline_info);
+-
+-        let mut cache = self.cache.write().unwrap();
+-        cache.insert(key, arc_info.clone());
+-        Ok(arc_info)
++        self.cache.get_or_try_insert(context, &self.code, key, || {
++            let pipeline_info = self.build_pipeline(
++                context,
++                input_res.clone(),
++                output_res.clone(),
++                secondary_resources,
++            )?;
++            let arc_info = Arc::new(pipeline_info);
++            Ok(arc_info)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/stream/mod.rs
++++ b/crates/fabelgeist-compute/src/stream/mod.rs
+@@ -1,8 +1,7 @@
+ use crate::prelude::*;
+ use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+ use fabelgeist_gpu::data::gpu::resource::GpuResource;
+-use std::collections::HashMap;
+-use std::sync::{Arc, RwLock};
++use std::sync::Arc;
+ 
+ #[derive(Clone, Debug, PartialEq)]
+ pub struct StreamSignature {
+@@ -19,14 +18,14 @@
+ #[derive(Clone, Debug)]
+ pub struct StreamDefinition {
+     pub code: String,
+-    pub cache: Arc<RwLock<HashMap<ResourceDescriptor, Arc<ComputePipeline>>>>,
++    cache: ComputeSourceCache<ResourceDescriptor, Arc<ComputePipeline>>,
+ }
+ 
+ impl Default for StreamDefinition {
+     fn default() -> Self {
+         Self {
+             code: String::new(),
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         }
+     }
+ }
+@@ -42,7 +41,7 @@
+         let _ = Self::parse_signature(&code)?;
+         Ok(Self {
+             code,
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         })
+     }
+ 
+@@ -286,19 +285,11 @@
+         context: &WgpuContext,
+         input_res: ResourceDescriptor,
+     ) -> Result<Arc<ComputePipeline>> {
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.get(&input_res) {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+-        let pipeline = self.build_pipeline(context, input_res.clone())?;
+-        let arc_info = Arc::new(pipeline);
+-
+-        let mut cache = self.cache.write().unwrap();
+-        cache.insert(input_res, arc_info.clone());
+-        Ok(arc_info)
++        self.cache.get_or_try_insert(context, &self.code, input_res.clone(), || {
++            let pipeline = self.build_pipeline(context, input_res.clone())?;
++            let arc_info = Arc::new(pipeline);
++            Ok(arc_info)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-compute/src/transpose.rs
++++ b/crates/fabelgeist-compute/src/transpose.rs
+@@ -1,11 +1,10 @@
+ use crate::prelude::*;
+ 
+ use fabelgeist_gpu::data::gpu::resource::GpuResource;
+-use std::sync::{Arc, RwLock};
+ 
+ #[derive(Clone, Debug, Default)]
+ pub struct TransposeDefinition {
+-    pub cache: Arc<RwLock<Option<ComputePipeline>>>,
++    cache: ComputeSourceCache<(), ComputePipeline>,
+ }
+ 
+ impl PartialEq for TransposeDefinition {
+@@ -17,18 +16,11 @@
+ impl TransposeDefinition {
+     pub fn new(_context: &WgpuContext, _code: String) -> Result<Self> {
+         Ok(Self {
+-            cache: Arc::new(RwLock::new(None)),
++            cache: ComputeSourceCache::default(),
+         })
+     }
+ 
+     pub fn get_or_create_pipeline(&self, context: &WgpuContext) -> Result<ComputePipeline> {
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.as_ref() {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+         let shader_code = "
+             @group(0) @binding(0) var<storage, read> input: array<f32>;
+             @group(0) @binding(1) var<storage, read_write> output: array<f32>;
+@@ -37,12 +29,12 @@
+                 output[global_id.x] = input[global_id.x];
+             }
+         ";
+-        let shader = ComputeShader::new(context, shader_code.to_string())?;
+-        let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
+ 
+-        let mut cache = self.cache.write().unwrap();
+-        *cache = Some(pipeline.clone());
+-        Ok(pipeline)
++        self.cache.get_or_try_insert(context, shader_code, (), || {
++            let shader = ComputeShader::new(context, shader_code.to_string())?;
++            let pipeline = fabelgeist_gpu::data::gpu::build_compute_pipeline(context, &shader, "main")?;
++            Ok(pipeline)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs
+@@ -9,11 +9,13 @@
+ mod pass;
+ mod pipeline;
+ pub mod signature;
++mod source_cache;
+ pub mod texture_ops;
+ 
+ pub use pass::*;
+ pub use pipeline::*;
+ pub use signature::*;
++pub use source_cache::ComputeSourceCache;
+ pub use texture_ops::{TextureBinaryOp, TextureBinaryOpDefinition};
+ 
+ #[derive(Clone, Debug, PartialEq, Eq, Hash)]
+--- /dev/null
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs
+@@ -0,0 +1,82 @@
++//! Shared source/device admission for compiled compute recipe caches.
++
++use super::ComputePipelineError;
++use crate::globals::WgpuContext;
++use anyhow::Result;
++use std::collections::HashMap;
++use std::hash::Hash;
++use std::sync::{Arc, RwLock};
++
++/// Cached successful builds of one recipe family.
++///
++/// The authored source and recipe parameters identify the program. Native device
++/// identity and validation policy keep resources and observed outcomes local to
++/// their provider. An empty source is valid only for an immutable built-in recipe
++/// whose complete variable inputs are carried by its parameters.
++#[derive(Clone, Debug)]
++pub struct ComputeSourceCache<Parameters, Value> {
++    entries: Arc<RwLock<HashMap<ComputeSourceKey<Parameters>, Value>>>,
++}
++
++#[derive(Clone, Debug, PartialEq, Eq, Hash)]
++struct ComputeSourceKey<Parameters> {
++    device: wgpu::Device,
++    observes_validation: bool,
++    source: String,
++    parameters: Parameters,
++}
++
++// The map needs no default recipe parameters or cached value.
++impl<Parameters, Value> Default for ComputeSourceCache<Parameters, Value> {
++    fn default() -> Self {
++        Self {
++            entries: Arc::new(RwLock::new(HashMap::new())),
++        }
++    }
++}
++
++impl<Parameters: Eq + Hash, Value: Clone> ComputeSourceCache<Parameters, Value> {
++    /// Reuse a successful build, or construct it without holding the cache lock.
++    /// Failed construction never publishes a value.
++    pub fn get_or_try_insert(
++        &self,
++        context: &WgpuContext,
++        source: &str,
++        parameters: Parameters,
++        build: impl FnOnce() -> Result<Value>,
++    ) -> Result<Value> {
++        let key = ComputeSourceKey {
++            device: context.device.as_ref().clone(),
++            observes_validation: cfg!(not(target_arch = "wasm32")) && context.blocking_validation,
++            source: source.to_owned(),
++            parameters,
++        };
++        if let Some(value) = self
++            .entries
++            .read()
++            .map_err(|_| ComputePipelineError::CachePoisoned)?
++            .get(&key)
++        {
++            return Ok(value.clone());
++        }
++
++        let value = build()?;
++        let mut entries = self
++            .entries
++            .write()
++            .map_err(|_| ComputePipelineError::CachePoisoned)?;
++        // Racing successful builders share the first published native outcome.
++        Ok(entries.entry(key).or_insert(value).clone())
++    }
++
++    pub fn len(&self) -> usize {
++        self.entries
++            .read()
++            .unwrap_or_else(|poisoned| poisoned.into_inner())
++            .len()
++    }
++
++    pub fn is_empty(&self) -> bool {
++        self.len() == 0
++    }
++}
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs
+@@ -1,16 +1,16 @@
++use super::ComputeSourceCache;
+ use crate::data::gpu::parameters::PassParameter;
+ use crate::data::gpu::resource::GpuResource;
+ use crate::prelude::*;
+-use std::collections::HashMap;
+-use std::sync::{Arc, RwLock};
++use std::sync::Arc;
+ 
+ type TexturePipelineCache =
+-    HashMap<(ResourceDescriptor, ResourceDescriptor, ResourceDescriptor), Arc<ComputePipeline>>;
++    ComputeSourceCache<(ResourceDescriptor, ResourceDescriptor, ResourceDescriptor), Arc<ComputePipeline>>;
+ 
+ #[derive(Clone, Debug)]
+ pub struct TextureBinaryOpDefinition {
+     pub op_code: String,
+-    pub cache: Arc<RwLock<TexturePipelineCache>>,
++    cache: TexturePipelineCache,
+ }
+ 
+ impl PartialEq for TextureBinaryOpDefinition {
+@@ -31,7 +31,7 @@
+     pub fn new(op_code: impl ToString) -> Self {
+         Self {
+             op_code: op_code.to_string(),
+-            cache: Arc::new(RwLock::new(HashMap::new())),
++            cache: ComputeSourceCache::default(),
+         }
+     }
+ 
+@@ -104,19 +104,11 @@
+         output_res: ResourceDescriptor,
+     ) -> Result<Arc<ComputePipeline>> {
+         let key = (input_a_res.clone(), input_b_res.clone(), output_res.clone());
+-        {
+-            let cache = self.cache.read().unwrap();
+-            if let Some(p) = cache.get(&key) {
+-                return Ok(p.clone());
+-            }
+-        }
+-
+-        let pipeline = self.build_pipeline(context, input_a_res, input_b_res, output_res)?;
+-        let arc_p = Arc::new(pipeline);
+-
+-        let mut cache = self.cache.write().unwrap();
+-        cache.insert(key, arc_p.clone());
+-        Ok(arc_p)
++        self.cache.get_or_try_insert(context, &self.code, key, || {
++            let pipeline = self.build_pipeline(context, input_a_res, input_b_res, output_res)?;
++            let arc_p = Arc::new(pipeline);
++            Ok(arc_p)
++        })
+     }
+ }
+ 
+--- a/crates/fabelgeist-mesh/src/gpu.rs
++++ b/crates/fabelgeist-mesh/src/gpu.rs
+@@ -135,9 +135,12 @@
+         projection: Mat4,
+         strength: f64,
+     ) -> Result<GpuMesh> {
+-        use fabelgeist_gpu::data::gpu::compute::{ComputePass, ComputePipeline, ComputeShader};
++        use fabelgeist_gpu::data::gpu::compute::{
++            ComputePass, ComputePipeline, ComputeShader, ComputeSourceCache,
++        };
+         use std::sync::OnceLock;
+-        static DISPLACEMENT_PIPELINE: OnceLock<ComputePipeline> = OnceLock::new();
++        static DISPLACEMENT_PIPELINES: OnceLock<ComputeSourceCache<(), ComputePipeline>> =
++            OnceLock::new();
+ 
+         let pos_core = &source.positions;
+         let norm_core = &source.normals;
+@@ -151,8 +154,7 @@
+                 .with_usage(BufferUse::Vertex),
+         )?;
+ 
+-        let pipeline = DISPLACEMENT_PIPELINE.get_or_init(|| {
+-            let shader_code = r#"
++        let shader_code = r#"
+                 struct Params {
+                     projection:     mat4x4<f32>,
+                     inv_projection: mat4x4<f32>,
+@@ -208,9 +210,12 @@
+                     out_pos[f32_idx+2u]  = displaced_p.z;
+                 }
+             "#;
+-            let shader = ComputeShader::new(context, shader_code.to_string()).unwrap();
+-            ComputePipeline::new(context, shader).unwrap()
+-        });
++        let pipeline = DISPLACEMENT_PIPELINES
++            .get_or_init(ComputeSourceCache::default)
++            .get_or_try_insert(context, shader_code, (), || {
++                let shader = ComputeShader::new(context, shader_code.to_string())?;
++                Ok(ComputePipeline::new(context, shader)?)
++            })?;
+ 
+         let buf = |core: Buffer| PassParameter::from(core);
+ 

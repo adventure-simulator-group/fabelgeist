@@ -1,0 +1,144 @@
+The GPU (graphics processor) sorter accepts primitive integers for quantities
+with different meanings, allowing item-count and key-width arguments to be
+mixed up. Its migration must also reach producers and consumers that were
+unchanged in the original diff.
+
+The published change introduces sorting quantities for item counts, key widths,
+passes and digits. The continuation covers their producers, retained capacities,
+byte layouts and consumers: the bounding volume hierarchy (BVH), vertex normals,
+cloth self-collision, underlayers and connected hair and fitting paths.
+
+Sorting populations remain distinct from #779's launch quantities. The migration
+consumes the canonical invocation, workgroup, buffer-byte and element-stride
+owners. Shared GPU submission, ranged copying, readback and error contracts are
+coordinated with #826; no competing implementation or compatibility adapter is
+intended.
+
+## Current status
+
+This pull request remains a draft. The published head is
+`e14407cc494615f0b16522fb7aa7672a3589a3c3`. The audit continuation is local and
+has not been pushed or submitted for hosted checks. Current main was reconfirmed
+as `990430b77a9f63548ffcb642074185f61ddb3322`; #779 remains at
+`71f9cab8a5f97760e2e61ca4c74876b715f8aebc`.
+
+The local continuation has integrated #826's canonical checked submission and
+ranged-copy contracts. It also propagates submission failures through affected
+callers, associates grouped readback with its producing device, returns coherent
+spatial-hash query bindings, checks scratch growth, and checks normal and BVH
+input byte prefixes using their owning quantities. Native shader preservation
+has been compared for these scoped repairs. These are source-review results,
+not compiled or runtime acceptance.
+
+The local BVH continuation now returns a recorded view containing its checked
+layout and actual buffers, removes the workspace's latest recorded count,
+rejects empty traversal binding, and exposes a new collider only after its
+initial submission succeeds. Existing shader bodies and fixture cases remain
+unchanged. This family has targeted source comparison evidence; compiled and
+runtime acceptance remain pending.
+
+The local metal continuation carries an admitted tile size, binds decoded or
+procedural engraving data to its immutable recipe, and validates the resulting
+texture-map byte extents. The coordinated lower receiver implementation is now
+integrated locally. Armor and fitting readbacks consume named tickets and exact
+logical prefixes; empty numeric reductions return a typed error, and collider
+growth publishes replacement capacity only after allocation and upload succeed.
+These changes have targeted source-comparison evidence and remain uncompiled.
+
+Generated programs now select their own compute entry point explicitly; generic
+kernels retain their first-entry policy and consume canonical pipeline metadata.
+Numeric texture loads and stores share one checked component projection, and
+Scatter retains actual texture formats in its cache and bindings. Storage-format
+names come from the existing color owner, with typed rejection of unsupported
+formats. The agreed binary-texture builder, canonical buffer prefixes and
+logical write bounds are integrated locally.
+
+Grouped readback consumes the shared callback-progress helper and preserves
+channel-cancellation causes. Pending results are observed before polling, so a
+later device error cannot replace an already recorded outcome. Head coverage
+retains its checked surface source and actual device; the renderer receiver is
+being implemented by its agreed owner. These are local source-review results,
+with existing fixture cases and assertions preserved.
+
+Scalp edge packing now checks the scanned vertex limit before producing packed
+identities. Its producer and decoders share one native format owner; accepted
+key bits and the existing two readback waits are preserved. A canonical native
+strand layout checks count widths, sample and draw products, and complete host
+record relationships. Host uploads validate the full shape before choosing a
+fitting resident prefix. Groom and guide records now retain that layout and
+their allocating device. Creator placement fills an owned destination, logical
+reads exclude padded storage, and accepted mutations invalidate cached bounds.
+Operation routing, parameter packing and settling are separated while retaining
+the native field values and shader bodies.
+
+Checked atlas settings and typed failures now flow through both level builders
+and card variant parameters. The cache reads its key from the actual immutable
+atlas and publishes a candidate only after the complete batch is submitted.
+Host and GPU builders use one authored seed; raster and mip arithmetic remain
+unchanged.
+
+The coordinated dispatch receiver now checks actual device grid limits before
+cached preparation. Folded invocation projection rejects unsupported workgroup
+shapes and padded addresses that would wrap a 32-bit shader index. The prefix
+sum retains its distinct block geometry: its uniform block guard precedes lane
+address arithmetic. Existing #779 fixture cases remain unchanged.
+
+Native strand levels now retain their checked layout and allocating device in
+read-only shared records. Simulations retain the actual source level, distinguish
+source binding extents from simulated point extents, and read only logical data.
+Transfers between different sources compare their actual guide roots; transfers
+within one source retain their prefix behavior. Factor, collision-sample and
+floating-point strand-identity bounds are admitted before the relevant storage
+is allocated.
+
+Card geometry now distinguishes generic triangle lists from generated strips.
+Sealed constructors validate counts and index membership; generated layouts
+check the relationship between strips, rows, vertices and corners. Native
+compaction, lock and output addressing use those quantities, with checked empty
+binding extents and allocating-device metadata. Card and atlas failures retain
+their typed causes through the owning level builder. Existing geometry, random
+streams, shader arithmetic and fixture oracles have scoped source-comparison
+evidence. Independent delta Code Reviews found no actionable correctness defect;
+these results remain separate from compiled acceptance.
+
+Creator receivers, host simulation frame provenance and physical/grid contracts
+remain unfinished. The shared native validation-scope implementation is pinned
+by #826; its integration and the affected cached callers remain pending.
+
+Required work remains: finish connected count, layout and error propagation
+through hair, body/fitting, armor and runtime consumers, and integrate the
+remaining shared renderer, atlas and receiver changes. The canonical selection
+policy is integrated locally; its creator callers remain in scope. The ignored
+audit ledger records source traces, all thirteen lenses, dependencies and
+acceptance criteria. Targeted delta reviews do not constitute a complete post-repair wave.
+
+Bruno has transferred the remaining connected #774 claims to the coordinated
+continuation. The [ownership record](https://github.com/adventure-simulator-group/fabelgeist/pull/774#issuecomment-6372371468)
+supersedes the earlier missing-implementer limitation. #826 owns complete lower
+GPU, armor and metal facade/error functions, plus the agreed hair renderer and
+selection-policy family. #780 owns the connected producer,
+layout, fitting and application-error functions. Crossing functions require one
+agreed owner; the transfer does not establish implementation clearance.
+
+## Validation
+
+No new tests, test cases, test helpers, assertions or documentation tests are added
+by this continuation. Existing tests are retained; existing fixture API changes
+follow the canonical migration. Project checks will run through the hosted
+workflow after connected migration families are complete.
+
+The current combined source has not passed a complete post-repair thirteen-lens
+wave, final independent Code Review, Rule Review and Comment Review, or required
+hosted CI. Earlier revision-specific pass claims do not validate this source.
+Completion requires every gate on the same final pushed revision. Do not merge.
+
+## Implementation context
+
+Material decisions are separate sorting and launch quantities, canonical shared
+owners, checked layouts before recording, actual provider association and native
+causes, and explicit whole-function ownership across #774 and #826. Source-only
+preservation evidence is kept separate from pending hosted acceptance. No
+reviewed shared conversation snapshot is available for this continuation; this
+description is the authoritative scope and validation summary.
+
+Part of #726. Related dispatch API: #779. Shared receiving contracts: #826.

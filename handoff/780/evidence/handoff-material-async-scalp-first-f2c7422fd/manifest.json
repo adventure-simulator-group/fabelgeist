@@ -1,0 +1,117 @@
+{
+  "head": "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35",
+  "commits": [
+    "47c23647be6d0e764076237b8a0a692906663d0a",
+    "f2c7422fd6a0f995eb90b72cc9c2a5bd12de4d35"
+  ],
+  "files": [
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "b94c9bc6659a4ca3a7e9ef3bfbe5a52026c70dd86abd4c40f91c5066c9ebde8e"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "09072dcebe7d27d7866f20305953af487020335484821994e5b90db655683268"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "sha256": "e6e7f6eb9a2ef8dbb4d28132efa4d82f95ef220730cc20d12ccd376c43a14a9d"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+      "sha256": "d49752ba70390e3801be29f335f22fea33532331b7e73c555474f8a55e866741"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_gpu.rs",
+      "sha256": "3b90085dce11463f05a859d535dae2006b41e3332441d7f407c8b2b8dd837535"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/metal_preview.rs",
+      "sha256": "09af59779312ad82dd8a82bace7284c98503db7e55eab5018e1deee5dae3bf14"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "2906c6c5115f7924743595c1808b2337d4b167c27d301436ac22304c75479428"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "33f6b05450b7b1eb8e1080aa330b35696e6ee4c57da0bb4d208a18f66ebec963"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "82c083e495d9e3b992abf5ad23d3f99f48acc42da6900cd44ca99405140095de"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/tests.rs",
+      "sha256": "fdc04f19250688292a3a3f1830e0b6ca7cdab927e166dd2940ddd549f6587e9c"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs",
+      "sha256": "dabc0ed6029883b7507a1df190862761c1f6936fd89f7549832e0bfa7a403bb7"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "cc92d78b3882a4f18b998cab17b8761098b440b2f0b51e6b3bebeb045c552d35"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "00b9793da951c6356e757893a9f983df9a075e9b93d918d5cbf0d3d00b2b37ef"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "e0c18e02e9345a8e02e21334af5c2ad1a7bc2dbdc19e203915d5af87df8ecb10"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "40486b2fcb0f2a2742a0a43ac588c71ba46f47495236def99dd6f0b27c821447"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+      "sha256": "b4907574e60ff614aef176c62a138331eb3bc047cb799db0fe6f82d5f92b6c26"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/grow/maps.rs",
+      "sha256": "7b8b6157448397c687e7da311bb8ca6a933455934080093196854e20c1c0c0bc"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "sha256": "0cf3b1a2d8fa1e50f2494291f44e803aff7501f7d5f92763c87ef54a5db0ac0d"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/head.rs",
+      "sha256": "c95b6fcaaec095658c85f5c325781ecd1c349ddefb7b7eecd018ab61b500f709"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+      "sha256": "e82d568414119b0fd6077ab911224dc9eee4eefb2d6a5cf7ff38c98dea9a78e1"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "f5696d4762b8a0414cd89406639a49edeabbd1acbd330df25eeee220291cac9a"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+      "sha256": "7eb85b1be589db745f6411247e2b22ee076a63ebf49f97dcec29fab7caf14043"
+    }
+  ],
+  "scope": "Two bounded source tranches: async Metal acquisition/bake/read/cache/export/callers and ScalpTexture read/longest; native scalp final submit + closest correctness + eight prose/syntax findings. All3 fresh scoped reviews and full13 increment dispositions; NOT complete material/native/global clearance.",
+  "canonical_api": "Direct async MetalGpu::open/textures/private read, Creator metal_gpu async_once awaiting armor_gpu_async, ShellTextures::armor async; ScalpTextureChain/GpuScalpTexture::read and private longest async. Existing native application/test boundaries block; no duplicate/compat overload. Native cut finalsubmit? and complete nearest-triangle loop.",
+  "prerequisites": [
+    "Canonical material22+6 definitions/reference packet still required; MAT-C1/R1..R5 pending, receive coherent types/export/callers, no primitive fallback",
+    "Scalp final4dddd chain/layout/grid/device/prefix packet remains prerequisite; these API modifications supersede only relevant current sources",
+    "Shared native GPU/count/stride/runtime owners by explicit agreement; final native83/Armor docs/baseline receiving composition still pending on Root"
+  ],
+  "protected_native": "MetalGpu whole module includes agreed Root changes to open/textures/read/docs only. new/batch/upload/scratch/dispatch/MetalDeviceError/device_error source bytes exact pre-edit peer reference, independently proved. Compose by ownership if receiver drifted; no blanket replacement of other claimed functions. Hair gpu/mod only introduction/existing example comment; all kernel/context/test bodies exact.",
+  "reviews": "See notes all reports + exact source comparisons; original cases/helpers/assertions preserved.",
+  "holds": [
+    "Full material six groups, native Grid/source/device/root/guide/physical and global13 unfinished",
+    "No build/runtime/browser/project/hosted result; no tests/cases/helpers/assertions/doctests added",
+    "No code push or hostedCI until connected families complete; final same pushedSHA reviews/requiredCI stillpending; nevermerge"
+  ],
+  "push": false,
+  "hosted_ci": false
+}

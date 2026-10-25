@@ -1,0 +1,38 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-compute/src/stereo/pipeline.rs
+
++++ filtered826-c798/crates/fabelgeist-compute/src/stereo/pipeline.rs
+
+@@ -380,7 +380,7 @@
+
+                 p.insert("confidence", PassParameter::Buffer(self.confidence.clone()));
+                 p.insert("points", PassParameter::Buffer(self.points.clone()));
+                 p.insert("distance", PassParameter::Buffer(self.distance.clone()));
+-                batch.dispatch(&k.depth, &p, groups)?;
++                batch.dispatch(&k.depth, &p, groups.into())?;
+             }
+             Stage::Temporal => {
+                 let Some(temporal) = self.temporal else {
+@@ -419,7 +419,7 @@
+
+                     "filtered_distance",
+                     PassParameter::Buffer(self.filtered_distance.clone()),
+                 );
+-                batch.dispatch(&k.temporal, &p, groups)?;
++                batch.dispatch(&k.temporal, &p, groups.into())?;
+             }
+             Stage::Unrectify => {
+                 let Some(views) = &self.views else {
+@@ -488,7 +488,11 @@
+
+                         "view_distance",
+                         PassParameter::Buffer(views.distance[eye].clone()),
+                     );
+-                    batch.dispatch(&k.unrectify, &p, [vw.div_ceil(16), vh.div_ceil(16), 1])?;
++                    batch.dispatch(
++                        &k.unrectify,
++                        &p,
++                        [vw.div_ceil(16), vh.div_ceil(16), 1].into(),
++                    )?;
+                 }
+             }
+         }

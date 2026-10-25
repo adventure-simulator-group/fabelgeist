@@ -1,0 +1,51 @@
+{
+  "commit": "c6659f6cfa4610f066c659411ade6636e21bd3b5",
+  "files": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair.rs",
+      "sha256": "7c06f11d607b958e8a9e000bf5b6debeda01e3c253fc863c331317382b196a9a"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs",
+      "sha256": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+      "sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "a9be367893c88b158dac2f0368c4ef28d521e59290a428b08753c342881225bd"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs",
+      "sha256": "958943b91a03470381744264d571a83be30421501989fa92a56a403cbbec4bee"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "02378baa2d1ed60f1c8337c24b9e0e5872b240203fc5f7944f3f8eb93744d2f6"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "a410d423ff4188de5f759094665c53095193198745913dcb411d9a822f7c3f53"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "sha256": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "8f70a54fc5032060ecf8e46d898e5a9e02a93416e224393437a3b1852946dddd"
+    }
+  ],
+  "scope": "Complete fixed padded scalp layout and actual texture-chain/device admission through physical Grid, host readback, Assets, queued Bevy upload and existing Stage fixture",
+  "ownership": "#780 canonical Creator producer and receiver files; #826 receives exact reviewed whole files. Neither native GPU owner nor lockfile included.",
+  "validation": "Fresh complete scoped thirteen-lens successor, all three independent exact-byte reviews clear; fifteen source/address comparisons. No local project execution or global/runtime clearance.",
+  "unchanged_source_references": {
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+    "crates/adventuresim-character-creator/src/hair_preview/assets.rs": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143"
+  },
+  "dependencies": "Canonical Buffer/count/stride/read/completion and admitted Hair strand layouts already coordinated; native geometry/Grid and physical/generated families remain open. Preserve agreed native successors during composition.",
+  "push": false,
+  "hosted_ci": false
+}

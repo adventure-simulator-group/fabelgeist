@@ -1,0 +1,169 @@
+{
+  "head": "99d70e7c3f0bcf8db563c602f39869b91a9f23bf",
+  "kind": "Exact source comparison and authored fixed-recipe address algebra; no project execution",
+  "comparisons": {
+    "complete_wgsl_bytes_unchanged": true,
+    "complete_assets_receiver_bytes_unchanged": true,
+    "kernel_constructor_body_exact": true,
+    "longest_only_remove_impossible_short_read_fallback": true,
+    "draw_whole_recording_body_after_typed_projections": true,
+    "bare_whole_recording_body_after_typed_projections": true,
+    "finish_whole_recording_body_after_typed_projections": true,
+    "existing_render_fixture_only_direct_import_and_field_api_changes": true,
+    "complete_scalp_map_only_unit_private_name_and_doc_changes": true,
+    "hair_unchanged_impl TryFrom<PigmentShares>": true,
+    "hair_unchanged_impl Default for HairPigment": true,
+    "hair_unchanged_impl HairPigment": true,
+    "hair_unchanged_impl HairDesign": true,
+    "hair_unchanged_pub fn variant_label": true,
+    "all_twelve_native_address_and_copy_equivalences": true
+  },
+  "mip_table": [
+    {
+      "side_texels": 2048,
+      "row_words": 2048,
+      "old_word_offset": 0,
+      "new_byte_offset": 0,
+      "pitch_bytes": 8192,
+      "visible_elements": 4194304,
+      "equal_address_formula": true,
+      "aligned": true,
+      "visible_end_bytes": 16777216
+    },
+    {
+      "side_texels": 1024,
+      "row_words": 1024,
+      "old_word_offset": 4194304,
+      "new_byte_offset": 16777216,
+      "pitch_bytes": 4096,
+      "visible_elements": 1048576,
+      "equal_address_formula": true,
+      "aligned": true,
+      "visible_end_bytes": 20971520
+    },
+    {
+      "side_texels": 512,
+      "row_words": 512,
+      "old_word_offset": 5242880,
+      "new_byte_offset": 20971520,
+      "pitch_bytes": 2048,
+      "visible_elements": 262144,
+      "equal_address_formula": true,
+      "aligned": true,
+      "visible_end_bytes": 22020096
+    },
+    {
+      "side_texels": 256,
+      "row_words": 256,
+      "old_word_offset": 5505024,
+      "new_byte_offset": 22020096,
+      "pitch_bytes": 1024,
+      "visible_elements": 65536,
+      "equal_address_formula": true,
+      "aligned": true,
+      "visible_end_bytes": 22282240
+    },
+    {
+      "side_texels": 128,
+      "row_words": 128,
+      "old_word_offset": 5570560,
+      "new_byte_offset": 22282240,
+      "pitch_bytes": 512,
+      "visible_elements": 16384,
+      "equal_address_formula": true,
+      "aligned": true,
+      "visible_end_bytes": 22347776
+    },
+    {
+      "side_texels": 64,
+      "row_words": 64,
+      "old_word_offset": 5586944,
+      "new_byte_offset": 22347776,
+      "pitch_bytes": 256,
+      "visible_elements": 4096,
+      "equal_address_formula": true,
+      "aligned": true,
+      "visible_end_bytes": 22364160
+    },
+    {
+      "side_texels": 32,
+      "row_words": 64,
+      "old_word_offset": 5591040,
+      "new_byte_offset": 22364160,
+      "pitch_bytes": 256,
+      "visible_elements": 1024,
+      "equal_address_formula": true,
+      "aligned": true,
+      "visible_end_bytes": 22372224
+    },
+    {
+      "side_texels": 16,
+      "row_words": 64,
+      "old_word_offset": 5593088,
+      "new_byte_offset": 22372352,
+      "pitch_bytes": 256,
+      "visible_elements": 256,
+      "equal_address_formula": true,
+      "aligned": true,
+      "visible_end_bytes": 22376256
+    },
+    {
+      "side_texels": 8,
+      "row_words": 64,
+      "old_word_offset": 5594112,
+      "new_byte_offset": 22376448,
+      "pitch_bytes": 256,
+      "visible_elements": 64,
+      "equal_address_formula": true,
+      "aligned": true,
+      "visible_end_bytes": 22378272
+    },
+    {
+      "side_texels": 4,
+      "row_words": 64,
+      "old_word_offset": 5594624,
+      "new_byte_offset": 22378496,
+      "pitch_bytes": 256,
+      "visible_elements": 16,
+      "equal_address_formula": true,
+      "aligned": true,
+      "visible_end_bytes": 22379280
+    },
+    {
+      "side_texels": 2,
+      "row_words": 64,
+      "old_word_offset": 5594880,
+      "new_byte_offset": 22379520,
+      "pitch_bytes": 256,
+      "visible_elements": 4,
+      "equal_address_formula": true,
+      "aligned": true,
+      "visible_end_bytes": 22379784
+    },
+    {
+      "side_texels": 1,
+      "row_words": 64,
+      "old_word_offset": 5595008,
+      "new_byte_offset": 22380032,
+      "pitch_bytes": 256,
+      "visible_elements": 1,
+      "equal_address_formula": true,
+      "aligned": true,
+      "visible_end_bytes": 22380036
+    }
+  ],
+  "total_bytes": 22380288,
+  "sources": {
+    "crates/adventuresim-character-creator/src/hair.rs": "7c06f11d607b958e8a9e000bf5b6debeda01e3c253fc863c331317382b196a9a",
+    "crates/adventuresim-character-creator/src/hair/gpu/mod.rs": "02378baa2d1ed60f1c8337c24b9e0e5872b240203fc5f7944f3f8eb93744d2f6",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs": "a9be367893c88b158dac2f0368c4ef28d521e59290a428b08753c342881225bd",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/readback.rs": "958943b91a03470381744264d571a83be30421501989fa92a56a403cbbec4bee",
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+    "crates/adventuresim-character-creator/src/hair/scalp_map.rs": "a410d423ff4188de5f759094665c53095193198745913dcb411d9a822f7c3f53",
+    "crates/adventuresim-character-creator/src/hair_preview/assets.rs": "436b82cac0058641b1c230f488b1ade01d293b23c6822584d39ed6846476e143",
+    "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs": "8f70a54fc5032060ecf8e46d898e5a9e02a93416e224393437a3b1852946dddd",
+    "crates/adventuresim-character-creator/src/hair_preview/render_test.rs": "d21005ddea5a4a2ec07fd70fc03357ef5f291191d00d5b430319b685f676d531"
+  }
+}

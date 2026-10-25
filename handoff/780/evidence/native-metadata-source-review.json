@@ -1,0 +1,80 @@
+{
+  "base": "d1364416d19aeacef79b8cbb4abd7eec07f1bc1b",
+  "checks": [
+    "whole existing GPU module exact after listed getter/type operands only",
+    "whole native physics shader source exact except declared two-source binding contract",
+    "whole reset body exact after enumerated owner/device/launch substitutions",
+    "whole record_shape body exact after enumerated owner/device/launch substitutions",
+    "whole record_orient body exact after enumerated owner/device/launch substitutions",
+    "whole step body exact after enumerated owner/device/launch substitutions",
+    "whole record_volume body exact after enumerated owner/device/launch substitutions",
+    "whole record_collisions body exact after enumerated owner/device/launch substitutions",
+    "whole set_state body exact after enumerated owner/device/launch substitutions",
+    "crates/fabelgeist-hair/src/gpu/lods/levels.rs has no test/doctest/assertion",
+    "crates/fabelgeist-hair/src/gpu/lods/records.rs has no test/doctest/assertion",
+    "crates/fabelgeist-hair/src/gpu/sim/binding.rs has no test/doctest/assertion",
+    "crates/fabelgeist-hair/src/gpu/sim/collision.rs has no test/doctest/assertion",
+    "crates/fabelgeist-hair/src/gpu/sim/inspect.rs has no test/doctest/assertion",
+    "crates/fabelgeist-hair/src/gpu/sim/rods.rs has no test/doctest/assertion",
+    "original shader outside binding function unchanged"
+  ],
+  "files": [
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "a41dc00ddbefcd0d358db6e8bac67466d57a0331ce91ee214cb8ba070d465c2a"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c77d68591854015441a69a653f7fc1ed0bd7f44f88ac35cb1e7facf061eb7d9"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/levels.rs",
+      "sha256": "650943d671d88ceb81a808c6e1f94eddb4780e018518f930fce3d3b1bf4bac3b"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "1c6a3dfe68c68c02c79ebf1157be9981e4c2a31f8a7667dd64148e30386bd70d"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "2883a6d8baa2934fcd41d27b8af312abe2a8a581de78f961c1593b45d257bab1"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "5ae5a922ea1e5a8d28c918ddfc36deb028ee2d3c7e8f85bd3cb660db99533ec0"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/binding.rs",
+      "sha256": "c5459f6db0f1b23d67efb540f90f14140a65d958b4bf251dbd945150e551bed0"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+      "sha256": "0c022821ae66bce06e2f98737ca5022172da41b480fb379e5c806a62a6a185f6"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/density.rs",
+      "sha256": "3e2fdda60c4b86a8b581252240b5d806979cb4c5eee5d161ff7171169f77dbe2"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/execution.rs",
+      "sha256": "241410f12cc5c1530467ea5bda1a8dc7bd8dc8c226151a0226c704b3e2970e89"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/inspect.rs",
+      "sha256": "2ef2f3a867fe2c3d9f999b7818e1ec85841dacba3aee8c2535d15fc5b1316639"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+      "sha256": "8ec4a8182b2b06542654966c75b6120c9acc24852b3d9e05f23b920806bb3425"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/sim.rs",
+      "sha256": "05e3c529151d982db674bce7bf65db2e3126946cb848148d7c50d3047915ced6"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "a4cd680b59ae0b7c37be4829566c1f975805e08ef83d766c1f3812411025ab04"
+    }
+  ],
+  "limits": "Source-only exact comparisons and manually reviewed dataflow. No compile/runtime/format/lint/test acceptance; final complete13, independent sameSHA reviews and hosted gates pending."
+}

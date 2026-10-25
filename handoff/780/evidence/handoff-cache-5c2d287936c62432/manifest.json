@@ -1,0 +1,168 @@
+{
+  "at": "2026-10-23T14:19:34.589804+00:00",
+  "content_identity": "5c2d287936c62432497fb948bb94527323c5cf1ce4529ebbd40d192db656256b",
+  "status": "IMMUTABLE LOCAL SOURCE EXPORT; not validation, full-wave clearance or publication authorization",
+  "source_checkpoint": "Local464b1c82b plus pending main990 integration and explicitly recorded uncommitted repairs; per-file hashes are authoritative",
+  "receiving_core": "3ff23fc9a47fe32fe514747a17585606ea001475 supplied by #826; not integrated here yet",
+  "source_paths": 21,
+  "files": [
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "b09fb32afa1713a0ab9b5e044167bdf20a88fa3993b7bdc63bd96030349a670b",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "cd8a2b78c22c9341eb12e472ccb21e79daad22bc34d6ca722df6fcc551ad7c31"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/broadcast.rs",
+      "sha256": "2fe21de02d69825f3bbd5ea3732447b494c059f23fd325bd187ee97ef792ed19",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "2997cbeae0e781e032541ffe1edc0118db690ee037b02e048719f18e739d0154"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "b9becb0226c87269ae9a3a4d054874bd8683fd2abaa28f8e7258615ecf325c67",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "8137d9e3a544c501fd925d63b048b75fd87cfd91cea5900720e7e1305c55de98"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "3c0e9bf4fcac7b0f0290998dcaa15bad9a8a37f68a18f5e9ea28c977eaf49300",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "df80978125939ef182d0d4fc2f6574c947b71fae5294395d2fce35323cc45027"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "7650730fc965c565e9cbaa3db82750a997e5554fcdb5389ad421df110e5ba6b4",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "7845c2a1bcc2f92156816e3430834ef47b27f22ddaca6b851bec67dd7298adc3"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "393bb49e7e4bab85af8bf3c20b69ae4d22a3e1b38ae8f005ec267c994dc4aebd",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Only KernelCache struct/impl and cache imports, plus FOLDED_INDEX_WGSL constant/doc guard. Whole-file replacement would erase #826/#779 core and is forbidden.",
+      "before_sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "f7a9696b4357be188ac7efb76c40546a686765af0ebc0b0a368ab8fef4f339e9",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "83f04e81ff21ce1ecdf6ff169429f84850c30d0d61e43db8eb6d00f1187927a3"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/matmul.rs",
+      "sha256": "23d18d6d9f2dc8c9ee087eb485862f17241cc9746827546b1d426da981907a5f",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "c22b98adcaefe1b1c0ce5740e64fc0f19df37e26c2f7af868aa966324d97d6d4"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/execution.rs",
+      "sha256": "37aaf89fd8af0175346617bdfc9262923ea34c87ddddc5fdfd3762ee377b0101",
+      "integration": "#780-owned reduction family: reference/dependency only, not a #826 implementation assignment; includes cache + checked count/stride + exact live-prefix buffers",
+      "baseline": "new reduction-owned source",
+      "before_sha256": null
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/layout.rs",
+      "sha256": "f34ab775529fc33722b290a6574a06a1b402e2abfa89b4a7d3c602e5e7aee565",
+      "integration": "#780-owned reduction family: reference/dependency only, not a #826 implementation assignment; includes cache + checked count/stride + exact live-prefix buffers",
+      "baseline": "new reduction-owned source",
+      "before_sha256": null
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "sha256": "2952926f296c994064f5985fde161e9aa2f9c8bbfa6f7a6503c00267ed47cc27",
+      "integration": "#780-owned reduction family: reference/dependency only, not a #826 implementation assignment; includes cache + checked count/stride + exact live-prefix buffers",
+      "baseline": "Exact pre-F18 local source (after cache consolidation)",
+      "before_sha256": "13b3b926931db370fdb3d28a39f2014b1fb47eebf767e18ea61051769b034bc4"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reshape.rs",
+      "sha256": "37ad99280a0fcd79b89889b44b9da0c395c940dca2ca0ecc3c0d2ae6e3bd7db9",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "e708c032cea676e69f4c37cdaab73c321fbd1427539eea836b201d2c5bfcdd9b"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "sha256": "4dd2a0a7495dc094478a79bec008af2c7c753f9cc68274f157aaf02574f11142",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "3eed883cf7c4a943d56baef3bccc039e46e041d172d2416a7b95085a3475e8da"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "e81bf768cabc65fa03e323b5cb72b1222d287301015dee575721882a19686093",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "e0aea2b7e2c56e191ec182091129ef86063b3cd7593dbfa103fd6c859a1c2ccf"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "b62b0c13ebb697e5586d35335a7584a1b4d0883ea4f8b17ba3c8518728272ad1",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "2835d394ffe8b7c0478325595b760753482b45412a093332093263f1ae15a6a5"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "83069f869615d682040615f423bfc0f48e589ee8286c2d2e8133c3288e816231",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "a064801dc837804426f28ea6f3d29da909fa6a40bbdf082149c664d7d6f5fbc4"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/transpose.rs",
+      "sha256": "3cc203e51d7a79a1499aa5f32df31de162f6342eee7be7abd07d609f7352560d",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "1f8b8efb22ed67e2b2a39e6c85f2236ffaa3b846dee3211475d29bdf76f99a9a"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "9cd73cae9375211d7ed5cb65702f760eb8802f5536ed94a5f9559d5566a9b49e",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Only mod source_cache and pub use source_cache::ComputeSourceCache. Retain #826 resource/parser/build helpers.",
+      "before_sha256": "3794ab44c07097e0021ca938397109158c13d9d9a08284eabf987d42671671ab"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "baseline": "new shared final cache owner",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": null
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "a795ab52e857bbbaa2bad5dacd8ffb0b8196b739a8cf6a8701f85ec3c06c79ef",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "9f1884bfd6533e8e9b0706c4972039e03c4f6dedc25970875e416392938569a5"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/gpu.rs",
+      "sha256": "ff89630311e5a7eacfb8857634d4a307d0d4ffa81ea394b5f2ebc46487d62f22",
+      "baseline": "Exact pre-cache current-main integration source",
+      "integration": "Integrate only authored cache delta; retain #826 core/other consumer API fixes through source reconciliation",
+      "before_sha256": "88d33d81fa39f02c493f388b5d7217b991dcc2b6d66e6e26ecd1ec666dd2a508"
+    }
+  ],
+  "cache_patch_sha256": "70cdf94f32da5ffa2b684661d0826f6202e4fd27dd7ebe2d4f821ab91d2408ca",
+  "reduction_reference_patch_sha256": "f8cfa74934fbe17a9c089a10697ef7d0383dfa527fb82424e2054eeaae9d8e3c",
+  "integration_contract": [
+    "#780 retains all cache and producer implementation ownership. Export authorizes exact source-lineage reconciliation for the agreed combined integration, not independent competing repairs or #780 clearance.",
+    "Do not overwrite full kernel/mod.rs or GPU compute/mod.rs. Take only named cache/constant/import hunks and keep canonical #826/#779 core methods and metadata.",
+    "Reduce/execution/layout remain #780-owned; their exact source is included for dependency review, not transfer. No new uniform or buffer-selection API is requested.",
+    "No tests/config/manifests transferred; all existing tests/cases/helpers/assertions/doctests remain unchanged by this export.",
+    "Shared ComputeSourceCache consumes canonical ComputePipelineError::CachePoisoned and actual Device identity. Fixed immutable recipes have an empty source with complete descriptor/mode parameters; mutable authored programs use their actual source.",
+    "Complete each connected family, full all13 waves/reviews and required hosted checks on final pushed SHA. No push/CI while dependencies remain incomplete."
+  ],
+  "patch_application": "Source reconciliation required: the receiver has its own canonical core constructor/result/getter changes. Do not apply a patch wholesale and infer closure."
+}

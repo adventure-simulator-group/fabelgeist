@@ -1,0 +1,76 @@
+{
+  "base": "0df94b91011a415be93c14174d4233b09eb01c00",
+  "checks": [
+    "whole host lock geometry math exact after typed threshold and named frame record only",
+    "whole host emitted vertex/RNG/occlusion math exact after named frame extraction only",
+    "entire existing mixed card/atlas case exact after build/getter operands only",
+    "entire existing native GPU module exact after typed card count operand only",
+    "all native card shader text unchanged",
+    "entire CardVertex ABI declaration unchanged",
+    "host indexed winding unchanged",
+    "host full strip admission precedes base narrowing",
+    "native scan producer consumes canonical byte and scan owners",
+    "native signed threshold cannot wrap into negative flags",
+    "native word limit proves signed lock counts bounded",
+    "crates/fabelgeist-hair/src/cards/build.rs has no new test/doctest/assertion",
+    "crates/fabelgeist-hair/src/cards/layout.rs has no new test/doctest/assertion",
+    "crates/fabelgeist-hair/src/cards/layout/gpu.rs has no new test/doctest/assertion",
+    "crates/fabelgeist-hair/src/cards/mesh.rs has no new test/doctest/assertion",
+    "crates/fabelgeist-hair/src/gpu/lods/cards.rs has no new test/doctest/assertion"
+  ],
+  "files": [
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "75508eb07b8f3292152f27310bdc7193128efbf211bb4ce49bc55c8a9c3f6987"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/build.rs",
+      "sha256": "ae375dba80589dd2d7773952f3aadee391a4ac82fdefcd76b3387c400975205b"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/layout.rs",
+      "sha256": "a15b5f567400e7c5428970ec6bef603d18fc37834b4719fff60aea756a2bb9e1"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+      "sha256": "6b7a180a3ee2faa7fc26a79e2ae14ceeac4a54c19f96a308dc57f417c56ea49f"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/mesh.rs",
+      "sha256": "322747ae7f6a10847b6f82813fd1b27cfd8caafb01f4d13aca401dc78346ab21"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+      "sha256": "8c9e0cfc1381290739c5cb166996fa345de9def1e25532ad367f1963cfd5c8af"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "44ffb5c296d0d5948e0b64f76f2dea59c4d41238f3ef8deaf6d549007a376f61"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+      "sha256": "77e815b2a949e96a4e90b90acc7f184021d395dcbb1881ee293fa0d94f2c69d6"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/prepare.rs",
+      "sha256": "c94f30467215f10aee321cdfbac303d5dccd4f6f1c8c8d5a5630feb0ed8ed107"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/records.rs",
+      "sha256": "7814ed1212fc58bea86aebf290862d5937f4e3e20d2b508050d20983948323a8"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "e943f9ba2a9213beb84d843d3c73b2f13f1658add9cb47cbd35daa12f6161647"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lib.rs",
+      "sha256": "c2df7e182028b42251d7f1c453046962f13ae98e9b4cb0d85795ac7550a15031"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "41f0e66a7ec7906210fd0050ade6a7bc8d96d6742bf8fd6a7150393aff3d5f8a"
+    }
+  ],
+  "limits": "Exact source comparisons and manually inspected admissions only. No format/lint/compile/runtime tests; final complete13, independent reviews and hosted checks pending."
+}

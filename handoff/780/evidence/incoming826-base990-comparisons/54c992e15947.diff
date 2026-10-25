@@ -1,0 +1,18 @@
+--- 990430b77a9f63548ffcb642074185f61ddb3322/crates/fabelgeist-hair/src/gpu/grow.rs
+
++++ filtered826-c798/crates/fabelgeist-hair/src/gpu/grow.rs
+
+@@ -86,7 +86,11 @@
+
+     /// The positions back in the strands' own buffer.
+     pub(super) fn settle(&mut self, batch: &mut KernelBatch) -> Result<()> {
+         if self.positions.flipped {
+-            batch.copy_buffer(&self.positions.scratch, &self.positions.own, self.bytes())?;
++            batch.copy_buffer(
++                &self.positions.scratch,
++                &self.positions.own,
++                self.bytes().into(),
++            )?;
+             self.positions.flipped = false;
+         }
+         Ok(())
