@@ -1,6 +1,24 @@
 use crate::data::gpu::texture::TextureFormat;
 use crate::prelude::*;
 
+pub use coordinates::{
+    CoordinateParameter, CoordinateParameterError, CoordinateParameterResult, CoordinateShape,
+};
+pub use native_operator_error::NativeOperatorSignatureError;
+pub use texture_value::{TextureValue, TextureValueError, TextureValueResult};
+
+mod coordinates;
+mod native_operator_error;
+mod texture_value;
+
+/// A native function parameter's identifier and projected value type.
+/// Full shader and identifier validity remain native source admission concerns.
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+pub struct ShaderParameter {
+    name: String,
+    value_type: ResourceBaseType,
+}
+
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub enum ResourceBaseType {
     F32,
@@ -13,6 +31,23 @@ pub enum ResourceBaseType {
     Texture3d(Box<ResourceBaseType>),
     Sampler,
     Custom(String), // Custom struct name
+}
+
+impl ShaderParameter {
+    pub fn new(name: &str, value_type: ResourceBaseType) -> Self {
+        Self {
+            name: name.to_owned(),
+            value_type,
+        }
+    }
+
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    pub fn value_type(&self) -> &ResourceBaseType {
+        &self.value_type
+    }
 }
 
 impl ResourceBaseType {
@@ -128,6 +163,70 @@ pub fn clean_type_name(ty: &str) -> String {
     ty.to_string()
 }
 
+pub fn parse_base_type(ty: &str) -> ResourceBaseType {
+    let clean = clean_type_name(ty);
+    match clean.as_str() {
+        "f32" => ResourceBaseType::F32,
+        "u32" => ResourceBaseType::U32,
+        "i32" => ResourceBaseType::I32,
+        "sampler" => ResourceBaseType::Sampler,
+        other => {
+            // Only project a complete native envelope. Malformed source stays
+            // text for shader admission rather than becoming a slicing panic.
+            let Some((outer, inner)) = other
+                .strip_suffix('>')
+                .and_then(|body| body.split_once('<'))
+            else {
+                return ResourceBaseType::Custom(other.to_owned());
+            };
+            match outer {
+                "vec2" => ResourceBaseType::Vec2(Box::new(parse_base_type(inner))),
+                "vec3" => ResourceBaseType::Vec3(Box::new(parse_base_type(inner))),
+                "vec4" => ResourceBaseType::Vec4(Box::new(parse_base_type(inner))),
+                "texture_2d" => ResourceBaseType::Texture2d(Box::new(parse_base_type(inner))),
+                "texture_3d" => ResourceBaseType::Texture3d(Box::new(parse_base_type(inner))),
+                _ => ResourceBaseType::Custom(other.to_owned()),
+            }
+        }
+    }
+}
+
+/// Parses a binary operator signature like `fn name(a: T, b: T) -> T` and returns `T`
+pub fn parse_binary_op_signature(code: &str, func_name: &str) -> Result<ResourceBaseType> {
+    let pattern = format!(
+        r"(?s)fn\s+{}\s*\(\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:\s*([^,]+)\s*,\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:\s*([^)]+)\)\s*->\s*([^\{{]+)\{{",
+        regex::escape(func_name)
+    );
+    let re = regex::Regex::new(&pattern)?;
+    let caps = re
+        .captures(code)
+        .ok_or_else(|| NativeOperatorSignatureError::BinaryOperator {
+            function: func_name.to_owned(),
+        })?;
+
+    // Extract type T
+    let ty_str = caps[1].trim();
+    Ok(parse_base_type(ty_str))
+}
+
+/// Parses a comparison signature like `fn name(a: T, b: T) -> bool` and returns `T`
+pub fn parse_compare_signature(code: &str, func_name: &str) -> Result<ResourceBaseType> {
+    let pattern = format!(
+        r"(?s)fn\s+{}\s*\(\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:\s*([^,]+)\s*,\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:\s*([^)]+)\)\s*->\s*bool\s*\{{",
+        regex::escape(func_name)
+    );
+    let re = regex::Regex::new(&pattern)?;
+    let caps = re
+        .captures(code)
+        .ok_or_else(|| NativeOperatorSignatureError::Comparison {
+            function: func_name.to_owned(),
+        })?;
+
+    // Extract type T
+    let ty_str = caps[1].trim();
+    Ok(parse_base_type(ty_str))
+}
+
 fn split_wgsl_template_args(inner: &str) -> Vec<String> {
     let mut parts = Vec::new();
     let mut current = String::new();
@@ -148,75 +247,4 @@ fn split_wgsl_template_args(inner: &str) -> Vec<String> {
     }
     parts.push(current.trim().to_string());
     parts
-}
-
-pub fn parse_base_type(ty: &str) -> ResourceBaseType {
-    let clean = clean_type_name(ty);
-    match clean.as_str() {
-        "f32" => ResourceBaseType::F32,
-        "u32" => ResourceBaseType::U32,
-        "i32" => ResourceBaseType::I32,
-        _ if clean.starts_with("vec2<") => {
-            let inner = &clean[5..clean.len() - 1];
-            ResourceBaseType::Vec2(Box::new(parse_base_type(inner)))
-        }
-        _ if clean.starts_with("vec3<") => {
-            let inner = &clean[5..clean.len() - 1];
-            ResourceBaseType::Vec3(Box::new(parse_base_type(inner)))
-        }
-        _ if clean.starts_with("vec4<") => {
-            let inner = &clean[5..clean.len() - 1];
-            ResourceBaseType::Vec4(Box::new(parse_base_type(inner)))
-        }
-        _ if clean.starts_with("texture_2d<") => {
-            let inner = &clean[11..clean.len() - 1];
-            ResourceBaseType::Texture2d(Box::new(parse_base_type(inner)))
-        }
-        _ if clean.starts_with("texture_3d<") => {
-            let inner = &clean[11..clean.len() - 1];
-            ResourceBaseType::Texture3d(Box::new(parse_base_type(inner)))
-        }
-        "sampler" => ResourceBaseType::Sampler,
-        other => ResourceBaseType::Custom(other.to_string()),
-    }
-}
-
-/// Parses a binary operator signature like `fn name(a: T, b: T) -> T` and returns `T`
-pub fn parse_binary_op_signature(code: &str, func_name: &str) -> Result<ResourceBaseType> {
-    let pattern = format!(
-        r"(?s)fn\s+{}\s*\(\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:\s*([^,]+)\s*,\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:\s*([^)]+)\)\s*->\s*([^\{{]+)\{{",
-        func_name
-    );
-    let re = regex::Regex::new(&pattern)?;
-    let caps = re.captures(code).ok_or_else(|| {
-        anyhow::anyhow!(
-            "Compute shader must define a '{}' function: fn {}(a: T, b: T) -> T",
-            func_name,
-            func_name
-        )
-    })?;
-
-    // Extract type T
-    let ty_str = caps.get(1).unwrap().as_str().trim();
-    Ok(parse_base_type(ty_str))
-}
-
-/// Parses a comparison signature like `fn name(a: T, b: T) -> bool` and returns `T`
-pub fn parse_compare_signature(code: &str, func_name: &str) -> Result<ResourceBaseType> {
-    let pattern = format!(
-        r"(?s)fn\s+{}\s*\(\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:\s*([^,]+)\s*,\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:\s*([^)]+)\)\s*->\s*bool\s*\{{",
-        func_name
-    );
-    let re = regex::Regex::new(&pattern)?;
-    let caps = re.captures(code).ok_or_else(|| {
-        anyhow::anyhow!(
-            "Compute shader must define a '{}' function: fn {}(a: T, b: T) -> bool",
-            func_name,
-            func_name
-        )
-    })?;
-
-    // Extract type T
-    let ty_str = caps.get(1).unwrap().as_str().trim();
-    Ok(parse_base_type(ty_str))
 }

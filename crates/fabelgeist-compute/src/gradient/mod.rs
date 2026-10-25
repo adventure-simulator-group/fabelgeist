@@ -1,36 +1,35 @@
 use crate::prelude::*;
-use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+use crate::source_error::{FluidOperation, GeneratedBinding};
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
+use fabelgeist_gpu::data::gpu::{ComputeEntryPoint::Named, ResourceDescriptor};
 use std::sync::Arc;
 
-type GradientPipelineCache = ComputeSourceCache<
-    (
-        ResourceDescriptor,
-        ResourceDescriptor,
-        ResourceDescriptor,
-        u32,
-    ),
-    Arc<ComputePipeline>,
->;
+mod program;
 
-#[derive(Clone, Debug)]
+type GradientPipelineCache = ComputeSourceCache<GradientRecipe, Arc<ResourcePipeline>>;
+
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+struct GradientRecipe {
+    velocity: ResourceDescriptor,
+    pressure: ResourceDescriptor,
+    output: ResourceDescriptor,
+    boundary_mode: BoundaryMode,
+}
+
+#[derive(Clone, Debug, Default)]
 pub struct GradientDefinition {
-    pub boundary_mode: u32,
+    pub boundary_mode: BoundaryMode,
     cache: GradientPipelineCache,
 }
 
+pub struct Gradient;
+
 impl GradientDefinition {
-    pub fn new(boundary_mode: u32) -> Self {
+    pub fn new(boundary_mode: BoundaryMode) -> Self {
         Self {
             boundary_mode,
             cache: ComputeSourceCache::default(),
         }
-    }
-}
-
-impl Default for GradientDefinition {
-    fn default() -> Self {
-        Self::new(0)
     }
 }
 
@@ -41,106 +40,20 @@ impl GradientDefinition {
         velocity_res: ResourceDescriptor,
         pressure_res: ResourceDescriptor,
         output_res: ResourceDescriptor,
-    ) -> Result<ComputePipeline> {
-        let mut full_code = String::new();
-
-        let dim = match velocity_res {
-            ResourceDescriptor::Texture2d(_) => 2,
-            ResourceDescriptor::Texture3d(_) => 3,
-            _ => return Err(anyhow!("Gradient only supports Texture2d or Texture3d")),
-        };
-
-        full_code.push_str(&velocity_res.to_wgsl_input_binding(0, 0, "velocity"));
-        full_code.push_str(&pressure_res.to_wgsl_input_binding(0, 1, "pressure"));
-        full_code.push_str(&output_res.to_wgsl_output_binding(0, 2, "output"));
-
-        full_code.push_str("\nstruct Parameters {\n");
-        full_code.push_str("    half_inverse_cell_size: f32,\n");
-        full_code.push_str("    _pad: vec3<f32>,\n");
-        full_code.push_str("};\n");
-        full_code.push_str("@group(0) @binding(3) var<uniform> _params: Parameters;\n\n");
-
-        if dim == 2 {
-            full_code.push_str("@compute @workgroup_size(16, 16, 1)\n");
-            full_code.push_str("fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {\n");
-            full_code.push_str("    let tex_dim = textureDimensions(pressure);\n");
-            full_code.push_str(
-                "    if (global_id.x >= tex_dim.x || global_id.y >= tex_dim.y) { return; }\n",
-            );
-            full_code.push_str("    let x = i32(global_id.x);\n");
-            full_code.push_str("    let y = i32(global_id.y);\n");
-            full_code.push_str("    let w = i32(tex_dim.x);\n");
-            full_code.push_str("    let h = i32(tex_dim.y);\n");
-
-            if self.boundary_mode == 1 {
-                full_code.push_str(
-                    "    let pL = textureLoad(pressure, vec2<i32>((x - 1 + w) % w, y), 0).x;\n",
-                );
-                full_code.push_str(
-                    "    let pR = textureLoad(pressure, vec2<i32>((x + 1) % w, y), 0).x;\n",
-                );
-                full_code.push_str(
-                    "    let pB = textureLoad(pressure, vec2<i32>(x, (y - 1 + h) % h), 0).x;\n",
-                );
-                full_code.push_str(
-                    "    let pT = textureLoad(pressure, vec2<i32>(x, (y + 1) % h), 0).x;\n",
-                );
-            } else {
-                full_code.push_str(
-                    "    let pL = textureLoad(pressure, vec2<i32>(max(x - 1, 0), y), 0).x;\n",
-                );
-                full_code.push_str(
-                    "    let pR = textureLoad(pressure, vec2<i32>(min(x + 1, w - 1), y), 0).x;\n",
-                );
-                full_code.push_str(
-                    "    let pB = textureLoad(pressure, vec2<i32>(x, max(y - 1, 0)), 0).x;\n",
-                );
-                full_code.push_str(
-                    "    let pT = textureLoad(pressure, vec2<i32>(x, min(y + 1, h - 1)), 0).x;\n",
-                );
-            }
-
-            full_code.push_str("    let vel = textureLoad(velocity, global_id.xy, 0).xy;\n");
-            full_code.push_str(
-                "    let grad = vec2<f32>(pR - pL, pT - pB) * _params.half_inverse_cell_size;\n",
-            );
-            full_code.push_str(
-                "    textureStore(output, global_id.xy, vec4<f32>(vel - grad, 0.0, 1.0));\n",
-            );
-            full_code.push_str("}\n");
-        } else {
-            full_code.push_str("@compute @workgroup_size(8, 8, 4)\n");
-            full_code.push_str("fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {\n");
-            full_code.push_str("    let tex_dim = textureDimensions(pressure);\n");
-            full_code.push_str("    if (global_id.x >= tex_dim.x || global_id.y >= tex_dim.y || global_id.z >= tex_dim.z) { return; }\n");
-            full_code.push_str("    let coords = vec3<i32>(global_id.xyz);\n");
-            full_code.push_str("    let dim = vec3<i32>(tex_dim);\n");
-
-            if self.boundary_mode == 1 {
-                full_code.push_str("    let pL = textureLoad(pressure, (coords - vec3<i32>(1, 0, 0) + dim) % dim, 0).x;\n");
-                full_code.push_str("    let pR = textureLoad(pressure, (coords + vec3<i32>(1, 0, 0)) % dim, 0).x;\n");
-                full_code.push_str("    let pB = textureLoad(pressure, (coords - vec3<i32>(0, 1, 0) + dim) % dim, 0).x;\n");
-                full_code.push_str("    let pT = textureLoad(pressure, (coords + vec3<i32>(0, 1, 0)) % dim, 0).x;\n");
-                full_code.push_str("    let pF = textureLoad(pressure, (coords - vec3<i32>(0, 0, 1) + dim) % dim, 0).x;\n");
-                full_code.push_str("    let pBK = textureLoad(pressure, (coords + vec3<i32>(0, 0, 1)) % dim, 0).x;\n");
-            } else {
-                full_code.push_str("    let pL = textureLoad(pressure, clamp(coords - vec3<i32>(1, 0, 0), vec3<i32>(0), dim - 1), 0).x;\n");
-                full_code.push_str("    let pR = textureLoad(pressure, clamp(coords + vec3<i32>(1, 0, 0), vec3<i32>(0), dim - 1), 0).x;\n");
-                full_code.push_str("    let pB = textureLoad(pressure, clamp(coords - vec3<i32>(0, 1, 0), vec3<i32>(0), dim - 1), 0).x;\n");
-                full_code.push_str("    let pT = textureLoad(pressure, clamp(coords + vec3<i32>(0, 1, 0), vec3<i32>(0), dim - 1), 0).x;\n");
-                full_code.push_str("    let pF = textureLoad(pressure, clamp(coords - vec3<i32>(0, 0, 1), vec3<i32>(0), dim - 1), 0).x;\n");
-                full_code.push_str("    let pBK = textureLoad(pressure, clamp(coords + vec3<i32>(0, 0, 1), vec3<i32>(0), dim - 1), 0).x;\n");
-            }
-
-            full_code.push_str("    let vel = textureLoad(velocity, global_id, 0).xyz;\n");
-            full_code.push_str("    let grad = vec3<f32>(pR - pL, pT - pB, pBK - pF) * _params.half_inverse_cell_size;\n");
-            full_code
-                .push_str("    textureStore(output, global_id, vec4<f32>(vel - grad, 1.0));\n");
-            full_code.push_str("}\n");
-        }
-
+    ) -> Result<ResourcePipeline> {
+        let full_code = program::source(
+            self.boundary_mode,
+            &velocity_res,
+            &pressure_res,
+            &output_res,
+        )?;
         let shader = ComputeShader::new(context, full_code)?;
-        Ok(ComputePipeline::new(context, shader)?)
+        let pipeline = ComputePipeline::new(context, shader, Named("main"))?;
+        ResourcePipeline::new(
+            pipeline,
+            DispatchResource::Output,
+            TextureAddressing::Coordinates,
+        )
     }
 
     pub fn get_or_create_pipeline(
@@ -149,13 +62,13 @@ impl GradientDefinition {
         velocity_res: ResourceDescriptor,
         pressure_res: ResourceDescriptor,
         output_res: ResourceDescriptor,
-    ) -> Result<Arc<ComputePipeline>> {
-        let key = (
-            velocity_res.clone(),
-            pressure_res.clone(),
-            output_res.clone(),
-            self.boundary_mode,
-        );
+    ) -> Result<Arc<ResourcePipeline>> {
+        let key = GradientRecipe {
+            velocity: velocity_res.clone(),
+            pressure: pressure_res.clone(),
+            output: output_res.clone(),
+            boundary_mode: self.boundary_mode,
+        };
         self.cache.get_or_try_insert(context, "", key, || {
             let pipeline = self.build_pipeline(context, velocity_res, pressure_res, output_res)?;
             let arc_p = Arc::new(pipeline);
@@ -164,9 +77,10 @@ impl GradientDefinition {
     }
 }
 
-pub struct Gradient;
-
 impl Gradient {
+    /// Subtract the centered pressure difference from velocity.
+    /// `half_inverse_cell_size` is the numerical coefficient `1 / (2 * dx)`
+    /// in the caller's shared pressure, velocity and grid-spacing frame.
     pub fn execute(
         context: &WgpuContext,
         definition: &GradientDefinition,
@@ -194,52 +108,30 @@ impl Gradient {
         )?;
 
         let mut parameters = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
-        parameters.insert(
-            "velocity",
-            match velocity {
-                GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
-                GpuResource::Texture3d(t) => PassParameter::Texture3d(t.clone()),
-                _ => return Err(anyhow!("Velocity must be a texture")),
-            },
-        );
-        parameters.insert(
-            "pressure",
-            match pressure {
-                GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
-                GpuResource::Texture3d(t) => PassParameter::Texture3d(t.clone()),
-                _ => return Err(anyhow!("Pressure must be a texture")),
-            },
-        );
-        parameters.insert(
-            "output",
-            match output {
-                GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
-                GpuResource::Texture3d(t) => PassParameter::Texture3d(t.clone()),
-                _ => return Err(anyhow!("Output must be a texture")),
-            },
-        );
-
+        GeneratedBinding::Velocity.insert_texture(
+            FluidOperation::Gradient,
+            &mut parameters,
+            velocity,
+        )?;
+        GeneratedBinding::Pressure.insert_texture(
+            FluidOperation::Gradient,
+            &mut parameters,
+            pressure,
+        )?;
+        GeneratedBinding::Output.insert_texture(
+            FluidOperation::Gradient,
+            &mut parameters,
+            output,
+        )?;
         parameters.insert("half_inverse_cell_size", half_inverse_cell_size);
 
-        let (wg_x, wg_y, wg_z) = match output {
-            GpuResource::Texture2d(t) => (
-                t.extent().width.div_ceil(16),
-                t.extent().height.div_ceil(16),
-                1,
-            ),
-            GpuResource::Texture3d(t) => (
-                t.extent().width.div_ceil(8),
-                t.extent().height.div_ceil(8),
-                t.extent().depth_or_array_layers.div_ceil(4),
-            ),
-            _ => unreachable!(),
-        };
+        let workgroups = pipeline.workgroups(output)?;
 
         fabelgeist_gpu::data::gpu::ComputePass::dispatch(
             context,
-            pipeline.as_ref().clone(),
+            pipeline.pipeline().clone(),
             parameters,
-            fabelgeist_gpu::data::WorkgroupGrid::from([wg_x, wg_y, wg_z]),
+            workgroups,
         )?;
 
         Ok(())

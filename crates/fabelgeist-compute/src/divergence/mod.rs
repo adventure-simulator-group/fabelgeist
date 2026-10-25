@@ -1,29 +1,34 @@
 use crate::prelude::*;
-use fabelgeist_gpu::data::gpu::ResourceDescriptor;
+use crate::source_error::{FluidOperation, GeneratedBinding};
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
+use fabelgeist_gpu::data::gpu::{ComputeEntryPoint::Named, ResourceDescriptor};
 use std::sync::Arc;
 
-type DivergencePipelineCache =
-    ComputeSourceCache<(ResourceDescriptor, ResourceDescriptor, u32), Arc<ComputePipeline>>;
+mod program;
 
-#[derive(Clone, Debug)]
+type DivergencePipelineCache = ComputeSourceCache<DivergenceRecipe, Arc<ResourcePipeline>>;
+
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+struct DivergenceRecipe {
+    input: ResourceDescriptor,
+    output: ResourceDescriptor,
+    boundary_mode: BoundaryMode,
+}
+
+#[derive(Clone, Debug, Default)]
 pub struct DivergenceDefinition {
-    pub boundary_mode: u32,
+    pub boundary_mode: BoundaryMode,
     cache: DivergencePipelineCache,
 }
 
+pub struct Divergence;
+
 impl DivergenceDefinition {
-    pub fn new(boundary_mode: u32) -> Self {
+    pub fn new(boundary_mode: BoundaryMode) -> Self {
         Self {
             boundary_mode,
             cache: ComputeSourceCache::default(),
         }
-    }
-}
-
-impl Default for DivergenceDefinition {
-    fn default() -> Self {
-        Self::new(0)
     }
 }
 
@@ -33,99 +38,15 @@ impl DivergenceDefinition {
         context: &WgpuContext,
         input_res: ResourceDescriptor,
         output_res: ResourceDescriptor,
-    ) -> Result<ComputePipeline> {
-        let mut full_code = String::new();
-
-        let dim = match input_res {
-            ResourceDescriptor::Texture2d(_) => 2,
-            ResourceDescriptor::Texture3d(_) => 3,
-            _ => return Err(anyhow!("Divergence only supports Texture2d or Texture3d")),
-        };
-
-        full_code.push_str(&input_res.to_wgsl_input_binding(0, 0, "velocity"));
-        full_code.push_str(&output_res.to_wgsl_output_binding(0, 1, "output"));
-
-        full_code.push_str("\nstruct Parameters {\n");
-        full_code.push_str("    half_inverse_cell_size: f32,\n");
-        full_code.push_str("    _pad: vec3<f32>,\n");
-        full_code.push_str("};\n");
-        full_code.push_str("@group(0) @binding(2) var<uniform> _params: Parameters;\n\n");
-
-        if dim == 2 {
-            full_code.push_str("@compute @workgroup_size(16, 16, 1)\n");
-            full_code.push_str("fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {\n");
-            full_code.push_str("    let tex_dim = textureDimensions(velocity);\n");
-            full_code.push_str(
-                "    if (global_id.x >= tex_dim.x || global_id.y >= tex_dim.y) { return; }\n",
-            );
-            full_code.push_str("    let x = i32(global_id.x);\n");
-            full_code.push_str("    let y = i32(global_id.y);\n");
-            full_code.push_str("    let w = i32(tex_dim.x);\n");
-            full_code.push_str("    let h = i32(tex_dim.y);\n");
-            if self.boundary_mode == 1 {
-                full_code.push_str(
-                    "    let L = textureLoad(velocity, vec2<i32>((x - 1 + w) % w, y), 0).x;\n",
-                );
-                full_code.push_str(
-                    "    let R = textureLoad(velocity, vec2<i32>((x + 1) % w, y), 0).x;\n",
-                );
-                full_code.push_str(
-                    "    let B = textureLoad(velocity, vec2<i32>(x, (y - 1 + h) % h), 0).y;\n",
-                );
-                full_code.push_str(
-                    "    let T = textureLoad(velocity, vec2<i32>(x, (y + 1) % h), 0).y;\n",
-                );
-            } else {
-                full_code.push_str(
-                    "    let L = textureLoad(velocity, vec2<i32>(max(x - 1, 0), y), 0).x;\n",
-                );
-                full_code.push_str(
-                    "    let R = textureLoad(velocity, vec2<i32>(min(x + 1, w - 1), y), 0).x;\n",
-                );
-                full_code.push_str(
-                    "    let B = textureLoad(velocity, vec2<i32>(x, max(y - 1, 0)), 0).y;\n",
-                );
-                full_code.push_str(
-                    "    let T = textureLoad(velocity, vec2<i32>(x, min(y + 1, h - 1)), 0).y;\n",
-                );
-            }
-            full_code.push_str("    let div = (R - L + T - B) * _params.half_inverse_cell_size;\n");
-            full_code.push_str(
-                "    textureStore(output, global_id.xy, vec4<f32>(div, 0.0, 0.0, 1.0));\n",
-            );
-            full_code.push_str("}\n");
-        } else {
-            full_code.push_str("@compute @workgroup_size(8, 8, 4)\n");
-            full_code.push_str("fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {\n");
-            full_code.push_str("    let tex_dim = textureDimensions(velocity);\n");
-            full_code.push_str("    if (global_id.x >= tex_dim.x || global_id.y >= tex_dim.y || global_id.z >= tex_dim.z) { return; }\n");
-            full_code.push_str("    let coords = vec3<i32>(global_id.xyz);\n");
-            full_code.push_str("    let dim = vec3<i32>(tex_dim);\n");
-            if self.boundary_mode == 1 {
-                full_code.push_str("    let L = textureLoad(velocity, (coords - vec3<i32>(1, 0, 0) + dim) % dim, 0).x;\n");
-                full_code.push_str("    let R = textureLoad(velocity, (coords + vec3<i32>(1, 0, 0)) % dim, 0).x;\n");
-                full_code.push_str("    let B = textureLoad(velocity, (coords - vec3<i32>(0, 1, 0) + dim) % dim, 0).y;\n");
-                full_code.push_str("    let T = textureLoad(velocity, (coords + vec3<i32>(0, 1, 0)) % dim, 0).y;\n");
-                full_code.push_str("    let F = textureLoad(velocity, (coords - vec3<i32>(0, 0, 1) + dim) % dim, 0).z;\n");
-                full_code.push_str("    let BK = textureLoad(velocity, (coords + vec3<i32>(0, 0, 1)) % dim, 0).z;\n");
-            } else {
-                full_code.push_str("    let L = textureLoad(velocity, clamp(coords - vec3<i32>(1, 0, 0), vec3<i32>(0), dim - 1), 0).x;\n");
-                full_code.push_str("    let R = textureLoad(velocity, clamp(coords + vec3<i32>(1, 0, 0), vec3<i32>(0), dim - 1), 0).x;\n");
-                full_code.push_str("    let B = textureLoad(velocity, clamp(coords - vec3<i32>(0, 1, 0), vec3<i32>(0), dim - 1), 0).y;\n");
-                full_code.push_str("    let T = textureLoad(velocity, clamp(coords + vec3<i32>(0, 1, 0), vec3<i32>(0), dim - 1), 0).y;\n");
-                full_code.push_str("    let F = textureLoad(velocity, clamp(coords - vec3<i32>(0, 0, 1), vec3<i32>(0), dim - 1), 0).z;\n");
-                full_code.push_str("    let BK = textureLoad(velocity, clamp(coords + vec3<i32>(0, 0, 1), vec3<i32>(0), dim - 1), 0).z;\n");
-            }
-            full_code.push_str(
-                "    let div = (R - L + T - B + BK - F) * _params.half_inverse_cell_size;\n",
-            );
-            full_code
-                .push_str("    textureStore(output, global_id, vec4<f32>(div, 0.0, 0.0, 1.0));\n");
-            full_code.push_str("}\n");
-        }
-
+    ) -> Result<ResourcePipeline> {
+        let full_code = program::source(self.boundary_mode, &input_res, &output_res)?;
         let shader = ComputeShader::new(context, full_code)?;
-        Ok(ComputePipeline::new(context, shader)?)
+        let pipeline = ComputePipeline::new(context, shader, Named("main"))?;
+        ResourcePipeline::new(
+            pipeline,
+            DispatchResource::Output,
+            TextureAddressing::Coordinates,
+        )
     }
 
     pub fn get_or_create_pipeline(
@@ -133,8 +54,12 @@ impl DivergenceDefinition {
         context: &WgpuContext,
         input_res: ResourceDescriptor,
         output_res: ResourceDescriptor,
-    ) -> Result<Arc<ComputePipeline>> {
-        let key = (input_res.clone(), output_res.clone(), self.boundary_mode);
+    ) -> Result<Arc<ResourcePipeline>> {
+        let key = DivergenceRecipe {
+            input: input_res.clone(),
+            output: output_res.clone(),
+            boundary_mode: self.boundary_mode,
+        };
         self.cache.get_or_try_insert(context, "", key, || {
             let pipeline = self.build_pipeline(context, input_res, output_res)?;
             let arc_p = Arc::new(pipeline);
@@ -143,9 +68,10 @@ impl DivergenceDefinition {
     }
 }
 
-pub struct Divergence;
-
 impl Divergence {
+    /// Apply the centered velocity difference between adjacent texels.
+    /// `half_inverse_cell_size` is the numerical coefficient `1 / (2 * dx)`
+    /// in the caller's shared velocity and grid-spacing frame.
     pub fn execute(
         context: &WgpuContext,
         definition: &DivergenceDefinition,
@@ -163,44 +89,25 @@ impl Divergence {
             definition.get_or_create_pipeline(context, input_descriptor, output_descriptor)?;
 
         let mut parameters = fabelgeist_gpu::data::gpu::parameters::PassParameters::new();
-        parameters.insert(
-            "velocity",
-            match velocity {
-                GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
-                GpuResource::Texture3d(t) => PassParameter::Texture3d(t.clone()),
-                _ => return Err(anyhow!("Velocity must be a texture")),
-            },
-        );
-        parameters.insert(
-            "output",
-            match output {
-                GpuResource::Texture2d(t) => PassParameter::Texture2d(t.clone()),
-                GpuResource::Texture3d(t) => PassParameter::Texture3d(t.clone()),
-                _ => return Err(anyhow!("Output must be a texture")),
-            },
-        );
-
+        GeneratedBinding::Velocity.insert_texture(
+            FluidOperation::Divergence,
+            &mut parameters,
+            velocity,
+        )?;
+        GeneratedBinding::Output.insert_texture(
+            FluidOperation::Divergence,
+            &mut parameters,
+            output,
+        )?;
         parameters.insert("half_inverse_cell_size", half_inverse_cell_size);
 
-        let (wg_x, wg_y, wg_z) = match output {
-            GpuResource::Texture2d(t) => (
-                t.extent().width.div_ceil(16),
-                t.extent().height.div_ceil(16),
-                1,
-            ),
-            GpuResource::Texture3d(t) => (
-                t.extent().width.div_ceil(8),
-                t.extent().height.div_ceil(8),
-                t.extent().depth_or_array_layers.div_ceil(4),
-            ),
-            _ => unreachable!(),
-        };
+        let workgroups = pipeline.workgroups(output)?;
 
         fabelgeist_gpu::data::gpu::ComputePass::dispatch(
             context,
-            pipeline.as_ref().clone(),
+            pipeline.pipeline().clone(),
             parameters,
-            fabelgeist_gpu::data::WorkgroupGrid::from([wg_x, wg_y, wg_z]),
+            workgroups,
         )?;
 
         Ok(())

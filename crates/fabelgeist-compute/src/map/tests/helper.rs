@@ -13,19 +13,19 @@ where
     S: bytemuck::Pod + std::fmt::Debug + Default + Copy + PartialEq,
 {
     let definition = MapDefinition::new(definition_code)?;
-    let sig = MapDefinition::parse_signature(definition_code)?;
+    let sig = MapSignature::parse(definition_code)?;
 
-    let input_element_type = if sig.user_params.is_empty() {
-        ResourceBaseType::F32 // Default for generator tests without input data
-    } else {
-        sig.user_params[0].1.clone()
-    };
+    let input_element_type = sig
+        .user_parameters()
+        .next()
+        .map(|parameter| parameter.value_type().clone())
+        .unwrap_or(ResourceBaseType::F32); // Default for generator tests without input data
 
     run_compute_test::<IN, OUT, S, _>(
         input_data,
         expected_output,
         input_element_type,
-        sig.output_element_type,
+        sig.output_element_type().clone(),
         |context, in_res, out_res| Map::execute(context, &definition, Some(&in_res), &out_res),
     )
     .await

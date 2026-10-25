@@ -6,14 +6,21 @@
 //! `Scan`, `Sort`, marching cubes and the rest live in `fabelgeist-compute`, which
 //! depends on this crate.
 
+use crate::data::gpu::resource::ResourceType;
+use crate::data::gpu::texture::StorageFormatResult;
+
 pub use pass::*;
 pub use pipeline::*;
+pub use resource_addressing::{
+    ResourceFetch, TextureAddressError, TextureAddressResult, TextureAddressing,
+};
 pub use signature::*;
 pub use source_cache::ComputeSourceCache;
 pub use texture_ops::{TextureBinaryOp, TextureBinaryOpDefinition};
 
 mod pass;
 mod pipeline;
+mod resource_addressing;
 pub mod signature;
 mod source_cache;
 pub mod texture_ops;
@@ -26,6 +33,14 @@ pub enum ResourceDescriptor {
 }
 
 impl ResourceDescriptor {
+    pub fn resource_type(&self) -> ResourceType {
+        match self {
+            Self::Buffer(_) => ResourceType::Buffer,
+            Self::Texture2d(_) => ResourceType::Texture2d,
+            Self::Texture3d(_) => ResourceType::Texture3d,
+        }
+    }
+
     pub fn from_resource(
         res: &crate::data::gpu::resource::GpuResource,
         sig_type: signature::ResourceBaseType,
@@ -43,13 +58,15 @@ impl ResourceDescriptor {
         }
     }
 
-    pub fn to_wgsl_storage_format(&self) -> String {
-        match self {
+    /// Storage declarations use the linear view selected for storage bindings.
+    pub fn to_wgsl_storage_format(&self) -> StorageFormatResult<String> {
+        Ok(match self {
             ResourceDescriptor::Buffer(ty) => ty.as_str(),
-            ResourceDescriptor::Texture2d(f) | ResourceDescriptor::Texture3d(f) => {
-                f.to_wgsl_storage_format().to_string()
-            }
-        }
+            ResourceDescriptor::Texture2d(format) | ResourceDescriptor::Texture3d(format) => format
+                .linear_counterpart()
+                .to_wgsl_storage_format()?
+                .to_string(),
+        })
     }
 
     pub fn to_wgsl_input_binding(&self, group: u32, binding: u32, name: &str) -> String {
@@ -66,20 +83,25 @@ impl ResourceDescriptor {
                 group,
                 binding,
                 name,
-                self.base_type_str()
+                self.base_type().as_str()
             ),
             ResourceDescriptor::Texture3d(_) => format!(
                 "@group({}) @binding({}) var {}: texture_3d<{}>;\n",
                 group,
                 binding,
                 name,
-                self.base_type_str()
+                self.base_type().as_str()
             ),
         }
     }
 
-    pub fn to_wgsl_output_binding(&self, group: u32, binding: u32, name: &str) -> String {
-        match self {
+    pub fn to_wgsl_output_binding(
+        &self,
+        group: u32,
+        binding: u32,
+        name: &str,
+    ) -> StorageFormatResult<String> {
+        Ok(match self {
             ResourceDescriptor::Buffer(ty) => format!(
                 "@group({}) @binding({}) var<storage, read_write> {}: array<{}>;\n",
                 group,
@@ -92,29 +114,23 @@ impl ResourceDescriptor {
                 group,
                 binding,
                 name,
-                self.to_wgsl_storage_format()
+                self.to_wgsl_storage_format()?
             ),
             ResourceDescriptor::Texture3d(_) => format!(
                 "@group({}) @binding({}) var {}: texture_storage_3d<{}, write>;\n",
                 group,
                 binding,
                 name,
-                self.to_wgsl_storage_format()
+                self.to_wgsl_storage_format()?
             ),
-        }
+        })
     }
 
-    pub fn base_type_str(&self) -> &str {
+    pub fn base_type(&self) -> ResourceBaseType {
         match self {
-            ResourceDescriptor::Buffer(ty) => ty.base_type().as_str().leak(), // leak for static str for now
-            ResourceDescriptor::Texture2d(f) | ResourceDescriptor::Texture3d(f) => {
-                if f.is_float() {
-                    "f32"
-                } else if f.is_uint() {
-                    "u32"
-                } else {
-                    "i32"
-                }
+            ResourceDescriptor::Buffer(element_type) => element_type.base_type(),
+            ResourceDescriptor::Texture2d(format) | ResourceDescriptor::Texture3d(format) => {
+                ResourceBaseType::from_texture_format(*format).base_type()
             }
         }
     }
@@ -140,13 +156,17 @@ impl ResourceDescriptor {
         code
     }
 
+    /// Generate one input fetch using output coordinates.
+    /// The returned source and address requirement belong together: combine
+    /// the requirement before dispatch and append the source to the program.
     pub fn generate_fetch(
         &self,
         input_name: &str,
         output_res: &ResourceDescriptor,
         element_type: &ResourceBaseType,
-    ) -> String {
+    ) -> TextureValueResult<ResourceFetch> {
         let mut code = String::new();
+        let mut addressing = TextureAddressing::Coordinates;
         match self {
             ResourceDescriptor::Buffer(_) => {
                 match output_res {
@@ -155,10 +175,12 @@ impl ResourceDescriptor {
                     }
                     ResourceDescriptor::Texture2d(_) => {
                         code.push_str("    let _fetch_out_tex_dim = textureDimensions(output);\n");
+                        addressing = TextureAddressing::LinearIndex;
                         code.push_str("    let _in_global_index = global_id.y * _fetch_out_tex_dim.x + global_id.x;\n");
                     }
                     ResourceDescriptor::Texture3d(_) => {
                         code.push_str("    let _fetch_out_tex_dim = textureDimensions(output);\n");
+                        addressing = TextureAddressing::LinearIndex;
                         code.push_str("    let _in_global_index = (global_id.z * _fetch_out_tex_dim.y + global_id.y) * _fetch_out_tex_dim.x + global_id.x;\n");
                     }
                 }
@@ -178,11 +200,7 @@ impl ResourceDescriptor {
                     input_name
                 ));
                 code.push_str("    if (_in_global_index.x >= in_tex_dim.x || _in_global_index.y >= in_tex_dim.y) { return; }\n");
-                let swizzle = match element_type.component_count() {
-                    1 => ".x",
-                    2 => ".xy",
-                    _ => "",
-                };
+                let swizzle = TextureValue::try_from(element_type)?.load_suffix();
                 code.push_str(&format!(
                     "    let in_val = textureLoad({}, _in_global_index, 0){};\n",
                     input_name, swizzle
@@ -195,17 +213,13 @@ impl ResourceDescriptor {
                     input_name
                 ));
                 code.push_str("    if (_in_global_index.x >= in_tex_dim.x || _in_global_index.y >= in_tex_dim.y || _in_global_index.z >= in_tex_dim.z) { return; }\n");
-                let swizzle = match element_type.component_count() {
-                    1 => ".x",
-                    2 => ".xy",
-                    _ => "",
-                };
+                let swizzle = TextureValue::try_from(element_type)?.load_suffix();
                 code.push_str(&format!(
                     "    let in_val = textureLoad({}, _in_global_index, 0){};\n",
                     input_name, swizzle
                 ));
             }
         }
-        code
+        Ok(ResourceFetch::new(code, addressing))
     }
 }

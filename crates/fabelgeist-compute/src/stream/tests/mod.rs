@@ -15,7 +15,7 @@ where
         bytemuck::NoUninit + bytemuck::AnyBitPattern + PartialEq + std::fmt::Debug + Default + Copy,
 {
     let context = WgpuContext::new().await.unwrap();
-    let definition = StreamDefinition::new(&context, definition_code.to_string())?;
+    let definition = StreamDefinition::new(definition_code.to_string())?;
 
     // We'll use Buffer for stream components for now
     let in_buf = Buffer::from_upload(

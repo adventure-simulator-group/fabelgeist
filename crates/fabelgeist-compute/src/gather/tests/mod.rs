@@ -12,15 +12,14 @@ where
         bytemuck::NoUninit + bytemuck::AnyBitPattern + PartialEq + std::fmt::Debug + Default + Copy,
     S: bytemuck::Pod + std::fmt::Debug + Default + Copy + PartialEq,
 {
-    let context = WgpuContext::new().await.unwrap();
-    let definition = GatherDefinition::new(&context, definition_code.to_string())?;
-    let sig = GatherDefinition::parse_signature(definition_code)?;
+    let definition = GatherDefinition::new(definition_code.to_string())?;
+    let sig = GatherSignature::parse(definition_code)?;
 
     run_compute_test::<IN, OUT, S, _>(
         input_data,
         expected_output,
-        sig.input_element_type,
-        sig.output_element_type,
+        sig.input_element_type().clone(),
+        sig.output_element_type().clone(),
         |context, in_res, out_res| Gather::execute(context, &definition, &in_res, &out_res),
     )
     .await
