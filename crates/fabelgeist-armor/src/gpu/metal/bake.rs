@@ -61,7 +61,7 @@ pub(super) async fn bake(
     bake.insert("seed", material.seed);
     bake.insert("scratch_draws", material.scratch_density * DRAWS_PER_SCRATCH);
     bake.insert("engraved", u32::from(engraving.is_some()));
-    bake.insert("roughness", material.roughness);
+    bake.insert("roughness", material.roughness.ratio());
     bake.insert(
         "recess_roughness",
         engraving.map_or(0.0, |cut| cut.recipe().recess_roughness),

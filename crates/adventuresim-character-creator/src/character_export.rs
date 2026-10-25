@@ -5,6 +5,17 @@ use super::*;
 mod draped;
 mod hair;
 
+type CatalogMetals = Vec<(
+    fabelgeist_armor::material::Metal,
+    adventuresim_character_creator::export::ShellTextures,
+)>;
+
+/// Each worn piece's triangles and morph targets, for one of its meshes.
+struct CatalogGeometry<'a> {
+    faces: &'a [Vec<[u32; 3]>],
+    targets: &'a [Vec<RiggedMorphTarget<'a>>],
+}
+
 pub(super) fn export_character(
     path: &std::path::Path,
     model: &BodyModel,
@@ -96,11 +107,6 @@ pub(super) fn export_character(
     Ok(warnings)
 }
 
-type CatalogMetals = Vec<(
-    fabelgeist_armor::material::Metal,
-    adventuresim_character_creator::export::ShellTextures,
-)>;
-
 /// Maps for each distinct catalog steel and trim worn, engraving included,
 /// baked once.
 fn catalog_metals(armor: &[parametric_equipment::SelectedArmor<'_>]) -> Result<CatalogMetals> {
@@ -144,12 +150,6 @@ fn piece_geometry<'a>(
         .unzip()
 }
 
-/// Each worn piece's triangles and morph targets, for one of its meshes.
-struct CatalogGeometry<'a> {
-    faces: &'a [Vec<[u32; 3]>],
-    targets: &'a [Vec<RiggedMorphTarget<'a>>],
-}
-
 fn catalog_shells<'a>(
     armor: &'a [parametric_equipment::SelectedArmor<'_>],
     plates: CatalogGeometry<'a>,
@@ -168,7 +168,7 @@ fn catalog_shells<'a>(
         );
         let mut parts = rigged.plate;
         let material = equipment_catalog::material(piece.piece.piece.selection.item())?;
-        let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
+        let appearance = adventuresim_character_creator::equipment_pbr(material);
         let metal = adventuresim_character_creator::armor_metal::metal(
             material,
             piece.piece.decoration.engraving.as_ref(),
@@ -176,9 +176,7 @@ fn catalog_shells<'a>(
         .and_then(|metal| metals.iter().find(|(known, _)| *known == metal))
         .map(|(_, textures)| textures);
         for shell in &mut parts {
-            shell.base_color = color;
-            shell.metallic = metallic;
-            shell.roughness = roughness;
+            shell.appearance = appearance;
             shell.textures = adventuresim_character_creator::underlayer_material::textures(
                 piece.piece.design.recipe(),
             );
@@ -192,11 +190,8 @@ fn catalog_shells<'a>(
                 .find(|(known, _)| *known == trim.metal)
                 .map(|(_, textures)| textures)
                 .context("trim metal was not baked")?;
-            let [red, green, blue] = trim.metal.color;
             for mut shell in rigged.trim {
-                shell.base_color = [red, green, blue, 1.0];
-                shell.metallic = 1.0;
-                shell.roughness = trim.metal.roughness;
+                shell.appearance = trim.metal.appearance(fabelgeist_math::units::Ratio::from_ratio(1.0));
                 // The band's own coordinates run along each edge.
                 shell.texcoords = Some(&trim.texcoords);
                 shell.surface = Some(textures);
@@ -204,7 +199,6 @@ fn catalog_shells<'a>(
             }
         }
         if let Some(laced) = &piece.lacing {
-            let [red, green, blue] = laced.cord.color;
             let rigged = rigged_armor(
                 &laced.name,
                 &laced.name,
@@ -213,9 +207,7 @@ fn catalog_shells<'a>(
                 &lacing.targets[i],
             );
             for mut shell in rigged.plate {
-                shell.base_color = [red, green, blue, 1.0];
-                shell.metallic = 0.0;
-                shell.roughness = laced.cord.roughness;
+                shell.appearance = laced.cord.appearance();
                 shells.push(shell);
             }
         }

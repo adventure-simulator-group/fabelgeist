@@ -154,8 +154,7 @@ impl WaistSupportPlan {
             indices: 0..mesh.indices.len(),
             hinge: None,
             mount: None,
-            material: Some(self.design.main.fabric.material()),
-            textile: Some(self.design.main.fabric.clone()),
+            appearance: fabelgeist_armor::ComponentAppearance::Textile(self.design.main.fabric.clone()),
         });
         Ok(WaistBandMesh { part: mesh, owners })
     }

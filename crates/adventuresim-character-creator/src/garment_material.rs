@@ -1,13 +1,17 @@
 //! Parametric chainmail appearance: ring geometry sets the texture tile and
 //! surface maps. It never changes the cloth simulation.
+use fabelgeist_armor::SurfaceMaterial;
+use fabelgeist_color::{Srgb, Srgba};
+use fabelgeist_math::units::Ratio;
 use anyhow::{Result, ensure};
 use serde::{Deserialize, Serialize};
 use std::ops::RangeInclusive;
 
 #[cfg(feature = "offline-creator")]
-mod rings;
-#[cfg(feature = "offline-creator")]
 pub use rings::MailMaps;
+
+#[cfg(feature = "offline-creator")]
+mod rings;
 
 /// Air gap between neighbouring rings of the same row.
 const ROW_NEIGHBOUR_GAP_M: f32 = 0.0001;
@@ -16,7 +20,11 @@ const MIN_INSIDE_DIAMETER_IN_WIRES: f32 = 2.0;
 const MM_PER_M: f32 = 1000.0;
 
 /// Base color factor, metallic and roughness of untextured cloth.
-pub const CLOTH_PBR: ([f32; 4], f32, f32) = ([0.52, 0.42, 0.28, 1.0], 0.0, 0.85);
+pub const CLOTH_PBR: SurfaceMaterial = SurfaceMaterial {
+    base_color: Srgba::from_encoded_channels([0.52, 0.42, 0.28, 1.0]),
+    metallic: Ratio::from_ratio(0.0),
+    roughness: Ratio::from_ratio(0.85),
+};
 
 /// European 4-in-1 mail made of round-wire rings.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
@@ -31,9 +39,18 @@ pub struct MailWeave {
     /// How far each row's rings lean out of the cloth surface, in degrees.
     pub ring_tilt_degrees: f32,
     /// Steel base color, sRGB channels in 0..=1.
-    pub steel_color_srgb: [f32; 3],
+    pub steel_color_srgb: Srgb,
     /// Perceptual roughness of the steel surface.
-    pub roughness: f32,
+    pub roughness: Ratio,
+}
+
+/// Export-ready chainmail: generated maps, texture coordinates scaled to one
+/// ring repeat, and the steel finish.
+#[cfg(feature = "offline-creator")]
+pub struct MailSurface {
+    pub maps: MailMaps,
+    pub texcoords: Vec<[f32; 2]>,
+    weave: MailWeave,
 }
 
 impl MailWeave {
@@ -43,8 +60,8 @@ impl MailWeave {
         wire_diameter_m: 0.0011,
         row_pitch_m: 0.0022,
         ring_tilt_degrees: 34.0,
-        steel_color_srgb: [0.71; 3],
-        roughness: 0.32,
+        steel_color_srgb: Srgb::from_encoded_channels([0.71; 3]),
+        roughness: Ratio::from_ratio(0.32),
     };
     pub const RING_OUTER_DIAMETER_M: RangeInclusive<f32> = 0.003..=0.016;
     pub const WIRE_DIAMETER_M: RangeInclusive<f32> = 0.0005..=0.003;
@@ -83,8 +100,12 @@ impl MailWeave {
     }
 
     /// Base color factor, metallic and roughness; color lives in the maps.
-    pub fn pbr(&self) -> ([f32; 4], f32, f32) {
-        ([1.0; 4], 1.0, self.roughness)
+    pub fn pbr(&self) -> SurfaceMaterial {
+        SurfaceMaterial {
+            base_color: Srgba::WHITE,
+            metallic: Ratio::from_ratio(1.0),
+            roughness: self.roughness,
+        }
     }
 
     pub fn validate(&self) -> Result<()> {
@@ -93,12 +114,12 @@ impl MailWeave {
             self.wire_diameter_m,
             self.row_pitch_m,
             self.ring_tilt_degrees,
-            self.roughness,
+            self.roughness.ratio(),
         ];
         ensure!(
             scalars
                 .iter()
-                .chain(&self.steel_color_srgb)
+                .chain(&self.steel_color_srgb.encoded_channels())
                 .all(|value| value.is_finite()),
             "chainmail parameters must be finite"
         );
@@ -130,13 +151,14 @@ impl MailWeave {
             Self::RING_TILT_DEGREES.end()
         );
         ensure!(
-            Self::ROUGHNESS.contains(&self.roughness),
+            Self::ROUGHNESS.contains(&self.roughness.ratio()),
             "steel roughness must be between {} and {}",
             Self::ROUGHNESS.start(),
             Self::ROUGHNESS.end()
         );
         ensure!(
             self.steel_color_srgb
+                .encoded_channels()
                 .iter()
                 .all(|channel| (0.0..=1.0).contains(channel)),
             "steel color channels must be between 0 and 1"
@@ -149,15 +171,6 @@ impl Default for MailWeave {
     fn default() -> Self {
         Self::STANDARD
     }
-}
-
-/// Export-ready chainmail: generated maps, texture coordinates scaled to one
-/// ring repeat, and the steel finish.
-#[cfg(feature = "offline-creator")]
-pub struct MailSurface {
-    pub maps: MailMaps,
-    pub texcoords: Vec<[f32; 2]>,
-    weave: MailWeave,
 }
 
 #[cfg(feature = "offline-creator")]
@@ -175,7 +188,7 @@ impl MailSurface {
         })
     }
 
-    pub fn pbr(&self) -> ([f32; 4], f32, f32) {
+    pub fn pbr(&self) -> SurfaceMaterial {
         self.weave.pbr()
     }
 }
@@ -199,6 +212,7 @@ mod tests {
         assert!(color.pixels().any(|p| p[3] == 255));
         let steel = MailWeave::STANDARD
             .steel_color_srgb
+            .encoded_channels()
             .map(|c| (c * 255.0).round() as u8);
         let wire: Vec<_> = color
             .pixels()
@@ -268,14 +282,14 @@ mod tests {
     #[test]
     fn mail_surface_scales_pattern_metres_to_ring_repeats() {
         let weave = MailWeave {
-            roughness: 0.6,
+            roughness: Ratio::from_ratio(0.6),
             ..MailWeave::STANDARD
         };
         let [across, up] = weave.repeat_m();
         let surface = MailSurface::new(&weave, &[[across * 3.0, up * 2.0]]).unwrap();
         assert!((surface.texcoords[0][0] - 3.0).abs() < 1e-4);
         assert!((surface.texcoords[0][1] - 2.0).abs() < 1e-4);
-        assert_eq!(surface.pbr().2, 0.6);
+        assert_eq!(surface.pbr().roughness.ratio(), 0.6);
     }
 
     #[test]
@@ -293,7 +307,7 @@ mod tests {
         };
         assert!(loose_rows.validate().is_err());
         let invalid = MailWeave {
-            roughness: f32::NAN,
+            roughness: Ratio::from_ratio(f32::NAN),
             ..standard
         };
         assert!(invalid.validate().is_err());

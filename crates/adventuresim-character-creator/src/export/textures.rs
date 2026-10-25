@@ -2,26 +2,6 @@
 use super::*;
 use std::{collections::BTreeMap, fs, io::ErrorKind};
 
-#[cfg(test)]
-mod tests;
-
-/// The packaging contract for a GLB and its surface images.
-#[derive(Clone, Copy)]
-pub enum GlbOutput<'a> {
-    /// A portable character file containing every image in its binary buffer.
-    Standalone(&'a Path),
-    /// Equipment images are content-addressed PNG siblings shared across GLBs.
-    SharedTextures(&'a Path),
-}
-
-impl<'a> GlbOutput<'a> {
-    pub(super) fn path(self) -> &'a Path {
-        match self {
-            Self::Standalone(path) | Self::SharedTextures(path) => path,
-        }
-    }
-}
-
 #[derive(Clone)]
 pub struct SurfaceTextures {
     pub base_color_png: Option<Vec<u8>>,
@@ -31,6 +11,29 @@ pub struct SurfaceTextures {
     pub alpha: SurfaceAlpha,
     pub sides: SurfaceSides,
     pub sampling: SurfaceSampling,
+}
+
+pub struct ShellTextures {
+    pub normal_png: Vec<u8>,
+    pub metal_roughness_png: Vec<u8>,
+}
+
+#[derive(Default)]
+pub(super) struct TextureImages {
+    uses_textile_finish: bool,
+    images: Vec<Value>,
+    textures: Vec<Value>,
+    shared_files: Option<BTreeMap<String, Vec<u8>>>,
+    shell_cache: std::collections::HashMap<*const ShellTextures, (usize, usize)>,
+}
+
+/// The packaging contract for a GLB and its surface images.
+#[derive(Clone, Copy)]
+pub enum GlbOutput<'a> {
+    /// A portable character file containing every image in its binary buffer.
+    Standalone(&'a Path),
+    /// Equipment images are content-addressed PNG siblings shared across GLBs.
+    SharedTextures(&'a Path),
 }
 
 /// Addressing follows the physical chart: a tile repeats both axes; a wrapped
@@ -56,9 +59,26 @@ pub enum SurfaceSides {
     Both,
 }
 
-pub struct ShellTextures {
-    pub normal_png: Vec<u8>,
-    pub metal_roughness_png: Vec<u8>,
+impl<'a> GlbOutput<'a> {
+    pub(super) fn path(self) -> &'a Path {
+        match self {
+            Self::Standalone(path) | Self::SharedTextures(path) => path,
+        }
+    }
+}
+
+impl SurfaceTextures {
+    /// Color bytes already contain color and opacity; the scalar factor is white.
+    /// Normal-only maps retain the authored scalar appearance.
+    pub(super) fn scalar_appearance(
+        &self,
+        mut appearance: fabelgeist_armor::SurfaceMaterial,
+    ) -> fabelgeist_armor::SurfaceMaterial {
+        if self.base_color_png.is_some() {
+            appearance.base_color = fabelgeist_color::Srgba::WHITE;
+        }
+        appearance
+    }
 }
 
 impl ShellTextures {
@@ -83,15 +103,6 @@ impl ShellTextures {
             metal_roughness_png: encode(textures.metal_roughness())?,
         })
     }
-}
-
-#[derive(Default)]
-pub(super) struct TextureImages {
-    uses_textile_finish: bool,
-    images: Vec<Value>,
-    textures: Vec<Value>,
-    shared_files: Option<BTreeMap<String, Vec<u8>>>,
-    shell_cache: std::collections::HashMap<*const ShellTextures, (usize, usize)>,
 }
 
 impl TextureImages {
@@ -180,7 +191,6 @@ impl TextureImages {
         material["doubleSided"] = matches!(maps.sides, SurfaceSides::Both).into();
         if let Some(bytes) = maps.base_color_png {
             let color = self.image(&bytes, buffer, maps.sampling);
-            material["pbrMetallicRoughness"]["baseColorFactor"] = json!([1.0, 1.0, 1.0, 1.0]);
             material["pbrMetallicRoughness"]["baseColorTexture"] = json!({"index":color});
         }
         let normal = self.image(&maps.normal_png, buffer, maps.sampling);
@@ -235,3 +245,6 @@ impl TextureImages {
         material["pbrMetallicRoughness"]["roughnessFactor"] = 1.0.into();
     }
 }
+
+#[cfg(test)]
+mod tests;

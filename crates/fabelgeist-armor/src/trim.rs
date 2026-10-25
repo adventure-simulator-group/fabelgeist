@@ -19,11 +19,13 @@ use thiserror::Error;
 
 use crate::GeneratedArmor;
 
+pub use finish::{Trim, TrimMaterialError, TrimMaterialResult};
+
 mod edges;
 mod finish;
 mod split;
 
-pub use finish::{Trim, TrimMaterialError};
+pub type TrimResult<T> = Result<T, TrimError>;
 
 /// The band's dimensions on the surface.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -68,7 +70,7 @@ pub enum TrimError {
 }
 
 impl TrimBand {
-    fn validate(self) -> Result<Self, TrimError> {
+    fn validate(self) -> TrimResult<Self> {
         if self.width.is_finite()
             && self.width > 0.0
             && self.period.is_finite()
@@ -83,7 +85,7 @@ impl TrimBand {
 
 impl GeneratedArmor {
     /// Cut a trim band along every edge of every plate.
-    pub fn trimmed(self, band: TrimBand) -> Result<Self, TrimError> {
+    pub fn trimmed(self, band: TrimBand) -> TrimResult<Self> {
         let band = band.validate()?;
         if self.trim.is_some() {
             return Err(TrimError::AlreadyTrimmed);

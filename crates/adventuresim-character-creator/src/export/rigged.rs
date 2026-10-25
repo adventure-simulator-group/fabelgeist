@@ -40,10 +40,8 @@ pub struct RiggedShell<'a> {
     pub joint_indices: Option<&'a fabelgeist_rig::PackedRigSkin<8>>,
     pub joint_weights: Option<&'a [[f32; 8]]>,
     pub morph_targets: &'a [RiggedMorphTarget<'a>],
-    /// Artist-facing sRGB color. glTF factors are converted to linear RGB.
-    pub base_color: [f32; 4],
-    pub metallic: f32,
-    pub roughness: f32,
+    /// Authored scalar appearance; native adapters project encoding and units.
+    pub appearance: fabelgeist_armor::SurfaceMaterial,
 }
 
 pub struct RiggedMorphTarget<'a> {

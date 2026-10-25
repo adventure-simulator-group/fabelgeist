@@ -197,7 +197,7 @@ fn placement_does_not_change_skirt_or_sleeve_fabric_coordinates() -> Result<()> 
 fn skinned(mut part: BuiltPart) -> GeneratedArmor {
     let count = part.positions.len();
     for component in &mut part.components {
-        component.textile = Some(TextileAppearance::solid(
+        component.appearance = fabelgeist_armor::ComponentAppearance::Textile(TextileAppearance::solid(
             TextileColor([70, 15, 25]),
             TextileFinish::Velvet,
         ));

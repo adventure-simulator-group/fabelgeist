@@ -310,8 +310,8 @@ fn puffed_garments_fit_sparse_wearers_without_morph_targets() -> Result<()> {
                     .iter()
                     .find(|c| c.role == ArmorComponentRole::Undercloth)
                     .unwrap();
-                assert_ne!(outer.material, inner.material);
-                assert!(outer.material.is_some() && inner.material.is_some());
+                assert_ne!(outer.appearance.material(), inner.appearance.material());
+                assert!(outer.appearance.material().is_some() && inner.appearance.material().is_some());
                 for face in armor.indices.as_chunks::<3>().0 {
                     let [a, b, c] =
                         face.map(|i| bevy::math::Vec3::from(armor.positions[i as usize]));

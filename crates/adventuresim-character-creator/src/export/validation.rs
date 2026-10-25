@@ -149,9 +149,7 @@ fn validate_shell(mesh: &RiggedMesh<'_>, shell: &RiggedShell<'_>) -> Result<()> 
             .iter()
             .flatten()
             .any(|value| !value.is_finite())
-        || !shell.metallic.is_finite()
-        || !shell.roughness.is_finite()
-        || shell.base_color.iter().any(|value| !value.is_finite())
+        || !shell.appearance.is_finite()
     {
         bail!(
             "clothing shell '{}' contains a non-finite value",

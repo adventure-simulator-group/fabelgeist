@@ -3,7 +3,7 @@ use crate::cloth_hook_mesh::{HOOK_TAIL_SETBACK_SHARE, HookDimensions};
 use crate::cloth_opening::ClosureSide;
 use anyhow::{Result, ensure};
 use fabelgeist_armor::{
-    ArmorComponent, ArmorComponentMaterial, ArmorComponentRole, BuiltPart, ClothFastener,
+    ArmorComponent, SurfaceMaterial, ArmorComponentRole, BuiltPart, ClothFastener,
     PlateFace, TextileAppearance,
 };
 use fabelgeist_math::Vec3;
@@ -38,10 +38,6 @@ pub(crate) struct ClosureFrame {
     y: Vec3,
     z: Vec3,
     pub gap: f32,
-}
-pub(crate) struct ClosureMaterial {
-    pub surface: ArmorComponentMaterial,
-    pub fabric: Option<TextileAppearance>,
 }
 pub(crate) struct CordPath {
     pub points: Vec<Vec3>,
@@ -97,14 +93,11 @@ impl FastenerMesh {
                 color,
                 roughness,
             } => {
-                let material = ClosureMaterial {
-                    surface: ArmorComponentMaterial {
+                let material = fabelgeist_armor::ComponentAppearance::Surface(SurfaceMaterial {
                         base_color: color.material().base_color,
-                        metallic: 1.,
-                        roughness: roughness.unit(),
-                    },
-                    fabric: None,
-                };
+                        metallic: fabelgeist_math::units::Ratio::from_ratio(1.0),
+                        roughness: fabelgeist_math::units::Ratio::from_ratio(roughness.unit()),
+                    });
                 mesh.hook_eye(
                     &frame,
                     HookDimensions {
@@ -128,10 +121,7 @@ impl FastenerMesh {
     ) {
         let radius = diameter * 0.5;
         let gauge = cord;
-        let material = ClosureMaterial {
-            surface: fabric.material(),
-            fabric: Some(fabric.clone()),
-        };
+        let material = fabelgeist_armor::ComponentAppearance::Textile(fabric.clone());
         let shank_height = gauge * 2.;
         self.bead(frame, radius, shank_height, &material);
         self.cord(
@@ -181,7 +171,7 @@ impl FastenerMesh {
         &mut self,
         vertices: usize,
         indices: usize,
-        material: &ClosureMaterial,
+        material: &fabelgeist_armor::ComponentAppearance,
     ) {
         self.part.components.push(ArmorComponent {
             role: ArmorComponentRole::ClothFasteners,
@@ -189,8 +179,7 @@ impl FastenerMesh {
             indices: indices..self.part.indices.len(),
             hinge: None,
             mount: None,
-            material: Some(material.surface),
-            textile: material.fabric.clone(),
+            appearance: material.clone(),
         });
         self.part
             .faces
@@ -217,9 +206,9 @@ impl FastenerMesh {
         curve: &CordPath,
         radius: f32,
         side: ClosureSide,
-        material: &ClosureMaterial,
+        material: &fabelgeist_armor::ComponentAppearance,
     ) {
-        let sides = if material.fabric.is_some() {
+        let sides = if material.textile().is_some() {
             CORD_SECTION_SIDES
         } else {
             WIRE_SECTION_SIDES
@@ -289,7 +278,7 @@ impl FastenerMesh {
         }
         self.component(first, index, material);
     }
-    fn bead(&mut self, frame: &ClosureFrame, radius: f32, rise: f32, material: &ClosureMaterial) {
+    fn bead(&mut self, frame: &ClosureFrame, radius: f32, rise: f32, material: &fabelgeist_armor::ComponentAppearance) {
         // Standard unit icosahedron, in the fastener frame; bead size is metres.
         let golden = (1. + 5_f32.sqrt()) * 0.5;
         let points = [

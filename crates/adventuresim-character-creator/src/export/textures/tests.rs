@@ -20,15 +20,13 @@ fn maps() -> SurfaceTextures {
 }
 
 fn export_equipment(path: &Path) -> Result<()> {
-    export_equipment_with_maps(path, maps(), [1.0; 4], 1.0, 0.3)
+    export_equipment_with_maps(path, maps(), fabelgeist_armor::SurfaceMaterial { base_color: fabelgeist_color::Srgba::from_encoded_channels([1.0; 4]), metallic: fabelgeist_math::units::Ratio::from_ratio(1.0), roughness: fabelgeist_math::units::Ratio::from_ratio(0.3) })
 }
 
 fn export_equipment_with_maps(
     path: &Path,
     maps: SurfaceTextures,
-    base_color: [f32; 4],
-    metallic: f32,
-    roughness: f32,
+    appearance: fabelgeist_armor::SurfaceMaterial,
 ) -> Result<()> {
     let positions = [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]];
     let normals = [[0.0, 0.0, 1.0]; 3];
@@ -49,9 +47,7 @@ fn export_equipment_with_maps(
         joint_indices: Some(&joints),
         joint_weights: Some(&weights),
         morph_targets: &[],
-        base_color,
-        metallic,
-        roughness,
+        appearance,
         texcoords: Some(&[[0.0, 0.0], [1.0, 0.0], [0.0, 1.0]]),
         textures: Some(maps),
     };
@@ -87,7 +83,7 @@ fn normal_only_material_preserves_its_authored_metal_properties() {
     normal_only.occlusion_png = None;
     normal_only.alpha = crate::export::SurfaceAlpha::Opaque;
     normal_only.sampling = SurfaceSampling::WrappedGarment;
-    export_equipment_with_maps(&path, normal_only, [0.25, 0.5, 0.75, 1.0], 0.8, 0.2).unwrap();
+    export_equipment_with_maps(&path, normal_only, fabelgeist_armor::SurfaceMaterial { base_color: fabelgeist_color::Srgba::from_encoded_channels([0.25, 0.5, 0.75, 1.0]), metallic: fabelgeist_math::units::Ratio::from_ratio(0.8), roughness: fabelgeist_math::units::Ratio::from_ratio(0.2) }).unwrap();
 
     let parsed = gltf::Gltf::from_slice(&fs::read(&path).unwrap()).unwrap();
     let material = parsed.materials().next().unwrap();

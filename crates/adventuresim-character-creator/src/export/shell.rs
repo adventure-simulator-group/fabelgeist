@@ -14,7 +14,7 @@ impl Writer<'_> {
         shells: &[RiggedShell<'_>],
         views: Vec<Views>,
         mut accessor: impl FnMut(usize, u32, usize, &str, Option<([f32; 3], [f32; 3])>) -> usize,
-    ) {
+    ) -> Result<()> {
         for (shell, (position_view, normal_view, index_view, skin_views)) in
             shells.iter().zip(views)
         {
@@ -58,13 +58,18 @@ impl Writer<'_> {
                     accessor(view, 5_126, uv.len(), "VEC2", None).into();
             }
             self.primitives.push(primitive);
+            let appearance = shell.textures.as_ref().map_or(shell.appearance, |maps| {
+                maps.scalar_appearance(shell.appearance)
+            });
+            let factors = crate::surface_projection::LinearSurfaceMaterial::try_from(appearance)
+                .with_context(|| format!("surface factors for shell {}", shell.name))?;
             let mut material = json!({
                 "name": shell.name,
                 "doubleSided": true,
                 "pbrMetallicRoughness": {
-                    "baseColorFactor": linear_base_color(shell.base_color),
-                    "metallicFactor": shell.metallic,
-                    "roughnessFactor": shell.roughness,
+                    "baseColorFactor": factors.base_color(),
+                    "metallicFactor": factors.metallic(),
+                    "roughnessFactor": factors.roughness(),
                 }
             });
             if let Some(textures) = shell.textures.clone() {
@@ -79,6 +84,7 @@ impl Writer<'_> {
             }
             self.materials.push(material);
         }
+        Ok(())
     }
 }
 

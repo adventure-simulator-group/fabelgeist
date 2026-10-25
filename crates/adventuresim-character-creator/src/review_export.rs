@@ -3,6 +3,7 @@ use super::*;
 use adventuresim_character_creator::{armor_recipes, inventory::Article, item_design::ItemDesign};
 
 use adventuresim_core::equipment_assets::CatalogPlacement;
+use adventuresim_character_creator::review_component::ReviewComponent;
 struct ReviewPiece<'a> {
     selection: CatalogPlacement<'a>,
     design: ItemDesign,
@@ -104,9 +105,11 @@ fn review_record(
     design: &ItemDesign,
 ) -> Result<serde_json::Value> {
     let armor = parametric_equipment::fitted_item(model, body, design, placement, &[], &[])?;
+    let components = armor.components.iter().map(ReviewComponent::try_from)
+        .collect::<std::result::Result<Vec<_>, _>>()?;
     let mut record = serde_json::json!({
         "id":placement.item().id,"placement":placement.definition().id,"positions":armor.positions,"normals":armor.normals,
-        "indices":armor.indices,"components":armor.components,
+        "indices":armor.indices,"components":components,
         "generator_version":fabelgeist_armor::GENERATOR_VERSION
     });
     record["design"] = match design {

@@ -1,6 +1,9 @@
 //! How a plate piece is built: one solid shell, or rows of small plates laid
 //! over its surface and laced together.
 
+use crate::SurfaceMaterial;
+use fabelgeist_color::Srgb;
+use fabelgeist_math::units::Ratio;
 use std::ops::RangeInclusive;
 
 use serde::{Deserialize, Serialize};
@@ -8,59 +11,7 @@ use thiserror::Error;
 
 use crate::trim::Trim;
 
-/// How a piece is built.
-#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum Construction {
-    /// One plate shaped to the wearer.
-    #[default]
-    Solid,
-    /// Narrow lames laced into rows, each row hung from the row above by
-    /// lacing that runs down over the upper row's face.
-    Lamellar(Tiling),
-    /// Scales laced to their neighbours through their top holes, each row
-    /// covering the lacing of the row below.
-    Scale(Tiling),
-}
-
-impl Construction {
-    pub fn name(&self) -> &'static str {
-        match self {
-            Self::Solid => "Solid",
-            Self::Lamellar(_) => "Lamellar",
-            Self::Scale(_) => "Scale",
-        }
-    }
-
-    /// The small plates, unless the piece is solid.
-    pub fn tiling(&self) -> Option<&Tiling> {
-        match self {
-            Self::Solid => None,
-            Self::Lamellar(tiling) | Self::Scale(tiling) => Some(tiling),
-        }
-    }
-
-    pub fn tiling_mut(&mut self) -> Option<&mut Tiling> {
-        match self {
-            Self::Solid => None,
-            Self::Lamellar(tiling) | Self::Scale(tiling) => Some(tiling),
-        }
-    }
-
-    pub fn validate(&self) -> Result<(), ConstructionError> {
-        self.tiling().map_or(Ok(()), Tiling::validate)
-    }
-
-    /// `trim` as it runs on this construction. On small plates the band
-    /// follows each plate's rim, so it keeps to a share of the plate and the
-    /// plate's face still shows.
-    pub fn trim_on(&self, trim: &Trim) -> Trim {
-        match self.tiling() {
-            Some(tiling) => trim.narrowed(tiling.plate.widest_trim()),
-            None => trim.clone(),
-        }
-    }
-}
+pub type ConstructionResult<T> = Result<T, ConstructionError>;
 
 /// Small plates laid in overlapping rows over a piece's surface.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -69,63 +20,6 @@ pub struct Tiling {
     pub plate: Plate,
     /// Cord through the plates' holes; `None` leaves them unlaced.
     pub lacing: Option<Lacing>,
-}
-
-impl Tiling {
-    /// Narrow, tall lames with three pairs of holes, laced in red silk.
-    pub fn lamellar() -> Self {
-        Self {
-            plate: Plate {
-                width: 0.028,
-                height: 0.085,
-                thickness: 0.0015,
-                roundness: 0.25,
-                bevel: 0.0004,
-                gap: 0.001,
-                overlap: 0.2,
-                stagger: 0.0,
-                hole_radius: 0.0022,
-                hole_pairs: 3,
-            },
-            lacing: Some(Lacing {
-                radius: 0.0014,
-                color: [0.55, 0.09, 0.07],
-                roughness: 0.6,
-            }),
-        }
-    }
-
-    /// Round-bottomed scales in staggered rows, laced in leather through one
-    /// pair of holes at the top.
-    pub fn scale() -> Self {
-        Self {
-            plate: Plate {
-                width: 0.045,
-                height: 0.065,
-                thickness: 0.0015,
-                roundness: 1.0,
-                bevel: 0.0004,
-                gap: 0.0015,
-                overlap: 0.3,
-                stagger: 0.5,
-                hole_radius: 0.0025,
-                hole_pairs: 1,
-            },
-            lacing: Some(Lacing::default()),
-        }
-    }
-
-    pub fn validate(&self) -> Result<(), ConstructionError> {
-        self.plate.validate()?;
-        let Some(lacing) = &self.lacing else {
-            return Ok(());
-        };
-        lacing.validate()?;
-        if self.plate.hole_pairs == 0 || lacing.radius > Lacing::max_radius(&self.plate) {
-            return Err(ConstructionError::LacingHoles);
-        }
-        Ok(())
-    }
 }
 
 /// One small plate: its outline, gauge, spacing and lacing holes. Lengths
@@ -154,6 +48,149 @@ pub struct Plate {
     pub hole_pairs: u32,
 }
 
+/// Cord through the plates' holes.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Lacing {
+    /// Of the cord's section, metres.
+    pub radius: f32,
+    pub color: Srgb,
+    pub roughness: Ratio,
+}
+
+/// How a piece is built.
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum Construction {
+    /// One plate shaped to the wearer.
+    #[default]
+    Solid,
+    /// Narrow lames laced into rows, each row hung from the row above by
+    /// lacing that runs down over the upper row's face.
+    Lamellar(Tiling),
+    /// Scales laced to their neighbours through their top holes, each row
+    /// covering the lacing of the row below.
+    Scale(Tiling),
+}
+
+#[derive(Clone, Copy, Debug, Error, Eq, PartialEq)]
+pub enum ConstructionError {
+    #[error("constructed skin: {0}")]
+    Skin(#[from] fabelgeist_rig::RigSkinError),
+    #[error("plate dimensions are outside their supported ranges")]
+    PlateDimensions,
+    #[error("lacing holes do not fit on the plate")]
+    HoleSpacing,
+    #[error("lacing cord is outside its supported range")]
+    Lacing,
+    #[error("lacing needs holes wider than its cord")]
+    LacingHoles,
+    #[error("the piece has no surface to lay plates over; build them before trimming")]
+    NoSurfaceGrid,
+    #[error("the piece's surface is too small or degenerate to lay plates over")]
+    DegenerateSurface,
+    #[error("the plates are too large for this piece; make them smaller")]
+    NoPlateFits,
+    #[error("the piece would take more than {} plates", crate::tiling::MAX_TILES)]
+    TooManyPlates,
+}
+
+impl Construction {
+    pub fn name(&self) -> &'static str {
+        match self {
+            Self::Solid => "Solid",
+            Self::Lamellar(_) => "Lamellar",
+            Self::Scale(_) => "Scale",
+        }
+    }
+
+    /// The small plates, unless the piece is solid.
+    pub fn tiling(&self) -> Option<&Tiling> {
+        match self {
+            Self::Solid => None,
+            Self::Lamellar(tiling) | Self::Scale(tiling) => Some(tiling),
+        }
+    }
+
+    pub fn tiling_mut(&mut self) -> Option<&mut Tiling> {
+        match self {
+            Self::Solid => None,
+            Self::Lamellar(tiling) | Self::Scale(tiling) => Some(tiling),
+        }
+    }
+
+    pub fn validate(&self) -> ConstructionResult<()> {
+        self.tiling().map_or(Ok(()), Tiling::validate)
+    }
+
+    /// `trim` as it runs on this construction. On small plates the band
+    /// follows each plate's rim, so it keeps to a share of the plate and the
+    /// plate's face still shows.
+    pub fn trim_on(&self, trim: &Trim) -> Trim {
+        match self.tiling() {
+            Some(tiling) => trim.narrowed(tiling.plate.widest_trim()),
+            None => trim.clone(),
+        }
+    }
+}
+
+impl Tiling {
+    /// Narrow, tall lames with three pairs of holes, laced in red silk.
+    pub fn lamellar() -> Self {
+        Self {
+            plate: Plate {
+                width: 0.028,
+                height: 0.085,
+                thickness: 0.0015,
+                roundness: 0.25,
+                bevel: 0.0004,
+                gap: 0.001,
+                overlap: 0.2,
+                stagger: 0.0,
+                hole_radius: 0.0022,
+                hole_pairs: 3,
+            },
+            lacing: Some(Lacing {
+                radius: 0.0014,
+                color: Srgb::from_encoded_channels([0.55, 0.09, 0.07]),
+                roughness: Ratio::from_ratio(0.6),
+            }),
+        }
+    }
+
+    /// Round-bottomed scales in staggered rows, laced in leather through one
+    /// pair of holes at the top.
+    pub fn scale() -> Self {
+        Self {
+            plate: Plate {
+                width: 0.045,
+                height: 0.065,
+                thickness: 0.0015,
+                roundness: 1.0,
+                bevel: 0.0004,
+                gap: 0.0015,
+                overlap: 0.3,
+                stagger: 0.5,
+                hole_radius: 0.0025,
+                hole_pairs: 1,
+            },
+            lacing: Some(Lacing::default()),
+        }
+    }
+
+    pub fn validate(&self) -> ConstructionResult<()> {
+        self.plate.validate()?;
+        let Some(lacing) = &self.lacing else {
+            return Ok(());
+        };
+        lacing.validate()?;
+        if self.plate.hole_pairs == 0 || lacing.radius > Lacing::max_radius(&self.plate) {
+            return Err(ConstructionError::LacingHoles);
+        }
+        Ok(())
+    }
+}
+
 impl Plate {
     pub const WIDTH: RangeInclusive<f32> = 0.012..=0.15;
     pub const HEIGHT: RangeInclusive<f32> = 0.02..=0.2;
@@ -177,7 +214,7 @@ impl Plate {
     /// plate's; one row for each of the most pairs a plate has.
     const HOLE_ROW_SPAN: f32 = 0.55;
 
-    pub fn validate(&self) -> Result<(), ConstructionError> {
+    pub fn validate(&self) -> ConstructionResult<()> {
         let within =
             |value: f32, range: RangeInclusive<f32>| value.is_finite() && range.contains(&value);
         if !within(self.width, Self::WIDTH)
@@ -218,11 +255,6 @@ impl Plate {
         across.min(between_rows).min(*Self::HOLE_RADIUS.end())
     }
 
-    /// The distance between the centres of successive rows of holes.
-    fn hole_row_pitch(&self) -> f32 {
-        self.height * Self::HOLE_ROW_SPAN / Self::MAX_HOLE_PAIRS as f32
-    }
-
     /// The centre of every lacing hole, a pair per row from the top, each
     /// pair left then right. None when the plate has no holes.
     pub fn holes(&self) -> Vec<[f32; 2]> {
@@ -240,16 +272,11 @@ impl Plate {
             })
             .collect()
     }
-}
+    /// The distance between the centres of successive rows of holes.
+    fn hole_row_pitch(&self) -> f32 {
+        self.height * Self::HOLE_ROW_SPAN / Self::MAX_HOLE_PAIRS as f32
+    }
 
-/// Cord through the plates' holes.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct Lacing {
-    /// Of the cord's section, metres.
-    pub radius: f32,
-    pub color: [f32; 3],
-    pub roughness: f32,
 }
 
 impl Default for Lacing {
@@ -257,8 +284,8 @@ impl Default for Lacing {
     fn default() -> Self {
         Self {
             radius: 0.0012,
-            color: [0.33, 0.19, 0.1],
-            roughness: 0.8,
+            color: Srgb::from_encoded_channels([0.33, 0.19, 0.1]),
+            roughness: Ratio::from_ratio(0.8),
         }
     }
 }
@@ -268,43 +295,30 @@ impl Lacing {
     /// The share of its hole's radius a cord may fill.
     const HOLE_FILL: f32 = 0.9;
 
+    /// The nonmetallic cord's authored scalar surface.
+    pub fn appearance(&self) -> SurfaceMaterial {
+        SurfaceMaterial {
+            base_color: self.color.opaque(),
+            metallic: Ratio::from_ratio(0.0),
+            roughness: self.roughness,
+        }
+    }
+
     /// The thickest cord that passes through `plate`'s holes.
     pub fn max_radius(plate: &Plate) -> f32 {
         (plate.hole_radius * Self::HOLE_FILL).min(*Self::RADIUS.end())
     }
 
-    pub fn validate(&self) -> Result<(), ConstructionError> {
+    pub fn validate(&self) -> ConstructionResult<()> {
         let unit = |value: f32| (0.0..=1.0).contains(&value);
         if !(self.radius.is_finite() && Self::RADIUS.contains(&self.radius))
-            || !self.color.into_iter().all(unit)
-            || !unit(self.roughness)
+            || !self.color.encoded_channels().into_iter().all(unit)
+            || !unit(self.roughness.ratio())
         {
             return Err(ConstructionError::Lacing);
         }
         Ok(())
     }
-}
-
-#[derive(Clone, Copy, Debug, Error, Eq, PartialEq)]
-pub enum ConstructionError {
-    #[error("constructed skin: {0}")]
-    Skin(#[from] fabelgeist_rig::RigSkinError),
-    #[error("plate dimensions are outside their supported ranges")]
-    PlateDimensions,
-    #[error("lacing holes do not fit on the plate")]
-    HoleSpacing,
-    #[error("lacing cord is outside its supported range")]
-    Lacing,
-    #[error("lacing needs holes wider than its cord")]
-    LacingHoles,
-    #[error("the piece has no surface to lay plates over; build them before trimming")]
-    NoSurfaceGrid,
-    #[error("the piece's surface is too small or degenerate to lay plates over")]
-    DegenerateSurface,
-    #[error("the plates are too large for this piece; make them smaller")]
-    NoPlateFits,
-    #[error("the piece would take more than {} plates", crate::tiling::MAX_TILES)]
-    TooManyPlates,
 }
 
 #[cfg(test)]

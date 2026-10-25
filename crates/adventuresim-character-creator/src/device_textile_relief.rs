@@ -6,8 +6,8 @@ use fabelgeist_armor::{ArmorComponentRole, GeneratedArmor};
 pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Result<()> {
     for component in &mut armor.components {
         if let Some(relief) = component
-            .textile
-            .as_mut()
+            .appearance
+            .textile_mut()
             .and_then(|fabric| fabric.relief.as_mut())
         {
             relief.chart = fabelgeist_armor::TextileChartSize::from_surface(
@@ -19,8 +19,8 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
     }
     for component in &mut armor.components {
         if let Some(needlework) = component
-            .textile
-            .as_mut()
+            .appearance
+            .textile_mut()
             .and_then(|f| f.needlework.as_mut())
         {
             needlework.chart = fabelgeist_armor::TextileChartSize::from_surface(
@@ -37,7 +37,7 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
                     .collar
                     .as_ref()
                     .and_then(|collar| collar.pleats.as_ref())
-                && let Some(fabric) = &mut component.textile
+                && let Some(fabric) = component.appearance.textile_mut()
             {
                 fabric.relief = Some(Box::new(fabelgeist_armor::TextilePleatRelief {
                     pleats: pleats.clone(),
@@ -70,7 +70,7 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
             if component.role != carrier {
                 continue;
             }
-            if let Some(fabric) = &mut component.textile {
+            if let Some(fabric) = component.appearance.textile_mut() {
                 fabric.relief = Some(Box::new(fabelgeist_armor::TextilePleatRelief {
                     pleats: fabelgeist_armor::ClothPleats {
                         count: fabelgeist_armor::TextileRepeatCount(pleats.waist_count.0),

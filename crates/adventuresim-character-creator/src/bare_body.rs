@@ -12,6 +12,11 @@ struct BodyKey {
     recipe: CharacterRecipe,
 }
 
+pub(super) struct BareBody {
+    key: BodyKey,
+    pub generated: GeneratedCharacter,
+}
+
 impl BodyKey {
     fn new(model: &BodyModel, recipe: &CharacterRecipe) -> Self {
         let mut recipe = recipe.clone();
@@ -23,11 +28,6 @@ impl BodyKey {
             recipe,
         }
     }
-}
-
-pub(super) struct BareBody {
-    key: BodyKey,
-    pub generated: GeneratedCharacter,
 }
 
 impl BareBody {
@@ -54,10 +54,8 @@ impl BareBody {
         let mesh =
             studio_generation::visible_body_mesh(&self.generated, &model.mhr.character.mesh.faces);
         let material = scene.materials.add(StandardMaterial {
-            base_color: Color::srgb(0.64, 0.39, 0.30),
-            perceptual_roughness: 0.52,
             reflectance: 0.46,
-            ..default()
+            ..adventuresim_character_creator::surface_projection::standard_material(adventuresim_character_creator::body_appearance::SKIN_APPEARANCE)
         });
         scene.commands.spawn((
             marker,

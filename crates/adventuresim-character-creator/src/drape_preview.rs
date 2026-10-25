@@ -19,6 +19,16 @@ pub struct DrapeJob {
     again: bool,
 }
 
+/// A draped garment's preview mesh, by its inventory article.
+#[derive(Component)]
+pub struct DrapeMesh(InventoryItemId);
+
+/// Preview materials for recently shown chainmail weaves.
+#[derive(Resource, Default)]
+pub struct MailMaterials {
+    recent: Vec<(MailWeave, StandardMaterial)>,
+}
+
 impl DrapeJob {
     /// Drape worn garments, innermost first.
     pub fn request(&mut self, input: Vec<(InventoryItemId, DrapeInput)>) {
@@ -42,16 +52,6 @@ impl DrapeJob {
     pub fn running(&self) -> bool {
         self.worker.running()
     }
-}
-
-/// A draped garment's preview mesh, by its inventory article.
-#[derive(Component)]
-pub struct DrapeMesh(InventoryItemId);
-
-/// Preview materials for recently shown chainmail weaves.
-#[derive(Resource, Default)]
-pub struct MailMaterials {
-    recent: Vec<(MailWeave, StandardMaterial)>,
 }
 
 impl MailMaterials {
@@ -96,10 +96,9 @@ impl MailMaterials {
                 .expect("generated weave is a valid PNG"),
             )
         };
-        let (color, metallic, roughness) = weave.pbr();
+        let appearance = weave.pbr();
         let [across, up] = weave.repeat_m();
         let material = StandardMaterial {
-            base_color: Color::srgba(color[0], color[1], color[2], color[3]),
             base_color_texture: textures
                 .base_color_png
                 .as_deref()
@@ -111,30 +110,16 @@ impl MailMaterials {
                 .map(|bytes| load(bytes, false)),
             // Draped UVs are pattern metres; one texture repeat is one ring tile.
             uv_transform: bevy::math::Affine2::from_scale(Vec2::new(1.0 / across, 1.0 / up)),
-            metallic,
-            perceptual_roughness: roughness,
             alpha_mode: AlphaMode::Mask(0.5),
             cull_mode: None,
             double_sided: true,
-            ..default()
+            ..adventuresim_character_creator::surface_projection::standard_material(appearance)
         };
         if self.recent.len() == MAIL_MATERIAL_CACHE {
             self.recent.remove(0);
         }
         self.recent.push((weave, material.clone()));
         material
-    }
-}
-
-fn cloth_material() -> StandardMaterial {
-    let (color, metallic, roughness) = CLOTH_PBR;
-    StandardMaterial {
-        base_color: Color::srgba(color[0], color[1], color[2], color[3]),
-        metallic,
-        perceptual_roughness: roughness,
-        cull_mode: None,
-        double_sided: true,
-        ..default()
     }
 }
 
@@ -310,3 +295,11 @@ pub fn refresh_mail(
     }
     *applied = weaves;
 }
+fn cloth_material() -> StandardMaterial {
+    StandardMaterial {
+        cull_mode: None,
+        double_sided: true,
+        ..adventuresim_character_creator::surface_projection::standard_material(CLOTH_PBR)
+    }
+}
+

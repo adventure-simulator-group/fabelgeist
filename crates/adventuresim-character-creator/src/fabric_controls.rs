@@ -44,13 +44,14 @@ pub(super) fn mail_weave(ui: &mut egui::Ui, weave: &mut MailWeave) {
         egui::Slider::new(&mut weave.ring_tilt_degrees, MailWeave::RING_TILT_DEGREES)
             .text("Ring tilt (°)"),
     );
-    ui.add(egui::Slider::new(&mut weave.roughness, MailWeave::ROUGHNESS).text("Steel roughness"));
+    let _ = material_color_controls::roughness(ui, "Steel roughness", &mut weave.roughness, MailWeave::ROUGHNESS);
     ui.horizontal(|ui| {
         let mut srgb = weave
             .steel_color_srgb
+            .encoded_channels()
             .map(|channel| (channel * SRGB_BYTE_MAX).round() as u8);
         if ui.color_edit_button_srgb(&mut srgb).changed() {
-            weave.steel_color_srgb = srgb.map(|channel| channel as f32 / SRGB_BYTE_MAX);
+            weave.steel_color_srgb = fabelgeist_color::Srgb::from_encoded_channels(srgb.map(|channel| channel as f32 / SRGB_BYTE_MAX));
         }
         ui.label("Steel color");
     });

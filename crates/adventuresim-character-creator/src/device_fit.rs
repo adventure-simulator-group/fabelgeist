@@ -303,13 +303,12 @@ fn suspended_waist(
             point[1] += shift;
         }
         let whole = |part: &BuiltPart, role| ArmorComponent {
-            textile: None,
             role,
             vertices: 0..part.positions.len(),
             indices: 0..part.indices.len(),
             hinge: None,
             mount: None,
-            material: None,
+            appearance: fabelgeist_armor::ComponentAppearance::Inherit,
         };
         fauld.components = vec![whole(&fauld, ArmorComponentRole::Fauld)];
         tassets.components = vec![whole(&tassets, ArmorComponentRole::Tassets)];

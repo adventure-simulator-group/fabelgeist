@@ -108,7 +108,7 @@ pub(super) fn hair_surface(design: HairDesign) -> StandardMaterial {
     StandardMaterial {
         base_color: Color::linear_rgb(red, green, blue),
         specular_tint: Color::linear_rgb(tint(red), tint(green), tint(blue)),
-        perceptual_roughness: HAIR_ROUGHNESS,
+        perceptual_roughness: HAIR_ROUGHNESS.ratio(),
         metallic: 0.0,
         ..default()
     }

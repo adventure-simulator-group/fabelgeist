@@ -1,6 +1,7 @@
 //! Shared native body, morph and mesh-export protocol for textile reviews.
 use adventuresim_character_creator::{
     armor_recipes::ParametricDesign, device_body::DeviceBody, device_fit::Realization,
+    review_component::ReviewComponent,
 };
 use anyhow::Result;
 use fabelgeist_armor::GeneratedArmor;
@@ -60,6 +61,11 @@ pub fn write_generated(
     design: &ParametricDesign,
     generated: &GeneratedArmor,
 ) -> Result<()> {
+    let components = generated
+        .components
+        .iter()
+        .map(ReviewComponent::try_from)
+        .collect::<std::result::Result<Vec<_>, _>>()?;
     let textile_maps = write_textile_maps(output, name, generated)?;
     std::fs::write(
         output.join(format!("{name}.json")),
@@ -67,7 +73,7 @@ pub fn write_generated(
             "id": name, "placement": placement, "design": design,
             "positions": generated.positions, "normals": generated.normals,
             "texcoords": generated.texcoords, "textile_maps": textile_maps,
-            "indices": generated.indices, "components": generated.components,
+            "indices": generated.indices, "components": components,
             "plate_faces": generated.faces,
             "joint_indices": generated.joint_indices.native_words(), "joint_weights": generated.joint_weights,
             "morphs": generated.morphs.iter().map(|morph| serde_json::json!({
@@ -87,7 +93,7 @@ fn write_textile_maps(
 ) -> Result<Vec<serde_json::Value>> {
     let mut maps = Vec::new();
     for (index, component) in armor.components.iter().enumerate() {
-        if let Some(fabric) = &component.textile
+        if let Some(fabric) = component.appearance.textile()
             && let Some(textures) =
                 adventuresim_character_creator::textile_surface::textures(fabric)?
         {

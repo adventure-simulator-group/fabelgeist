@@ -26,6 +26,26 @@ pub struct MailMaps {
     occlusion_png: Vec<u8>,
 }
 
+struct Ring {
+    center: [f32; 2],
+    cos: f32,
+    /// Signed: alternate rows lean in opposite directions.
+    sin: f32,
+}
+
+pub(super) struct Chart {
+    rings: Vec<Ring>,
+    centre_radius: f32,
+    wire_radius: f32,
+    /// Half extents of one tilted ring's bounding box.
+    reach: [f32; 3],
+}
+
+pub(super) struct Hit {
+    pub(super) normal: [f32; 3],
+    pub(super) visibility: f32,
+}
+
 impl MailMaps {
     pub fn new(weave: &MailWeave) -> Result<Self> {
         weave.validate()?;
@@ -33,7 +53,7 @@ impl MailMaps {
         let [tile_x, tile_y] = weave.repeat_m();
         let width = MAP_WIDTH_TEXELS;
         let height = ((width as f32 * tile_y / tile_x).round() as u32).max(1);
-        let steel = weave.steel_color_srgb.map(|c| (c * 255.0).round() as u8);
+        let steel = weave.steel_color_srgb.encoded_channels().map(|c| (c * 255.0).round() as u8);
         let texels = (width * height) as usize;
         let mut color = Vec::with_capacity(texels * 4);
         let mut normal = Vec::with_capacity(texels * 4);
@@ -66,7 +86,7 @@ impl MailMaps {
         })
     }
 
-    /// Color and alpha are sRGB; normal and occlusion are linear data.
+    /// RGB color channels are sRGB; alpha, normal and occlusion are linear data.
     pub fn textures(&self) -> SurfaceTextures {
         SurfaceTextures {
             base_color_png: Some(self.color_png.clone()),
@@ -77,41 +97,6 @@ impl MailMaps {
             sampling: crate::export::SurfaceSampling::Tile,
         }
     }
-}
-
-fn signed_unit_to_byte(component: f32) -> u8 {
-    ((component * 0.5 + 0.5) * 255.0).round() as u8
-}
-
-fn encode(pixels: &[u8], width: u32, height: u32) -> Result<Vec<u8>> {
-    let mut bytes = Vec::new();
-    image::codecs::png::PngEncoder::new(&mut bytes).write_image(
-        pixels,
-        width,
-        height,
-        image::ExtendedColorType::Rgba8,
-    )?;
-    Ok(bytes)
-}
-
-struct Ring {
-    center: [f32; 2],
-    cos: f32,
-    /// Signed: alternate rows lean in opposite directions.
-    sin: f32,
-}
-
-pub(super) struct Chart {
-    rings: Vec<Ring>,
-    centre_radius: f32,
-    wire_radius: f32,
-    /// Half extents of one tilted ring's bounding box.
-    reach: [f32; 3],
-}
-
-pub(super) struct Hit {
-    pub(super) normal: [f32; 3],
-    pub(super) visibility: f32,
 }
 
 impl Chart {
@@ -246,6 +231,21 @@ impl Chart {
             / OCCLUSION_PROBES as f32;
         (1.0 - occlusion).clamp(0.0, 1.0)
     }
+}
+
+fn signed_unit_to_byte(component: f32) -> u8 {
+    ((component * 0.5 + 0.5) * 255.0).round() as u8
+}
+
+fn encode(pixels: &[u8], width: u32, height: u32) -> Result<Vec<u8>> {
+    let mut bytes = Vec::new();
+    image::codecs::png::PngEncoder::new(&mut bytes).write_image(
+        pixels,
+        width,
+        height,
+        image::ExtendedColorType::Rgba8,
+    )?;
+    Ok(bytes)
 }
 
 fn normalize(vector: [f32; 3]) -> [f32; 3] {

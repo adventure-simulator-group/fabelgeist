@@ -216,22 +216,20 @@ fn components_keep_their_own_vertices() {
     let (vertices, indices) = (first.positions.len(), first.indices.len());
     first.components = vec![
         ArmorComponent {
-            textile: None,
             role: ArmorComponentRole::Skull,
             vertices: 0..vertices,
             indices: 0..indices,
             hinge: None,
             mount: None,
-            material: None,
+            appearance: crate::ComponentAppearance::Inherit,
         },
         ArmorComponent {
-            textile: None,
             role: ArmorComponentRole::Visor,
             vertices: vertices..2 * vertices,
             indices: indices..2 * indices,
             hinge: None,
             mount: None,
-            material: None,
+            appearance: crate::ComponentAppearance::Inherit,
         },
     ];
     first.positions.extend(&second.positions);

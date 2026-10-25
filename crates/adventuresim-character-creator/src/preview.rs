@@ -42,18 +42,12 @@ pub(super) fn spawn_clothing(
             &model.mhr.character.skin_weights.index,
             &model.mhr.character.skin_weights.weight,
         )?;
-        let [red, green, blue, alpha] = specification.base_color;
         commands.spawn((
             CharacterMesh,
             animation_preview::skin(walk).context("animation preview has no rebuilt rig")?,
             Name::new(specification.name.as_ref().to_owned()),
             Mesh3d(meshes.add(mesh)),
-            MeshMaterial3d(materials.add(StandardMaterial {
-                base_color: Color::srgba(red, green, blue, alpha),
-                metallic: specification.metallic,
-                perceptual_roughness: specification.roughness,
-                ..default()
-            })),
+            MeshMaterial3d(materials.add(adventuresim_character_creator::surface_projection::standard_material(specification.appearance))),
         ));
     }
     Ok(())
@@ -61,13 +55,7 @@ pub(super) fn spawn_clothing(
 
 /// The cord lacing a piece's small plates, as the preview shades it.
 pub(super) fn lacing_material(cord: &fabelgeist_armor::Lacing) -> StandardMaterial {
-    let [red, green, blue] = cord.color;
-    StandardMaterial {
-        base_color: Color::srgb(red, green, blue),
-        metallic: 0.0,
-        perceptual_roughness: cord.roughness,
-        ..default()
-    }
+    adventuresim_character_creator::surface_projection::standard_material(cord.appearance())
 }
 
 /// Spawn each surface of a piece, and its trim band when it has one.
@@ -96,26 +84,15 @@ pub(super) fn spawn_armor(
         };
         // A component with its own material, such as leather straps, is not
         // shaded as the piece's plate.
-        let mut own = surface
-            .component
-            .and_then(|index| armor.components[index].material)
-            .map(|surface| {
-                let [r, g, b, a] = surface.base_color;
-                StandardMaterial {
-                    base_color: Color::srgba(r, g, b, a),
-                    metallic: surface.metallic,
-                    perceptual_roughness: surface.roughness,
-                    ..default()
-                }
-            });
-        if let Some(textile) = surface
-            .component
-            .and_then(|index| armor.components[index].textile.as_ref())
-        {
-            own = Some(adventuresim_character_creator::textile_surface::material(
-                textile, images,
-            )?);
-        }
+        let own = match surface.component.map(|index| &armor.components[index].appearance) {
+            Some(fabelgeist_armor::ComponentAppearance::Surface(surface)) => {
+                Some(adventuresim_character_creator::surface_projection::standard_material(*surface))
+            }
+            Some(fabelgeist_armor::ComponentAppearance::Textile(fabric)) => {
+                Some(adventuresim_character_creator::textile_surface::material(fabric, images)?)
+            }
+            Some(fabelgeist_armor::ComponentAppearance::Inherit) | None => None,
+        };
         let mut parts = vec![(
             part_name.clone(),
             surface.plate,
@@ -154,9 +131,6 @@ pub(super) fn spawn_armor(
     Ok(())
 }
 
-/// The previewed body's skin colour, sRGB.
-pub(super) const SKIN_COLOR: Color = Color::srgb(0.64, 0.39, 0.30);
-
 pub(super) fn spawn_body(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
@@ -186,21 +160,18 @@ pub(super) fn spawn_body(
     Ok(())
 }
 
-/// The previewed skin: of the body, and of the scalp cap under hair.
+/// The body skin visible beneath the separate hair-painted scalp cap.
 pub(super) fn skin_material() -> StandardMaterial {
     StandardMaterial {
         // Skin is a rough dielectric with a small amount of diffuse
         // transmission. This keeps thin features such as the nose, ears,
         // and fingers warm instead of crushing them to black.
-        base_color: SKIN_COLOR,
-        metallic: 0.0,
-        perceptual_roughness: 0.52,
         reflectance: 0.46,
         specular_tint: Color::srgb(1.0, 0.93, 0.89),
         // A small back-diffuse lobe is Bevy's inexpensive approximation
         // of the short scattering distance seen in skin. Kept subtle so
         // the body remains opaque and shadowed rather than wax-like.
         diffuse_transmission: 0.045,
-        ..default()
+        ..adventuresim_character_creator::surface_projection::standard_material(adventuresim_character_creator::body_appearance::SKIN_APPEARANCE)
     }
 }

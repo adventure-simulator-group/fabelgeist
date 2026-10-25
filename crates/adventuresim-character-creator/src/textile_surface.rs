@@ -15,6 +15,29 @@ pub struct TextileMaps {
     pub chart_boundary: TextileChartBoundary,
 }
 
+#[cfg(feature = "offline-creator")]
+impl From<TextileMaps> for crate::export::SurfaceTextures {
+    fn from(maps: TextileMaps) -> Self {
+        Self {
+            base_color_png: Some(maps.base_color_png),
+            normal_png: maps.normal_png,
+            occlusion_png: None,
+            alpha: if maps.translucent {
+                crate::export::SurfaceAlpha::Blend
+            } else {
+                crate::export::SurfaceAlpha::Opaque
+            },
+            sides: crate::export::SurfaceSides::Front,
+            sampling: match maps.chart_boundary {
+                TextileChartBoundary::CyclicAcross => {
+                    crate::export::SurfaceSampling::WrappedGarment
+                }
+                TextileChartBoundary::Open => crate::export::SurfaceSampling::OpenGarment,
+            },
+        }
+    }
+}
+
 pub fn material(
     fabric: &TextileAppearance,
     images: &mut Assets<Image>,
@@ -22,14 +45,6 @@ pub fn material(
     fabric.validate()?;
     let surface = fabric.material();
     let mut material = StandardMaterial {
-        base_color: Color::srgba(
-            surface.base_color[0],
-            surface.base_color[1],
-            surface.base_color[2],
-            surface.base_color[3],
-        ),
-        metallic: surface.metallic,
-        perceptual_roughness: surface.roughness,
         reflectance: 0.5 * fabric.finish.specular_factor(),
         alpha_mode: if fabric.is_translucent() {
             AlphaMode::Blend
@@ -39,7 +54,7 @@ pub fn material(
         // A closed thin shell renders its outward-facing wall once. Rendering
         // both sides would accumulate the same cloth opacity twice.
         cull_mode: Some(bevy::render::render_resource::Face::Back),
-        ..Default::default()
+        ..crate::surface_projection::standard_material(surface)
     };
     if !fabric.layers.0.is_empty() || fabric.relief.is_some() || fabric.needlework.is_some() {
         let pixels = fabric.pixels()?;
@@ -95,29 +110,6 @@ pub fn textures(fabric: &TextileAppearance) -> Result<Option<TextileMaps>> {
         translucent: fabric.is_translucent(),
         chart_boundary: fabric.chart_boundary,
     }))
-}
-
-#[cfg(feature = "offline-creator")]
-impl From<TextileMaps> for crate::export::SurfaceTextures {
-    fn from(maps: TextileMaps) -> Self {
-        Self {
-            base_color_png: Some(maps.base_color_png),
-            normal_png: maps.normal_png,
-            occlusion_png: None,
-            alpha: if maps.translucent {
-                crate::export::SurfaceAlpha::Blend
-            } else {
-                crate::export::SurfaceAlpha::Opaque
-            },
-            sides: crate::export::SurfaceSides::Front,
-            sampling: match maps.chart_boundary {
-                TextileChartBoundary::CyclicAcross => {
-                    crate::export::SurfaceSampling::WrappedGarment
-                }
-                TextileChartBoundary::Open => crate::export::SurfaceSampling::OpenGarment,
-            },
-        }
-    }
 }
 
 fn encode(pixels: &[u8], width: u32, height: u32) -> Result<Vec<u8>> {

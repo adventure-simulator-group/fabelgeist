@@ -24,10 +24,10 @@ pub fn is_plate_steel(material: EquipmentMaterial) -> bool {
 /// steel, with `engraving` cut into it.
 pub fn metal(material: EquipmentMaterial, engraving: Option<&Engraving>) -> Option<Metal> {
     is_plate_steel(material).then(|| {
-        let ([red, green, blue, _], _, roughness) = crate::clothing_material::pbr(material);
+        let appearance = crate::clothing_material::pbr(material);
         Metal {
-            color: [red, green, blue],
-            roughness,
+            color: appearance.base_color.rgb(),
+            roughness: appearance.roughness,
             engraving: engraving.cloned(),
             ..Metal::default()
         }

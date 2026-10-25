@@ -1,6 +1,6 @@
 //! Thread follows each actual aperture contour, using its frozen cloth owners.
 use crate::cloth_fastener_mesh::{
-    ClosureFrame, ClosureMaterial, CordEnds, CordPath, FastenerFrame, FastenerMesh,
+    ClosureFrame, CordEnds, CordPath, FastenerFrame, FastenerMesh,
 };
 use crate::cloth_opening::ClosureSide;
 use crate::sewn_eyelet_plan::SewnEyeletPair;
@@ -17,10 +17,7 @@ impl FastenerMesh {
         let LacingEyelet::Sewn { fabric, .. } = &design.eyelet else {
             anyhow::bail!("sewn aperture thread requires cloth eyelets");
         };
-        let material = ClosureMaterial {
-            surface: fabric.material(),
-            fabric: Some(fabric.clone()),
-        };
+        let material = fabelgeist_armor::ComponentAppearance::Textile(fabric.clone());
         // Identity numerical handoff: contour points already are canonical fitted metres.
         let frame = ClosureFrame::new(FastenerFrame {
             left: Vec3::new(0., 0., 0.),

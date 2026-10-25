@@ -46,16 +46,11 @@ impl EquipmentMaps {
         design: Option<&ParametricDesign>,
         engraving: Option<&Engraving>,
     ) -> anyhow::Result<StandardMaterial> {
-        let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
+        let appearance = adventuresim_character_creator::equipment_pbr(material);
         if let Some(metal) = armor_metal::metal(material, engraving) {
-            return self.metal(images, &metal, metallic);
+            return self.metal(images, &metal, appearance.metallic);
         }
-        let mut result = StandardMaterial {
-            base_color: Color::srgba(color[0], color[1], color[2], color[3]),
-            metallic,
-            perceptual_roughness: roughness,
-            ..default()
-        };
+        let mut result = adventuresim_character_creator::surface_projection::standard_material(appearance);
         if let Some(textures) = underlayer_material::textures(design) {
             let maps = match self.mail {
                 Some(ref maps) => maps,
@@ -85,7 +80,7 @@ impl EquipmentMaps {
         &mut self,
         images: &mut Assets<Image>,
         metal: &Metal,
-        metallic: f32,
+        metallic: fabelgeist_math::units::Ratio,
     ) -> anyhow::Result<StandardMaterial> {
         let index = match self.metals.iter().position(|baked| baked.metal == *metal) {
             Some(index) => index,

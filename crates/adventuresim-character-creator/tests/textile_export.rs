@@ -47,9 +47,7 @@ fn portable_sheer_cloth_blends_once_and_retains_opaque_pattern_pixels() -> Resul
         joint_indices: Some(&indices),
         joint_weights: Some(&weights),
         morph_targets: &[],
-        base_color: surface.base_color,
-        metallic: surface.metallic,
-        roughness: surface.roughness,
+        appearance: surface,
     };
     let path = std::env::temp_dir().join(format!(
         "fabelgeist-sheer-export-{}.glb",

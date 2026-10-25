@@ -173,9 +173,7 @@ mod tests {
             joint_indices: Some(&joints),
             joint_weights: Some(&weights),
             morph_targets: &targets,
-            base_color: [1.0; 4],
-            metallic: 1.0,
-            roughness: 0.2,
+            appearance: fabelgeist_armor::SurfaceMaterial { base_color: fabelgeist_color::Srgba::from_encoded_channels([1.0; 4]), metallic: fabelgeist_math::units::Ratio::from_ratio(1.0), roughness: fabelgeist_math::units::Ratio::from_ratio(0.2) },
         });
         export_rigged_glb(
             GlbOutput::Standalone(&path),

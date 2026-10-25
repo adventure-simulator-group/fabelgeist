@@ -1,25 +1,12 @@
 //! Deterministic, renderer-independent parametric armor fitted to canonical
 //! anatomical surface samples, and the metal it is finished in.
 
-mod bodice;
-mod cloth_closures;
-mod cloth_pleats;
 pub use cloth_pleats::ClothPleats;
-mod cloth_pleat_profile;
 pub use cloth_pleat_profile::ClothPleatProfile;
-mod cloth_lacing;
 pub use cloth_lacing::{ClothLacing, LaceRouting, LacingEyelet};
-mod cloth_slit;
 pub use cloth_slit::ClothSlit;
-mod cloth_tape;
 pub use cloth_closures::{ClothClosures, ClothFastener};
-mod cloth_ties;
 pub use cloth_tape::ClothTape;
-mod gown;
-mod gown_dressing_slit;
-mod gown_waist_support;
-mod partlet;
-mod waist_band_fasteners;
 pub use cloth_ties::ClothTies;
 pub use gown::{FittedSleeves, GownBodyFit, GownDesign};
 pub use gown_dressing_slit::{DressingOpeningSide, GownDressingSlit};
@@ -28,37 +15,18 @@ pub use partlet::{
     ClothBinding, ClothNeckCurve, CollarBand, CollarSection, PartletDesign, StandingClothCollar,
 };
 pub use waist_band_fasteners::WaistBandFasteners;
-mod construction;
 pub use bodice::{
     BodiceDesign, BodiceInterlining, BodiceLining, BodiceNeckline, BodiceOpening,
     InterliningCoverage, NecklineShape,
 };
-pub mod engraving;
-pub mod material;
-pub mod ornament;
-pub mod pattern;
-mod skin;
-mod skirt;
-mod skirt_structure;
-mod textile_botanical;
-mod textile_needlework;
-mod textile_pattern;
-mod textile_stroke_raster;
 pub use textile_needlework::{
     TextileFoldProfile, TextileNeedlework, TextilePathClosure, TextilePathPoint, TextileStroke,
     TextileStrokeStyle,
 };
-mod textile_pleat_relief;
-mod textile_pleat_zone;
 pub use textile_pleat_zone::TextilePleatZone;
-mod textile_raster;
-mod textile_relief;
 pub use textile_pleat_relief::{
     ShirringPattern, TextileChartSize, TextilePleatLayout, TextilePleatRelief, TextileShirring,
 };
-mod textile_sampling;
-mod textile_seams;
-mod textile_weave;
 pub use skirt::{
     DressBodice, SKIRT_AXIAL_SEGMENTS, SKIRT_MESH_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign,
     SkirtProfile,
@@ -73,62 +41,30 @@ pub use textile_pattern::{
     TextileRegion, TextileRepeatCount, TextileSpan, TextileThreadCount,
 };
 pub use textile_raster::TextilePixels;
-mod tiling;
-pub use construction::{Construction, ConstructionError, Lacing, Plate, Tiling};
+pub use construction::{Construction, ConstructionError, ConstructionResult, Lacing, Plate, Tiling};
 pub use tiling::{Constructed, MAX_TILES};
-
-mod helmet_crown;
-mod sampling;
 pub use helmet_crown::HelmetCrown;
 pub use sampling::{ArmorDetail, ArmorLod, EQUIPMENT_TRIANGLE_BUDGET};
-
-mod breastplate_design;
 pub use breastplate_design::*;
-mod anime_design;
 pub use anime_design::{AnimeDesign, BreastplateConstruction};
-mod pierced_plate_domain;
-mod plate_fluting;
 pub use plate_fluting::{FluteCount, PlateFluting};
-mod components;
-mod plate_mount;
+pub use surface_material::SurfaceMaterial;
 pub use plate_mount::{PlateCourse, PlateGridEnd, PlateJointMotion, PlateMount, PlateParent};
-mod plate_face;
 pub use plate_face::PlateFace;
-mod surface_grid;
 pub use surface_grid::{SurfaceColumn, SurfaceEdgeDistance, SurfaceGrid, SurfaceSample};
-pub mod trim;
 pub use trim::{ArmorSurface, ArmorTrim, TrimBand, TrimError};
-mod design;
-pub use components::{ArmorComponent, ArmorComponentMaterial, ArmorComponentRole, ArmorHinge};
-mod error;
-mod fauld_chart;
-mod frame;
+pub use components::{ArmorComponent, ArmorComponentRole, ArmorHinge, ComponentAppearance};
 pub use fauld_chart::FauldLameChart;
 pub use frame::{BoundaryNormals, PartFrame};
-mod garment_armor;
-pub mod gpu;
 pub use gpu::{
     ArmorGpu, BuiltPart, DevicePart, record_extremity_armor, record_helmet, record_limb_armor,
 };
-mod garment_plate_design;
-mod gorget_chart;
 pub use garment_plate_design::GarmentPlateShape;
 pub use gorget_chart::{
     GORGET_COLLAR_HEIGHT_NECK_RATIO, GORGET_FORMED_COLLAR_FRACTION, gorget_control_angle,
 };
-mod besagew;
-mod helmets;
-mod limb_armor;
-mod pauldron;
-mod puff_and_slash;
-mod textile;
 pub use textile::TextileColor;
-mod radial_fluting;
-mod trunk_hose;
-mod waist_armor;
-mod wrapped_tassets;
 pub use radial_fluting::RadialFluting;
-mod visor_bellows;
 pub use besagew::BesagewDesign;
 pub use garment_armor::{
     GARMENT_ARMPIT_ROW, GARMENT_AXIAL_SEGMENTS, GARMENT_LAME_SPACING_GAUGES, GARMENT_PANEL_ACROSS,
@@ -142,14 +78,80 @@ pub use puff_and_slash::{PuffAndSlashDesign, PuffAndSlashKind, PuffAndSlashPatte
 pub use trunk_hose::TrunkHoseDesign;
 pub use visor_bellows::VisorBellows;
 pub use wrapped_tassets::{TassetSide, WrappedTassetDesign};
-mod joint_cup_design;
 pub use joint_cup_design::{JointCupConstruction, JointCupDesign, JointFluteOrientation};
-mod joint_extension;
 pub use joint_extension::JointExtension;
 pub use waist_armor::{TASSET_SUSPENSION_GAP_M, WaistArmorDesign};
-
 pub use design::*;
 pub use error::{GenerateError, PlateShellFailure};
+
+mod bodice;
+mod cloth_closures;
+mod cloth_pleats;
+mod cloth_pleat_profile;
+mod cloth_lacing;
+mod cloth_slit;
+mod cloth_tape;
+mod cloth_ties;
+mod gown;
+mod gown_dressing_slit;
+mod gown_waist_support;
+mod partlet;
+mod waist_band_fasteners;
+mod construction;
+pub mod engraving;
+pub mod material;
+pub mod ornament;
+pub mod pattern;
+mod skin;
+mod skirt;
+mod skirt_structure;
+mod textile_botanical;
+mod textile_needlework;
+mod textile_pattern;
+mod textile_stroke_raster;
+mod textile_pleat_relief;
+mod textile_pleat_zone;
+mod textile_raster;
+mod textile_relief;
+mod textile_sampling;
+mod textile_seams;
+mod textile_weave;
+mod tiling;
+mod helmet_crown;
+mod sampling;
+mod breastplate_design;
+mod anime_design;
+mod pierced_plate_domain;
+mod plate_fluting;
+mod components;
+mod surface_material;
+mod plate_mount;
+mod plate_face;
+mod surface_grid;
+pub mod trim;
+mod design;
+mod error;
+mod fauld_chart;
+mod frame;
+mod garment_armor;
+pub mod gpu;
+mod garment_plate_design;
+mod gorget_chart;
+mod besagew;
+mod helmets;
+mod limb_armor;
+mod pauldron;
+mod puff_and_slash;
+mod textile;
+mod radial_fluting;
+mod trunk_hose;
+mod waist_armor;
+mod wrapped_tassets;
+mod visor_bellows;
+mod joint_cup_design;
+mod joint_extension;
+
+pub type DesignResult<T> = Result<T, DesignError>;
 
 pub const SCHEMA_VERSION: u16 = 1;
 /// Identifies mesh-generation behavior in review and equipment manifests.
@@ -160,28 +162,28 @@ pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {
     *blake3::hash(encoded).as_bytes()
 }
 
-pub fn encode(design: &BracerDesign) -> Result<Vec<u8>, DesignError> {
+pub fn encode(design: &BracerDesign) -> DesignResult<Vec<u8>> {
     validate(design)?;
     postcard::to_allocvec(design).map_err(|_| DesignError::Encoding)
 }
 
-pub fn decode(bytes: &[u8]) -> Result<BracerDesign, DesignError> {
+pub fn decode(bytes: &[u8]) -> DesignResult<BracerDesign> {
     let design = postcard::from_bytes(bytes).map_err(|_| DesignError::Encoding)?;
     validate(&design)?;
     Ok(design)
 }
 
-pub fn design_hash(design: &BracerDesign) -> Result<[u8; 32], DesignError> {
+pub fn design_hash(design: &BracerDesign) -> DesignResult<[u8; 32]> {
     Ok(*blake3::hash(&encode(design)?).as_bytes())
 }
 
-pub fn breastplate_design_hash(design: &BreastplateDesign) -> Result<[u8; 32], DesignError> {
+pub fn breastplate_design_hash(design: &BreastplateDesign) -> DesignResult<[u8; 32]> {
     validate_breastplate(design)?;
     let bytes = postcard::to_allocvec(design).map_err(|_| DesignError::Encoding)?;
     Ok(*blake3::hash(&bytes).as_bytes())
 }
 
-pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignError> {
+pub fn validate_breastplate(design: &BreastplateDesign) -> DesignResult<()> {
     design.profile.validate()?;
     if let BreastplateConstruction::Anime(anime) = &design.construction {
         anime.validate(design.wall_thickness)?;
@@ -211,7 +213,7 @@ pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignErro
     Ok(())
 }
 
-pub fn validate(design: &BracerDesign) -> Result<(), DesignError> {
+pub fn validate(design: &BracerDesign) -> DesignResult<()> {
     if design.elbow_flare.0 > 15 || design.wrist_flare.0 > 15 || design.center_ridge.0 > 8 {
         return Err(DesignError::Clearance);
     }

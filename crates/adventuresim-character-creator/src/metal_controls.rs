@@ -9,8 +9,8 @@ use fabelgeist_armor::{
 };
 
 pub(super) fn metal(ui: &mut egui::Ui, m: &mut Metal) {
-    ui.color_edit_button_rgb(&mut m.color);
-    slider(ui, "Roughness", &mut m.roughness, 0.08..=0.9);
+    let _ = material_color_controls::color(ui, &mut m.color);
+    let _ = material_color_controls::roughness(ui, "Roughness", &mut m.roughness, 0.08..=0.9);
     let mut millimetres = m.waviness * 1000.0;
     slider(
         ui,
@@ -109,6 +109,14 @@ pub(super) fn trim(ui: &mut egui::Ui, trim: &mut Option<Trim>) -> bool {
     *trim != before
 }
 
+pub(super) fn slider(
+    ui: &mut egui::Ui,
+    label: &str,
+    value: &mut f32,
+    range: std::ops::RangeInclusive<f32>,
+) {
+    ui.add(egui::Slider::new(value, range).text(label));
+}
 fn relief(ui: &mut egui::Ui, cut: &mut Engraving) {
     ui.horizontal(|ui| {
         let drawn = matches!(cut.source, ReliefSource::Ornament(_));
@@ -191,11 +199,3 @@ fn tiling(ui: &mut egui::Ui, cut: &mut Engraving) {
     slider(ui, "Recess roughness", &mut cut.recess_roughness, 0.0..=1.0);
 }
 
-pub(super) fn slider(
-    ui: &mut egui::Ui,
-    label: &str,
-    value: &mut f32,
-    range: std::ops::RangeInclusive<f32>,
-) {
-    ui.add(egui::Slider::new(value, range).text(label));
-}

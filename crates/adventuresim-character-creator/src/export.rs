@@ -11,9 +11,16 @@ use anyhow::{Context, Result, bail};
 use fabelgeist_mhr::math::{Transform, quat_from_matrix, quat_normalize};
 use serde_json::{Value, json};
 
+use buffer::{BufferBuilder, f32_bytes, u16_bytes, u32_bytes};
+pub use textures::{
+    GlbOutput, ShellTextures, SurfaceAlpha, SurfaceSampling, SurfaceSides, SurfaceTextures,
+};
+use validation::validate;
+
+pub use rigged::{RiggedMesh, RiggedMorphTarget, RiggedShell};
+
 mod assembly;
 mod buffer;
-use buffer::{BufferBuilder, f32_bytes, u16_bytes, u32_bytes};
 mod compact;
 mod glb;
 mod morphs;
@@ -21,13 +28,9 @@ mod shell;
 mod skeleton;
 pub mod skinning;
 mod textures;
-pub use textures::{
-    GlbOutput, ShellTextures, SurfaceAlpha, SurfaceSampling, SurfaceSides, SurfaceTextures,
-};
 mod sockets;
 mod validation;
-use validation::validate;
-
+mod rigged;
 pub const EQUIPMENT_SOCKET_NODE_PREFIX: &str = "equipment_socket_";
 pub const MHR_ANATOMICAL_UV_DOMAIN: &str = "mhr_body_v1";
 
@@ -52,9 +55,6 @@ const WEAPON_SOCKET_CALIBRATION: Transform = Transform {
     scale: 1.0,
 };
 
-mod rigged;
-pub use rigged::{RiggedMesh, RiggedMorphTarget, RiggedShell};
-
 pub struct RiggedSocket<'a> {
     pub attachment_point_id: &'a str,
     pub surface_uv_domain: &'a str,
@@ -67,205 +67,6 @@ pub struct SurfaceUvLayout<'a> {
     pub domain: &'a str,
     pub texcoords: &'a [[f32; 2]],
     pub texcoord_faces: &'a [[u32; 3]],
-}
-
-fn state(value: [f32; 8]) -> Transform {
-    Transform {
-        translation: [value[0] as f64, value[1] as f64, value[2] as f64],
-        rotation: [
-            value[3] as f64,
-            value[4] as f64,
-            value[5] as f64,
-            value[6] as f64,
-        ],
-        scale: value[7] as f64,
-    }
-}
-
-fn transform_matrix(transform: Transform) -> [f32; 16] {
-    let rotation = fabelgeist_mhr::math::quat_to_matrix(transform.rotation);
-    let scale = transform.scale;
-    // glTF stores matrices as column-major arrays.
-    [
-        (rotation[0][0] * scale) as f32,
-        (rotation[1][0] * scale) as f32,
-        (rotation[2][0] * scale) as f32,
-        0.0,
-        (rotation[0][1] * scale) as f32,
-        (rotation[1][1] * scale) as f32,
-        (rotation[2][1] * scale) as f32,
-        0.0,
-        (rotation[0][2] * scale) as f32,
-        (rotation[1][2] * scale) as f32,
-        (rotation[2][2] * scale) as f32,
-        0.0,
-        transform.translation[0] as f32,
-        transform.translation[1] as f32,
-        transform.translation[2] as f32,
-        1.0,
-    ]
-}
-
-fn landmark(
-    mesh: &RiggedMesh<'_>,
-    name: &RigJointName,
-) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
-    name.require_in(mesh.joint_names)
-}
-
-fn between(a: Transform, b: Transform, amount: f64) -> [f64; 3] {
-    [
-        a.translation[0] + (b.translation[0] - a.translation[0]) * amount,
-        a.translation[1] + (b.translation[1] - a.translation[1]) * amount,
-        a.translation[2] + (b.translation[2] - a.translation[2]) * amount,
-    ]
-}
-
-fn subtract(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
-    [a[0] - b[0], a[1] - b[1], a[2] - b[2]]
-}
-
-fn dot(a: [f64; 3], b: [f64; 3]) -> f64 {
-    a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
-}
-
-fn cross(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
-    [
-        a[1] * b[2] - a[2] * b[1],
-        a[2] * b[0] - a[0] * b[2],
-        a[0] * b[1] - a[1] * b[0],
-    ]
-}
-
-fn length(vector: [f64; 3]) -> f64 {
-    dot(vector, vector).sqrt()
-}
-
-fn normalize(vector: [f64; 3], side: &str, description: &str) -> Result<[f64; 3]> {
-    let length = length(vector);
-    if !length.is_finite() || length < 1e-9 {
-        bail!("MHR {side} hand landmarks do not define a stable {description}");
-    }
-    Ok(vector.map(|component| component / length))
-}
-
-fn ray_triangle_distance(
-    origin: [f64; 3],
-    direction: [f64; 3],
-    a: [f64; 3],
-    b: [f64; 3],
-    c: [f64; 3],
-) -> Option<f64> {
-    ray_triangle_hit(origin, direction, a, b, c).map(|(distance, _, _)| distance)
-}
-
-fn ray_triangle_hit(
-    origin: [f64; 3],
-    direction: [f64; 3],
-    a: [f64; 3],
-    b: [f64; 3],
-    c: [f64; 3],
-) -> Option<(f64, f64, f64)> {
-    let edge_ab = subtract(b, a);
-    let edge_ac = subtract(c, a);
-    let perpendicular = cross(direction, edge_ac);
-    let determinant = dot(edge_ab, perpendicular);
-    if determinant.abs() < RAY_INTERSECTION_EPSILON {
-        return None;
-    }
-
-    let inverse_determinant = determinant.recip();
-    let from_a = subtract(origin, a);
-    let u = inverse_determinant * dot(from_a, perpendicular);
-    if !(0.0..=1.0).contains(&u) {
-        return None;
-    }
-
-    let cross_from_a = cross(from_a, edge_ab);
-    let v = inverse_determinant * dot(direction, cross_from_a);
-    if v < 0.0 || u + v > 1.0 {
-        return None;
-    }
-
-    let distance = inverse_determinant * dot(edge_ac, cross_from_a);
-    (distance > RAY_INTERSECTION_EPSILON).then_some((distance, u, v))
-}
-
-fn attachment_region_weight(mesh: &RiggedMesh<'_>, vertex: usize) -> f32 {
-    mesh.joint_indices
-        .vertex(vertex)
-        .iter()
-        .zip(mesh.joint_weights[vertex])
-        .filter(|(joint, _)| {
-            mesh.joint_names
-                .get(**joint)
-                .is_some_and(|name: &RigJointName| -> bool {
-                    crate::clothing::waist_surface_joint(name) == RigJointMembership::Included
-                })
-        })
-        .map(|(_, weight)| weight)
-        .sum()
-}
-
-fn face_key(mut face: [u32; 3]) -> [u32; 3] {
-    face.sort_unstable();
-    face
-}
-
-fn uv_barycentric(point: [f64; 2], a: [f64; 2], b: [f64; 2], c: [f64; 2]) -> Option<[f64; 3]> {
-    let determinant = (b[1] - c[1]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[1] - c[1]);
-    if determinant.abs() <= RAY_INTERSECTION_EPSILON {
-        return None;
-    }
-    let first =
-        ((b[1] - c[1]) * (point[0] - c[0]) + (c[0] - b[0]) * (point[1] - c[1])) / determinant;
-    let second =
-        ((c[1] - a[1]) * (point[0] - c[0]) + (a[0] - c[0]) * (point[1] - c[1])) / determinant;
-    let third = 1.0 - first - second;
-    const UV_EDGE_EPSILON: f64 = 1e-6;
-    [first, second, third]
-        .iter()
-        .all(|weight| *weight >= -UV_EDGE_EPSILON && *weight <= 1.0 + UV_EDGE_EPSILON)
-        .then_some([first, second, third])
-}
-
-fn interpolate3(values: [[f64; 3]; 3], weights: [f64; 3]) -> [f64; 3] {
-    std::array::from_fn(|axis| {
-        values[0][axis] * weights[0] + values[1][axis] * weights[1] + values[2][axis] * weights[2]
-    })
-}
-
-fn equipment_surface_socket(
-    mesh: &RiggedMesh<'_>,
-    translation: [f64; 3],
-    normal: [f64; 3],
-    tangent: [f32; 3],
-) -> Result<Transform> {
-    let pelvis = landmark(mesh, &RigJointName::ROOT)?;
-    let pelvis_transform = state(mesh.global_joint_states[pelvis]);
-    let direction = normalize(normal, "equipment", "surface normal")?;
-    let translation = std::array::from_fn(|axis| {
-        translation[axis] + direction[axis] * EQUIPMENT_SOCKET_CLEARANCE_METERS
-    });
-    let mut local_y = tangent.map(f64::from);
-    let tangent_normal_component = dot(local_y, direction);
-    for axis in 0..3 {
-        local_y[axis] -= direction[axis] * tangent_normal_component;
-    }
-    let local_y = normalize(local_y, "equipment", "authored socket tangent")?;
-    let local_z = direction;
-    let local_x = normalize(cross(local_y, local_z), "equipment", "socket frame")?;
-    let rotation = quat_normalize(quat_from_matrix([
-        [local_x[0], local_y[0], local_z[0]],
-        [local_x[1], local_y[1], local_z[1]],
-        [local_x[2], local_y[2], local_z[2]],
-    ]));
-    let model_space_socket = Transform {
-        translation,
-        rotation,
-        scale: 1.0,
-    };
-    Ok(pelvis_transform.inverse().compose(&model_space_socket))
 }
 
 /// Resolves one canonical anatomical UV coordinate against this LOD's body
@@ -475,117 +276,6 @@ pub fn bootstrap_equipment_surface_uv(
     })
 }
 
-fn palmar_surface_distance(
-    mesh: &RiggedMesh<'_>,
-    side: &str,
-    palm_center: [f64; 3],
-    palmar_normal: [f64; 3],
-    maximum_distance: f64,
-) -> Result<f64> {
-    let position = |index: u32| mesh.positions[index as usize].map(f64::from);
-    mesh.faces
-        .iter()
-        .filter_map(|face| {
-            ray_triangle_distance(
-                palm_center,
-                palmar_normal,
-                position(face[0]),
-                position(face[1]),
-                position(face[2]),
-            )
-        })
-        .filter(|distance| *distance <= maximum_distance)
-        .reduce(f64::min)
-        .with_context(|| format!("MHR {side} palm mesh has no surface beneath the socket"))
-}
-
-fn weapon_attachment(
-    mesh: &RiggedMesh<'_>,
-    side: &str,
-    wrist: Transform,
-    middle: Transform,
-    index: Transform,
-    ring: Transform,
-    thumb: [Transform; 2],
-) -> Result<Transform> {
-    let palm_length = normalize(
-        subtract(middle.translation, wrist.translation),
-        side,
-        "palm length",
-    )?;
-    let palm_width = subtract(index.translation, ring.translation);
-    let palm_width_length = length(palm_width);
-    let mut palmar_normal = normalize(cross(palm_length, palm_width), side, "palm plane")?;
-    let knuckle_center = [
-        (index.translation[0] + middle.translation[0] + ring.translation[0]) / 3.0,
-        (index.translation[1] + middle.translation[1] + ring.translation[1]) / 3.0,
-        (index.translation[2] + middle.translation[2] + ring.translation[2]) / 3.0,
-    ];
-    let palm_center = [
-        (wrist.translation[0] + knuckle_center[0]) * 0.5,
-        (wrist.translation[1] + knuckle_center[1]) * 0.5,
-        (wrist.translation[2] + knuckle_center[2]) * 0.5,
-    ];
-
-    // The thumb base disambiguates the palmar side of the skeletal hand plane
-    // on both mirrored hands. Offset the socket to that side rather than
-    // leaving it embedded halfway through the palm.
-    if dot(palmar_normal, subtract(thumb[0].translation, palm_center)) < 0.0 {
-        palmar_normal = palmar_normal.map(|component| -component);
-    }
-    // The weapon's +Y axis is the palm-width axis: exactly perpendicular to
-    // the wrist-to-fingers direction. The thumb landmark only chooses which of
-    // the two possible width directions is outward for each mirrored hand.
-    let mut weapon_y = normalize(cross(palmar_normal, palm_length), side, "palm width")?;
-    if dot(weapon_y, subtract(thumb[1].translation, palm_center)) < 0.0 {
-        weapon_y = weapon_y.map(|component| -component);
-    }
-    let weapon_z = palmar_normal;
-    let weapon_x = normalize(cross(weapon_y, weapon_z), side, "weapon frame")?;
-    let rotation = quat_normalize(quat_from_matrix([
-        [weapon_x[0], weapon_y[0], weapon_z[0]],
-        [weapon_x[1], weapon_y[1], weapon_z[1]],
-        [weapon_x[2], weapon_y[2], weapon_z[2]],
-    ]));
-    let depth = palmar_surface_distance(mesh, side, palm_center, palmar_normal, palm_width_length)?
-        + PALMAR_SOCKET_CLEARANCE_METERS;
-
-    let surface_socket = Transform {
-        translation: [
-            palm_center[0] + palmar_normal[0] * depth,
-            palm_center[1] + palmar_normal[1] * depth,
-            palm_center[2] + palmar_normal[2] * depth,
-        ],
-        rotation,
-        scale: wrist.scale,
-    };
-    Ok(surface_socket.compose(&WEAPON_SOCKET_CALIBRATION))
-}
-
-fn position_bounds(positions: &[[f32; 3]]) -> ([f32; 3], [f32; 3]) {
-    positions.iter().fold(
-        ([f32::INFINITY; 3], [f32::NEG_INFINITY; 3]),
-        |(mut minimum, mut maximum), position| {
-            for axis in 0..3 {
-                minimum[axis] = minimum[axis].min(position[axis]);
-                maximum[axis] = maximum[axis].max(position[axis]);
-            }
-            (minimum, maximum)
-        },
-    )
-}
-
-fn linear_base_color([red, green, blue, alpha]: [f32; 4]) -> [f32; 4] {
-    fn channel(value: f32) -> f32 {
-        if value <= 0.04045 {
-            value / 12.92
-        } else {
-            ((value + 0.055) / 1.055).powf(2.4)
-        }
-    }
-    [channel(red), channel(green), channel(blue), alpha]
-}
-
 /// Writes a zero-animation GLB using the requested texture packaging contract.
 pub fn export_rigged_glb(
     output: GlbOutput<'_>,
@@ -751,6 +441,9 @@ pub fn export_rigged_glb(
     let mut primitives = Vec::new();
     let mut material_values = Vec::new();
     if mesh.export_body {
+        let skin = crate::surface_projection::LinearSurfaceMaterial::try_from(
+            crate::body_appearance::SKIN_APPEARANCE,
+        )?;
         primitives.push(json!({
             "attributes": {
                 "POSITION": position_accessor,
@@ -764,9 +457,9 @@ pub fn export_rigged_glb(
         material_values.push(json!({
             "name": "Skin",
             "pbrMetallicRoughness": {
-                "baseColorFactor": [0.64, 0.39, 0.30, 1.0],
-                "metallicFactor": 0.0,
-                "roughnessFactor": 0.52,
+                "baseColorFactor": skin.base_color(),
+                "metallicFactor": skin.metallic(),
+                "roughnessFactor": skin.roughness(),
             }
         }));
     }
@@ -778,7 +471,7 @@ pub fn export_rigged_glb(
         body_skin: [joints_0_accessor, weights_0_accessor],
         textures: &mut texture_images,
     }
-    .append(shells, shell_views, accessor);
+    .append(shells, shell_views, accessor)?;
 
     let (mut nodes, roots) = skeleton::nodes(&joint_names, &joint_parents, &globals, mesh)?;
     // Keep one stable, non-joint hierarchy root. Bevy uses this node as the
@@ -842,6 +535,305 @@ pub fn export_rigged_glb(
     texture_images.finish(output, &mut document)?;
 
     glb::write(output.path(), &document, buffer.bytes)
+}
+
+fn state(value: [f32; 8]) -> Transform {
+    Transform {
+        translation: [value[0] as f64, value[1] as f64, value[2] as f64],
+        rotation: [
+            value[3] as f64,
+            value[4] as f64,
+            value[5] as f64,
+            value[6] as f64,
+        ],
+        scale: value[7] as f64,
+    }
+}
+
+fn transform_matrix(transform: Transform) -> [f32; 16] {
+    let rotation = fabelgeist_mhr::math::quat_to_matrix(transform.rotation);
+    let scale = transform.scale;
+    // glTF stores matrices as column-major arrays.
+    [
+        (rotation[0][0] * scale) as f32,
+        (rotation[1][0] * scale) as f32,
+        (rotation[2][0] * scale) as f32,
+        0.0,
+        (rotation[0][1] * scale) as f32,
+        (rotation[1][1] * scale) as f32,
+        (rotation[2][1] * scale) as f32,
+        0.0,
+        (rotation[0][2] * scale) as f32,
+        (rotation[1][2] * scale) as f32,
+        (rotation[2][2] * scale) as f32,
+        0.0,
+        transform.translation[0] as f32,
+        transform.translation[1] as f32,
+        transform.translation[2] as f32,
+        1.0,
+    ]
+}
+
+fn landmark(
+    mesh: &RiggedMesh<'_>,
+    name: &RigJointName,
+) -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
+    name.require_in(mesh.joint_names)
+}
+
+fn between(a: Transform, b: Transform, amount: f64) -> [f64; 3] {
+    [
+        a.translation[0] + (b.translation[0] - a.translation[0]) * amount,
+        a.translation[1] + (b.translation[1] - a.translation[1]) * amount,
+        a.translation[2] + (b.translation[2] - a.translation[2]) * amount,
+    ]
+}
+
+fn subtract(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
+    [a[0] - b[0], a[1] - b[1], a[2] - b[2]]
+}
+
+fn dot(a: [f64; 3], b: [f64; 3]) -> f64 {
+    a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+}
+
+fn cross(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
+    [
+        a[1] * b[2] - a[2] * b[1],
+        a[2] * b[0] - a[0] * b[2],
+        a[0] * b[1] - a[1] * b[0],
+    ]
+}
+
+fn length(vector: [f64; 3]) -> f64 {
+    dot(vector, vector).sqrt()
+}
+
+fn normalize(vector: [f64; 3], side: &str, description: &str) -> Result<[f64; 3]> {
+    let length = length(vector);
+    if !length.is_finite() || length < 1e-9 {
+        bail!("MHR {side} hand landmarks do not define a stable {description}");
+    }
+    Ok(vector.map(|component| component / length))
+}
+
+fn ray_triangle_distance(
+    origin: [f64; 3],
+    direction: [f64; 3],
+    a: [f64; 3],
+    b: [f64; 3],
+    c: [f64; 3],
+) -> Option<f64> {
+    ray_triangle_hit(origin, direction, a, b, c).map(|(distance, _, _)| distance)
+}
+
+fn ray_triangle_hit(
+    origin: [f64; 3],
+    direction: [f64; 3],
+    a: [f64; 3],
+    b: [f64; 3],
+    c: [f64; 3],
+) -> Option<(f64, f64, f64)> {
+    let edge_ab = subtract(b, a);
+    let edge_ac = subtract(c, a);
+    let perpendicular = cross(direction, edge_ac);
+    let determinant = dot(edge_ab, perpendicular);
+    if determinant.abs() < RAY_INTERSECTION_EPSILON {
+        return None;
+    }
+
+    let inverse_determinant = determinant.recip();
+    let from_a = subtract(origin, a);
+    let u = inverse_determinant * dot(from_a, perpendicular);
+    if !(0.0..=1.0).contains(&u) {
+        return None;
+    }
+
+    let cross_from_a = cross(from_a, edge_ab);
+    let v = inverse_determinant * dot(direction, cross_from_a);
+    if v < 0.0 || u + v > 1.0 {
+        return None;
+    }
+
+    let distance = inverse_determinant * dot(edge_ac, cross_from_a);
+    (distance > RAY_INTERSECTION_EPSILON).then_some((distance, u, v))
+}
+
+fn attachment_region_weight(mesh: &RiggedMesh<'_>, vertex: usize) -> f32 {
+    mesh.joint_indices
+        .vertex(vertex)
+        .iter()
+        .zip(mesh.joint_weights[vertex])
+        .filter(|(joint, _)| {
+            mesh.joint_names
+                .get(**joint)
+                .is_some_and(|name: &RigJointName| -> bool {
+                    crate::clothing::waist_surface_joint(name) == RigJointMembership::Included
+                })
+        })
+        .map(|(_, weight)| weight)
+        .sum()
+}
+
+fn face_key(mut face: [u32; 3]) -> [u32; 3] {
+    face.sort_unstable();
+    face
+}
+
+fn uv_barycentric(point: [f64; 2], a: [f64; 2], b: [f64; 2], c: [f64; 2]) -> Option<[f64; 3]> {
+    let determinant = (b[1] - c[1]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[1] - c[1]);
+    if determinant.abs() <= RAY_INTERSECTION_EPSILON {
+        return None;
+    }
+    let first =
+        ((b[1] - c[1]) * (point[0] - c[0]) + (c[0] - b[0]) * (point[1] - c[1])) / determinant;
+    let second =
+        ((c[1] - a[1]) * (point[0] - c[0]) + (a[0] - c[0]) * (point[1] - c[1])) / determinant;
+    let third = 1.0 - first - second;
+    const UV_EDGE_EPSILON: f64 = 1e-6;
+    [first, second, third]
+        .iter()
+        .all(|weight| *weight >= -UV_EDGE_EPSILON && *weight <= 1.0 + UV_EDGE_EPSILON)
+        .then_some([first, second, third])
+}
+
+fn interpolate3(values: [[f64; 3]; 3], weights: [f64; 3]) -> [f64; 3] {
+    std::array::from_fn(|axis| {
+        values[0][axis] * weights[0] + values[1][axis] * weights[1] + values[2][axis] * weights[2]
+    })
+}
+
+fn equipment_surface_socket(
+    mesh: &RiggedMesh<'_>,
+    translation: [f64; 3],
+    normal: [f64; 3],
+    tangent: [f32; 3],
+) -> Result<Transform> {
+    let pelvis = landmark(mesh, &RigJointName::ROOT)?;
+    let pelvis_transform = state(mesh.global_joint_states[pelvis]);
+    let direction = normalize(normal, "equipment", "surface normal")?;
+    let translation = std::array::from_fn(|axis| {
+        translation[axis] + direction[axis] * EQUIPMENT_SOCKET_CLEARANCE_METERS
+    });
+    let mut local_y = tangent.map(f64::from);
+    let tangent_normal_component = dot(local_y, direction);
+    for axis in 0..3 {
+        local_y[axis] -= direction[axis] * tangent_normal_component;
+    }
+    let local_y = normalize(local_y, "equipment", "authored socket tangent")?;
+    let local_z = direction;
+    let local_x = normalize(cross(local_y, local_z), "equipment", "socket frame")?;
+    let rotation = quat_normalize(quat_from_matrix([
+        [local_x[0], local_y[0], local_z[0]],
+        [local_x[1], local_y[1], local_z[1]],
+        [local_x[2], local_y[2], local_z[2]],
+    ]));
+    let model_space_socket = Transform {
+        translation,
+        rotation,
+        scale: 1.0,
+    };
+    Ok(pelvis_transform.inverse().compose(&model_space_socket))
+}
+
+fn palmar_surface_distance(
+    mesh: &RiggedMesh<'_>,
+    side: &str,
+    palm_center: [f64; 3],
+    palmar_normal: [f64; 3],
+    maximum_distance: f64,
+) -> Result<f64> {
+    let position = |index: u32| mesh.positions[index as usize].map(f64::from);
+    mesh.faces
+        .iter()
+        .filter_map(|face| {
+            ray_triangle_distance(
+                palm_center,
+                palmar_normal,
+                position(face[0]),
+                position(face[1]),
+                position(face[2]),
+            )
+        })
+        .filter(|distance| *distance <= maximum_distance)
+        .reduce(f64::min)
+        .with_context(|| format!("MHR {side} palm mesh has no surface beneath the socket"))
+}
+
+fn weapon_attachment(
+    mesh: &RiggedMesh<'_>,
+    side: &str,
+    wrist: Transform,
+    middle: Transform,
+    index: Transform,
+    ring: Transform,
+    thumb: [Transform; 2],
+) -> Result<Transform> {
+    let palm_length = normalize(
+        subtract(middle.translation, wrist.translation),
+        side,
+        "palm length",
+    )?;
+    let palm_width = subtract(index.translation, ring.translation);
+    let palm_width_length = length(palm_width);
+    let mut palmar_normal = normalize(cross(palm_length, palm_width), side, "palm plane")?;
+    let knuckle_center = [
+        (index.translation[0] + middle.translation[0] + ring.translation[0]) / 3.0,
+        (index.translation[1] + middle.translation[1] + ring.translation[1]) / 3.0,
+        (index.translation[2] + middle.translation[2] + ring.translation[2]) / 3.0,
+    ];
+    let palm_center = [
+        (wrist.translation[0] + knuckle_center[0]) * 0.5,
+        (wrist.translation[1] + knuckle_center[1]) * 0.5,
+        (wrist.translation[2] + knuckle_center[2]) * 0.5,
+    ];
+
+    // The thumb base disambiguates the palmar side of the skeletal hand plane
+    // on both mirrored hands. Offset the socket to that side rather than
+    // leaving it embedded halfway through the palm.
+    if dot(palmar_normal, subtract(thumb[0].translation, palm_center)) < 0.0 {
+        palmar_normal = palmar_normal.map(|component| -component);
+    }
+    // The weapon's +Y axis is the palm-width axis: exactly perpendicular to
+    // the wrist-to-fingers direction. The thumb landmark only chooses which of
+    // the two possible width directions is outward for each mirrored hand.
+    let mut weapon_y = normalize(cross(palmar_normal, palm_length), side, "palm width")?;
+    if dot(weapon_y, subtract(thumb[1].translation, palm_center)) < 0.0 {
+        weapon_y = weapon_y.map(|component| -component);
+    }
+    let weapon_z = palmar_normal;
+    let weapon_x = normalize(cross(weapon_y, weapon_z), side, "weapon frame")?;
+    let rotation = quat_normalize(quat_from_matrix([
+        [weapon_x[0], weapon_y[0], weapon_z[0]],
+        [weapon_x[1], weapon_y[1], weapon_z[1]],
+        [weapon_x[2], weapon_y[2], weapon_z[2]],
+    ]));
+    let depth = palmar_surface_distance(mesh, side, palm_center, palmar_normal, palm_width_length)?
+        + PALMAR_SOCKET_CLEARANCE_METERS;
+
+    let surface_socket = Transform {
+        translation: [
+            palm_center[0] + palmar_normal[0] * depth,
+            palm_center[1] + palmar_normal[1] * depth,
+            palm_center[2] + palmar_normal[2] * depth,
+        ],
+        rotation,
+        scale: wrist.scale,
+    };
+    Ok(surface_socket.compose(&WEAPON_SOCKET_CALIBRATION))
+}
+
+fn position_bounds(positions: &[[f32; 3]]) -> ([f32; 3], [f32; 3]) {
+    positions.iter().fold(
+        ([f32::INFINITY; 3], [f32::NEG_INFINITY; 3]),
+        |(mut minimum, mut maximum), position| {
+            for axis in 0..3 {
+                minimum[axis] = minimum[axis].min(position[axis]);
+                maximum[axis] = maximum[axis].max(position[axis]);
+            }
+            (minimum, maximum)
+        },
+    )
 }
 
 #[cfg(test)]
@@ -1162,9 +1154,7 @@ mod tests {
             joint_indices: None,
             joint_weights: None,
             morph_targets: &shell_targets,
-            base_color: [0.1, 0.2, 0.3, 1.0],
-            metallic: 0.0,
-            roughness: 0.9,
+            appearance: fabelgeist_armor::SurfaceMaterial { base_color: fabelgeist_color::Srgba::from_encoded_channels([0.1, 0.2, 0.3, 1.0]), metallic: fabelgeist_math::units::Ratio::from_ratio(0.0), roughness: fabelgeist_math::units::Ratio::from_ratio(0.9) },
         };
         export_rigged_glb(
             GlbOutput::Standalone(&path),
@@ -1286,9 +1276,7 @@ mod tests {
             positions: &shell_positions,
             normals: &garment_normals,
             faces: &garment_faces,
-            base_color: [0.1, 0.2, 0.3, 1.0],
-            metallic: 0.0,
-            roughness: 0.9,
+            appearance: fabelgeist_armor::SurfaceMaterial { base_color: fabelgeist_color::Srgba::from_encoded_channels([0.1, 0.2, 0.3, 1.0]), metallic: fabelgeist_math::units::Ratio::from_ratio(0.0), roughness: fabelgeist_math::units::Ratio::from_ratio(0.9) },
         };
         export_rigged_glb(
             GlbOutput::Standalone(&path),
@@ -1413,9 +1401,7 @@ mod tests {
             joint_indices: None,
             joint_weights: None,
             morph_targets: &[],
-            base_color: [0.5, 0.35, 0.23, 1.0],
-            metallic: 0.0,
-            roughness: 0.58,
+            appearance: fabelgeist_armor::SurfaceMaterial { base_color: fabelgeist_color::Srgba::from_encoded_channels([0.5, 0.35, 0.23, 1.0]), metallic: fabelgeist_math::units::Ratio::from_ratio(0.0), roughness: fabelgeist_math::units::Ratio::from_ratio(0.58) },
         };
         let socket = RiggedSocket {
             attachment_point_id: "left",
@@ -1558,9 +1544,7 @@ mod tests {
             joint_indices: Some(&armor_indices),
             joint_weights: Some(&armor_weights),
             morph_targets: &[target],
-            base_color: [0.7, 0.7, 0.7, 1.0],
-            metallic: 1.0,
-            roughness: 0.2,
+            appearance: fabelgeist_armor::SurfaceMaterial { base_color: fabelgeist_color::Srgba::from_encoded_channels([0.7, 0.7, 0.7, 1.0]), metallic: fabelgeist_math::units::Ratio::from_ratio(1.0), roughness: fabelgeist_math::units::Ratio::from_ratio(0.2) },
         };
         export_rigged_glb(
             GlbOutput::Standalone(&path),
@@ -1706,9 +1690,7 @@ mod tests {
             joint_indices: None,
             joint_weights: None,
             morph_targets: &[],
-            base_color: [0.5, 0.3, 0.2, 1.0],
-            metallic: 0.0,
-            roughness: 0.8,
+            appearance: fabelgeist_armor::SurfaceMaterial { base_color: fabelgeist_color::Srgba::from_encoded_channels([0.5, 0.3, 0.2, 1.0]), metallic: fabelgeist_math::units::Ratio::from_ratio(0.0), roughness: fabelgeist_math::units::Ratio::from_ratio(0.8) },
         };
         let layout = SurfaceUvLayout {
             domain: MHR_ANATOMICAL_UV_DOMAIN,
@@ -1764,9 +1746,7 @@ mod tests {
             joint_indices: None,
             joint_weights: None,
             morph_targets: &[],
-            base_color: [0.5, 0.3, 0.2, 1.0],
-            metallic: 0.0,
-            roughness: 0.8,
+            appearance: fabelgeist_armor::SurfaceMaterial { base_color: fabelgeist_color::Srgba::from_encoded_channels([0.5, 0.3, 0.2, 1.0]), metallic: fabelgeist_math::units::Ratio::from_ratio(0.0), roughness: fabelgeist_math::units::Ratio::from_ratio(0.8) },
         };
         assert!(
             fitted_equipment_socket_from_uv(

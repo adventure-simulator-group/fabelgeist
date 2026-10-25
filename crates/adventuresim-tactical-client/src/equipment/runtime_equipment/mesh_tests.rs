@@ -3,15 +3,15 @@ use fabelgeist_armor::{ArmorComponent, ArmorComponentRole};
 
 #[test]
 fn material_parts_preserve_skin_uvs_and_relative_position_when_dropped() {
-    let red = ArmorComponentMaterial {
-        base_color: [1.0, 0.0, 0.0, 1.0],
-        metallic: 0.0,
-        roughness: 0.9,
+    let red = fabelgeist_armor::SurfaceMaterial {
+        base_color: fabelgeist_color::Srgba::from_encoded_channels([1.0, 0.0, 0.0, 1.0]),
+        metallic: fabelgeist_math::units::Ratio::from_ratio(0.0),
+        roughness: fabelgeist_math::units::Ratio::from_ratio(0.9),
     };
-    let gold = ArmorComponentMaterial {
-        base_color: [1.0, 0.8, 0.0, 1.0],
-        metallic: 0.0,
-        roughness: 0.8,
+    let gold = fabelgeist_armor::SurfaceMaterial {
+        base_color: fabelgeist_color::Srgba::from_encoded_channels([1.0, 0.8, 0.0, 1.0]),
+        metallic: fabelgeist_math::units::Ratio::from_ratio(0.0),
+        roughness: fabelgeist_math::units::Ratio::from_ratio(0.8),
     };
     let armor = GeneratedArmor {
         design_hash: [0; 32],
@@ -40,22 +40,20 @@ fn material_parts_preserve_skin_uvs_and_relative_position_when_dropped() {
         morphs: Vec::new(),
         components: vec![
             ArmorComponent {
-                textile: None,
                 role: ArmorComponentRole::OuterFabric,
                 vertices: 0..3,
                 indices: 0..3,
                 hinge: None,
                 mount: None,
-                material: Some(red),
+                appearance: fabelgeist_armor::ComponentAppearance::Surface(red),
             },
             ArmorComponent {
-                textile: None,
                 role: ArmorComponentRole::Undercloth,
                 vertices: 3..6,
                 indices: 3..6,
                 hinge: None,
                 mount: None,
-                material: Some(gold),
+                appearance: fabelgeist_armor::ComponentAppearance::Surface(gold),
             },
         ],
     };

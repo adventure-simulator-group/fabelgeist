@@ -22,6 +22,8 @@ mod rig;
 pub(crate) mod rig_selection;
 mod validation;
 
+pub type ClothingResult<T> = Result<T, ClothingError>;
+
 const WAIST_CROSS_SECTION_WEIGHT_THRESHOLD: f32 = 0.01;
 
 const CONCAVITY_RELAXATION_PASSES: usize = 3;
@@ -36,9 +38,7 @@ pub struct GarmentSpecification {
     pub weight_threshold: f32,
     pub expansion_rings: usize,
     pub normal_offset_metres: SignedLength,
-    pub base_color: [f32; 4],
-    pub metallic: f32,
-    pub roughness: f32,
+    pub appearance: fabelgeist_armor::SurfaceMaterial,
     pub occludes_body: bool,
 }
 
@@ -60,7 +60,7 @@ impl GarmentSpecification {
     pub fn from_catalog(
         name: ClothingPieceName,
         selection: CatalogPlacement<'_>,
-    ) -> Result<Self, ClothingError> {
+    ) -> ClothingResult<Self> {
         let material = selection
             .item()
             .equipment
@@ -76,7 +76,7 @@ impl GarmentSpecification {
         name: ClothingPieceName,
         placement: &EquipmentPlacement,
         material: EquipmentMaterial,
-    ) -> Result<Self, ClothingError> {
+    ) -> ClothingResult<Self> {
         let channel = placement
             .outermost_channel()
             .unwrap_or(EquipmentChannel::BaseClothing);
@@ -89,7 +89,7 @@ impl GarmentSpecification {
         };
         let normal_offset_metres =
             SignedLength::from_metres(normal_offset_metres).map_err(ClothingError::NormalOffset)?;
-        let (base_color, metallic, roughness) = crate::clothing_material::pbr(material);
+        let appearance = crate::clothing_material::pbr(material);
         Ok(Self {
             name,
             material,
@@ -97,9 +97,7 @@ impl GarmentSpecification {
             weight_threshold: 0.35,
             expansion_rings: 1,
             normal_offset_metres,
-            base_color,
-            metallic,
-            roughness,
+            appearance,
             occludes_body: true,
         })
     }
@@ -115,7 +113,7 @@ pub fn generate_clothing_shells(
     joint_weights: &[[f32; 8]],
     joint_names: &fabelgeist_rig::RigJointTable<RigJointName>,
     global_joint_states: &fabelgeist_rig::RigJointTable<[f32; 8]>,
-) -> Result<ClothedMesh, ClothingError> {
+) -> ClothingResult<ClothedMesh> {
     let vertices = positions.len();
     if normals.len() != vertices
         || joint_indices.len() != vertices
@@ -659,8 +657,8 @@ mod tests {
         )
         .unwrap();
         assert_eq!(specification.normal_offset_metres.metres(), 0.024);
-        assert_eq!(specification.metallic, 1.0);
-        assert_eq!(specification.roughness, 0.20);
+        assert_eq!(specification.appearance.metallic.ratio(), 1.0);
+        assert_eq!(specification.appearance.roughness.ratio(), 0.20);
         assert_eq!(specification.placement.surface[0].coverage, 0.3);
     }
 }
@@ -675,7 +673,7 @@ mod admission_tests {
             name: "head covering".into(), material: EquipmentMaterial::Linen,
             placement: serde_json::from_value(serde_json::json!({"id":"worn","surface":[{"regions":["head"],"anchor":"proximal","coverage":1.0}]})).unwrap(),
             weight_threshold: 0.1, expansion_rings: 0, normal_offset_metres: SignedLength::ZERO,
-            base_color: [1.0;4], metallic: 0.0, roughness: 1.0, occludes_body: false,
+            appearance: fabelgeist_armor::SurfaceMaterial { base_color: fabelgeist_color::Srgba::from_encoded_channels([1.0;4]), metallic: fabelgeist_math::units::Ratio::from_ratio(0.0), roughness: fabelgeist_math::units::Ratio::from_ratio(1.0) }, occludes_body: false,
         };
         let result = generate_clothing_shells(
             &[specification],

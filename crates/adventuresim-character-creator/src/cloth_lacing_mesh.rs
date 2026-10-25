@@ -1,13 +1,13 @@
 //! Coarse inner rings and crossing cords reuse the shared closed tube kernel.
 use crate::cloth_fastener_mesh::{
-    ClosureFrame, ClosureMaterial, CordEnds, CordPath, FastenerFrame, FastenerMesh,
+    ClosureFrame, CordEnds, CordPath, FastenerFrame, FastenerMesh,
 };
 use crate::cloth_opening::ClosureSide;
 use anyhow::Result;
-use fabelgeist_armor::{ArmorComponentMaterial, ClothLacing};
+use fabelgeist_armor::{SurfaceMaterial, ClothLacing};
 use fabelgeist_math::Vec3;
 
-const RING_ROUGHNESS: f32 = 0.35;
+const RING_ROUGHNESS: fabelgeist_math::units::Ratio = fabelgeist_math::units::Ratio::from_ratio(0.35);
 impl FastenerMesh {
     pub fn lacing_rings(design: &ClothLacing, frame: FastenerFrame) -> Result<Self> {
         let frame = ClosureFrame::new(frame)?;
@@ -33,7 +33,7 @@ impl FastenerMesh {
         design: &ClothLacing,
         frame: &ClosureFrame,
         side: ClosureSide,
-        material: &ClosureMaterial,
+        material: &fabelgeist_armor::ComponentAppearance,
     ) {
         let center = match side {
             ClosureSide::Left => -design.inset.metres(),
@@ -69,10 +69,7 @@ impl FastenerMesh {
         support: &crate::cloth_lacing_support::LacingSupport,
     ) -> Result<Self> {
         let frame = ClosureFrame::new(frame)?;
-        let material = ClosureMaterial {
-            surface: design.fabric.material(),
-            fabric: Some(design.fabric.clone()),
-        };
+        let material = fabelgeist_armor::ComponentAppearance::Textile(design.fabric.clone());
         let height = support.height_metres(&frame, backing)?;
         let mut mesh = Self::empty();
         mesh.cord(
@@ -118,19 +115,13 @@ pub(crate) fn ring_center(
     Ok(Vec3::new(x, y, z))
 }
 
-fn ring_material(design: &ClothLacing) -> ClosureMaterial {
+fn ring_material(design: &ClothLacing) -> fabelgeist_armor::ComponentAppearance {
     match &design.eyelet {
-        fabelgeist_armor::LacingEyelet::Metal { color, .. } => ClosureMaterial {
-            surface: ArmorComponentMaterial {
+        fabelgeist_armor::LacingEyelet::Metal { color, .. } => fabelgeist_armor::ComponentAppearance::Surface(SurfaceMaterial {
                 base_color: color.material().base_color,
-                metallic: 1.,
+                metallic: fabelgeist_math::units::Ratio::from_ratio(1.0),
                 roughness: RING_ROUGHNESS,
-            },
-            fabric: None,
-        },
-        fabelgeist_armor::LacingEyelet::Sewn { fabric, .. } => ClosureMaterial {
-            surface: fabric.material(),
-            fabric: Some(fabric.clone()),
-        },
+            }),
+        fabelgeist_armor::LacingEyelet::Sewn { fabric, .. } => fabelgeist_armor::ComponentAppearance::Textile(fabric.clone()),
     }
 }

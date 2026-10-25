@@ -79,7 +79,6 @@ impl Layout {
                 let mut solid = SolidTopology::new(&clipped.mid, &clipped.mid)?;
                 solid.compact();
                 layout.components.push(ArmorComponent {
-                    textile: None,
                     role: ArmorComponentRole::Plate,
                     vertices: layout.topology.sources.len()
                         ..layout.topology.sources.len() + solid.sources.len(),
@@ -87,7 +86,7 @@ impl Layout {
                         ..layout.topology.indices.len() + solid.indices.len(),
                     hinge: None,
                     mount: Some(mount(side, course, count)?),
-                    material: None,
+                    appearance: crate::ComponentAppearance::Inherit,
                 });
                 layout
                     .coordinates

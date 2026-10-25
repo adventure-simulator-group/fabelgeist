@@ -6,6 +6,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 license = "AGPL-3.0"
 
 [dependencies]
+fabelgeist-color = { path = "../fabelgeist-color", default-features = false, features = ["serde"] }
 anyhow = "1.0"
 blake3 = { workspace = true }
 bytemuck = { version = "1.16", features = ["derive"] }

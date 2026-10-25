@@ -34,7 +34,7 @@ mod shape;
 
 /// Hair's perceptual roughness when drawn as cards: a rough dielectric whose
 /// sheen comes from the strands painted in the atlas.
-pub const HAIR_ROUGHNESS: f32 = 0.55;
+pub const HAIR_ROUGHNESS: fabelgeist_math::units::Ratio = fabelgeist_math::units::Ratio::from_ratio(0.55);
 
 /// The dye that leaves hair its own colour.
 pub const NO_DYE: [f32; 3] = [1.0; 3];

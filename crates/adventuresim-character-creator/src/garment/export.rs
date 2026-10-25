@@ -8,7 +8,7 @@ impl DrapedGarment {
         targets: &'a [RiggedMorphTarget<'a>],
         mail: Option<&'a crate::garment_material::MailSurface>,
     ) -> RiggedShell<'a> {
-        let (base_color, metallic, roughness) =
+        let appearance =
             mail.map_or(crate::garment_material::CLOTH_PBR, |mail| mail.pbr());
         RiggedShell {
             textile_finish: None,
@@ -24,9 +24,7 @@ impl DrapedGarment {
             joint_indices: Some(&self.indices),
             joint_weights: Some(&self.weights),
             morph_targets: targets,
-            base_color,
-            metallic,
-            roughness,
+            appearance,
         }
     }
 }

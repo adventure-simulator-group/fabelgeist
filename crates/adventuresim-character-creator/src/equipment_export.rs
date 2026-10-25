@@ -82,11 +82,9 @@ impl EquipmentExporter<'_> {
             &morph_targets,
         )
         .plate;
-        let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
+        let appearance = adventuresim_character_creator::equipment_pbr(material);
         for shell in &mut rigged_shells {
-            shell.base_color = color;
-            shell.metallic = metallic;
-            shell.roughness = roughness;
+            shell.appearance = appearance;
             shell.textures =
                 adventuresim_character_creator::underlayer_material::textures(design.recipe());
             shell.surface = metal.as_ref();

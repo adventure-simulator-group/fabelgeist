@@ -2,6 +2,8 @@
 use crate::{ArmorComponentRole, GenerateError, GeneratedArmor};
 use std::collections::BTreeMap;
 
+type TextileSeamResult<T> = Result<T, GenerateError>;
+
 #[derive(Clone, Copy)]
 enum SeamCopy {
     Original,
@@ -12,8 +14,8 @@ impl GeneratedArmor {
     /// A cyclic cloth chart has a rear UV seam. Duplicate only its shading
     /// vertices; positions, skin and all morph attributes remain coincident.
     /// Component ranges stay contiguous. This is not a new physical cloth edge.
-    pub fn split_textile_seams(&mut self) -> Result<(), GenerateError> {
-        if !self.components.iter().any(|c| c.textile.is_some()) {
+    pub fn split_textile_seams(&mut self) -> TextileSeamResult<()> {
+        if !self.components.iter().any(|c| c.appearance.textile().is_some()) {
             return Ok(());
         }
         self.validate_textile_attributes()?;
@@ -41,7 +43,7 @@ impl GeneratedArmor {
                     component.role,
                     ArmorComponentRole::WaistSupportBand | ArmorComponentRole::WaistFrontBand
                 );
-                let crosses = component.textile.is_some() && cyclic && high - low > 0.5;
+                let crosses = component.appearance.textile().is_some() && cyclic && high - low > 0.5;
                 for &old in triangle {
                     let old = old as usize;
                     let index = if crosses && source.texcoords[old][0] < 0.5 {
@@ -68,7 +70,7 @@ impl GeneratedArmor {
         Ok(())
     }
 
-    fn validate_textile_attributes(&self) -> Result<(), GenerateError> {
+    fn validate_textile_attributes(&self) -> TextileSeamResult<()> {
         let count = self.positions.len();
         let same = [
             self.normals.len(),
@@ -133,7 +135,7 @@ impl GeneratedArmor {
         source: &Self,
         old: usize,
         copy: SeamCopy,
-    ) -> Result<u32, GenerateError> {
+    ) -> TextileSeamResult<u32> {
         let index =
             u32::try_from(self.positions.len()).map_err(|_| GenerateError::InvalidSurface)?;
         self.positions.push(source.positions[old]);

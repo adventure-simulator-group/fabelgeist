@@ -1,10 +1,10 @@
 //! Shared low-poly hook solids, with paired eyes or a separate ring target.
 use crate::cloth_fastener_mesh::{
-    ClosureFrame, ClosureMaterial, CordEnds, CordPath, FastenerFrame, FastenerMesh,
+    ClosureFrame, CordEnds, CordPath, FastenerFrame, FastenerMesh,
 };
 use crate::cloth_opening::ClosureSide;
 use anyhow::{Result, ensure};
-use fabelgeist_armor::{ArmorComponentMaterial, ClothFastener};
+use fabelgeist_armor::{SurfaceMaterial, ClothFastener};
 use fabelgeist_math::Vec3;
 use std::f32::consts::{PI, TAU};
 pub(crate) const HOOK_TAIL_SETBACK_SHARE: f32 = 0.6;
@@ -40,7 +40,7 @@ impl FastenerMesh {
         &mut self,
         frame: &ClosureFrame,
         dimensions: HookDimensions,
-        material: &ClosureMaterial,
+        material: &fabelgeist_armor::ComponentAppearance,
     ) -> Result<()> {
         let reach = dimensions.reach;
         let width = dimensions.width;
@@ -82,7 +82,7 @@ impl FastenerMesh {
         &mut self,
         frame: &ClosureFrame,
         dimensions: HookDimensions,
-        material: &ClosureMaterial,
+        material: &fabelgeist_armor::ComponentAppearance,
     ) -> Result<()> {
         let HookDimensions {
             reach,
@@ -124,14 +124,11 @@ impl FastenerMesh {
             anyhow::bail!("return attachment requires a hook");
         };
         let frame = ClosureFrame::new(frame)?;
-        let material = ClosureMaterial {
-            surface: ArmorComponentMaterial {
+        let material = fabelgeist_armor::ComponentAppearance::Surface(SurfaceMaterial {
                 base_color: color.material().base_color,
-                metallic: 1.,
-                roughness: roughness.unit(),
-            },
-            fabric: None,
-        };
+                metallic: fabelgeist_math::units::Ratio::from_ratio(1.0),
+                roughness: fabelgeist_math::units::Ratio::from_ratio(roughness.unit()),
+            });
         let mut mesh = Self::empty();
         mesh.hook(
             &frame,

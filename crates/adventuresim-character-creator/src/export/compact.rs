@@ -97,9 +97,7 @@ impl<'a> CompactShell<'a> {
             joint_indices: Some(&self.joints),
             joint_weights: Some(&self.weights),
             morph_targets: targets,
-            base_color: self.source.base_color,
-            metallic: self.source.metallic,
-            roughness: self.source.roughness,
+            appearance: self.source.appearance,
         }
     }
 }

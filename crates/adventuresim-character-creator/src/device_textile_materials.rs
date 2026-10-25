@@ -37,8 +37,7 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
             _ => None,
         };
         if let Some(fabric) = fabric {
-            component.material = Some(fabric.material());
-            component.textile = Some(fabric.clone());
+            component.appearance = fabelgeist_armor::ComponentAppearance::Textile(fabric.clone());
         }
     }
     armor.split_textile_seams()?;
@@ -90,7 +89,7 @@ pub(crate) fn skirt_fabric<'a>(
                 .map_or(&skirt.fabric, |p| &p.outer_fabric),
         ),
         ArmorComponentRole::Boning | ArmorComponentRole::Hoops => {
-            component.material = Some(
+            component.appearance = fabelgeist_armor::ComponentAppearance::Surface(
                 skirt
                     .support
                     .as_ref()

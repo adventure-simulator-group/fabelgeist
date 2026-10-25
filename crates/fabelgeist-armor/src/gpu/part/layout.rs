@@ -294,14 +294,13 @@ impl PartLayout {
                 let last = &self.shells[shells.end - 1];
                 (
                     ArmorComponent {
-                        textile: None,
                         role: component.role,
                         vertices: first.first_final as usize
                             ..(last.first_final as usize + last.plan.sources.len()),
                         indices: index_starts[shells.start]..index_starts[shells.end],
                         hinge: None,
                         mount: component.mount,
-                        material: None,
+                        appearance: crate::ComponentAppearance::Inherit,
                     },
                     component.hinge,
                 )

@@ -36,7 +36,7 @@ impl PreviewScene<'_, '_> {
                         texcoords: &trim.texcoords,
                         material: self
                             .equipment_maps
-                            .metal(&mut self.images, &trim.metal, 1.0)
+                            .metal(&mut self.images, &trim.metal, fabelgeist_math::units::Ratio::from_ratio(1.0))
                             .with_context(|| format!("{} trim material failed", piece.name))?,
                     })
                 })

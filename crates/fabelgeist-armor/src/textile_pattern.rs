@@ -22,21 +22,6 @@ pub struct TextileAppearance {
     pub needlework: Option<Box<crate::TextileNeedlework>>,
 }
 
-/// Texture addressing and height differences use the same physical boundary.
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
-pub enum TextileChartBoundary {
-    CyclicAcross,
-    Open,
-}
-impl TextileChartBoundary {
-    pub(crate) fn neighbors(self, column: u32, width: u32) -> [u32; 2] {
-        match self {
-            Self::CyclicAcross => [(column + width - 1) % width, (column + 1) % width],
-            Self::Open => [column.saturating_sub(1), (column + 1).min(width - 1)],
-        }
-    }
-}
-
 #[derive(Clone, Debug, Default, Eq, Hash, PartialEq, Serialize, Deserialize)]
 #[serde(transparent)]
 pub struct TextileLayers(pub Vec<TextileLayer>);
@@ -57,6 +42,27 @@ pub struct TextileOffset {
     pub along: Permille,
 }
 
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct TextileSpan {
+    pub start: Permille,
+    pub end: Permille,
+}
+
+/// Repetitions in one chart or motif feature; each use validates its limit.
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+pub struct TextileRepeatCount(pub u8);
+
+/// Yarn periods across a normalized material chart, independent of motif repeats.
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+pub struct TextileThreadCount(pub u16);
+
+/// Texture addressing and height differences use the same physical boundary.
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+pub enum TextileChartBoundary {
+    CyclicAcross,
+    Open,
+}
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub enum TextileFinish {
     Linen,
@@ -95,21 +101,6 @@ pub enum TextileRegion {
         along: TextileSpan,
     },
 }
-
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct TextileSpan {
-    pub start: Permille,
-    pub end: Permille,
-}
-
-/// Repetitions in one chart or motif feature; each use validates its limit.
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
-pub struct TextileRepeatCount(pub u8);
-
-/// Yarn periods across a normalized material chart, independent of motif repeats.
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
-pub struct TextileThreadCount(pub u16);
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub enum TextileFill {
@@ -169,6 +160,15 @@ pub enum TextileMotif {
     },
 }
 
+impl TextileChartBoundary {
+    pub(crate) fn neighbors(self, column: u32, width: u32) -> [u32; 2] {
+        match self {
+            Self::CyclicAcross => [(column + width - 1) % width, (column + 1) % width],
+            Self::Open => [column.saturating_sub(1), (column + 1).min(width - 1)],
+        }
+    }
+}
+
 impl TextileThreadCount {
     pub const RANGE: std::ops::RangeInclusive<u16> = 1..=1024;
 }
@@ -217,21 +217,21 @@ impl TextileAppearance {
         self.opacity.0 < Permille::ONE.0
     }
 
-    pub fn material(&self) -> crate::ArmorComponentMaterial {
+    pub fn material(&self) -> crate::SurfaceMaterial {
         let mut material = self.color.material();
-        material.base_color[3] = self.opacity.unit();
-        material.roughness = match self.finish {
+        material.base_color = material.base_color.with_alpha(self.opacity.unit());
+        material.roughness = fabelgeist_math::units::Ratio::from_ratio(match self.finish {
             TextileFinish::Linen => 0.88,
             TextileFinish::Wool => 0.92,
             TextileFinish::Silk => 0.46,
             TextileFinish::Velvet => 0.78,
             TextileFinish::MetallicThread => 0.65,
-        };
-        material.metallic = if self.finish == TextileFinish::MetallicThread {
+        });
+        material.metallic = fabelgeist_math::units::Ratio::from_ratio(if self.finish == TextileFinish::MetallicThread {
             0.8
         } else {
             0.0
-        };
+        });
         material
     }
 }

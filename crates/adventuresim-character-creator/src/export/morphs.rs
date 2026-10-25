@@ -146,9 +146,7 @@ mod tests {
             joint_indices: None,
             joint_weights: None,
             morph_targets: &[],
-            base_color: [1.0; 4],
-            metallic: 0.0,
-            roughness: 1.0,
+            appearance: fabelgeist_armor::SurfaceMaterial { base_color: fabelgeist_color::Srgba::from_encoded_channels([1.0; 4]), metallic: fabelgeist_math::units::Ratio::from_ratio(0.0), roughness: fabelgeist_math::units::Ratio::from_ratio(1.0) },
         };
         assert!(validate(&mesh, std::slice::from_ref(&shell)).is_err());
         shell.morph_targets = &body_targets;

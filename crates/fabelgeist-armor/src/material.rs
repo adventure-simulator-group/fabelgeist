@@ -1,4 +1,7 @@
+use crate::SurfaceMaterial;
 use crate::engraving::{Engraving, EngravingError};
+use fabelgeist_color::Srgb;
+use fabelgeist_math::units::Ratio;
 use serde::{Deserialize, Serialize};
 
 pub use density::{MetalDensityError, MetalDensityResult};
@@ -9,14 +12,16 @@ mod density;
 mod textures;
 mod tile;
 
+pub type MetalResult<T> = Result<T, MetalError>;
+
 /// Worked steel: a base color and roughness with a tiling map of its finish --
 /// the undulation left by planishing, the grain of its polish, uneven gloss
 /// and scratches -- and an optional engraving cut into the same tile. Every
 /// rigid armor piece is shaded with it, whatever its construction.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Metal {
-    pub color: [f32; 3],
-    pub roughness: f32,
+    pub color: Srgb,
+    pub roughness: Ratio,
     pub scratch_density: u32,
     pub scratch_length: f32,
     pub scratch_width: f32,
@@ -49,8 +54,8 @@ impl Default for Metal {
     /// Polished steel.
     fn default() -> Self {
         Self {
-            color: [0.769, 0.776, 0.776],
-            roughness: 0.20,
+            color: Srgb::from_encoded_channels([0.769, 0.776, 0.776]),
+            roughness: Ratio::from_ratio(0.20),
             scratch_density: 500,
             scratch_length: 0.03,
             scratch_width: 0.65,
@@ -72,9 +77,18 @@ impl Metal {
     /// Roughness added at the bottom of the deepest scratch.
     pub(crate) const SCRATCH_ROUGHNESS: f32 = 0.45;
 
-    pub fn validate(&self) -> Result<(), MetalError> {
+    /// Scalar surface from this exact finish and its selected metallic factor.
+    pub fn appearance(&self, metallic: Ratio) -> SurfaceMaterial {
+        SurfaceMaterial {
+            base_color: self.color.opaque(),
+            metallic,
+            roughness: self.roughness,
+        }
+    }
+
+    pub fn validate(&self) -> MetalResult<()> {
         let values = [
-            (self.roughness, 0.08, 0.9),
+            (self.roughness.ratio(), 0.08, 0.9),
             (self.scratch_length, 0.005, 0.4),
             (self.scratch_width, 0.5, 3.0),
             (self.scratch_depth, 0.0, 1.0),
@@ -94,6 +108,7 @@ impl Metal {
                 .any(|(x, l, h)| !x.is_finite() || x < l || x > h)
             || self
                 .color
+                .encoded_channels()
                 .iter()
                 .any(|x| !x.is_finite() || !(0.0..=1.0).contains(x))
         {
@@ -107,7 +122,7 @@ impl Metal {
 }
 
 impl<'a> ValidatedMetal<'a> {
-    pub(crate) fn new(metal: &'a Metal) -> Result<Self, MetalError> {
+    pub(crate) fn new(metal: &'a Metal) -> MetalResult<Self> {
         metal.validate()?;
         Ok(Self(metal))
     }

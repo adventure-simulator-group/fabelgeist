@@ -70,9 +70,9 @@ fn lacing(ui: &mut egui::Ui, tiling: &mut Tiling) {
     millimetres(ui, "Cord radius (mm)", &mut lacing.radius, radius);
     ui.horizontal(|ui| {
         ui.label("Cord colour");
-        ui.color_edit_button_rgb(&mut lacing.color);
+        let _ = material_color_controls::color(ui, &mut lacing.color);
     });
-    metal_controls::slider(ui, "Cord roughness", &mut lacing.roughness, 0.0..=1.0);
+    let _ = material_color_controls::roughness(ui, "Cord roughness", &mut lacing.roughness, 0.0..=1.0);
 }
 
 /// A slider over a length in metres, shown in millimetres.

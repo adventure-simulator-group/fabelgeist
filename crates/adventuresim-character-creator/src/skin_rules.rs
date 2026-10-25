@@ -267,13 +267,12 @@ mod tests {
 
     fn component(role: ArmorComponentRole, vertices: Range<usize>) -> ArmorComponent {
         ArmorComponent {
-            textile: None,
             role,
             vertices,
             indices: 0..0,
             hinge: None,
             mount: None,
-            material: None,
+            appearance: fabelgeist_armor::ComponentAppearance::Inherit,
         }
     }
 

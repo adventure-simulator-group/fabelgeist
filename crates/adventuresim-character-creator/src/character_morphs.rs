@@ -187,15 +187,14 @@ pub(super) fn component_materials(
     shells: &mut [RiggedShell<'_>],
 ) -> Result<()> {
     for (component, shell) in armor.components.iter().zip(shells) {
-        if let Some(material) = component.material {
-            shell.base_color = material.base_color;
-            shell.metallic = material.metallic;
-            shell.roughness = material.roughness;
+        if let Some(material) = component.appearance.material() {
+            shell.appearance = material;
+            shell.textile_finish = None;
             shell.textures = None;
             shell.surface = None;
             shell.plate_edges = &[];
         }
-        if let Some(textile) = &component.textile {
+        if let Some(textile) = component.appearance.textile() {
             shell.textile_finish = Some(textile.finish);
             shell.textures =
                 adventuresim_character_creator::textile_surface::textures(textile)?.map(Into::into);
@@ -223,9 +222,7 @@ pub(super) fn rigged_clothing<'a>(
         joint_indices: None,
         joint_weights: None,
         morph_targets: targets,
-        base_color: specification.base_color,
-        metallic: specification.metallic,
-        roughness: specification.roughness,
+        appearance: specification.appearance,
     }
 }
 
@@ -252,9 +249,8 @@ pub(super) fn rigged_armor<'a>(
         joint_indices: Some(&armor.joint_indices),
         joint_weights: Some(&armor.joint_weights),
         morph_targets: targets,
-        base_color: [0.769, 0.776, 0.776, 1.0],
-        metallic: 1.0,
-        roughness: 0.20,
+        appearance: fabelgeist_armor::material::Metal::default()
+            .appearance(fabelgeist_math::units::Ratio::from_ratio(1.0)),
     };
     let triangles = |range: std::ops::Range<usize>| &faces[range.start / 3..range.end / 3];
     let mut rigged = RiggedArmor {

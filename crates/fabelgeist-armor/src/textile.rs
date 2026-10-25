@@ -1,5 +1,7 @@
 //! Shared authored textile appearance.
-use crate::ArmorComponentMaterial;
+use crate::SurfaceMaterial;
+use fabelgeist_color::Srgb;
+use fabelgeist_math::units::Ratio;
 use serde::{Deserialize, Serialize};
 
 /// Serialized sRGB textile color.
@@ -7,16 +9,14 @@ use serde::{Deserialize, Serialize};
 pub struct TextileColor(pub [u8; 3]);
 
 impl TextileColor {
-    pub fn material(self) -> ArmorComponentMaterial {
-        ArmorComponentMaterial {
-            base_color: [
-                f32::from(self.0[0]) / 255.0,
-                f32::from(self.0[1]) / 255.0,
-                f32::from(self.0[2]) / 255.0,
-                1.0,
-            ],
-            metallic: 0.0,
-            roughness: 0.92,
+    pub fn material(self) -> SurfaceMaterial {
+        SurfaceMaterial {
+            // The authored byte palette is decoded to float encoded channels.
+            base_color: Srgb::from_encoded_channels(
+                self.0.map(|channel| f32::from(channel) / 255.0),
+            ).opaque(),
+            metallic: Ratio::from_ratio(0.0),
+            roughness: Ratio::from_ratio(0.92),
         }
     }
 }

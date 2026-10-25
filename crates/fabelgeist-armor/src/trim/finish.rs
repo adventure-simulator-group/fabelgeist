@@ -6,7 +6,11 @@
 //! starting at the edge itself.
 use crate::engraving::Engraving;
 use crate::material::{Metal, MetalError};
+use fabelgeist_color::Srgb;
+use fabelgeist_math::units::Ratio;
 use serde::{Deserialize, Serialize};
+
+pub type TrimMaterialResult<T> = Result<T, TrimMaterialError>;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Trim {
@@ -30,8 +34,8 @@ impl Default for Trim {
         Self {
             width: 0.02,
             metal: Metal {
-                color: [1.0, 0.77, 0.34],
-                roughness: 0.25,
+                color: Srgb::from_encoded_channels([1.0, 0.77, 0.34]),
+                roughness: Ratio::from_ratio(0.25),
                 scratch_density: 0,
                 ..Metal::default()
             },
@@ -78,16 +82,16 @@ impl Trim {
         narrowed
     }
 
-    fn tiles(&self) -> f32 {
-        self.metal.engraving.as_ref().map_or(1.0, |e| e.tiles)
-    }
-
-    pub fn validate(&self) -> Result<(), TrimMaterialError> {
+    pub fn validate(&self) -> TrimMaterialResult<()> {
         if !self.width.is_finite() || !(Self::MIN_WIDTH..=Self::MAX_WIDTH).contains(&self.width) {
             return Err(TrimMaterialError::Width);
         }
         self.metal.validate()?;
         Ok(())
+    }
+
+    fn tiles(&self) -> f32 {
+        self.metal.engraving.as_ref().map_or(1.0, |e| e.tiles)
     }
 }
 

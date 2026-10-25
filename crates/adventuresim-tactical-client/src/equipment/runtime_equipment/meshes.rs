@@ -1,11 +1,10 @@
 //! Material partitions of generated equipment, sharing one rigid origin.
 use super::*;
 use adventuresim_core::equipment_assets::CatalogItem;
-use fabelgeist_armor::ArmorComponentMaterial;
+use fabelgeist_armor::ComponentAppearance;
 
 struct MaterialPartition<'a> {
-    material: Option<ArmorComponentMaterial>,
-    textile: Option<&'a fabelgeist_armor::TextileAppearance>,
+    appearance: Option<&'a ComponentAppearance>,
     indices: Vec<u32>,
 }
 
@@ -30,17 +29,17 @@ pub(super) fn equipment_parts(
             .components
             .iter()
             .find(|component| component.indices.contains(&(triangle * 3)));
-        let material = component.and_then(|component| component.material);
-        let textile = component.and_then(|component| component.textile.as_ref());
+        let appearance = component
+            .map(|component| &component.appearance)
+            .filter(|appearance| !matches!(appearance, ComponentAppearance::Inherit));
         let group = match groups
             .iter()
-            .position(|found| found.material == material && found.textile == textile)
+            .position(|found| found.appearance == appearance)
         {
             Some(index) => index,
             None => {
                 groups.push(MaterialPartition {
-                    material,
-                    textile,
+                    appearance,
                     indices: Vec::new(),
                 });
                 groups.len() - 1
@@ -50,37 +49,21 @@ pub(super) fn equipment_parts(
     }
     groups
         .into_iter()
-        .map(
-            |MaterialPartition {
-                 material,
-                 textile,
-                 indices,
-             }| {
-                Ok(CachedPart {
-                    mesh: runtime_equipment_mesh(armor, &indices, meshes)?,
-                    material: if let Some(textile) = textile {
-                        materials.add(adventuresim_character_creator::textile_surface::material(
-                            textile, images,
-                        )?)
-                    } else {
-                        match material {
-                            Some(material) => materials.add(StandardMaterial {
-                                base_color: Color::srgba(
-                                    material.base_color[0],
-                                    material.base_color[1],
-                                    material.base_color[2],
-                                    material.base_color[3],
-                                ),
-                                metallic: material.metallic,
-                                perceptual_roughness: material.roughness,
-                                ..default()
-                            }),
-                            None => runtime_equipment_material(item, materials)?,
-                        }
-                    },
-                })
-            },
-        )
+        .map(|MaterialPartition { appearance, indices }| {
+            let mesh = runtime_equipment_mesh(armor, &indices, meshes)?;
+            let material = match appearance {
+                Some(ComponentAppearance::Textile(fabric)) => {
+                    materials.add(adventuresim_character_creator::textile_surface::material(fabric, images)?)
+                }
+                Some(ComponentAppearance::Surface(surface)) => {
+                    materials.add(adventuresim_character_creator::surface_projection::standard_material(*surface))
+                }
+                Some(ComponentAppearance::Inherit) | None => {
+                    runtime_equipment_material(item, materials)?
+                }
+            };
+            Ok(CachedPart { mesh, material })
+        })
         .collect()
 }
 
@@ -96,10 +79,6 @@ pub(super) fn referenced_center(armor: &GeneratedArmor) -> Vec3 {
     );
     (min + max) * 0.5
 }
-
-#[cfg(test)]
-#[path = "mesh_tests.rs"]
-mod tests;
 
 fn runtime_equipment_mesh(
     armor: &GeneratedArmor,
@@ -175,11 +154,12 @@ fn runtime_equipment_material(
     let material =
         adventuresim_character_creator::runtime_equipment::runtime_equipment_material(item)
             .with_context(|| format!("runtime armor material missing for {}", item.id))?;
-    let (base_color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
-    Ok(materials.add(StandardMaterial {
-        base_color: Color::srgba(base_color[0], base_color[1], base_color[2], base_color[3]),
-        metallic,
-        perceptual_roughness: roughness,
-        ..default()
-    }))
+    let appearance = adventuresim_character_creator::equipment_pbr(material);
+    Ok(materials.add(
+        adventuresim_character_creator::surface_projection::standard_material(appearance),
+    ))
 }
+
+#[cfg(test)]
+#[path = "mesh_tests.rs"]
+mod tests;

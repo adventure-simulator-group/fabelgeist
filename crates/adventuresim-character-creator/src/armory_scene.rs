@@ -60,7 +60,7 @@ pub(super) fn spawn_exhibit(
         .map(|trim| {
             scene
                 .equipment_maps
-                .metal(&mut scene.images, &trim.metal, 1.0)
+                .metal(&mut scene.images, &trim.metal, fabelgeist_math::units::Ratio::from_ratio(1.0))
         })
         .transpose()?;
     let cord = construction

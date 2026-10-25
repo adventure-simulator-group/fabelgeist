@@ -1,72 +1,16 @@
-mod studio_scene;
 use fabelgeist_determinism::Seed;
 use studio_scene::{CreatorPanelRight, orbit_camera, setup};
-mod cli;
 use cli::Args;
-mod catalog;
 use catalog::EquipmentCatalog;
-mod fitted_existing;
-mod wrapped_tasset_controls;
 use fitted_existing::{fitted_bracer, fitted_breastplate};
-mod studio_generation;
 use studio_generation::regenerate_mesh;
-mod character_controls;
-mod generation;
-mod preview;
 use generation::generate_character;
-mod anime_controls;
-mod armor_controls;
-mod bellows_controls;
-mod besagew_controls;
-mod breastplate_controls;
-mod buffe_controls;
-mod character_export;
-mod character_morphs;
-mod construction_controls;
-mod decoration_controls;
-mod device_equipment;
-mod equipment_controls;
-mod equipment_export;
-mod fluting_controls;
-mod garment_armor_controls;
-mod joint_extension_controls;
-mod model_controls;
-mod parametric_equipment;
-mod review_export;
-mod underlayer_equipment;
-mod underlayer_preview;
-mod visor_breath_controls;
 use character_export::export_character;
 use equipment_export::generate_equipment_assets;
-mod animation_preview;
-mod armory;
-mod armory_ui;
-mod bare_body;
-mod drape_controls;
-mod drape_preview;
-mod drape_worker;
-mod fabric_controls;
-mod garment_controls;
-mod hair_color_controls;
-mod hair_controls;
-mod hair_preview;
-mod inventory_ui;
-mod metal_controls;
-mod metal_preview;
-mod ornament_controls;
-mod outfit;
-mod studio_cache;
-mod studio_overlay;
-mod studio_theme;
-mod studio_ui;
-mod wardrobe_tab;
-mod wardrobe_ui;
 use adventuresim_character_creator::garment::{FabricPreset, GarmentForm, GarmentSelection};
 use animation_preview::WalkPreview;
 use drape_preview::DrapeJob;
-
 use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
-
 use adventuresim_character_creator::lod::{CharacterLod, MAX_CHARACTER_LOD, MIN_CHARACTER_LOD};
 use adventuresim_character_creator::profiling;
 use adventuresim_character_creator::{
@@ -94,6 +38,63 @@ use burn::tensor::{Device, Tensor, TensorData};
 use clap::Parser;
 use fabelgeist_armor::{BracerDesign, BreastplateDesign, GeneratedArmor};
 use fabelgeist_mhr::{Mhr, MhrConfig, NUM_FACE_EXPRESSION_BLEND_SHAPES};
+mod studio_scene;
+mod cli;
+mod catalog;
+mod fitted_existing;
+mod wrapped_tasset_controls;
+mod studio_generation;
+mod character_controls;
+mod generation;
+mod preview;
+mod anime_controls;
+mod armor_controls;
+mod bellows_controls;
+mod besagew_controls;
+mod breastplate_controls;
+mod buffe_controls;
+mod character_export;
+mod character_morphs;
+mod construction_controls;
+mod decoration_controls;
+mod device_equipment;
+mod equipment_controls;
+mod equipment_export;
+mod fluting_controls;
+mod garment_armor_controls;
+mod joint_extension_controls;
+mod model_controls;
+mod parametric_equipment;
+mod review_export;
+mod underlayer_equipment;
+mod underlayer_preview;
+mod visor_breath_controls;
+mod animation_preview;
+mod armory;
+mod armory_ui;
+mod bare_body;
+mod drape_controls;
+mod drape_preview;
+mod drape_worker;
+mod fabric_controls;
+mod garment_controls;
+mod hair_color_controls;
+mod hair_controls;
+mod hair_preview;
+mod inventory_ui;
+mod material_color_controls;
+mod metal_controls;
+mod metal_preview;
+mod ornament_controls;
+mod outfit;
+mod studio_cache;
+mod studio_overlay;
+mod studio_theme;
+mod studio_ui;
+mod wardrobe_tab;
+mod wardrobe_ui;
+
+
 
 #[derive(Resource)]
 struct BodyModel {
@@ -127,6 +128,26 @@ struct Studio {
     /// Whether the hair and the scalp under it are drawn, to look at either
     /// alone.
     hair_layers: hair_preview::ShownLayers,
+}
+
+/// The studio's saved decorations and garments.
+struct Libraries {
+    decorations: adventuresim_character_creator::decoration::DecorationLibrary,
+    wardrobe: adventuresim_character_creator::wardrobe::Wardrobe,
+}
+
+#[derive(Component, Clone)]
+struct CharacterMesh;
+
+struct GeneratedCharacter {
+    joint_proportions: fabelgeist_rig::RigJointTable<
+        adventuresim_core::character_proportions::JointProportionBasis,
+    >,
+    positions: Vec<[f32; 3]>,
+    normals: Vec<[f32; 3]>,
+    global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
+    /// This body on the armor device, once a piece has uploaded it.
+    device: adventuresim_character_creator::device_body::DeviceBody,
 }
 
 impl Studio {
@@ -164,20 +185,6 @@ impl Studio {
             hair_layers: hair_preview::ShownLayers::default(),
         }
     }
-}
-
-#[derive(Component, Clone)]
-struct CharacterMesh;
-
-struct GeneratedCharacter {
-    joint_proportions: fabelgeist_rig::RigJointTable<
-        adventuresim_core::character_proportions::JointProportionBasis,
-    >,
-    positions: Vec<[f32; 3]>,
-    normals: Vec<[f32; 3]>,
-    global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
-    /// This body on the armor device, once a piece has uploaded it.
-    device: adventuresim_character_creator::device_body::DeviceBody,
 }
 
 fn main() -> Result<()> {
@@ -263,12 +270,6 @@ fn main() -> Result<()> {
     };
     run_studio(args, model, catalog, recipe, libraries);
     Ok(())
-}
-
-/// The studio's saved decorations and garments.
-struct Libraries {
-    decorations: adventuresim_character_creator::decoration::DecorationLibrary,
-    wardrobe: adventuresim_character_creator::wardrobe::Wardrobe,
 }
 
 /// Open the interactive studio window on `recipe`.

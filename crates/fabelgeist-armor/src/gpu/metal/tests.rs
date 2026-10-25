@@ -107,7 +107,7 @@ fn texture_sizes_and_engraving_images_are_checked() {
     };
     assert!(pollster::block_on(gpu().textures(&engraved, MetalTextureSize::try_from(64).unwrap())).is_err());
     let invalid = Metal {
-        roughness: f32::NAN,
+        roughness: fabelgeist_math::units::Ratio::from_ratio(f32::NAN),
         ..Metal::default()
     };
     assert!(pollster::block_on(gpu().textures(&invalid, MetalTextureSize::try_from(64).unwrap())).is_err());

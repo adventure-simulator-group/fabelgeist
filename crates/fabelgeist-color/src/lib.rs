@@ -1,12 +1,4 @@
-pub mod color;
-pub mod conversion;
-pub mod pixel;
-pub mod space;
-pub mod transfer;
-#[cfg(feature = "wgpu")]
-pub mod wgpu;
-pub mod yuv;
-
+pub use encoded::{Srgb, Srgba};
 pub use conversion::{
     ColorTransform, ConversionError, Matrix3x3, bradford_adaptation, convert_color, convert_pixels,
 };
@@ -22,3 +14,13 @@ pub use yuv::{
 };
 
 pub use color::Color;
+
+mod encoded;
+pub mod color;
+pub mod conversion;
+pub mod pixel;
+pub mod space;
+pub mod transfer;
+#[cfg(feature = "wgpu")]
+pub mod wgpu;
+pub mod yuv;

@@ -1,7 +1,28 @@
-//! Authored plate identities retained through fitting and export.
+//! Authored plate identities and their single retained appearance source.
+
+use crate::{SurfaceMaterial, TextileAppearance};
+use serde::{Deserialize, Serialize};
 use std::ops::Range;
 
-use serde::{Deserialize, Serialize};
+/// Reference-pose hinge in the same metre coordinate space as the mesh.
+/// Descriptive only: this does not introduce an animated joint.
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+pub struct ArmorHinge {
+    pub origin: [f32; 3],
+    pub axis: [f32; 3],
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct ArmorComponent {
+    pub role: ArmorComponentRole,
+    pub vertices: Range<usize>,
+    pub indices: Range<usize>,
+    pub hinge: Option<ArmorHinge>,
+    pub mount: Option<crate::PlateMount>,
+    /// One source of scalar appearance or procedural cloth appearance.
+    pub appearance: ComponentAppearance,
+}
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -32,6 +53,15 @@ pub enum ArmorComponentRole {
     Interlining,
     Boning,
     Hoops,
+}
+
+/// Inheritance, an authored scalar surface, or a mutable procedural textile.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ComponentAppearance {
+    Inherit,
+    Surface(SurfaceMaterial),
+    Textile(TextileAppearance),
 }
 
 impl ArmorComponentRole {
@@ -99,30 +129,26 @@ impl ArmorComponentRole {
     }
 }
 
-/// Reference-pose hinge in the same metre coordinate space as the mesh.
-/// Descriptive only: this does not introduce an animated joint.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ArmorHinge {
-    pub origin: [f32; 3],
-    pub axis: [f32; 3],
-}
+impl ComponentAppearance {
+    pub fn material(&self) -> Option<SurfaceMaterial> {
+        match self {
+            Self::Inherit => None,
+            Self::Surface(material) => Some(*material),
+            Self::Textile(fabric) => Some(fabric.material()),
+        }
+    }
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ArmorComponent {
-    pub role: ArmorComponentRole,
-    pub vertices: Range<usize>,
-    pub indices: Range<usize>,
-    pub hinge: Option<ArmorHinge>,
-    pub mount: Option<crate::PlateMount>,
-    pub material: Option<ArmorComponentMaterial>,
-    /// Procedural cloth appearance; independent of folds and supporting members.
-    pub textile: Option<crate::TextileAppearance>,
-}
+    pub fn textile(&self) -> Option<&TextileAppearance> {
+        match self {
+            Self::Textile(fabric) => Some(fabric),
+            Self::Inherit | Self::Surface(_) => None,
+        }
+    }
 
-/// Unlit surface parameters; generated textures supply normal and AO detail.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ArmorComponentMaterial {
-    pub base_color: [f32; 4],
-    pub metallic: f32,
-    pub roughness: f32,
+    pub fn textile_mut(&mut self) -> Option<&mut TextileAppearance> {
+        match self {
+            Self::Textile(fabric) => Some(fabric),
+            Self::Inherit | Self::Surface(_) => None,
+        }
+    }
 }

@@ -55,20 +55,18 @@ impl MetalImages {
 
     /// The metal's color with its baked maps; roughness comes from the map and
     /// an engraved cut shows its depth in parallax.
-    pub(super) fn material(&self, metal: &Metal, metallic: f32) -> StandardMaterial {
+    pub(super) fn material(&self, metal: &Metal, metallic: fabelgeist_math::units::Ratio) -> StandardMaterial {
         let (depth_map, parallax_depth_scale) = match &self.depth {
             Some((image, uv_scale)) => (Some(image.clone()), *uv_scale),
             None => (None, 0.0),
         };
         StandardMaterial {
-            base_color: Color::srgb(metal.color[0], metal.color[1], metal.color[2]),
-            metallic,
             perceptual_roughness: 1.0,
             normal_map_texture: Some(self.normal.clone()),
             metallic_roughness_texture: Some(self.metal_roughness.clone()),
             depth_map,
             parallax_depth_scale,
-            ..default()
+            ..adventuresim_character_creator::surface_projection::standard_material(metal.appearance(metallic))
         }
     }
 }
