@@ -174,7 +174,7 @@ fn catalog_shells<'a>(
             piece.piece.decoration.engraving.as_ref(),
         )
         .and_then(|metal| metals.iter().find(|(known, _)| *known == metal))
-        .map(|(_, textures)| (piece.generated.texcoords.as_slice(), textures));
+        .map(|(_, textures)| textures);
         for shell in &mut parts {
             shell.base_color = color;
             shell.metallic = metallic;
@@ -199,7 +199,7 @@ fn catalog_shells<'a>(
                 shell.roughness = trim.metal.roughness;
                 // The band's own coordinates run along each edge.
                 shell.texcoords = Some(&trim.texcoords);
-                shell.surface = Some((&trim.texcoords, textures));
+                shell.surface = Some(textures);
                 shells.push(shell);
             }
         }

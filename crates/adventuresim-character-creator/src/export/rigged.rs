@@ -24,10 +24,11 @@ pub struct RiggedShell<'a> {
     pub textile_finish: Option<fabelgeist_armor::TextileFinish>,
     /// Physical plate boundaries, separate from UV seams.
     pub plate_edges: &'a [[u32; 2]],
-    /// Baked plate maps and the UVs that read them.
-    pub surface: Option<(&'a [[f32; 2]], &'a ShellTextures)>,
+    /// Baked plate maps, read through the sole `texcoords` column.
+    pub surface: Option<&'a ShellTextures>,
     pub textures: Option<SurfaceTextures>,
-    /// Exact per-vertex UVs, including seam splits and interpolated cut edges.
+    /// Sole per-vertex UVs, including seam splits and interpolated cut edges.
+    /// Required by either map payload, with one row per position.
     pub texcoords: Option<&'a [[f32; 2]]>,
     pub hinge: Option<fabelgeist_armor::ArmorHinge>,
     pub name: &'a str,

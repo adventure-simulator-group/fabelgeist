@@ -89,9 +89,7 @@ impl EquipmentExporter<'_> {
             shell.roughness = roughness;
             shell.textures =
                 adventuresim_character_creator::underlayer_material::textures(design.recipe());
-            shell.surface = metal
-                .as_ref()
-                .map(|textures| (armor.texcoords.as_slice(), textures));
+            shell.surface = metal.as_ref();
         }
         crate::character_morphs::component_materials(&armor, &mut rigged_shells)?;
         export_rigged_glb(

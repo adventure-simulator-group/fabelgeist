@@ -1275,9 +1275,9 @@ mod tests {
         let shell = RiggedShell {
             textile_finish: None,
             plate_edges: &[],
-            surface: Some((&uvs, &textures)),
+            surface: Some(&textures),
             textures: None,
-            texcoords: None,
+            texcoords: Some(&uvs),
             hinge: None,
             joint_indices: Some(&garment_ids),
             joint_weights: Some(&garment_weights),
