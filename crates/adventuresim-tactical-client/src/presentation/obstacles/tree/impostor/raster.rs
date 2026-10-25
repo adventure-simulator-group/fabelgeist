@@ -119,7 +119,7 @@ fn stratified_tree_bake_leaves(
         }
         let shoot = &included[start..end];
         let mut random = StreamId::new("visual.tree.impostor-shoot-sampling")
-            .rng(shoot_id.into(), &[u64::from(card.source_group)]);
+            .rng(shoot_id.seed(), &[u64::from(card.source_group)]);
         if shoot.len() >= stride {
             let phase = random.index(stride);
             let before = sampled.len();
@@ -714,7 +714,7 @@ mod tests {
                     width: 0.07,
                     primary_group: 0,
                     secondary_group: 0,
-                    shoot_id,
+                    shoot_id: super::super::geometry::TreeShootId::from_seed(shoot_id.into()),
                     leaf_ordinal: ordinal as u8,
                     shade: 1.0,
                     torsion: 0.0,

@@ -908,6 +908,7 @@ mod tests {
             primary_group: 0,
             secondary_group: 0,
             is_limb_tip: true,
+            foliage: None,
         }];
         let mesh = procedural_tree_branch_mesh(&branches, 1);
         let Some(VertexAttributeValues::Float32x2(uvs)) = mesh.attribute(Mesh::ATTRIBUTE_UV_0)
@@ -1319,6 +1320,7 @@ mod tests {
                 primary_group: 0,
                 secondary_group: 0,
                 is_limb_tip: true,
+                foliage: None,
             };
             (0..96)
                 .map(|index| {

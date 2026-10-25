@@ -11,7 +11,7 @@ use raster::*;
 use super::super::super::*;
 use super::geometry::*;
 
-pub(in crate::presentation) const TREE_IMPOSTOR_BAKE_VERSION: u32 = 17;
+pub(in crate::presentation) const TREE_IMPOSTOR_BAKE_VERSION: u32 = 18;
 pub(in crate::presentation) const TREE_IMPOSTOR_RENDER_METHOD: &str =
     "deterministic software triangle render with species-calibrated crown coverage";
 /// Per-LOD atlas tiles, from near aggregate cards through the whole-tree
@@ -735,11 +735,13 @@ pub(in crate::presentation) fn tree_source_geometry_hash(
             leaf.center.z,
             leaf.length,
             leaf.width,
-            leaf.shoot_id as f32,
         ] {
             hash ^= u64::from(value.to_bits());
             hash = hash.wrapping_mul(0x100_0000_01b3);
         }
+        // Identity is a native integer hash input; float conversion loses bits.
+        hash ^= leaf.shoot_id.seed().to_u64();
+        hash = hash.wrapping_mul(0x100_0000_01b3);
     }
     hash
 }

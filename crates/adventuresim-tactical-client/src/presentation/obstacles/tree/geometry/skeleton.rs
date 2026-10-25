@@ -2,18 +2,19 @@ mod growth_axes;
 use fabelgeist_determinism::Seed;
 use growth_axes::{append_shrub_shoots, oak_trunk_points};
 mod root_plan;
-use root_plan::{append_beech_roots, procedural_oak_root_specs_with_gnarling, root_plan_angles};
+use root_plan::{
+    append_beech_roots, append_oak_roots, procedural_oak_root_specs_with_gnarling, root_plan_angles,
+};
 mod root_profile;
 mod streams;
 
 use adventuresim_tactical_core::prelude::TREE_TRUNK_HEIGHT_METRES;
 use bevy::math::{FloatExt, Vec3, Vec3Swizzles};
-use root_profile::{oak_root_fork_points, oak_root_points};
 
 use super::{
     ENGLISH_OAK_PARAMETERS, NATURAL_OAK_GNARLING, OakGnarlingParameters, TREE_PRIMARY_GROUP_COUNT,
-    TREE_SECONDARY_GROUP_STRIDE, TreeBranchSegment, WoodyPlantForm, WoodyPlantParameters,
-    branch_frame,
+    TREE_SECONDARY_GROUP_STRIDE, TreeBranchSegment, TreeShootId, WoodyPlantForm,
+    WoodyPlantParameters, branch_frame,
 };
 
 const OAK_ROOT_MIN_COUNT: usize = 4;
@@ -115,46 +116,18 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
     append_branch_curve(
         &mut branches,
         &trunk_points,
-        0.72_f32.lerp(0.56, canopy_competition)
-            * (1.0 + gnarling.taper_irregularity.clamp(0.0, 1.0) * 0.16),
-        0.045_f32.lerp(0.035, canopy_competition),
+        [
+            0.72_f32.lerp(0.56, canopy_competition)
+                * (1.0 + gnarling.taper_irregularity.clamp(0.0, 1.0) * 0.16),
+            0.045_f32.lerp(0.035, canopy_competition),
+        ],
         0,
         u8::MAX,
         u16::MAX,
+        None,
     );
 
-    // Unequal surface roots visually carry the weight of the low, spreading
-    // scaffold limbs without changing the authoritative collider. Their plan
-    // is presentation-only: a bounded irregular partition avoids a radial
-    // star, while the broadest buttresses share the major scaffold azimuths.
-    let root_specs = procedural_oak_root_specs_with_gnarling(seed, crown_phase, gnarling);
-    debug_assert!(oak_root_segment_count(&root_specs) <= OAK_ROOT_MAX_SEGMENTS);
-    for root in root_specs {
-        // Roots begin below grade, expose a shoulder according to the site's
-        // gnarling recipe, and taper back into the soil.
-        let points = oak_root_points(trunk_points[0] - Vec3::Y * 0.07, root, gnarling);
-        append_branch_curve(
-            &mut branches,
-            &points,
-            root.base_radius,
-            root.tip_radius,
-            0,
-            u8::MAX,
-            u16::MAX,
-        );
-        if let Some(fork) = root.fork {
-            let fork_points = oak_root_fork_points(&points, root, fork);
-            append_branch_curve(
-                &mut branches,
-                &fork_points,
-                root.base_radius * 0.34,
-                root.tip_radius * 0.72,
-                0,
-                u8::MAX,
-                u16::MAX,
-            );
-        }
-    }
+    append_oak_roots(&mut branches, seed, crown_phase, trunk_points[0], gnarling);
 
     append_oak_knots(&mut branches, seed, &trunk_points, gnarling);
 
@@ -280,11 +253,11 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
         append_branch_curve(
             &mut branches,
             &primary_points,
-            primary_start_radius,
-            primary_end_radius,
+            [primary_start_radius, primary_end_radius],
             1,
             primary_index as u8,
             u16::MAX,
+            None,
         );
         if dominant {
             dominant_scaffolds.push((
@@ -361,11 +334,11 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
             append_branch_curve(
                 &mut branches,
                 &secondary_points,
-                secondary_start_radius,
-                secondary_end_radius,
+                [secondary_start_radius, secondary_end_radius],
                 2,
                 primary_index as u8,
                 secondary_group,
+                None,
             );
 
             // Short shoots are distributed around the secondary limb rather
@@ -409,14 +382,17 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
                 append_branch_curve(
                     &mut branches,
                     &[shoot_start, shoot_mid, shoot_end],
-                    child_base_radius(
-                        0.012,
-                        curve_radius_at(secondary_start_radius, secondary_end_radius, attach),
-                    ),
-                    0.0032,
+                    [
+                        child_base_radius(
+                            0.012,
+                            curve_radius_at(secondary_start_radius, secondary_end_radius, attach),
+                        ),
+                        0.0032,
+                    ],
                     3,
                     primary_index as u8,
                     secondary_group,
+                    Some(TreeShootId::from_seed(shoot_seed)),
                 );
             }
         }
@@ -482,11 +458,11 @@ fn append_oak_knots(
                 center + radial * scale * 0.75,
                 center + radial * scale + axis * scale * 0.18,
             ],
-            scale,
-            scale * 0.38,
+            [scale, scale * 0.38],
             0,
             u8::MAX,
             u16::MAX,
+            None,
         );
     }
 }
@@ -520,11 +496,11 @@ fn procedural_beech_skeleton(
     append_branch_curve(
         &mut branches,
         &trunk_points,
-        0.5,
-        0.055,
+        [0.5, 0.055],
         0,
         u8::MAX,
         u16::MAX,
+        None,
     );
 
     append_beech_roots(&mut branches, seed, crown_phase, trunk_base);
@@ -575,11 +551,11 @@ fn procedural_beech_skeleton(
         append_branch_curve(
             &mut branches,
             &primary_points,
-            0.24 - layer * 0.095,
-            0.018,
+            [0.24 - layer * 0.095, 0.018],
             1,
             primary_group,
             u16::MAX,
+            None,
         );
 
         for secondary_index in 0..5_u64 {
@@ -613,11 +589,11 @@ fn procedural_beech_skeleton(
             append_branch_curve(
                 &mut branches,
                 &secondary_points,
-                0.048,
-                0.007,
+                [0.048, 0.007],
                 2,
                 primary_group,
                 secondary_group,
+                None,
             );
             for twig_index in 0..6_u64 {
                 let twig_seed = streams::BEECH_TWIG.seed(secondary_seed, &[twig_index]);
@@ -640,11 +616,11 @@ fn procedural_beech_skeleton(
                         twig_start + twig_direction * twig_length * 0.52,
                         twig_start + twig_direction * twig_length,
                     ],
-                    0.008,
-                    0.002,
+                    [0.008, 0.002],
                     3,
                     primary_group,
                     secondary_group,
+                    Some(TreeShootId::from_seed(twig_seed)),
                 );
             }
         }
@@ -681,11 +657,11 @@ fn procedural_multistem_shrub_skeleton(
         append_branch_curve(
             &mut branches,
             &stem_points,
-            0.035 + stem_unit_draw(streams::STEM_RADIUS) * 0.018,
-            0.008,
+            [0.035 + stem_unit_draw(streams::STEM_RADIUS) * 0.018, 0.008],
             0,
             stem_index as u8,
             u16::MAX,
+            None,
         );
         for branch_index in 0..10_u64 {
             let branch_seed = streams::SHRUB_BRANCH.seed(stem_seed, &[branch_index]);
@@ -720,11 +696,11 @@ fn procedural_multistem_shrub_skeleton(
             append_branch_curve(
                 &mut branches,
                 &branch_points,
-                branch_start_radius,
-                0.0036,
+                [branch_start_radius, 0.0036],
                 2,
                 stem_index as u8,
                 secondary_group,
+                None,
             );
             append_shrub_shoots(
                 &mut branches,
@@ -759,25 +735,26 @@ fn procedural_multistem_shrub_skeleton(
                     stem_tip + direction * length * 0.5,
                     stem_tip + direction * length,
                 ],
-                0.0045,
-                0.0014,
+                [0.0045, 0.0014],
                 3,
                 stem_index as u8,
                 (stem_index * 16 + 15) as u16,
+                Some(TreeShootId::from_seed(tip_seed)),
             );
         }
     }
     branches
 }
 
+/// Append a native metre-based, Y-up centreline with metre radii at its ends.
 fn append_branch_curve(
     branches: &mut Vec<TreeBranchSegment>,
     points: &[Vec3],
-    start_radius: f32,
-    end_radius: f32,
+    [start_radius, end_radius]: [f32; 2],
     depth: u8,
     primary_group: u8,
     secondary_group: u16,
+    foliage: Option<TreeShootId>,
 ) {
     let segment_count = points.len() - 1;
     for index in 0..segment_count {
@@ -792,6 +769,7 @@ fn append_branch_curve(
             primary_group,
             secondary_group,
             is_limb_tip: index + 1 == segment_count,
+            foliage: foliage.filter(|_| index + 1 == segment_count),
         });
     }
 }
@@ -810,6 +788,7 @@ fn polyline_tangent(points: &[Vec3], t: f32) -> Vec3 {
 
 #[cfg(test)]
 mod tests {
+    use super::root_profile::{oak_root_fork_points, oak_root_points};
     use super::*;
     use crate::presentation::obstacles::tree::geometry::{
         BLACKTHORN_PARAMETERS, COMMON_BEECH_BARK, COMMON_BEECH_PARAMETERS,

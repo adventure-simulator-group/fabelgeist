@@ -78,11 +78,14 @@ pub(super) fn append_shrub_shoots(
                 shoot_start + shoot_direction * shoot_length * 0.52,
                 shoot_start + shoot_direction * shoot_length,
             ],
-            child_base_radius(0.005, curve_radius_at(branch_start_radius, 0.0036, along)),
-            0.0015,
+            [
+                child_base_radius(0.005, curve_radius_at(branch_start_radius, 0.0036, along)),
+                0.0015,
+            ],
             3,
             primary_group,
             secondary_group,
+            Some(TreeShootId::from_seed(shoot_seed)),
         );
     }
 }

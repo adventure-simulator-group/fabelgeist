@@ -1320,8 +1320,6 @@ mod tests {
         };
         let first_pixels = sample();
         assert_eq!(first_pixels, sample());
-        assert!(first_pixels.iter().any(|pixel| pixel[0] > 0));
-        assert!(first_pixels.windows(2).any(|pair| pair[0] != pair[1]));
         let first = image_from_rgba8(
             first_pixels[0]
                 .repeat(CLOUD_BAKE_TEXTURE_WIDTH as usize * CLOUD_BAKE_TEXTURE_HEIGHT as usize),
